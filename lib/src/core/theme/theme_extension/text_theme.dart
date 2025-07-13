@@ -6,6 +6,7 @@ import 'color_scheme.dart';
 
 class AppTextTheme {
   static final TextTheme darkTextTheme = TextTheme(
+    
     ///display
     headlineLarge: GoogleFonts.poppins(
       fontSize: 32.0.sp,
