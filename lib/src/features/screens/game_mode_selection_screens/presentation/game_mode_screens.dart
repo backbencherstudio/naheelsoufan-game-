@@ -22,8 +22,8 @@ class GameModeScreens extends StatelessWidget {
         child: Column(
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
             CustomIconsButtons(icon: AppIcons.cubeIcons, onTap: () {}),
             Image.asset(AppImages.profilePic, height: 40.h, width: 40.w),
             CustomIconsButtons(icon: AppIcons.threeDot, onTap: () {}),]),
@@ -32,7 +32,7 @@ class GameModeScreens extends StatelessWidget {
             SizedBox(height: 50.h,),
             CustomButton(text:"QUICK GMAE" , onTap: () {context.push(RouteName.modeSelectionScreen);},),
             SizedBox(height: 16.h,),
-            CustomButton(text:"GRID STYLE" , onTap: () {  },img: AppIcons.primaryUpsidedown,),
+            CustomButton(text:"GRID STYLE" , onTap: (){},img: AppImages.primaryUpsidedown,),
             SizedBox(height: 40.h,),
             CustomLanguageContainer(),
           ],

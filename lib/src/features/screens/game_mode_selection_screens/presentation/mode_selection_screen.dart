@@ -27,7 +27,7 @@ class ModeSelectionScreen extends StatelessWidget {
               SizedBox(height: 26.h,),
               CustomCard(img: AppImages.playoffline, text: 'PLAY OFFLINE',),
               SizedBox(height: 20.h),
-              CustomCard(img: AppImages.card, text: 'CREATE ROOM',secondaryImg: AppIcons.primaryUpsidedown,),
+              CustomCard(img: AppImages.card, text: 'CREATE ROOM',secondaryImg: AppImages.primaryUpsidedown,),
               ],
              
               

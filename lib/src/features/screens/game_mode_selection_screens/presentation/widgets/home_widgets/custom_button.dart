@@ -23,7 +23,7 @@ class CustomButton extends StatelessWidget {
         width: 229.w,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(AppImages.primaryButton),
+            image: AssetImage(img?? AppImages.primaryButton),
           ),
         ),
         child: Center(

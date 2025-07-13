@@ -9,8 +9,9 @@ class AppImages {
   static const String profilePic = "$imagePath/profile_icon.png";
   static const String playoffline = "$imagePath/playoffline.png";
   static const String card = "$imagePath/card.png";
+  static const String primaryUpsidedown = "$imagePath/primary_upside.png";
 
-  // static const String = "$imagePath/  ";
+  
   // static const String = "$imagePath/  ";
   // static const String = "$imagePath/  ";
   // static const String = "$imagePath/  ";
