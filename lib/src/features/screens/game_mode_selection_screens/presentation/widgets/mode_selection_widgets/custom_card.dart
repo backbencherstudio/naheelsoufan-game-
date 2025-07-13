@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:naheelsoufan_game/src/core/constant/images.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_button.dart';
 
 class CustomCard extends StatelessWidget {
@@ -31,7 +29,7 @@ class CustomCard extends StatelessWidget {
         alignment: Alignment.bottomCenter,
         child: Padding(
           padding: EdgeInsets.only(bottom: 20.h),
-          child: CustomButton(text: text, onTap: () {}),
+          child: CustomButton(text: text, onTap: () {}, img: secondaryImg,),
         ),
       ),
     );
