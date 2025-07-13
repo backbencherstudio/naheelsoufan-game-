@@ -5,9 +5,9 @@ import 'package:naheelsoufan_game/src/core/constant/images.dart';
 import 'package:naheelsoufan_game/src/core/constant/padding.dart';
 import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
-import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/widget/home_widgets/custom_icons_Buttons.dart';
-import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/widget/home_widgets/custom_button.dart';
-import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/widget/home_widgets/custom_language_container.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_button.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_language_container.dart';
 import '../../../../core/constant/icons.dart';
 
 class GameModeScreens extends StatelessWidget {
