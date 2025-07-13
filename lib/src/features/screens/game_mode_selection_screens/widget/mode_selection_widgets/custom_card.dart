@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:naheelsoufan_game/src/core/constant/images.dart';
-import 'package:naheelsoufan_game/src/features/screens/home_screens/widget/home_widgets/custom_button.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/widget/home_widgets/custom_button.dart';
 
 class CustomCard extends StatelessWidget {
   final String img;
