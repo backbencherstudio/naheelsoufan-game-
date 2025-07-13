@@ -4,8 +4,8 @@ import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/constant/images.dart';
 import 'package:naheelsoufan_game/src/core/constant/padding.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
-import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/widget/home_widgets/custom_icons_Buttons.dart';
-import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/widget/mode_selection_widgets/custom_card.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/mode_selection_widgets/custom_card.dart';
 
 class ModeSelectionScreen extends StatelessWidget {
   const ModeSelectionScreen({super.key});
