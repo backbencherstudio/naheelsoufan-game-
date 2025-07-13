@@ -5,7 +5,7 @@ class AppImages {
   static const String iconBG = "$imagePath/Icon Button.png";
   static const String iconButtonBG = "$imagePath/Icon Button.png";
   static const String logo = "$imagePath/logo.png";
-  static const String primaryButton = "$imagePath/primary_button.png ";
+  static const String primaryButton = "$imagePath/primary_button.png";
   static const String profilePic = "$imagePath/profile_icon.png";
   static const String playoffline = "$imagePath/playoffline.png";
   static const String card = "$imagePath/card.png";

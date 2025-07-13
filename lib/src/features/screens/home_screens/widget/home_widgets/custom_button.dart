@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import '../../../../../core/constant/icons.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:naheelsoufan_game/src/core/constant/images.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;
@@ -18,24 +18,23 @@ class CustomButton extends StatelessWidget {
 
     return GestureDetector(
       onTap: onTap,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Positioned(child: SvgPicture.asset(img ?? AppIcons.primaryButton)),
-          Positioned(
-            child: Center(
-              child: Center(
-                child: Text(
-                  text,
-                  style: style.titleMedium!.copyWith(
-                    fontWeight: FontWeight.w500,
-                    color: Color(0xffffffff),
-                  ),
-                ),
-              ),
+      child: Container(
+        height: 58.h,
+        width: 229.w,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(AppImages.primaryButton),
+          ),
+        ),
+        child: Center(
+          child: Text(
+            text,
+            style: style.titleMedium!.copyWith(
+              fontWeight: FontWeight.w500,
+              color: Color(0xffffffff),
             ),
           ),
-        ],
+        ),
       ),
     );
   }
