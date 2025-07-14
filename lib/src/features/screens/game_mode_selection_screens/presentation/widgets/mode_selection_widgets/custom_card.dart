@@ -5,11 +5,13 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 class CustomCard extends StatelessWidget {
   final String img;
   final String text;
+  final void Function()? onTap;
   final String? secondaryImg;
   const CustomCard({
     super.key,
     required this.img,
     required this.text,
+    required this.onTap,
     this.secondaryImg,
   });
 
@@ -29,7 +31,7 @@ class CustomCard extends StatelessWidget {
         alignment: Alignment.bottomCenter,
         child: Padding(
           padding: EdgeInsets.only(bottom: 20.h),
-          child: CustomButton(text: text, onTap: () {}, img: secondaryImg,),
+          child: CustomButton(text: text, onTap: onTap, img: secondaryImg,),
         ),
       ),
     );

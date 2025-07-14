@@ -4,5 +4,7 @@ class RouteName {
   static const String gameModeScreens = "/GameModeScreens";
 
   static const String modeSelectionScreen = "/ModeSelectionScreen";
+  
+  static const String freeGameScreen = "/FreeGameScreen";
  
 }

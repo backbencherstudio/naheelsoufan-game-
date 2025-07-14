@@ -15,11 +15,11 @@ class AppIcons {
   static const String profileIcon = "$iconPath/profile_icon.svg";
   static const String primaryButton = "$iconPath/primary_button.svg";
   static const String playoffline = "$iconPath/playoffline.svg";
-  static const String  card    = "$iconPath/card.svg";
-  static const String  primaryUpsidedown = "$iconPath/primaryUpsidedown.svg";
-  // static const String      = "$iconPath/ ";
-  // static const String      = "$iconPath/ ";
-  // static const String      = "$iconPath/ ";
+  static const String card = "$iconPath/card.svg";
+  static const String primaryUpsidedown = "$iconPath/primaryUpsidedown.svg";
+  static const String rocket = "$iconPath/Rocket.svg";
+  static const String settings = "$iconPath/settings.svg";
+  static const String  backIcons    = "$iconPath/back.svg";
   // static const String      = "$iconPath/ ";
   // static const String      = "$iconPath/ ";
   // static const String      = "$iconPath/ ";

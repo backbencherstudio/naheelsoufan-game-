@@ -1,0 +1,34 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:naheelsoufan_game/src/core/constant/padding.dart';
+import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/free_game_widgets/free_game_card.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
+import '../../../../core/constant/icons.dart';
+import '../../../../core/constant/images.dart';
+
+class FreeGameScreen extends StatelessWidget {
+  const FreeGameScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return CreateScreen(
+      
+      child:Padding(
+        padding: AppPadding.horizontalPadding,
+        child: Column(
+          children: [
+           Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+              CustomIconsButtons(icon: AppIcons.backIcons, onTap: () {Navigator.pop(context);}),
+              Image.asset(AppImages.profilePic, height: 40.h, width: 40.w),
+              CustomIconsButtons(icon: AppIcons.settings, onTap: () {}),]),
+              SizedBox(height: 121.h,),
+              FreeGameCard(),
+          ],
+        ),
+      )
+    );
+  }
+}
