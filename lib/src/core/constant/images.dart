@@ -10,12 +10,10 @@ class AppImages {
   static const String playoffline = "$imagePath/playoffline.png";
   static const String card = "$imagePath/card.png";
   static const String primaryUpsidedown = "$imagePath/primary_upside.png";
-
-  
-  // static const String = "$imagePath/  ";
-  // static const String = "$imagePath/  ";
-  // static const String = "$imagePath/  ";
-  // static const String = "$imagePath/  ";
+  static const String buttonYellow = "$imagePath/button_yellow.png";
+  static const String subscription = "$imagePath/subscription.png";
+  static const String rocket= "$imagePath/Rocket.png";
+  static const String freeGame = "$imagePath/free_game.png";
   // static const String = "$imagePath/  ";
   // static const String = "$imagePath/  ";
   // static const String = "$imagePath/  ";
