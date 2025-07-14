@@ -10,7 +10,7 @@ class AppColorScheme {
   static const Color error = Color(0xFFF75555);
   static const Color surface = Color(0xFF1A1A1A);
   static const Color onSurface = Color(0xFFA5A5AB);
-  static const Color primaryTextColor = Colors.white;
+  static const Color primaryTextColor = Color(0xff6B71B9);
   static const Color secondaryTextColor = Color(0xffE0E0E0);
   static const Color labelTextColor = Color(0xffBDBDBD);
   static const Color borderColor = Color(0xffE9E9EA);

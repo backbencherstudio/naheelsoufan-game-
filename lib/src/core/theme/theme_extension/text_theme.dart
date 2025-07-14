@@ -8,68 +8,68 @@ class AppTextTheme {
   static final TextTheme darkTextTheme = TextTheme(
     
     ///display
-    headlineLarge: GoogleFonts.poppins(
+    headlineLarge: GoogleFonts.robotoFlex(
       fontSize: 32.0.sp,
       fontWeight: FontWeight.w600,
       color: AppColorScheme.onPrimary,
     ),
-    headlineMedium: GoogleFonts.poppins(
+    headlineMedium: GoogleFonts.robotoFlex(
       fontSize: 28.0.sp,
       fontWeight: FontWeight.w600,
       color: AppColorScheme.onPrimary,
     ),
-    headlineSmall: GoogleFonts.poppins(
+    headlineSmall: GoogleFonts.robotoFlex(
       fontSize: 24.0.sp,
       fontWeight: FontWeight.w700,
       color: AppColorScheme.onPrimary,
     ),
 
     ///title
-    titleLarge: GoogleFonts.poppins(
+    titleLarge: GoogleFonts.robotoFlex(
       fontSize: 24.0.sp,
       fontWeight: FontWeight.w600,
       color: AppColorScheme.onPrimary,
     ),
-    titleMedium: GoogleFonts.poppins(
+    titleMedium: GoogleFonts.robotoFlex(
       fontSize: 22.0.sp,
       fontWeight: FontWeight.w600,
       color: AppColorScheme.onPrimary,
     ),
-    titleSmall: GoogleFonts.poppins(
+    titleSmall: GoogleFonts.robotoFlex(
       fontSize: 20.0.sp,
       fontWeight: FontWeight.w600,
       color: AppColorScheme.onPrimary,
     ),
 
     ///body
-    bodyLarge: GoogleFonts.poppins(
+    bodyLarge: GoogleFonts.robotoFlex(
       fontSize: 16.0.sp,
       fontWeight: FontWeight.normal,
       color: AppColorScheme.onPrimary,
     ),
-    bodyMedium: GoogleFonts.poppins(
+    bodyMedium: GoogleFonts.robotoFlex(
       fontSize: 14.0.sp,
       fontWeight: FontWeight.normal,
       color: AppColorScheme.onPrimary,
     ),
-    bodySmall: GoogleFonts.poppins(
+    bodySmall: GoogleFonts.robotoFlex(
       fontSize: 12.0.sp,
       fontWeight: FontWeight.normal,
       color: AppColorScheme.onPrimary,
     ),
 
     ///label
-    labelLarge: GoogleFonts.poppins(
+    labelLarge: GoogleFonts.robotoFlex(
       fontSize: 14.0.sp,
       fontWeight: FontWeight.w400,
       color: AppColorScheme.labelTextColor,
     ),
-    labelMedium: GoogleFonts.poppins(
+    labelMedium: GoogleFonts.robotoFlex(
       fontSize: 12.0.sp,
       fontWeight: FontWeight.w400,
       color: AppColorScheme.labelTextColor,
     ),
-    labelSmall: GoogleFonts.poppins(
+    labelSmall: GoogleFonts.robotoFlex(
       fontSize: 10.0.sp,
       fontWeight: FontWeight.w400,
       color: AppColorScheme.labelTextColor,
