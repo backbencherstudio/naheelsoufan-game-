@@ -18,6 +18,18 @@ class RouteConfig {
           );
         },
       ),
+
+      GoRoute(
+        path: RouteName.questionAnswersScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: QuestionAnswersScreen(),
+          );
+        },
+      ),
       GoRoute(
         path: RouteName.freeGameScreen,
         pageBuilder: (context, state) {

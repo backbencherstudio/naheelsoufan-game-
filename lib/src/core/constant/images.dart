@@ -24,4 +24,12 @@ class AppImages {
   // static const String = "$imagePath/  ";
   // static const String = "$imagePath/  ";
   // static const String = "$imagePath/  ";
+
+
+  static const String imageUrl = "assets/santo/assets/images/";
+  static const String splashPng = "$imageUrl/logo_screen.png";
+  static const String groupPng = "$imageUrl/group.png";
+  static const String appBackground = "$imageUrl/app_background.png";
+  static const String rocketPng = "$imageUrl/rocket.png";
+  static const String giftBoxPng = "$imageUrl/gift_box.png";
 }

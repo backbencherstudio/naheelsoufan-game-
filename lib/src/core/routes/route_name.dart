@@ -8,4 +8,6 @@ class RouteName {
   static const String freeGameScreen = "/FreeGameScreen";
  
  static const String createRoomScreen = "/CreateRoomScreen";
+ static const String questionAnswersScreen = "/QuestionAnswersScreen";
+
 }
