@@ -107,9 +107,9 @@ class PlayerSelectionScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8.r),
 
                       border: Border(
-                        left: BorderSide(color: Color(0xffB8F1B9), width: 1.0),
-                        right: BorderSide(color: Color(0xffB8F1B9), width: 1.0),
-                        bottom: BorderSide(color: Color(0xffB8F1B9), width: 1.0),
+                        left: BorderSide(color: Color(0xffB8F1B9), width: 0.5.w),
+                        right: BorderSide(color: Color(0xffB8F1B9), width: 0.5.w),
+                        bottom: BorderSide(color: Color(0xffB8F1B9), width: 1.5.w),
                         top: BorderSide.none,
                       ),
                       boxShadow: [
