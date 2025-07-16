@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/constant/padding.dart';
+import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/create_room_widgets/custom_header_tile.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_button.dart';
@@ -123,7 +125,9 @@ class CreateRoomScreen extends StatelessWidget {
                     SizedBox(height: 60.h),
                     CustomButton(
                       text: "CREATE ROOM",
-                      onTap: () {},
+                      onTap: () {
+                        context.push(RouteName.shareRoomScreen);
+                      },
                       img: AppImages.primaryUpsidedown,
                     ),
                   ],

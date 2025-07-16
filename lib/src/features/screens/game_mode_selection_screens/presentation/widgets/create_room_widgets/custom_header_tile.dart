@@ -8,6 +8,7 @@ class CustomHeaderTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
     return Container(
+      width: double.infinity,
       padding: EdgeInsets.all(12.r),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16.r),
