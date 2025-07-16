@@ -10,4 +10,6 @@ class RouteName {
  static const String createRoomScreen = "/CreateRoomScreen";
 
  static const String shareRoomScreen = "/ShareRoomScreen";
+
+ static const String playerSelectionScreen = "/PlayerSelectionScreen";
 }

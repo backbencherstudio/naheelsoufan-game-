@@ -63,7 +63,18 @@ class RouteConfig {
         },
       ),
 
-     
+      GoRoute(
+        path: RouteName.playerSelectionScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: PlayerSelectionScreen(),
+          );
+        },
+      ),
+
 
     ],
   );

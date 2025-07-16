@@ -14,7 +14,7 @@ class AppImages {
   static const String subscription = "$imagePath/subscription.png";
   static const String rocket= "$imagePath/Rocket.png";
   static const String freeGame = "$imagePath/free_game.png";
-  // static const String = "$imagePath/  ";
+  static const String softgreenBG = "$imagePath/softgreenBG.png";
   // static const String = "$imagePath/  ";
   // static const String = "$imagePath/  ";
   // static const String = "$imagePath/  ";

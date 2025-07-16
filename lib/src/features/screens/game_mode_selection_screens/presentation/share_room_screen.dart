@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/constant/padding.dart';
+import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/create_room_widgets/custom_header_tile.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_button.dart';
@@ -62,24 +64,29 @@ class ShareRoomScreen extends StatelessWidget {
                     "Room Link",
                     style: style.bodyMedium!.copyWith(
                       fontWeight: FontWeight.w500,
-                      color: Color(0xffE0E0FF)),
+                      color: Color(0xffE0E0FF),
+                    ),
                   ),
                   SizedBox(height: 8.h),
                   RoomLinkBox(),
-                   SizedBox(height: 24.h),
+                  SizedBox(height: 24.h),
                   Text(
                     "QR Code",
                     style: style.bodyMedium!.copyWith(
                       fontWeight: FontWeight.w500,
-                      color: Color(0xffE0E0FF)),
+                      color: Color(0xffE0E0FF),
+                    ),
                   ),
                   SizedBox(height: 8.h),
                   QrBox(),
-                  SizedBox(height: 60.h,),
-                  CustomButton(text: "NEXT", img: AppImages.primaryUpsidedown,
-                  onTap: (){
-
-                  })
+                  SizedBox(height: 60.h),
+                  CustomButton(
+                    text: "NEXT",
+                    img: AppImages.primaryUpsidedown,
+                    onTap: () {
+                      context.push(RouteName.playerSelectionScreen);
+                    },
+                  ),
                 ],
               ),
             ),
