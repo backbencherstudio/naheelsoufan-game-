@@ -36,8 +36,8 @@ class AppIcons {
   static const String roundIcontop = "$iconPath/roundIcontop.svg";
   static const String playleft = "$iconPath/playleft.svg";
   static const String playButtn = "$iconPath/playButtn.svg";
-  // static const String      = "$iconPath/ ";
-  // static const String      = "$iconPath/ ";
+  static const String redBg = "$iconPath/redBg.svg";
+  static const String crossIcon = "$iconPath/crossIcon.svg";
   // static const String      = "$iconPath/ ";
   // static const String      = "$iconPath/ ";
   // static const String      = "$iconPath/ ";

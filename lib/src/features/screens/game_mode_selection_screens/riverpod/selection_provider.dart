@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/selection_state.dart';
-
+// multiselection provider
 final selectionProvider =
     StateNotifierProvider<SelectionNotifier, SelectionState>((ref) {
       return SelectionNotifier();
@@ -19,3 +19,10 @@ class SelectionNotifier extends StateNotifier<SelectionState> {
            !state.selectedTiles.values.contains(false);
   }
 }
+
+
+//single selection provider
+
+final selectProvider = StateProvider<int?>(
+  (ref)=> null
+);
