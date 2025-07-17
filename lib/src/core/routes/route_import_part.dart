@@ -1,6 +1,7 @@
 
 import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/catagory_selection_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/create_room_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/free_game_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/game_mode_screens.dart';
