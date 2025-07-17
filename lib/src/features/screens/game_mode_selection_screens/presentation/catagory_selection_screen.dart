@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/constant/images.dart';
 import 'package:naheelsoufan_game/src/core/constant/padding.dart';
+import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/catagory_selection_widgets/customRound_button.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/catagory_selection_widgets/custom_question_type_tile.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
-import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/tile_selection_provider.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/selection_provider.dart';
 
 class CatagorySelectionScreen extends StatelessWidget {
   const CatagorySelectionScreen({super.key});
@@ -45,8 +47,8 @@ class CatagorySelectionScreen extends StatelessWidget {
             SizedBox(height: 36.h),
 
             Consumer(
-              builder: (context, ref,_) {
-                final selectedState = ref.watch(tileSelectionProvider);
+              builder: (context, ref, _) {
+                final selectedState = ref.watch(selectProvider);
                 return Expanded(
                   child: GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -56,13 +58,26 @@ class CatagorySelectionScreen extends StatelessWidget {
                     ),
                     itemCount: 9,
                     itemBuilder: (context, index) {
-                      final isSelected = selectedState.selectedIndices[index] ?? false;
+                      final isSelected = selectedState == index;
                       return Column(
                         children: [
-                          CustomQuestionTypeTile(isSelected: isSelected  , onTap: () {
-                            debugPrint("\n\n${selectedState.selectedIndices}\n\n");
-                            ref.read(tileSelectionProvider.notifier).toggleTileSelection(index);
-                          }),
+                          CustomQuestionTypeTile(
+                            isSelected: isSelected,
+                            onTap: () {
+                              debugPrint("\n\n$selectedState\n\n");
+                              ref.read(selectProvider.notifier).state = index;
+
+                              if (isSelected && context.mounted) {
+                                Future.delayed(Duration(milliseconds: 200), () {
+                                  if (context.mounted) {
+                                    context.push(
+                                      RouteName.deficultyLevelScreen,
+                                    );
+                                  }
+                                });
+                              }
+                            },
+                          ),
                           Text(
                             "General\nKnowledge",
                             style: style.labelLarge!.copyWith(
@@ -75,7 +90,7 @@ class CatagorySelectionScreen extends StatelessWidget {
                     },
                   ),
                 );
-              }
+              },
             ),
             SizedBox(height: 20.h),
             Row(

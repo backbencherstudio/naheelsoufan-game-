@@ -3,7 +3,7 @@ part of 'route_import_part.dart';
 
 class RouteConfig {
   GoRouter goRouter = GoRouter(
-    initialLocation: RouteName.catagorySelectionScreen,
+    initialLocation: RouteName.gameModeScreens,
 
     routes: [
 
@@ -59,6 +59,17 @@ class RouteConfig {
             state: state,
             transitionType: PageTransitionType.slideRightToLeft,
             child: ModeSelectionScreen(),
+          );
+        },
+      ),
+  GoRoute(
+        path: RouteName.deficultyLevelScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: DeficultyLevelScreen(),
           );
         },
       ),
