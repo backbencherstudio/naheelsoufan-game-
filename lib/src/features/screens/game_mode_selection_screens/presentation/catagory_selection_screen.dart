@@ -54,7 +54,7 @@ class CatagorySelectionScreen extends StatelessWidget {
                   child: GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
-                      crossAxisSpacing: 12,
+                      crossAxisSpacing: 30,
                       childAspectRatio: (0.5),
                     ),
                     itemCount: 9,
