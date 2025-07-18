@@ -11,7 +11,7 @@ class CustomBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 450.h,
+      height: 500.h,
       child: Stack(
         children: [
           Positioned(
