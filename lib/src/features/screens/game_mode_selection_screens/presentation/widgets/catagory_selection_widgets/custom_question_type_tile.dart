@@ -15,7 +15,7 @@ class CustomQuestionTypeTile extends StatelessWidget {
       onTap: onTap,
       child: SizedBox(
         
-        height: 190.h,
+        height: 160.h,
         width: 112.w,
         child: Stack(
           fit: StackFit.expand,
