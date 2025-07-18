@@ -9,5 +9,6 @@ class RouteName {
  
  static const String createRoomScreen = "/CreateRoomScreen";
  static const String questionAnswersScreen = "/QuestionAnswersScreen";
+ static const String chooseDifficultyScreen = "/ChooseDifficultyScreen";
 
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/constant/images.dart';
+import '../../../../core/constant/images.dart';
 
 class AppScreenBackground extends StatelessWidget {
   const AppScreenBackground({super.key, required this.child});

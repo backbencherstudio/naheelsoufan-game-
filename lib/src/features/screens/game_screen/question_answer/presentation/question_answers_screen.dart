@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
-import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import '../../../../../core/constant/icons.dart';
 import '../riverpod/scroll_notifier_provider.dart';
-import '../widgets/app_screen_background.dart';
 import '../widgets/primary_button.dart';
 import '../widgets/player_container.dart';
 
@@ -82,45 +81,14 @@ class _QuestionAnswersScreenState extends ConsumerState<QuestionAnswersScreen> {
                           ),
                           borderRadius: BorderRadius.circular(8.r),
                         ),
-                        
-                        
-                        
-                        child: CustomIconsButtons(icon: AppIcons.cancel, onTap: (){})
-                        
-                        
-                        
-                        // SvgPicture.asset(
-                        //   AppIcons.cancelSvg,
-                        //   width: 40.w,
-                        //   height: 40.h,
-                        // ),
+                        child: SvgPicture.asset(
+                          AppIcons.cancelSvg,
+                          width: 40.w,
+                          height: 40.h,
+                        ),
                       ),
                     ),
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Container(
-                          height: 94.h,
-                          width: 94.w,
-                          decoration: BoxDecoration(
-                            color: Color(0xffB8F1B9).withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(100.r),
-                          ),
-                        ),
-                        SvgPicture.asset(AppIcons.stopWatchSvg),
-                        Positioned(
-                          child: Text(
-                            '60',
-                            style: TextStyle(
-                              fontSize: 32.sp,
-                              fontWeight: FontWeight.w500,
-                              fontFamily: 'Roboto Flex',
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                    ClockWidgets(text: '60', color: Color(0xffB8F1B9).withValues(alpha: 0.1),),
                     GestureDetector(
                       onTap: () {},
                       child: SvgPicture.asset(
@@ -261,5 +229,42 @@ class _QuestionAnswersScreenState extends ConsumerState<QuestionAnswersScreen> {
         ),
       );
 
+  }
+}
+
+class ClockWidgets extends StatelessWidget {
+  const ClockWidgets({
+    super.key, required this.text, required this.color,
+  });
+
+  final String text;
+  final Color? color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Container(
+          height: 94.h,
+          width: 94.w,
+          decoration: BoxDecoration(
+            color: color ?? Color(0xffB8F1B9).withValues(alpha: 0.1),
+            borderRadius: BorderRadius.circular(100.r),
+          ),
+        ),
+        SvgPicture.asset(AppIcons.stopWatchSvg),
+        Positioned(
+          child: Text(
+            text,
+            style: GoogleFonts.robotoFlex(
+              fontSize: 32.sp,
+              fontWeight: FontWeight.w500,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }

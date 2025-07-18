@@ -18,8 +18,9 @@ class AppIcons {
   static const String primaryUpsidedown = "$iconPath/primaryUpsidedown.svg";
   static const String rocket = "$iconPath/Rocket.svg";
   static const String settings = "$iconPath/settings.svg";
-  static const String  backIcons    = "$iconPath/back.svg";
-  static const String  redDmd    = "$iconPath/redDmd.svg";
+  static const String backIcons = "$iconPath/back.svg";
+  static const String redDmd = "$iconPath/redDmd.svg";
+
   // static const String      = "$iconPath/ ";
   // static const String      = "$iconPath/ ";
   // static const String      = "$iconPath/ ";
@@ -37,7 +38,7 @@ class AppIcons {
   // static const String      = "$iconPath/ ";
 
 
-  static const String iconsUrl = "assets/santo/assets/icons/";
+  static const String iconsUrl = "assets/assets/icons";
   static const String appleIcon = "$iconsUrl/ic_round-apple.svg";
   static const String applicationIcon = "$iconsUrl/application.svg";
   static const String fullScreenIcon = "$iconsUrl/full_screen.svg";
@@ -49,7 +50,6 @@ class AppIcons {
   static const String inzilly = "$iconsUrl/Inzilly.svg";
   static const String primaryButtonSvg = "$iconsUrl/primary_button.svg";
   static const String cancelSvg = "$iconsUrl/cancel_button.svg";
-  static const String cancel = "$iconsUrl/cancel.svg";
   static const String musicSvg = "$iconsUrl/music.svg";
   static const String settingsMan = "$iconsUrl/settings_man.svg";
   static const String personSvg = "$iconsUrl/person.svg";
@@ -65,4 +65,12 @@ class AppIcons {
   static const String profileSvg = "$iconsUrl/profile.svg";
   static const String lineSvg = "$iconsUrl/lineSvg.svg";
   static const String backSvg = "$iconsUrl/back_button.svg";
+  static const String shareIconSvg = "$iconsUrl/share.svg";
+  static const String copyIconSvg = "$iconsUrl/copy_icon.svg";
+  static const String downloadSvg = "$iconsUrl/download.svg";
+  static const String copy = "$iconsUrl/cp.svg";
+  static const String iconBg = "$iconsUrl/icon_bg.svg";
+  static const String circleSgv = "$iconsUrl/circle.svg";
+  static const String wrongSvg = "$iconsUrl/wrong.svg";
+
 }

@@ -67,8 +67,8 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
-    - assets/santo/assets/icons/
-    - assets/santo/assets/images/
+    - assets/assets/icons/
+    - assets/assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

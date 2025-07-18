@@ -30,6 +30,20 @@ class RouteConfig {
           );
         },
       ),
+
+      GoRoute(
+        path: RouteName.chooseDifficultyScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: ChooseDifficultyScreen(),
+          );
+        },
+      ),
+
+
       GoRoute(
         path: RouteName.freeGameScreen,
         pageBuilder: (context, state) {

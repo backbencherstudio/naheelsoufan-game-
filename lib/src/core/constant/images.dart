@@ -26,10 +26,12 @@ class AppImages {
   // static const String = "$imagePath/  ";
 
 
-  static const String imageUrl = "assets/santo/assets/images/";
+  static const String imageUrl = "assets/assets/images";
   static const String splashPng = "$imageUrl/logo_screen.png";
   static const String groupPng = "$imageUrl/group.png";
   static const String appBackground = "$imageUrl/app_background.png";
   static const String rocketPng = "$imageUrl/rocket.png";
   static const String giftBoxPng = "$imageUrl/gift_box.png";
+  static const String payToPlaySvg = "$imageUrl/free_game.png";
+  static const String qrCodeSvg = "$imageUrl/qr_code.svg";
 }
