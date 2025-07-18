@@ -7,7 +7,7 @@ class AppImages {
   //Quick Game
   static const String group1 = "$imagePath/Group 1.png";
   static const String group2 = "$imagePath/group2.png";
-  static const String rocket = "$imagePath/diamond.svg";
+  static const String rocket = "$imagePath/Rocket.png";
   static const String crown = "$imagePath/Crown.png";
   static const String first = "$imagePath/first.png";
   static const String second = "$imagePath/second.png";
