@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
+import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 
 class QrBox extends StatelessWidget {
   const QrBox({super.key});
@@ -28,7 +29,7 @@ class QrBox extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.r),
                   border: Border.all(
-                    color: Color(0xffE0E0FF),
+                    color: AppColorScheme.primary,
                   )
                 
                 ),
@@ -41,7 +42,7 @@ class QrBox extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 14.h),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.r),
-                  color: Color(0xffE0E0FF).withValues(alpha: 0.1),
+                  color: AppColorScheme.primary.withValues(alpha: 0.1),
                 ),
                 child: SvgPicture.asset(AppIcons.copyIcon),
               ),
@@ -51,7 +52,7 @@ class QrBox extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 14.h),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.r),
-                  color: Color(0xffE0E0FF),
+                  color: AppColorScheme.primary,
                 ),
                 child: SvgPicture.asset(AppIcons.shareIcon),
               ),

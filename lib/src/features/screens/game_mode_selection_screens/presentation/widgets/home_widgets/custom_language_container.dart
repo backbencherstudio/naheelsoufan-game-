@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
+import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 
 class CustomLanguageContainer extends StatelessWidget {
   const CustomLanguageContainer({super.key});
@@ -13,7 +14,7 @@ class CustomLanguageContainer extends StatelessWidget {
       width: 148.w,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.r),
-        color: Color(0xffE0E0FF),
+        color: AppColorScheme.primary,
       ),
       child: Padding(
         padding: EdgeInsets.all(4.r),
@@ -23,7 +24,7 @@ class CustomLanguageContainer extends StatelessWidget {
             SizedBox(width: 4.w),
             Text("US English",  style: style.labelLarge!.copyWith(
               fontWeight: FontWeight.w500,
-              color: Color(0xff3D4279)
+              color: AppColorScheme.deepPuroleBG
             ),),
             Spacer(),
             SvgPicture.asset(AppIcons.dropdownIcon),

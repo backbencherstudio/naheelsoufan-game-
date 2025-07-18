@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
+import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 
 class RoomLinkBox extends StatelessWidget {
   const RoomLinkBox({super.key});
@@ -18,8 +19,8 @@ class RoomLinkBox extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 14.h),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8.r),
-              border: Border.all(color: Color(0xffE0E0FF)),
-              color: Color(0xff555A92),
+              border: Border.all(color: AppColorScheme.primary),
+              color: AppColorScheme.containerColor,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -28,7 +29,7 @@ class RoomLinkBox extends StatelessWidget {
                   "www.game.com/room12345-XYZ]",
                   style: style.labelLarge!.copyWith(
                     fontSize: 16.sp,
-                    color: Color(0xff63DF7C),
+                    color: AppColorScheme.greenery,
                   ),
                 ),
                 Spacer(),
@@ -44,7 +45,7 @@ class RoomLinkBox extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 14.h),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8.r),
-            color: Color(0xffE0E0FF),
+            color: AppColorScheme.primary,
           ),
           child: SvgPicture.asset(AppIcons.shareIcon),
         ),

@@ -6,6 +6,7 @@ import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/constant/images.dart';
 import 'package:naheelsoufan_game/src/core/constant/padding.dart';
 import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
+import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/catagory_selection_widgets/customRound_button.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/catagory_selection_widgets/custom_question_type_tile.dart';
@@ -36,12 +37,12 @@ class CatagorySelectionScreen extends StatelessWidget {
                 CustomIconsButtons(icon: AppIcons.threeDot, onTap: () {}),
               ],
             ),
-
+            SizedBox(height: 8.h),
             Text(
               "player 1",
               style: style.titleLarge!.copyWith(
                 fontWeight: FontWeight.w400,
-                color: Color(0xffE0E0FF),
+                color: AppColorScheme.primary,
               ),
             ),
             SizedBox(height: 36.h),
@@ -82,6 +83,7 @@ class CatagorySelectionScreen extends StatelessWidget {
                             "General\nKnowledge",
                             style: style.labelLarge!.copyWith(
                               fontWeight: FontWeight.w400,
+                              color: AppColorScheme.primary
                             ),
                             textAlign: TextAlign.center,
                           ),
