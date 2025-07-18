@@ -8,4 +8,18 @@ class RouteName {
   static const String freeGameScreen = "/FreeGameScreen";
  
  static const String createRoomScreen = "/CreateRoomScreen";
+
+  static const String registerScreen = "/app_background";
+
+  static const String signInScreen = "/signInScreen";
+
+  static const String forgetPasswordScreen = "/forgetPasswordScreen";
+
+  static const String forgetPasswordLinkSentScreen = "/forgetPasswordLinkSentScreen";
+
+  static const String chooseCategoryScreen = "/chooseCategoryScreen";
+
+  static const String chooseDifficultyScreen = "/chooseDifficultyScreen";
+
+  static const String addPlayerScreen = "/addPlayerScreen";
 }
