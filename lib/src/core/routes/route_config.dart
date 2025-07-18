@@ -114,6 +114,17 @@ class RouteConfig {
           );
         },
       ),
+       GoRoute(
+        path: RouteName.shareRoomScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: ShareRoomScreen(),
+          );
+        },
+      ),
      GoRoute(
         path: RouteName.modeSelectionScreen,
         pageBuilder: (context, state) {
@@ -122,6 +133,41 @@ class RouteConfig {
             state: state,
             transitionType: PageTransitionType.slideRightToLeft,
             child: ModeSelectionScreen(),
+          );
+        },
+      ),
+  GoRoute(
+        path: RouteName.deficultyLevelScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: DeficultyLevelScreen(),
+          );
+        },
+      ),
+
+      GoRoute(
+        path: RouteName.playerSelectionScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: PlayerSelectionScreen(),
+          );
+        },
+      ),
+
+  GoRoute(
+        path: RouteName.catagorySelectionScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: CatagorySelectionScreen(),
           );
         },
       ),

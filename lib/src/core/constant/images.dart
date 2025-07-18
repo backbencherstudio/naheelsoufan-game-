@@ -38,7 +38,7 @@ class AppImages {
   static const String primaryUpsidedown = "$imagePath/primary_upside.png";
   static const String buttonYellow = "$imagePath/button_yellow.png";
   static const String subscription = "$imagePath/subscription.png";
-  // static const String = "$imagePath/  ";
+  static const String softgreenBG = "$imagePath/softgreenBG.png";
   // static const String = "$imagePath/  ";
   // static const String = "$imagePath/  ";
   // static const String = "$imagePath/  ";

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 
 class SeePlansContainer extends StatelessWidget {
   const SeePlansContainer({super.key});
@@ -12,13 +13,13 @@ class SeePlansContainer extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(24.r),
         border: Border.all(
-          color: Color(0xffE0E0FF)
+          color: AppColorScheme.borderColor
         )
       ),
       child: Text("See Plans",
       style: style.bodyLarge!.copyWith(
               fontWeight: FontWeight.w600,
-              color: Color(0xffE0E0FF),
+          color: AppColorScheme.borderColor
             ),
       ),
     );

@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 
-class CustomIconsButtons extends StatelessWidget {
-  final String icon;
+class CustomroundButton extends StatelessWidget {
+
+   final String icon;
   final void Function()? onTap;
   final String? bgIcon;
-  const CustomIconsButtons({
+  const CustomroundButton({
     super.key,
     required this.icon,
     required this.onTap,
@@ -19,7 +20,7 @@ class CustomIconsButtons extends StatelessWidget {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          Positioned(child: SvgPicture.asset(bgIcon?? AppIcons.iconBG)),
+          Positioned(child: SvgPicture.asset(bgIcon?? AppIcons.roundIconbottom)),
           Positioned(child: SvgPicture.asset(icon)),
         ],
       ),

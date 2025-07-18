@@ -84,8 +84,24 @@ class AppIcons {
   static const String primaryUpsidedown = "$iconPath/primaryUpsidedown.svg";
   static const String rocket = "$iconPath/Rocket.svg";
   static const String settings = "$iconPath/settings.svg";
-  // static const String      = "$iconPath/ ";
-  // static const String      = "$iconPath/ ";
+
+  static const String copyIcon = "$iconPath/copyIcon.svg";
+  static const String shareIcon = "$iconPath/shareIcon.svg";
+  static const String downloadIcon = "$iconPath/downloadIcon.svg";
+  static const String qRIcon = "$iconPath/QR_Code.svg";
+  static const String profile = "$iconPath/profile.svg";
+  static const String goldenBG = "$iconPath/goldenBG.svg";
+  static const String greyBG = "$iconPath/greyBG.svg";
+  static const String substract = "$iconPath/substract.svg";
+  static const String tick = "$iconPath/tick.svg";
+  static const String softgreenBG = "$iconPath/softgreenBG.svg";
+  static const String globeIcon = "$iconPath/globe.svg";
+  static const String roundIconbottom = "$iconPath/roundIconbottom.svg";
+  static const String roundIcontop = "$iconPath/roundIcontop.svg";
+  static const String playleft = "$iconPath/playleft.svg";
+  static const String playButtn = "$iconPath/playButtn.svg";
+  static const String redBg = "$iconPath/redBg.svg";
+
   // static const String      = "$iconPath/ ";
   // static const String      = "$iconPath/ ";
   // static const String      = "$iconPath/ ";

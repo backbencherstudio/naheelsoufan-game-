@@ -3,7 +3,7 @@ import 'package:naheelsoufan_game/src/core/constant/images.dart';
 
 class CreateScreen extends StatelessWidget {
   final Widget child;
-  const CreateScreen({super.key, required this.child});
+  const CreateScreen( {super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
