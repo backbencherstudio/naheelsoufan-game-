@@ -30,7 +30,7 @@ class GameModeScreens extends StatelessWidget {
             SizedBox(height: 200.h),
             Image.asset(AppImages.logo, height: 104.h, width: 300.w),
             SizedBox(height: 50.h,),
-            CustomButton(text:"QUICK GMAE" , onTap: () {context.push(RouteName.modeSelectionScreen);},),
+            CustomButton(text:"QUICK GAME" , onTap: () {context.push(RouteName.modeSelectionScreen);},),
             SizedBox(height: 16.h,),
             CustomButton(text:"GRID STYLE" , onTap: (){},img: AppImages.primaryUpsidedown,),
             SizedBox(height: 40.h,),
