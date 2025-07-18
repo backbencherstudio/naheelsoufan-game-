@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 
 class CustomPlaygamesButton extends StatelessWidget {
   final void Function()? onTap;
@@ -15,7 +16,11 @@ class CustomPlaygamesButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(8.r),
           border: Border.all(color: Color(0xff2E1126)),
           gradient: LinearGradient(
-            colors: [Color(0xffF2E792), Color(0xffF8B133), Color(0xffDE712B)],
+            colors: [
+              AppColorScheme.softYellow,
+              AppColorScheme.midYellow,
+              AppColorScheme.darkYellow,
+            ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -25,7 +30,7 @@ class CustomPlaygamesButton extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               "PLAY",
-              style: style.titleMedium!.copyWith(color: Color(0xff2E1126)),
+              style: style.titleMedium!.copyWith(color: AppColorScheme.labelTextColor),
             ),
           ),
         ),

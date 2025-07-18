@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/constant/padding.dart';
 import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
+import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/create_room_widgets/custom_header_tile.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_button.dart';
@@ -46,7 +47,7 @@ class ShareRoomScreen extends StatelessWidget {
               style: style.headlineLarge!.copyWith(
                 fontSize: 32.sp,
                 fontWeight: FontWeight.w500,
-                color: Color(0xffE0E0FF),
+                color: AppColorScheme.primary,
               ),
             ),
             SizedBox(height: 14.h),
@@ -54,7 +55,7 @@ class ShareRoomScreen extends StatelessWidget {
               padding: EdgeInsets.all(12.r),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(24.r),
-                border: Border.all(color: Color(0xffE0E0FF)),
+                border: Border.all(color:AppColorScheme.borderColor),
               ),
               child: Column(
                 children: [
@@ -64,7 +65,7 @@ class ShareRoomScreen extends StatelessWidget {
                     "Room Link",
                     style: style.bodyMedium!.copyWith(
                       fontWeight: FontWeight.w500,
-                      color: Color(0xffE0E0FF),
+                      color: AppColorScheme.primary,
                     ),
                   ),
                   SizedBox(height: 8.h),
@@ -74,7 +75,7 @@ class ShareRoomScreen extends StatelessWidget {
                     "QR Code",
                     style: style.bodyMedium!.copyWith(
                       fontWeight: FontWeight.w500,
-                      color: Color(0xffE0E0FF),
+                      color: AppColorScheme.primary,
                     ),
                   ),
                   SizedBox(height: 8.h),

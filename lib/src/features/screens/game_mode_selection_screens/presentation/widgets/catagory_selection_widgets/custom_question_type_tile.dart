@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
+import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 
 class CustomQuestionTypeTile extends StatelessWidget {
   final bool isSelected;
@@ -36,23 +37,27 @@ class CustomQuestionTypeTile extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12.r),
                     border: isSelected
-                        ? Border.all(color: Color(0xffF2E792), width: 2.w)
-                        : Border.all(color: Color(0xffB8F1B9), width: 2.w),
+                        ? Border.all(color: AppColorScheme.yellowborder, width: 2.w)
+                        : Border.all(color: AppColorScheme.greenborder, width: 2.w),
                     gradient: isSelected
                         ? LinearGradient(
                             colors: [
-                              Color(0xffF2E792),
-                              Color(0xffF8B133),
-                              Color(0xffDE712B),
+
+                              AppColorScheme.softYellow,
+                              AppColorScheme.midYellow,
+                              AppColorScheme.darkYellow,
+                             
                             ],
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
                           )
                         : LinearGradient(
                             colors: [
-                              Color(0xff1D5128),
-                              Color(0xff14BA37),
-                              Color(0xff1D5128),
+                              AppColorScheme.startGradGreen,
+                              AppColorScheme.midGradGreen,
+                              AppColorScheme.hardGradGreen,
+
+
                             ],
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
@@ -67,7 +72,7 @@ class CustomQuestionTypeTile extends StatelessWidget {
                         "25 Question",
                         style: style.labelLarge!.copyWith(
                           fontWeight: FontWeight.w400,
-                          color: Color(0xffB8F1B9),
+                          color: AppColorScheme.greenTextColor,
                         ),
                       ),
                     ],

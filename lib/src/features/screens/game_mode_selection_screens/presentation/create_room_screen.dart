@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/constant/padding.dart';
 import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
+import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/create_room_widgets/custom_header_tile.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_button.dart';
@@ -43,14 +44,14 @@ class CreateRoomScreen extends StatelessWidget {
               style: style.headlineLarge!.copyWith(
                 fontSize: 32.sp,
                 fontWeight: FontWeight.w500,
-                color: Color(0xffE0E0FF),
+                color: AppColorScheme.primary,
               ),
             ),
             SizedBox(height: 18.h),
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(24.r),
-                border: Border.all(color: Color(0xffE0E0FF)),
+                border: Border.all(color: AppColorScheme.borderColor),
               ),
               child: Padding(
                 padding: EdgeInsets.all(12.r),
@@ -67,7 +68,7 @@ class CreateRoomScreen extends StatelessWidget {
                             style: style.labelLarge!.copyWith(
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xffE0E0FF),
+                              color: AppColorScheme.primary,
                             ),
                           ),
                           Text(
@@ -75,7 +76,7 @@ class CreateRoomScreen extends StatelessWidget {
                             style: style.labelLarge!.copyWith(
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w400,
-                              color: Color(0xffE0E0FF),
+                              color: AppColorScheme.primary,
                             ),
                           ),
                         ],
@@ -87,7 +88,7 @@ class CreateRoomScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(
-                            color: Color(0xffffffff),
+                            color: AppColorScheme.onPrimary,
                             offset: Offset(1, 2), 
                             blurRadius: 0,
                           ),
@@ -105,7 +106,8 @@ class CreateRoomScreen extends StatelessWidget {
                         style: style.labelLarge!.copyWith(
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w600,
-                          color: Color(0xffE0E0FF),
+                              color: AppColorScheme.primary,
+
                         ),
                       ),
                     ),
@@ -114,7 +116,7 @@ class CreateRoomScreen extends StatelessWidget {
                        decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(
-                            color: Color(0xffffffff),
+                            color: AppColorScheme.onPrimary,
                             offset: Offset(1, 2), 
                             blurRadius: 0,
                           ),

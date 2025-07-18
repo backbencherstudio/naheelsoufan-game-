@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/constant/images.dart';
+import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 
 class FreeGametile extends StatelessWidget {
   const FreeGametile({super.key});
@@ -30,7 +31,7 @@ class FreeGametile extends StatelessWidget {
               style: style.headlineLarge!.copyWith(
                 fontWeight: FontWeight.w500,
                 fontSize: 26.sp,
-                color: Color(0xffffffff),
+                color: AppColorScheme.onPrimary,
               ),
             ),
           ],

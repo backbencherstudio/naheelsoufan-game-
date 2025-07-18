@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
+import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/catagory_selection_widgets/customRound_button.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/dificulty_level_widgets/custom_tap_button.dart';
 
@@ -26,9 +27,10 @@ class CustomBox extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16.r),
                 gradient: LinearGradient(
                   colors: [
-                    Color(0xffF2E792),
-                    Color(0xffF8B133),
-                    Color(0xffF8B133),
+                    
+                              AppColorScheme.softYellow,
+                              AppColorScheme.midYellow,
+                              AppColorScheme.darkYellow,
                   ],
                 ),
               ),
@@ -41,7 +43,7 @@ class CustomBox extends StatelessWidget {
                 ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16.r),
-                  color: Color(0xff52589F),
+                  color: AppColorScheme.purpleContainerColor,
                 ),
                 child: child,
               ),

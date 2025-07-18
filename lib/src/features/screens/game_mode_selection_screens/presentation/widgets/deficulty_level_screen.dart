@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/constant/images.dart';
 import 'package:naheelsoufan_game/src/core/constant/padding.dart';
+import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/dificulty_level_widgets/custom_box.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/dificulty_level_widgets/custom_buttons_normal.dart';
@@ -41,11 +42,11 @@ class DeficultyLevelScreen extends StatelessWidget {
               "player 1",
               style: style.titleLarge!.copyWith(
                 fontWeight: FontWeight.w400,
-                color: Color(0xffE0E0FF),
+                color: AppColorScheme.primary,
               ),
             ),
 
-            SizedBox(height: 15.h),
+            SizedBox(height: 25.h),
             Consumer(
               
               builder: (context, ref,_) {
