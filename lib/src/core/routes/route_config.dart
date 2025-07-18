@@ -1,12 +1,54 @@
 part of 'route_import_part.dart';
 
-
 class RouteConfig {
   GoRouter goRouter = GoRouter(
     initialLocation: RouteName.gameModeScreens,
-
     routes: [
-
+      
+      GoRoute(
+        path: RouteName.registerScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: RegisterScreen(),
+          );
+        },
+      ),
+      GoRoute(
+        path: RouteName.signInScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: SignInScreen(),
+          );
+        },
+      ),
+      GoRoute(
+        path: RouteName.forgetPasswordScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: ForgotPassScreen(),
+          );
+        },
+      ),
+      GoRoute(
+        path: RouteName.forgetPasswordLinkSentScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: ForgotLinkScreen(),
+          );
+        },
+      ),
       GoRoute(
         path: RouteName.gameModeScreens,
         pageBuilder: (context, state) {
