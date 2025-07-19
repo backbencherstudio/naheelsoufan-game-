@@ -41,7 +41,7 @@ class _RegisterBodyState extends State<SignInBody> {
       width: double.infinity,
       decoration: BoxDecoration(
         color: Color(0xFF3D4279),
-        borderRadius: BorderRadius.all(Radius.circular(16.r)),
+        borderRadius: BorderRadius.all(Radius.circular(16.r)), // BorderRadious.Circular(16.r) use korlei hoito
         border: Border.all(
           width: 2.sp,
           color: Color(0xFFE0E0FF),
@@ -70,6 +70,9 @@ class _RegisterBodyState extends State<SignInBody> {
               ],
             ),
             SizedBox(height: 16.h),
+
+            // dont do custom textformfield
+            
             CustomLabel(labelText: "Email"),
             SizedBox(height: 4.h),
             CustomTextFormField(
@@ -108,6 +111,7 @@ class _RegisterBodyState extends State<SignInBody> {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                //use gestureDetector (onTap:)
                 InkWell(
                   onTap: ()=>context.go(RouteName.forgetPasswordScreen),
                   child: Text("Forgot password?", style: TextStyle(

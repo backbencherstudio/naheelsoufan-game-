@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-
 import '../../../core/constant/icons.dart';
 import '../../../core/constant/images.dart';
 import '../custom_show_menu/custom_menu_card.dart';
@@ -25,7 +24,6 @@ class RegisterAppbar extends StatelessWidget {
         SizedBox(width: 95.w),
         Consumer(
           builder: (_, ref, _) {
-            final isClicked = ref.watch(isClick);
             final result = ref.watch(isSelectedVal) ?? "US English";
             return GestureDetector(
               key: menuKey,

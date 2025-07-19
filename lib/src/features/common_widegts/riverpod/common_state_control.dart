@@ -5,7 +5,7 @@ final specialButtonController = StateProvider.family<bool, int> ((ref, id){
 });
 
 final isClick = StateProvider<bool> ((ref){
-  return false;
+  return false; // naming issue isClickedProvider
 });
 
 final isSelectedVal = StateProvider<String?> ((ref){

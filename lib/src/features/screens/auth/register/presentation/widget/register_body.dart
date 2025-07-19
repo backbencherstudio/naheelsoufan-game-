@@ -81,7 +81,9 @@ class _RegisterBodyState extends State<RegisterBody> {
                 ],
               ),
               SizedBox(height: 16.h),
+
               CustomLabel(labelText: "Full Name"),
+             
               SizedBox(height: 4.h),
               CustomTextFormField(
                 hintText: "Enter your name",

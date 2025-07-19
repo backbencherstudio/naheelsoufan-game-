@@ -10,7 +10,7 @@ class CustomIconsButtons extends StatelessWidget {
     super.key,
     required this.icon,
     required this.onTap,
-    this.bgIcon
+    this.bgIcon,
   });
   @override
   Widget build(BuildContext context) {
@@ -19,8 +19,8 @@ class CustomIconsButtons extends StatelessWidget {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          Positioned(child: SvgPicture.asset(bgIcon?? AppIcons.iconBG)),
-          Positioned(child: SvgPicture.asset(icon)),
+          Positioned(child: SvgPicture.asset(bgIcon ?? AppIcons.iconBG)),
+          SvgPicture.asset(icon),
         ],
       ),
     );

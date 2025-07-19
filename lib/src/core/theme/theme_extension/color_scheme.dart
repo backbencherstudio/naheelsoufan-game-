@@ -34,12 +34,13 @@ class AppColorScheme {
   static const Color greenborder = Color(0xffB8F1B9);
   static const Color greenTextColor = Color(0xffB8F1B9);
   static const Color purpleContainerColor = Color(0xff52589F);
-  static const Color deepPuroleBG =   Color(0xff3D4279); 
+  static const Color deepPuroleBG = Color(0xff3D4279);
 
   static const Color lightButtonborder = Color(0xffFFB4AB);
   static const Color darkpurpleborder = Color(0xff00024C);
-  static const Color  customGreenBT = Color(0xff008A39);
-   static const Color  greenery = Color(0xff63DF7C);
+  static const Color customGreenBT = Color(0xff008A39);
+  static const Color greenery = Color(0xff63DF7C);
+  static const Color listContainerColor = Color(0xffE0E0FF);
   // static const Color  = ;
   // static const Color  = ;
   // static const Color  = ;
