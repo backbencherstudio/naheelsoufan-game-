@@ -4,7 +4,17 @@ class RouteConfig {
   GoRouter goRouter = GoRouter(
     initialLocation: RouteName.signInScreen,
     routes: [
-      
+      GoRoute(
+        path: RouteName.test,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: Test(),
+          );
+        },
+      ),
       GoRoute(
         path: RouteName.registerScreen,
         pageBuilder: (context, state) {

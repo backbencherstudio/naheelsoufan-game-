@@ -27,17 +27,15 @@ class RegisterBottom extends StatelessWidget {
               height: 72.h,
               width: 72.w,
               decoration: BoxDecoration(
-                color: Color(0xFFE0E0FF),
-                borderRadius: BorderRadius.all(
-                  Radius.circular(16.r),
-                ),
+                color: AppColorScheme.primary,
+                borderRadius: BorderRadius.circular(16.r),
                 border: Border.all(
-                  width: 2.sp,
-                  color: Color(0xFF9FA5F2),
+                  width: 2.w,
+                  color: AppColorScheme.socialBack,
                 ),
               ),
               child: Padding(
-                padding: EdgeInsets.all(16.sp),
+                padding: EdgeInsets.all(16.r),
                 child: SvgPicture.asset(AppIcons.apple),
               ),
             ),
@@ -46,14 +44,14 @@ class RegisterBottom extends StatelessWidget {
               height: 72.h,
               width: 72.w,
               decoration: BoxDecoration(
-                color: Color(0xFFE0E0FF),
+                color: AppColorScheme.primary,
                 borderRadius: BorderRadius.circular(16.r),
                 // BorderRadius.all(
                 //   Radius.circular(16.r),
                 // ),
                 border: Border.all(
                   width: 2.sp,
-                  color: Color(0xFF9FA5F2),
+                  color: AppColorScheme.socialBack,
                 ),
               ),
               child: Padding(
