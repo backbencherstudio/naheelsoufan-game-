@@ -18,6 +18,10 @@ class AppColorScheme {
   static const Color dividerColor = Color(0xff35383F);
   static const Color cardBgColor =Color(0xff1A1A1A);
   static const Color tileTextColor = Color(0xffA5A5AB);
+
+  /// extra color
+  static const Color white = Color(0xFFFFFFFF);
+  static const Color optionBg = Color(0xFFFFD8EE);
   static ColorScheme colorScheme = ColorScheme.light(
     primary: primary,
     secondary: secondary,

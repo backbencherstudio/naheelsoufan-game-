@@ -1,12 +1,10 @@
 part of 'route_import_part.dart';
 
-
 class RouteConfig {
   GoRouter goRouter = GoRouter(
-    initialLocation: RouteName.gameModeScreens,
+    initialLocation: RouteName.questionAnswerScreen,
 
     routes: [
-
       GoRoute(
         path: RouteName.gameModeScreens,
         pageBuilder: (context, state) {
@@ -29,7 +27,7 @@ class RouteConfig {
           );
         },
       ),
-        GoRoute(
+      GoRoute(
         path: RouteName.createRoomScreen,
         pageBuilder: (context, state) {
           return buildPageWithTransition(
@@ -40,7 +38,7 @@ class RouteConfig {
           );
         },
       ),
-       GoRoute(
+      GoRoute(
         path: RouteName.shareRoomScreen,
         pageBuilder: (context, state) {
           return buildPageWithTransition(
@@ -51,7 +49,7 @@ class RouteConfig {
           );
         },
       ),
-     GoRoute(
+      GoRoute(
         path: RouteName.modeSelectionScreen,
         pageBuilder: (context, state) {
           return buildPageWithTransition(
@@ -74,8 +72,17 @@ class RouteConfig {
           );
         },
       ),
-
-
+      GoRoute(
+        path: RouteName.questionAnswerScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: QuestionAnswerScreen(),
+          );
+        },
+      ),
     ],
   );
 }

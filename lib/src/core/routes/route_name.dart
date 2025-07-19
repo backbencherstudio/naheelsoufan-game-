@@ -12,4 +12,6 @@ class RouteName {
  static const String shareRoomScreen = "/ShareRoomScreen";
 
  static const String playerSelectionScreen = "/PlayerSelectionScreen";
+
+ static const String questionAnswerScreen = "/QuestionAnswerScreen";
 }
