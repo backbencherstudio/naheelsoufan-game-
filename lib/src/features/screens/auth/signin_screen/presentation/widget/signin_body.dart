@@ -7,7 +7,6 @@ import 'package:go_router/go_router.dart';
 import '../../../../../../core/constant/icons.dart';
 import '../../../../../../core/routes/route_name.dart';
 import '../../../../../common_widegts/elevated_button/elevated_button.dart';
-import '../../../register/presentation/widget/custom_label.dart';
 import '../../../register/presentation/widget/custom_textformfield.dart';
 import '../../riverpod/check.dart';
 
@@ -35,17 +34,17 @@ class _RegisterBodyState extends State<SignInBody> {
     passController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
+    final titleStyle = Theme.of(context).textTheme.displayLarge;
+    final subTitleStyle = Theme.of(context).textTheme.displayLarge;
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
         color: Color(0xFF3D4279),
         borderRadius: BorderRadius.all(Radius.circular(16.r)),
-        border: Border.all(
-          width: 2.sp,
-          color: Color(0xFFE0E0FF),
-        ),
+        border: Border.all(width: 2.sp, color: Color(0xFFE0E0FF)),
       ),
       child: Padding(
         padding: EdgeInsets.only(
@@ -59,25 +58,17 @@ class _RegisterBodyState extends State<SignInBody> {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Sign In",
-                  style: TextStyle(
-                    fontSize: 24.sp,
-                    color: Color(0xFFFFFFFF),
-                  ),
-                ),
-              ],
+              children: [Text("Sign In", style: titleStyle)],
             ),
             SizedBox(height: 16.h),
-            CustomLabel(labelText: "Email"),
+            Text("Email", style: subTitleStyle),
             SizedBox(height: 4.h),
             CustomTextFormField(
               hintText: "Enter your email",
               controller: emailController,
             ),
             SizedBox(height: 8.h),
-            CustomLabel(labelText: "Password"),
+            Text("Password", style: subTitleStyle),
             SizedBox(height: 4.h),
             Consumer(
               builder: (_, ref, _) {
@@ -88,19 +79,14 @@ class _RegisterBodyState extends State<SignInBody> {
                   suffixIcon: SizedBox(
                     width: 24.sp,
                     height: 24.sp,
-                    child: (isVisible
-                        ? SvgPicture.asset(
-                      AppIcons.visibilityOff,
-                    )
-                        : SvgPicture.asset(
-                      AppIcons.visibilityOn,
-                    )),
+                    child: (!isVisible
+                        ? SvgPicture.asset(AppIcons.visibilityOff)
+                        : SvgPicture.asset(AppIcons.visibilityOn)),
                   ),
                   onSuffixTap: () {
-                    ref.read(isObscure3.notifier).state =
-                    !isVisible;
+                    ref.read(isObscure3.notifier).state = !isVisible;
                   },
-                  obscureText: isVisible,
+                  obscureText: !isVisible,
                 );
               },
             ),
@@ -109,17 +95,17 @@ class _RegisterBodyState extends State<SignInBody> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 InkWell(
-                  onTap: ()=>context.go(RouteName.forgetPasswordScreen),
-                  child: Text("Forgot password?", style: TextStyle(
-                  color: Color(0xFFFFFFFF)
-                                ),),
-                )],
+                  onTap: () => context.go(RouteName.forgetPasswordScreen),
+                  child: Text("Forgot password?", style: subTitleStyle),
+                ),
+              ],
             ),
             SizedBox(height: 40.h),
             CustomElevatedButton(
               onPressed: () {
                 //Logic
-              }, buttonName: 'Sign In',
+              },
+              buttonName: 'Sign In',
             ),
           ],
         ),

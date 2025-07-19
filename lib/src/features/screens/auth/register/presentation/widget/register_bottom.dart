@@ -5,18 +5,18 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../../../core/constant/icons.dart';
 import '../../../../../../core/routes/route_name.dart';
-import 'custom_label.dart';
 
 class RegisterBottom extends StatelessWidget {
   const RegisterBottom({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final linkTextStyle = Theme.of(context).textTheme.bodyLarge;
     return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [CustomLabel(labelText: "Register With")],
+          children: [Text("Register With", style: linkTextStyle,)],
         ),
         SizedBox(height: 9.h),
         Row(
@@ -66,17 +66,12 @@ class RegisterBottom extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CustomLabel(labelText: "Already have an account? "),
+            Text("Already have an account? ", style: linkTextStyle,),
             InkWell(
               onTap: ()=>context.go(RouteName.signInScreen),
               child: Text(
                 'Sign in',
-                style: TextStyle(
-                  decoration: TextDecoration.underline,
-                  decorationColor: Color(0xFFFFFFFF),
-                  fontSize: 16.sp,
-                  color: Color(0xFFE0E0FF),
-                ),
+                style: linkTextStyle?.copyWith(decoration: TextDecoration.underline)
               ),
             ),
           ],

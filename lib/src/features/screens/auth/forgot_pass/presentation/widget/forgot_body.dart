@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../../core/routes/route_name.dart';
-import '../../../../common_widegts/elevated_button/elevated_button.dart';
-import '../../register/presentation/widget/custom_label.dart';
-import '../../register/presentation/widget/custom_textformfield.dart';
+import '../../../../../../core/routes/route_name.dart';
+import '../../../../../common_widegts/elevated_button/elevated_button.dart';
+import '../../../register/presentation/widget/custom_textformfield.dart';
 
 class ForgotBody extends StatefulWidget {
   const ForgotBody({super.key});
@@ -29,6 +29,8 @@ class _RegisterBodyState extends State<ForgotBody> {
   }
   @override
   Widget build(BuildContext context) {
+    final titleStyle = Theme.of(context).textTheme.displayLarge;
+    final subTitleStyle = Theme.of(context).textTheme.displayLarge;
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -54,20 +56,15 @@ class _RegisterBodyState extends State<ForgotBody> {
               children: [
                 Text(
                   "Reset Password",
-                  style: TextStyle(
-                    fontSize: 24.sp,
-                    color: Color(0xFFFFFFFF),
-                  ),
+                  style: titleStyle,
                 ),
               ],
             ),
             SizedBox(height: 12.h),
-            Text("Enter your email to reset password, we’ll send a link", style: TextStyle(
-                fontSize: 16.sp,
-              color: Color(0xFFFFFFFF)
-            ),),
+            Text("Enter your email to reset password, we’ll send a link",
+              style: subTitleStyle?.copyWith(fontSize: 16.sp)),
             SizedBox(height: 16.h),
-            CustomLabel(labelText: "Email"),
+            Text("Email", style: subTitleStyle,),
             SizedBox(height: 4.h),
             CustomTextFormField(
               hintText: "Enter your email",
