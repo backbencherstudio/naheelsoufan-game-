@@ -19,6 +19,9 @@ class AppColorScheme {
   static const Color cardBgColor = Color(0xff1A1A1A);
   static const Color tileTextColor = Color(0xffA5A5AB);
 
+  /// extra color
+  static const Color white = Color(0xFFFFFFFF);
+  static const Color optionBg = Color(0xFFFFD8EE);
   static const Color softYellow = Color(0xffF2E792);
   static const Color midYellow = Color(0xffF8B133);
   static const Color darkYellow = Color(0xffDE712B);
