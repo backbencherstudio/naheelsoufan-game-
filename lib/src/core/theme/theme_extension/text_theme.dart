@@ -14,7 +14,7 @@ class AppTextTheme {
       color: AppColorScheme.primary,
     ),
     displayMedium: GoogleFonts.robotoFlex( //dropDownTitle
-      fontSize: 18.0.sp,
+      fontSize: 14.0.sp,
       fontWeight: FontWeight.w500,
       color: AppColorScheme.primary,
     ),

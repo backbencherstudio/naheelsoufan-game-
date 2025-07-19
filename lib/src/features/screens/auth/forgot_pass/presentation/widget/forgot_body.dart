@@ -30,7 +30,7 @@ class _RegisterBodyState extends State<ForgotBody> {
   @override
   Widget build(BuildContext context) {
     final titleStyle = Theme.of(context).textTheme.displayLarge;
-    final subTitleStyle = Theme.of(context).textTheme.displayLarge;
+    final subTitleStyle = Theme.of(context).textTheme.displaySmall;
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -62,7 +62,7 @@ class _RegisterBodyState extends State<ForgotBody> {
             ),
             SizedBox(height: 12.h),
             Text("Enter your email to reset password, we’ll send a link",
-              style: subTitleStyle?.copyWith(fontSize: 16.sp)),
+              style: subTitleStyle?.copyWith(fontSize: 16.sp), textAlign: TextAlign.center,),
             SizedBox(height: 16.h),
             Text("Email", style: subTitleStyle,),
             SizedBox(height: 4.h),

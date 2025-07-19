@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import '../../../../../../core/constant/icons.dart';
 import '../../../../../../core/routes/route_name.dart';
 
@@ -71,7 +72,7 @@ class RegisterBottom extends StatelessWidget {
               onTap: ()=>context.go(RouteName.signInScreen),
               child: Text(
                 'Sign in',
-                style: linkTextStyle?.copyWith(decoration: TextDecoration.underline)
+                style: linkTextStyle?.copyWith(decoration: TextDecoration.underline, decorationColor: AppColorScheme.primary)
               ),
             ),
           ],

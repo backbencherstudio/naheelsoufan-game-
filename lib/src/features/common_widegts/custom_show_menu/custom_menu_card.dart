@@ -39,7 +39,7 @@ Future<String?> customPopupMenu({
             child: Center(
               child: Text(
                 areasList[i],
-                style: Theme.of(context).textTheme.displayMedium,
+                style: Theme.of(context).textTheme.displayMedium?.copyWith(color: AppColorScheme.secondary),
               ),
             ),
           ),

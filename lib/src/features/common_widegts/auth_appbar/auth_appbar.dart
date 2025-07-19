@@ -16,7 +16,7 @@ class RegisterAppbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dropDownStyle = Theme.of(context).textTheme.displayMedium;
+    final dropDownStyle = Theme.of(context).textTheme.displayMedium?.copyWith(color: AppColorScheme.secondary);
     return Row(
       children: [
         SizedBox(

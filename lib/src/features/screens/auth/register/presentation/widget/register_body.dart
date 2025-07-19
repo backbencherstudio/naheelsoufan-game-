@@ -46,7 +46,7 @@ class _RegisterBodyState extends State<RegisterBody> {
   @override
   Widget build(BuildContext context) {
     final titleStyle = Theme.of(context).textTheme.displayLarge;
-    final subTitleStyle = Theme.of(context).textTheme.displayLarge;
+    final subTitleStyle = Theme.of(context).textTheme.displaySmall;
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
