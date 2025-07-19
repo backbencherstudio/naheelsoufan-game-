@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/constant/padding.dart';
+import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
+import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
-import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_button.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/player_selection_widgets/selection_tile.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/selection_provider.dart';
@@ -50,7 +52,7 @@ class PlayerSelectionScreen extends StatelessWidget {
                   style: style.headlineLarge!.copyWith(
                     fontSize: 32.sp,
                     fontWeight: FontWeight.w500,
-                    color: Color(0xffE0E0FF),
+                    color: AppColorScheme.primary
                   ),
                 ),
                 SizedBox(height: 24.h),
@@ -83,7 +85,7 @@ class PlayerSelectionScreen extends StatelessWidget {
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8.r),
-                      border: Border.all(color: Color(0xffE0E0FF)),
+                      border: Border.all(color:AppColorScheme.borderColor,)
                     ),
                     child: Padding(
                       padding: EdgeInsets.all(10.r),
@@ -91,7 +93,7 @@ class PlayerSelectionScreen extends StatelessWidget {
                         "All players joined. You can start now!",
                         style: style.bodyLarge!.copyWith(
                           fontWeight: FontWeight.w500,
-                          color: Color(0xffE0E0FF),
+                          color: AppColorScheme.primary
                         ),
                       ),
                     ),
@@ -99,7 +101,9 @@ class PlayerSelectionScreen extends StatelessWidget {
                 ],
                 SizedBox(height: 20.h),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    context.push(RouteName.catagorySelectionScreen);
+                  },
                   child: Container(
                     width: 229.w,
                     decoration: BoxDecoration(
@@ -107,14 +111,14 @@ class PlayerSelectionScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8.r),
 
                       border: Border(
-                        left: BorderSide(color: Color(0xffB8F1B9), width: 0.5.w),
-                        right: BorderSide(color: Color(0xffB8F1B9), width: 0.5.w),
-                        bottom: BorderSide(color: Color(0xffB8F1B9), width: 1.5.w),
+                        left: BorderSide(color: AppColorScheme.softGradGreen, width: 0.5.w),
+                        right: BorderSide(color: AppColorScheme.softGradGreen, width: 0.5.w),
+                        bottom: BorderSide(color: AppColorScheme.softGradGreen, width: 1.5.w),
                         top: BorderSide.none,
                       ),
                       boxShadow: [
                         BoxShadow(
-                          color:  Color(0xffB8F1B9).withValues(alpha: 0.3),
+                          color:  AppColorScheme.softGradGreen.withValues(alpha: 0.3),
                           blurRadius: 8,
                           offset: Offset(0, 0),
                         ),
@@ -127,7 +131,7 @@ class PlayerSelectionScreen extends StatelessWidget {
                           "Start",
                           style: style.titleMedium!.copyWith(
                             fontWeight: FontWeight.w500,
-                            color: Color(0xffffffff),
+                            color: AppColorScheme.primary,
                           ),
                         ),
                       ),

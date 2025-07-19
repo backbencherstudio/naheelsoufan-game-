@@ -52,7 +52,7 @@ class SelectionTile extends StatelessWidget {
           SizedBox(width: 12.h),
           CustomIconsButtons(
             icon: AppIcons.substract,
-            onTap: () {},
+            onTap: onTap,
             bgIcon: iselected? AppIcons.goldenBG: AppIcons.greyBG,
           ),
         ],

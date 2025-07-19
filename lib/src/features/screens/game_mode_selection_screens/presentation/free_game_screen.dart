@@ -22,12 +22,17 @@ class FreeGameScreen extends StatelessWidget {
         padding: AppPadding.horizontalPadding,
         child: Column(
           children: [
+
+            
            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
               CustomIconsButtons(icon: AppIcons.backIcons, onTap: () {Navigator.pop(context);}),
               Image.asset(AppImages.profilePic, height: 40.h, width: 40.w),
               CustomIconsButtons(icon: AppIcons.settings, onTap: () {}),]),
+
+
+
               SizedBox(height: 40.h,),
               FreeGametile(),
               SizedBox(height: 121.h,),

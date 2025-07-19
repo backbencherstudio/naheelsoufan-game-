@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naheelsoufan_game/src/core/constant/images.dart';
+import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;
@@ -31,7 +32,7 @@ class CustomButton extends StatelessWidget {
             text,
             style: style.titleMedium!.copyWith(
               fontWeight: FontWeight.w500,
-              color: Color(0xffffffff),
+              color: AppColorScheme.onPrimary,
             ),
           ),
         ),

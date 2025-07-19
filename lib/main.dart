@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
       designSize: const Size(430, 947),
       minTextAdapt: true,
       builder: (context, child) => MaterialApp.router(
-        title: 'Charging App',
+        title: 'Gaming app',
         debugShowCheckedModeBanner: false,
         theme: AppTheme.darkTheme,
         routerConfig: RouteConfig().goRouter,

@@ -9,9 +9,30 @@ class RouteName {
  
  static const String createRoomScreen = "/CreateRoomScreen";
 
+  static const String registerScreen = "/app_background";
+
+  static const String signInScreen = "/signInScreen";
+
+  static const String forgetPasswordScreen = "/forgetPasswordScreen";
+
+  static const String forgetPasswordLinkSentScreen = "/forgetPasswordLinkSentScreen";
+
+  static const String chooseCategoryScreen = "/chooseCategoryScreen";
+
+  static const String chooseDifficultyScreen = "/chooseDifficultyScreen";
+
+  static const String addPlayerScreen = "/addPlayerScreen";
  static const String shareRoomScreen = "/ShareRoomScreen";
 
  static const String playerSelectionScreen = "/PlayerSelectionScreen";
 
  static const String questionAnswerScreen = "/QuestionAnswerScreen";
+ static const String catagorySelectionScreen = "/CatagorySelectionScreen";
+
+ static const String deficultyLevelScreen = "/DeficultyLevelScreen";
+
+
+
+
+ static const String test = "/test";
 }

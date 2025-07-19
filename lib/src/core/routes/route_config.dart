@@ -5,6 +5,61 @@ class RouteConfig {
     initialLocation: RouteName.questionAnswerScreen,
 
     routes: [
+      // GoRoute(
+      //   path: RouteName.test,
+      //   pageBuilder: (context, state) {
+      //     return buildPageWithTransition(
+      //       context: context,
+      //       state: state,
+      //       transitionType: PageTransitionType.slideRightToLeft,
+      //       child: Test(),
+      //     );
+      //   },
+      // ),
+      GoRoute(
+        path: RouteName.registerScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: RegisterScreen(),
+          );
+        },
+      ),
+      GoRoute(
+        path: RouteName.signInScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: SignInScreen(),
+          );
+        },
+      ),
+      GoRoute(
+        path: RouteName.forgetPasswordScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: ForgotPassScreen(),
+          );
+        },
+      ),
+      GoRoute(
+        path: RouteName.forgetPasswordLinkSentScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: ForgotLinkScreen(),
+          );
+        },
+      ),
       GoRoute(
         path: RouteName.gameModeScreens,
         pageBuilder: (context, state) {
@@ -60,6 +115,17 @@ class RouteConfig {
           );
         },
       ),
+  GoRoute(
+        path: RouteName.deficultyLevelScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: DeficultyLevelScreen(),
+          );
+        },
+      ),
 
       GoRoute(
         path: RouteName.playerSelectionScreen,
@@ -80,6 +146,17 @@ class RouteConfig {
             state: state,
             transitionType: PageTransitionType.slideRightToLeft,
             child: QuestionAnswerScreen(),
+          );
+        },
+      ),
+  GoRoute(
+        path: RouteName.catagorySelectionScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: CatagorySelectionScreen(),
           );
         },
       ),
