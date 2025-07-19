@@ -110,7 +110,7 @@ class AppIcons {
   static const String settingsBlu = "$iconPath/settingsBlu.svg";
   static const String tvQuestion = "$iconPath/tv_question.svg";
   static const String youtubeIcon = "$iconPath/youtubeIcon.svg";
-  // static const String      = "$iconPath/ ";
+  static const String tinydot = "$iconPath/tinydot.svg";
   // static const String      = "$iconPath/ ";
   // static const String      = "$iconPath/ ";
   // static const String      = "$iconPath/ ";

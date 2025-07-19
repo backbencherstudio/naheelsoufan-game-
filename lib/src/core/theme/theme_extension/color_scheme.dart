@@ -7,7 +7,7 @@ class AppColorScheme {
   static const Color secondary = Color(0xFF3D4279);
   static const Color onSecondary = Colors.white;
   static const Color onError = Color(0xFFD7CCC8);
-  static const Color error = Color(0xFFF75555);
+  static const Color error = Color(0xFFFF5449);
   static const Color surface = Color(0xFF1D5128);
   static const Color onSurface = Color(0xFF008A39);
   static const Color primaryTextColor = Color(0xff6B71B9);
@@ -41,12 +41,15 @@ class AppColorScheme {
   static const Color customGreenBT = Color(0xff008A39);
   static const Color greenery = Color(0xff63DF7C);
   static const Color listContainerColor = Color(0xffE0E0FF);
-  // static const Color  = ;
+   static const Color newText  = Color(0xffBEC2FF);
 
   // static const Color  customGreenBT = Color(0xff008A39);
   // static const Color  greenery = Color(0xff63DF7C);
-   static const Color   socialBack = Color(0xFF9FA5F2);
-  // static const Color  = ;
+
+  static const Color socialBack = Color(0xFF9FA5F2);
+  static const Color redGrad = Color(0xffF80715);
+  static const Color redGrad2 = Color(0xffA80710);
+
   // static const Color  = ;
   // static const Color  = ;
   // static const Color  = ;
