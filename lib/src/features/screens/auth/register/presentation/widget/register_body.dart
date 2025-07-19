@@ -80,13 +80,10 @@ class _RegisterBodyState extends State<RegisterBody> {
                 ],
               ),
               SizedBox(height: 16.h),
-<<<<<<< HEAD
 
-              CustomLabel(labelText: "Full Name"),
+              // CustomLabel(labelText: "Full Name"),
              
-=======
               Text("Full Name", style: subTitleStyle,),
->>>>>>> 358af2905cb59bee7c4be8f9e8946cae312bd48e
               SizedBox(height: 4.h),
               CustomTextFormField(
                 hintText: "Enter your name",
