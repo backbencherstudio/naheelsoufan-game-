@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
+import 'package:naheelsoufan_game/src/core/theme/theme_extension/text_theme.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final String hintText;
@@ -25,13 +27,19 @@ class CustomTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final formFieldTextStyle = Theme.of(context).textTheme.displaySmall?.copyWith(
+      color: AppColorScheme.secondary
+    );
+    final formFieldHintTextStyle = Theme.of(context).textTheme.displaySmall?.copyWith(
+        color: AppColorScheme.primaryTextColor
+    );
     return Stack(
       children: [
         Container(
           height: 51.h,
           width: double.infinity,
           decoration: BoxDecoration(
-            color: Color(0xFFFFFFFF),
+            color: AppColorScheme.onPrimary,
             borderRadius: BorderRadius.circular(8.r),
           ),
         ),
@@ -39,31 +47,28 @@ class CustomTextFormField extends StatelessWidget {
           validator: validator ?? (value) => null,
           controller: controller,
           obscureText: obscureText,
-          style: TextStyle(
-            color: Colors.black, // Text color
-            fontSize: 14.sp,
-          ),
+          style: formFieldTextStyle,
           decoration: InputDecoration(
             errorStyle: errorStyle,
             contentPadding: EdgeInsets.symmetric(horizontal: 12.w),
             filled: true,
-            fillColor: Color(0xFFE0E0FF),
+            fillColor: AppColorScheme.primary,
             hintText: hintText,
-            hintStyle: TextStyle(color: Color(0xFF6B71B9), fontSize: 14.sp),
+            hintStyle: formFieldHintTextStyle,
             suffixIcon: suffixIcon != null
                 ? IconButton(onPressed: onSuffixTap, icon: suffixIcon!)
                 : null,
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.r),
               borderSide: BorderSide(
-                color: Color(0xFFE0E0FF), // Normal border color
+                color: AppColorScheme.primary, // Normal border color
                 width: 1.w,
               ),
             ),
             focusedErrorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.r),
               borderSide: BorderSide(
-                color: Color(0xFFE0E0FF), // Normal border color
+                color: AppColorScheme.primary, // Normal border color
                 width: 1.w,
               ),
             ),
@@ -71,14 +76,14 @@ class CustomTextFormField extends StatelessWidget {
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.r),
               borderSide: BorderSide(
-                color: Color(0xFFE0E0FF), // Normal border color
+                color: AppColorScheme.primary, // Normal border color
                 width: 1.w,
               ),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.r),
               borderSide: BorderSide(
-                color: Color(0xFFE0E0FF), // Focused border color
+                color: AppColorScheme.primary, // Focused border color
                 width: 1.w,
               ),
             ),

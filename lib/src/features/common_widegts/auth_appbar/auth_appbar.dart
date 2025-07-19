@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-
+import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import '../../../core/constant/icons.dart';
 import '../../../core/constant/images.dart';
+import '../../../data/riverpod/common_state_control.dart';
 import '../custom_show_menu/custom_menu_card.dart';
-import '../riverpod/common_state_control.dart';
 
 class RegisterAppbar extends StatelessWidget {
    RegisterAppbar({super.key});
@@ -16,6 +16,7 @@ class RegisterAppbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dropDownStyle = Theme.of(context).textTheme.displayMedium?.copyWith(color: AppColorScheme.secondary);
     return Row(
       children: [
         SizedBox(
@@ -42,13 +43,13 @@ class RegisterAppbar extends StatelessWidget {
                 width: 148.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(8.r)),
-                  color: Color(0xFFE0E0FF),
+                  color: AppColorScheme.primary,
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     SvgPicture.asset(AppIcons.languageIcon),
-                    Text(result, style: TextStyle(color: Color(0xFF3D4279)),),
+                    Text(result, style: dropDownStyle),
                     SvgPicture.asset(AppIcons.dropdownIcon)
                   ],
                 ),

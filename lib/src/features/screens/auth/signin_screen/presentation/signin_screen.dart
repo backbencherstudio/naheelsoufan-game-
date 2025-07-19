@@ -19,9 +19,9 @@ class SignInScreen extends StatelessWidget {
         child: Column(
           children: [
             RegisterAppbar(),
-            SizedBox(height: 20.h),
+            SizedBox(height: 126.h),
             SignInBody(),
-            SizedBox(height: 166.h),
+            SizedBox(height: 154.h),
             SignInBottom()
           ],
         ),
