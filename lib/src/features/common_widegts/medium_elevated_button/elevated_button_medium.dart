@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 
 class CustomElevatedButtonMedium extends StatelessWidget {
   final VoidCallback onPressed;
@@ -22,27 +23,23 @@ class CustomElevatedButtonMedium extends StatelessWidget {
           borderRadius: BorderRadius.circular(8.r),
           border: Border(
               bottom: BorderSide(
-            color: Color(0xFFB8F1B9),
+            color: AppColorScheme.softGradGreen,
             width: 3.r
           ),
               left: BorderSide(
-                  color: Color(0xFFB8F1B9),
+                  color: AppColorScheme.softGradGreen,
                   width: 0.5.r
               ),
           right: BorderSide(
-              color: Color(0xFFB8F1B9),
+              color: AppColorScheme.softGradGreen,
             width: 0.5.r
         )),
-          color: Color(0xFF008A39),
+          color: AppColorScheme.customGreenBT,
 
         ),
         child: Center(
             child: Text(buttonName,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20.sp,
-                fontWeight: FontWeight.w500,
-              ),
+              style: Theme.of(context).textTheme.titleSmall,
             )
         ),
       ),

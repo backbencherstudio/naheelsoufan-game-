@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import '../../../../../common_widegts/elevated_button/elevated_button.dart';
 
 class ForgotLinkBody extends StatelessWidget {
@@ -7,14 +9,16 @@ class ForgotLinkBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final titleStyle = Theme.of(context).textTheme.displayLarge;
+    final subTitleStyle = Theme.of(context).textTheme.displaySmall;
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Color(0xFF3D4279),
+        color: AppColorScheme.deepPuroleBG,
         borderRadius: BorderRadius.all(Radius.circular(16.r)),
         border: Border.all(
           width: 2.sp,
-          color: Color(0xFFE0E0FF),
+          color: AppColorScheme.primary,
         ),
       ),
       child: Padding(
@@ -29,15 +33,10 @@ class ForgotLinkBody extends StatelessWidget {
           children: [
             Text(
               "Link Sent!",
-              style: TextStyle(
-                fontSize: 24.sp,
-                color: Color(0xFFFFFFFF),
-              ),
+              style: titleStyle,
             ),
             SizedBox(height: 12.h),
-            Text("We’ve sent the link to your you*****@****.com email", style: TextStyle(
-                  fontSize: 16.sp, color: Color(0xFFFFFFFF),
-            ),
+            Text("We’ve sent the link to your you*****@****.com email", style: subTitleStyle?.copyWith(fontSize: 16.sp),
             textAlign: TextAlign.center,
             ),
             SizedBox(height: 16.h),

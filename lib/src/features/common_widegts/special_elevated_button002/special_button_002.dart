@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 
 class SpecialButton002 extends StatelessWidget {
   final VoidCallback onPressed;
@@ -22,21 +23,17 @@ class SpecialButton002 extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.r),
-          border: Border.all(width: 2.5.sp, color: Color(0xFF1D5128)),
+          border: Border.all(width: 2.5.sp, color: AppColorScheme.surface),
           gradient: LinearGradient(colors: [
-            Color(0xFF1D5128),
-            Color(0xFF14BA37),
-            Color(0xFF1D5128),
+            AppColorScheme.surface,
+            AppColorScheme.midGradGreen,
+            AppColorScheme.surface,
           ])
 
         ),
         child: Center(
             child: Text(buttonName,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 26.sp,
-                fontWeight: FontWeight.w500,
-              ),
+              style: Theme.of(context).textTheme.titleSmall
             )
         ),
       ),

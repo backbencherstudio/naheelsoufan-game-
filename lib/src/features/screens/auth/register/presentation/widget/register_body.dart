@@ -4,11 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:naheelsoufan_game/src/core/theme/theme_extension/text_theme.dart';
 import '../../../../../../core/constant/icons.dart';
 import '../../../../../../core/routes/route_name.dart';
 import '../../../../../common_widegts/elevated_button/elevated_button.dart';
 import '../../riverpod/check.dart';
-import 'custom_label.dart';
 import 'custom_textformfield.dart';
 
 class RegisterBody extends StatefulWidget {
@@ -45,6 +45,8 @@ class _RegisterBodyState extends State<RegisterBody> {
   }
   @override
   Widget build(BuildContext context) {
+    final titleStyle = Theme.of(context).textTheme.displayLarge;
+    final subTitleStyle = Theme.of(context).textTheme.displaySmall;
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -73,31 +75,32 @@ class _RegisterBodyState extends State<RegisterBody> {
                 children: [
                   Text(
                     "Register",
-                    style: TextStyle(
-                      fontSize: 24.sp,
-                      color: Color(0xFFFFFFFF),
-                    ),
+                    style: titleStyle,
                   ),
                 ],
               ),
               SizedBox(height: 16.h),
+<<<<<<< HEAD
 
               CustomLabel(labelText: "Full Name"),
              
+=======
+              Text("Full Name", style: subTitleStyle,),
+>>>>>>> 358af2905cb59bee7c4be8f9e8946cae312bd48e
               SizedBox(height: 4.h),
               CustomTextFormField(
                 hintText: "Enter your name",
                 controller: nameController,
               ),
               SizedBox(height: 8.h),
-              CustomLabel(labelText: "Email"),
+              Text("Email", style: subTitleStyle,),
               SizedBox(height: 4.h),
               CustomTextFormField(
                 hintText: "Enter your email",
                 controller: emailController,
               ),
               SizedBox(height: 8.h),
-              CustomLabel(labelText: "Password"),
+              Text("Password", style: subTitleStyle,),
               SizedBox(height: 4.h),
               Consumer(
                 builder: (_, ref, _) {
@@ -129,7 +132,7 @@ class _RegisterBodyState extends State<RegisterBody> {
                 },
               ),
               SizedBox(height: 8.h),
-              CustomLabel(labelText: "Confirm Password"),
+              Text("Confirm Password", style: subTitleStyle,),
               SizedBox(height: 4.h),
               Consumer(
                 builder: (_, ref, _) {

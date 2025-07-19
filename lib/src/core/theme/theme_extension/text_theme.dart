@@ -6,8 +6,25 @@ import 'color_scheme.dart';
 
 class AppTextTheme {
   static final TextTheme darkTextTheme = TextTheme(
+
+    ///display -- auth flow
+    displayLarge: GoogleFonts.robotoFlex( //title
+      fontSize: 24.0.sp,
+      fontWeight: FontWeight.w500,
+      color: AppColorScheme.primary,
+    ),
+    displayMedium: GoogleFonts.robotoFlex( //dropDownTitle
+      fontSize: 14.0.sp,
+      fontWeight: FontWeight.w500,
+      color: AppColorScheme.primary,
+    ),
+    displaySmall: GoogleFonts.robotoFlex( //subTitle
+      fontSize: 14.0.sp,
+      fontWeight: FontWeight.w400,
+      color: AppColorScheme.primary,
+    ),
     
-    ///display
+    ///headline
     headlineLarge: GoogleFonts.robotoFlex(
       fontSize: 32.0.sp,
       fontWeight: FontWeight.w600,
@@ -35,14 +52,14 @@ class AppTextTheme {
       fontWeight: FontWeight.w600,
       color: AppColorScheme.onPrimary,
     ),
-    titleSmall: GoogleFonts.robotoFlex(
+    titleSmall: GoogleFonts.robotoFlex( //buttonText
       fontSize: 20.0.sp,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w500,
       color: AppColorScheme.onPrimary,
     ),
 
     ///body
-    bodyLarge: GoogleFonts.robotoFlex(
+    bodyLarge: GoogleFonts.robotoFlex( //bottomLinkText
       fontSize: 16.0.sp,
       fontWeight: FontWeight.normal,
       color: AppColorScheme.onPrimary,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 
 Future<String?> customPopupMenu({
   required BuildContext context,
@@ -15,7 +16,7 @@ Future<String?> customPopupMenu({
 
   final result = await showMenu<String>(
     context: context,
-    color: Color(0xFFE0E0FF),
+    color: AppColorScheme.primary,
     elevation: 5,
     shadowColor: Colors.grey.withValues(alpha: 0.2),
     constraints: BoxConstraints(minWidth: 150.w, maxHeight:height?? 130.h),
@@ -38,7 +39,7 @@ Future<String?> customPopupMenu({
             child: Center(
               child: Text(
                 areasList[i],
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Color(0xFF3D4279)),
+                style: Theme.of(context).textTheme.displayMedium?.copyWith(color: AppColorScheme.secondary),
               ),
             ),
           ),

@@ -3,20 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import '../../../../../../core/constant/icons.dart';
 import '../../../../../../core/routes/route_name.dart';
-import 'custom_label.dart';
 
 class RegisterBottom extends StatelessWidget {
   const RegisterBottom({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final linkTextStyle = Theme.of(context).textTheme.bodyLarge;
     return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [CustomLabel(labelText: "Register With")],
+          children: [Text("Register With", style: linkTextStyle,)],
         ),
         SizedBox(height: 9.h),
         Row(
@@ -26,17 +27,15 @@ class RegisterBottom extends StatelessWidget {
               height: 72.h,
               width: 72.w,
               decoration: BoxDecoration(
-                color: Color(0xFFE0E0FF),
-                borderRadius: BorderRadius.all(
-                  Radius.circular(16.r),
-                ),
+                color: AppColorScheme.primary,
+                borderRadius: BorderRadius.circular(16.r),
                 border: Border.all(
-                  width: 2.sp,
-                  color: Color(0xFF9FA5F2),
+                  width: 2.w,
+                  color: AppColorScheme.socialBack,
                 ),
               ),
               child: Padding(
-                padding: EdgeInsets.all(16.sp),
+                padding: EdgeInsets.all(16.r),
                 child: SvgPicture.asset(AppIcons.apple),
               ),
             ),
@@ -45,14 +44,14 @@ class RegisterBottom extends StatelessWidget {
               height: 72.h,
               width: 72.w,
               decoration: BoxDecoration(
-                color: Color(0xFFE0E0FF),
+                color: AppColorScheme.primary,
                 borderRadius: BorderRadius.circular(16.r),
                 // BorderRadius.all(
                 //   Radius.circular(16.r),
                 // ),
                 border: Border.all(
                   width: 2.sp,
-                  color: Color(0xFF9FA5F2),
+                  color: AppColorScheme.socialBack,
                 ),
               ),
               child: Padding(
@@ -66,17 +65,12 @@ class RegisterBottom extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CustomLabel(labelText: "Already have an account? "),
+            Text("Already have an account? ", style: linkTextStyle,),
             InkWell(
               onTap: ()=>context.go(RouteName.signInScreen),
               child: Text(
                 'Sign in',
-                style: TextStyle(
-                  decoration: TextDecoration.underline,
-                  decorationColor: Color(0xFFFFFFFF),
-                  fontSize: 16.sp,
-                  color: Color(0xFFE0E0FF),
-                ),
+                style: linkTextStyle?.copyWith(decoration: TextDecoration.underline, decorationColor: AppColorScheme.primary)
               ),
             ),
           ],
