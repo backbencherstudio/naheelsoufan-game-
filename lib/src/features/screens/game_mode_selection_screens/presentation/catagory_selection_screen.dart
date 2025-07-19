@@ -81,7 +81,7 @@ class CatagorySelectionScreen extends StatelessWidget {
                           ),
                           Text(
                             "General\nKnowledge",
-                            style: style.labelLarge!.copyWith(
+                            style: Theme.of(context).textTheme.labelLarge!.copyWith(
                               fontWeight: FontWeight.w400,
                               color: AppColorScheme.primary
                             ),

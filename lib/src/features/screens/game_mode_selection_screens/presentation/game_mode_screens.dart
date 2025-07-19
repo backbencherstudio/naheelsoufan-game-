@@ -15,11 +15,10 @@ class GameModeScreens extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final style = Theme.of(context).textTheme;
-final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();  
+final GlobalKey<ScaffoldState> keys = GlobalKey<ScaffoldState>();  
 
 return CreateScreen(
-  keys: _key,
+  keys: keys,
 
       child: Padding(
         padding: AppPadding.horizontalPadding,
@@ -30,14 +29,14 @@ return CreateScreen(
             children: [
             CustomIconsButtons(icon: AppIcons.cubeIcons, onTap: () {
               debugPrint("Drawer Tapped");
-                    // Ensure the drawer opens
-                    if (_key.currentState != null) {
-                      _key.currentState?.openDrawer();
+                    if (keys.currentState != null) {
+                      keys.currentState?.openDrawer();
                     } else {
                       debugPrint("Scaffold keys is null");
                     }
                 
             }),
+
             Image.asset(AppImages.profilePic, height: 40.h, width: 40.w),
             CustomIconsButtons(icon: AppIcons.threeDot, onTap: () {}),]),
             SizedBox(height: 200.h),

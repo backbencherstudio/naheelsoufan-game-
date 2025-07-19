@@ -26,7 +26,6 @@ class RegisterAppbar extends StatelessWidget {
         SizedBox(width: 95.w),
         Consumer(
           builder: (_, ref, _) {
-            final isClicked = ref.watch(isClick);
             final result = ref.watch(isSelectedVal) ?? "US English";
             return GestureDetector(
               key: menuKey,
