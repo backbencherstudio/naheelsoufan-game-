@@ -1,71 +1,52 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:video_player/video_player.dart';
 
-class FullScreenVideoPopup extends StatefulWidget {
+import '../riverpod/video_player_controller_notifier.dart';
+
+class FullScreenVideoPopup extends ConsumerWidget {
   final String videoUrl;
 
   const FullScreenVideoPopup({super.key, required this.videoUrl});
 
   @override
-  State<FullScreenVideoPopup> createState() => _FullScreenVideoPopupState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final controllerAsync = ref.watch(videoPlayerControllerProvider(videoUrl));
 
-class _FullScreenVideoPopupState extends State<FullScreenVideoPopup> {
-  late final VideoPlayerController _controller;
-  bool _isInitialized = false;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _controller = VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl))
-      ..initialize().then((_) {
-        setState(() {
-          _isInitialized = true;
-        });
-        _controller.play();
-      });
-  }
-
-  @override
-  void dispose() {
-    _controller.pause();
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  @override
-  Widget build(BuildContext context) {
     return Dialog(
       backgroundColor: Colors.black,
       insetPadding: EdgeInsets.zero,
       child: Stack(
         children: [
           Center(
-            child: _isInitialized
-                ? GestureDetector(
-              onTap: () {
-                setState(() {
-                  _controller.value.isPlaying
-                      ? _controller.pause()
-                      : _controller.play();
-                });
+            child: controllerAsync.when(
+              loading: () =>
+              const CircularProgressIndicator(color: Colors.white),
+              error: (e, _) => Text('Error: $e', style: const TextStyle(color: Colors.white)),
+              data: (controller) {
+                return GestureDetector(
+                  onTap: () {
+                    if (controller.value.isPlaying) {
+                      controller.pause();
+                    } else {
+                      controller.play();
+                    }
+                  },
+                  child: AspectRatio(
+                    aspectRatio: controller.value.aspectRatio,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        VideoPlayer(controller),
+                        if (!controller.value.isPlaying)
+                          const Icon(Icons.play_arrow,
+                              color: Colors.white, size: 60),
+                      ],
+                    ),
+                  ),
+                );
               },
-              child: AspectRatio(
-                aspectRatio: _controller.value.aspectRatio,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    VideoPlayer(_controller),
-                    if (!_controller.value.isPlaying)
-                      const Icon(Icons.play_arrow,
-                          color: Colors.white, size: 60),
-                  ],
-                ),
-              ),
-            )
-                : const CircularProgressIndicator(color: Colors.white),
+            ),
           ),
 
           // Close button
@@ -75,7 +56,6 @@ class _FullScreenVideoPopupState extends State<FullScreenVideoPopup> {
             child: IconButton(
               icon: const Icon(Icons.close, color: Colors.white, size: 30),
               onPressed: () {
-                _controller.pause();
                 Navigator.of(context, rootNavigator: true).pop();
               },
             ),
@@ -84,5 +64,4 @@ class _FullScreenVideoPopupState extends State<FullScreenVideoPopup> {
       ),
     );
   }
-
 }
