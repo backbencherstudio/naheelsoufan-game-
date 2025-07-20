@@ -15,8 +15,10 @@ class CreateScreen extends StatelessWidget {
 
     return Scaffold(
       key: keys,
-      drawer: keys != null ? CustomDrawer(scaffoldKey: keys!) : null,  
+      drawer: keys != null ? appDrawer(context: context) : null,  
       body: Stack(
+
+        
         fit: StackFit.expand,
         children: [
           Positioned.fill(

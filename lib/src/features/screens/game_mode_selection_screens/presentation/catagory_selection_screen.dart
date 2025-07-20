@@ -72,7 +72,7 @@ class CatagorySelectionScreen extends StatelessWidget {
                                 Future.delayed(Duration(milliseconds: 200), () {
                                   if (context.mounted) {
                                     context.push(
-                                      RouteName.deficultyLevelScreen,
+                                      RouteName.difficultyLevelScreen,
                                     );
                                   }
                                 });
@@ -81,7 +81,7 @@ class CatagorySelectionScreen extends StatelessWidget {
                           ),
                           Text(
                             "General\nKnowledge",
-                            style: style.labelLarge!.copyWith(
+                            style: Theme.of(context).textTheme.labelLarge!.copyWith(
                               fontWeight: FontWeight.w400,
                               color: AppColorScheme.primary
                             ),

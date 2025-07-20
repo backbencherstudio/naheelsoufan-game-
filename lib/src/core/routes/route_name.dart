@@ -26,13 +26,9 @@ class RouteName {
 
  static const String playerSelectionScreen = "/PlayerSelectionScreen";
 
- static const String catagorySelectionScreen = "/CatagorySelectionScreen";
+ static const String categorySelectionScreen = "/CatagorySelectionScreen";
 
- static const String deficultyLevelScreen = "/DeficultyLevelScreen";
-  static const String clickedScreen = "/ClickedSettingScreen";
-
-
-
-
- static const String test = "/test";
+ static const String difficultyLevelScreen = "/DeficultyLevelScreen";
+  static const String questionAnswerScreen = "/QuestionAnswerScreen";
+  static const String clickedSettingScreen = "/ClickedSettingScreen";
 }

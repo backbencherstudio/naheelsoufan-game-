@@ -2,16 +2,38 @@ part of 'route_import_part.dart';
 
 class RouteConfig {
   GoRouter goRouter = GoRouter(
-    initialLocation: RouteName.clickedScreen,
+    initialLocation: RouteName.questionAnswerScreen,
     routes: [
       GoRoute(
-        path: RouteName.clickedScreen,
+        path: RouteName.clickedSettingScreen,
         pageBuilder: (context, state) {
           return buildPageWithTransition(
             context: context,
             state: state,
             transitionType: PageTransitionType.slideRightToLeft,
             child: ClickedSettingScreen(),
+          );
+        },
+      ),
+      GoRoute(
+        path: RouteName.questionAnswerScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: QuestionAnswerScreen(),
+          );
+        },
+      ),
+      GoRoute(
+        path: RouteName.difficultyLevelScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: DeficultyLevelScreen(),
           );
         },
       ),
@@ -115,7 +137,7 @@ class RouteConfig {
         },
       ),
   GoRoute(
-        path: RouteName.deficultyLevelScreen,
+        path: RouteName.difficultyLevelScreen,
         pageBuilder: (context, state) {
           return buildPageWithTransition(
             context: context,
@@ -139,7 +161,7 @@ class RouteConfig {
       ),
 
   GoRoute(
-        path: RouteName.catagorySelectionScreen,
+        path: RouteName.categorySelectionScreen,
         pageBuilder: (context, state) {
           return buildPageWithTransition(
             context: context,

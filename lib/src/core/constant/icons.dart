@@ -1,5 +1,4 @@
 class AppIcons {
-
   static const String iconPath = "assets/icons";
 
   //Sign in flow
@@ -45,11 +44,11 @@ class AppIcons {
 
   //My Account - setting
   static const String arrowLeft = "$iconPath/arrow_left.svg";
-  static const String  backIcons    = "$iconPath/back.svg";
+  static const String backIcons = "$iconPath/back.svg";
 
   //Quick Game
   static const String threeDot = "$iconPath/more_vert.svg";
-  static const String  redDmd = "$iconPath/redDmd.svg";
+  static const String redDmd = "$iconPath/redDmd.svg";
   static const String add = "$iconPath/add.svg";
   static const String remove = "$iconPath/remove.svg";
   static const String profileGreen = "$iconPath/profile_green.svg";
@@ -101,12 +100,17 @@ class AppIcons {
   static const String playleft = "$iconPath/playleft.svg";
   static const String playButtn = "$iconPath/playButtn.svg";
   static const String redBg = "$iconPath/redBg.svg";
-
-  // static const String      = "$iconPath/ ";
-  // static const String      = "$iconPath/ ";
-  // static const String      = "$iconPath/ ";
-  // static const String      = "$iconPath/ ";
-  // static const String      = "$iconPath/ ";
+  static const String redBGsqare = "$iconPath/redBGsqare.svg";
+  static const String bgblue = "$iconPath/bgblue.svg";
+  static const String redvector = "$iconPath/redvector.svg";
+  static const String sound = "$iconPath/sound.svg";
+  static const String forwardIcon = "$iconPath/forwardIcon.svg";
+  static const String personSetting = "$iconPath/person_setting_Icon.svg";
+  static const String personShield = "$iconPath/person_shield.svg";
+  static const String settingsBlu = "$iconPath/settingsBlu.svg";
+  static const String tvQuestion = "$iconPath/tv_question.svg";
+  static const String youtubeIcon = "$iconPath/youtubeIcon.svg";
+  static const String tinydot = "$iconPath/tinydot.svg";
   // static const String      = "$iconPath/ ";
   // static const String      = "$iconPath/ ";
   // static const String      = "$iconPath/ ";
