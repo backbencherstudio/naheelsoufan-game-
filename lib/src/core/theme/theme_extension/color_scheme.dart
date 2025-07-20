@@ -38,10 +38,10 @@ class AppColorScheme {
 
   static const Color lightButtonborder = Color(0xffFFB4AB);
   static const Color darkpurpleborder = Color(0xff00024C);
-  static const Color  customGreenBT = Color(0xff008A39);
-  static const Color  greenery = Color(0xff63DF7C);
-   static const Color   socialBack = Color(0xFF9FA5F2);
-  // static const Color  = ;
+  static const Color customGreenBT = Color(0xff008A39);
+  static const Color greenery = Color(0xff63DF7C);
+   static const Color socialBack = Color(0xFF9FA5F2);
+   static const Color secondaryFixed = Color(0xFF10144B);
   // static const Color  = ;
   // static const Color  = ;
   // static const Color  = ;
