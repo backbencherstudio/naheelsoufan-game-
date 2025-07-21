@@ -60,9 +60,9 @@ class TypedQuestion extends StatelessWidget {
             TextFormField(
               decoration: InputDecoration(
                 hintText: 'Enter your answer',
-                contentPadding: EdgeInsetsGeometry.symmetric(
-                  horizontal: 12.w,
-                ),
+                // contentPadding: EdgeInsetsGeometry.symmetric(
+                //   horizontal: 12.w,
+                // ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
