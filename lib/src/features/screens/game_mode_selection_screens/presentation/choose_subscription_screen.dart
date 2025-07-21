@@ -104,7 +104,7 @@ class ChoosePaymentCard extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  context.push(RouteName.paymentScreen);
+                  // context.push(RouteName.paymentScreen);
                 },
                 child: Container(
                   padding: EdgeInsets.symmetric(
