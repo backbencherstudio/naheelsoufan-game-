@@ -68,8 +68,8 @@ class CatagorySelectionScreen extends StatelessWidget {
                               debugPrint("\n\n$selectedState\n\n");
                               ref.read(selectProvider.notifier).state = index;
 
-                              if (isSelected && context.mounted) {
-                                Future.delayed(Duration(milliseconds: 200), () {
+                           
+                                Future.delayed(Duration(milliseconds: 1000), () {
                                   if (context.mounted) {
                                     context.push(
                                       RouteName.deficultyLevelScreen,
@@ -77,7 +77,7 @@ class CatagorySelectionScreen extends StatelessWidget {
                                   }
                                 });
                               }
-                            },
+                    
                           ),
                           Text(
                             "General\nKnowledge",

@@ -33,4 +33,6 @@ class RouteName {
   static const String deficultyLevelScreen = "/DeficultyLevelScreen";
 
   static const String test = "/test";
+
+  static const String quizScreen = "/QuizScreen";
 }
