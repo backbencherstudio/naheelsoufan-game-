@@ -46,7 +46,7 @@ Future<String?> customPopupMenu({
         );
 
         if (i < areasList.length - 1) {
-          menuItems.add(const PopupMenuDivider(color: Color(0xFF3D4279)));
+          // menuItems.add(const PopupMenuDivider(color: Color(0xFF3D4279)));
         }
       }
       return menuItems;

@@ -14,22 +14,22 @@ class ModeSelectionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> keys = GlobalKey<ScaffoldState>();  
+    final GlobalKey<ScaffoldState> keys = GlobalKey<ScaffoldState>();
 
     return CreateScreen(
-        keys: keys,
+      keys: keys,
 
       child: Padding(
-      
         padding: AppPadding.horizontalPadding,
-      child: Column(
-           children: [
-             Row(
+        child: Column(
+          children: [
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-              CustomIconsButtons(icon: AppIcons.cubeIcons, onTap: () {
-                
-              debugPrint("Drawer Tapped");
+                CustomIconsButtons(
+                  icon: AppIcons.cubeIcons,
+                  onTap: () {
+                    debugPrint("Drawer Tapped");
                     if (keys.currentState != null) {
                       keys.currentState?.openDrawer();
                     } else {

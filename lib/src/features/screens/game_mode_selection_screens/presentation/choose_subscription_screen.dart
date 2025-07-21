@@ -1,0 +1,147 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/choose_subscription_widgets/pay_to_play.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/choose_subscription_widgets/subscription_card.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
+
+import '../../../../core/constant/icons.dart';
+import '../../../../core/constant/images.dart';
+import '../../../../core/routes/route_name.dart';
+
+class ChoosePaymentCard extends StatelessWidget {
+  const ChoosePaymentCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> keys = GlobalKey<ScaffoldState>();
+    return Scaffold(
+      body: CreateScreen(
+        key: keys,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustomIconsButtons(
+                    icon: AppIcons.cubeIcons,
+                    onTap: () {
+                      debugPrint("Drawer Tapped");
+                      if (keys.currentState != null) {
+                        keys.currentState?.openDrawer();
+                      } else {
+                        debugPrint("Scaffold keys is null");
+                      }
+                    },
+                  ),
+                  Image.asset(AppImages.profilePic, height: 40.h, width: 40.w),
+                  CustomIconsButtons(icon: AppIcons.threeDot, onTap: () {}),
+                ],
+              ),
+              SizedBox(height: 40.h),
+              Center(child: PayToPlay()),
+              Expanded(
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  children: [
+                    SizedBox(height: 40.h),
+                    Column(
+                      children: [
+                        PaymentCardWidget(
+                          title: 'Games',
+                          subtitle: ": 6 games",
+                          title2: 'Max Players',
+                          subtitle2: ': Up to 8 Players',
+                          description:
+                              'Get your game on with 3 quick rounds of fun with your friends!',
+                          borderColor: Color(0xff3D4279),
+                          rocketBackground: Color(0xffE0E0FF),
+                          buttonText: '\$5 per 3 game',
+                          quality: 'Basic',
+                          color: Color(0xffE0E0FF),
+                        ),
+
+                        SizedBox(height: 12.h),
+
+                        PaymentCardWidget(
+                          title: 'Games',
+                          subtitle: ": 6 games",
+                          title2: 'Max Players',
+                          subtitle2: ': Up to 8 Players',
+                          description:
+                              'Get your game on with 3 quick rounds of fun with your friends!',
+                          borderColor: Color(0xff1D5128),
+                          rocketBackground: Color(0xffB8F1B9),
+                          buttonText: '\$10 per 3 game',
+                          quality: 'Standard',
+                          color: Color(0xffB8F1B9),
+                        ),
+                        SizedBox(height: 12.h),
+
+                        PaymentCardWidget(
+                          title: 'Games',
+                          subtitle: ": 6 games",
+                          title2: 'Max Players',
+                          subtitle2: ': Up to 8 Players',
+                          description:
+                              'Get your game on with 3 quick rounds of fun with your friends!',
+                          borderColor: Color(0xff2E1126),
+                          rocketBackground: Color(0xffFFD8EE),
+                          buttonText: '\$15 per 3 game',
+                          quality: 'Premium',
+                          color: Color(0xffFFD8EE),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 19.h),
+
+
+                  ],
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  // context.push(RouteName.paymentScreen);
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 66.w,
+                    vertical: 16.h,
+                  ),
+                  margin: EdgeInsets.symmetric(
+                    horizontal: 64.w,
+                    // vertical: 16.h,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Color(0xff008A39),
+                    borderRadius: BorderRadius.circular(8.r),
+                    border: Border(
+                      bottom: BorderSide(
+                        color: Color(0xffB8F1B9),
+                        width: 2.w,
+                      ),
+                    ),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'NEXT',
+                      style: Theme.of(
+                        context,
+                      ).textTheme.titleSmall?.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

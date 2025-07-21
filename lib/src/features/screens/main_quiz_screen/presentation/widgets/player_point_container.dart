@@ -53,7 +53,7 @@ class PlayerPointContainer extends StatelessWidget {
           child: ListView.builder(
             controller: scrollController,
             scrollDirection: Axis.horizontal,
-            padding: EdgeInsets.fromLTRB(8.w, 0, 8.w, 33.h), // creates space above scrollbar
+            padding: EdgeInsets.fromLTRB(8.w, 0, 8.w, 33.h), 
             itemCount: 4,
             itemBuilder: (context, index) {
               return Padding(
