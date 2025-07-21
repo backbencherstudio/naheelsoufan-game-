@@ -119,4 +119,11 @@ class AppIcons {
   // static const String      = "$iconPath/ ";
   // static const String      = "$iconPath/ ";
   // static const String      = "$iconPath/ ";
+
+// Choose offline game mode
+  static const String backSvg = "$iconPath/back_button.svg";
+  static const String threeDotSvg = "$iconPath/three_dot.svg";
+  static const String cancelSvg = "$iconPath/cancel_button.svg";
+
+
 }
