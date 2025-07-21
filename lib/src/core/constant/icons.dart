@@ -111,8 +111,8 @@ class AppIcons {
   static const String tvQuestion = "$iconPath/tv_question.svg";
   static const String youtubeIcon = "$iconPath/youtubeIcon.svg";
   static const String tinydot = "$iconPath/tinydot.svg";
-  // static const String      = "$iconPath/ ";
-  // static const String      = "$iconPath/ ";
+  static const String stopWatch = "$iconPath/stop-watch.svg";
+  static const String playerpoint = "$iconPath/playerpoint.svg";
   // static const String      = "$iconPath/ ";
   // static const String      = "$iconPath/ ";
   // static const String      = "$iconPath/ ";
