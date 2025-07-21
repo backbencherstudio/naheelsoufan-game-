@@ -52,6 +52,20 @@ class RouteConfig {
       ),
 
       GoRoute(
+        path: RouteName.myAccountScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: MyAccountScreen(),
+          );
+        },
+      ),
+
+
+
+      GoRoute(
         path: RouteName.signInScreen,
         pageBuilder: (context, state) {
           return buildPageWithTransition(
