@@ -34,13 +34,14 @@ class AppIcons {
   static const String editIcon = "$iconPath/edit.svg";
 
   //My Account - profile icon
-  static const String profile02 = "$iconPath/profile02.svg";
-  static const String profile03 = "$iconPath/profile03.svg";
-  static const String profile04 = "$iconPath/profile04.svg";
-  static const String profile05 = "$iconPath/profile05.svg";
-  static const String profile06 = "$iconPath/profile06.svg";
-  static const String profile07 = "$iconPath/profile07svg";
-  static const String profile08 = "$iconPath/profile08.svg";
+  static const String profile01 = "$iconPath/profile01.png";
+  static const String profile02 = "$iconPath/profile02.png";
+  static const String profile03 = "$iconPath/profile03.png";
+  static const String profile04 = "$iconPath/profile04.png";
+  static const String profile05 = "$iconPath/profile05.png";
+  static const String profile06 = "$iconPath/profile06.png";
+  static const String profile07 = "$iconPath/profile07.png";
+  static const String profile08 = "$iconPath/profile08.png";
 
   //My Account - setting
   static const String arrowLeft = "$iconPath/arrow_left.svg";
@@ -124,6 +125,17 @@ class AppIcons {
   static const String backSvg = "$iconPath/back_button.svg";
   static const String threeDotSvg = "$iconPath/three_dot.svg";
   static const String cancelSvg = "$iconPath/cancel_button.svg";
+  static const String editFilledBle = "$iconPath/filled_icon_btn.svg";
+  static const String selectedFilledBle = "$iconPath/filled_selected_btn.svg";
 
-
+  static  List<String> profileImages = [
+    profile01,
+    profile02,
+    profile03,
+    profile04,
+    profile05,
+    profile06,
+    profile07,
+    profile08,
+  ];
 }

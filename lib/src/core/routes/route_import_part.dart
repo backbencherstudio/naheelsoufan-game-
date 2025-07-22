@@ -15,7 +15,9 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/quiz_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/question_answer_screen/question_answer_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/deficulty_level_screen.dart';
+import '../../features/screens/account_screens/presentation/edit_profile_screen.dart';
 import '../../features/screens/account_screens/presentation/my_account_screen.dart';
+import '../../features/screens/account_screens/presentation/profile_icon_sreen.dart';
 import '../../features/screens/game_mode_selection_screens/presentation/choose_subscription_screen.dart';
 import '../../features/screens/game_mode_selection_screens/presentation/payment_screen.dart';
 import 'build_page_with_transition.dart';

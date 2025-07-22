@@ -2,7 +2,7 @@ part of 'route_import_part.dart';
 
 class RouteConfig {
   GoRouter goRouter = GoRouter(
-    initialLocation: RouteName.quizScreen,
+    initialLocation: RouteName.myAccountScreen,
 
     routes: [
       // GoRoute(
@@ -27,6 +27,45 @@ class RouteConfig {
           );
         },
       ),
+
+      GoRoute(
+        path: RouteName.myAccountScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: MyAccountScreen(),
+          );
+        },
+      ),
+
+      GoRoute(
+        path: RouteName.editProfileScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: EditProfileScreen(),
+          );
+        },
+      ),
+
+      GoRoute(
+        path: RouteName.profileIconScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: ProfileIconScreen(),
+          );
+        },
+      ),
+
+
+
       GoRoute(
         path: RouteName.signInScreen,
         pageBuilder: (context, state) {

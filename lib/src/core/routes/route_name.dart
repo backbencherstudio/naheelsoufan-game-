@@ -31,10 +31,14 @@ class RouteName {
   static const String catagorySelectionScreen = "/CatagorySelectionScreen";
 
   static const String deficultyLevelScreen = "/DeficultyLevelScreen";
+  static const String quizScreen = "/QuizScreen";
+
 
   static const String test = "/test";
   static const String choosePaymentCard = "/ChoosePaymentCard";
   static const String paymentScreen = "/PaymentScreen";
+
   static const String myAccountScreen = "/MyAccountScreen";
-  static const String quizScreen = "/QuizScreen";
+  static const String editProfileScreen = "/EditProfileScreen";
+  static const String profileIconScreen = "/ProfileIconScreen";
 }

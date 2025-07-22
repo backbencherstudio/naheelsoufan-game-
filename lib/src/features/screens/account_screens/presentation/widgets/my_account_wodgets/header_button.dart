@@ -8,7 +8,11 @@ class HeaderButton extends StatelessWidget {
     this.gradientColor,
     this.borderColor,
     this.textStyle,
-    this.padding, this.width, this.height, this.borderWidth, this.borderRadius,
+    this.padding,
+    this.width,
+    this.height,
+    this.borderWidth,
+    this.borderRadius,
   });
 
   final String textTitle;
@@ -29,14 +33,14 @@ class HeaderButton extends StatelessWidget {
         width: width,
         height: height,
         padding:
-        padding ??
+            padding ??
             EdgeInsets.symmetric(
               horizontal: 40.w,
               vertical: 16.h,
             ), // Default padding
         decoration: BoxDecoration(
           gradient:
-          gradientColor ??
+              gradientColor ??
               LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,

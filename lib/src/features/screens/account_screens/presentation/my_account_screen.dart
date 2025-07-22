@@ -1,31 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
-import 'package:naheelsoufan_game/src/core/constant/images.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/account_screens/presentation/widgets/my_account_wodgets/edit_profile_button.dart';
 import 'package:naheelsoufan_game/src/features/screens/account_screens/presentation/widgets/my_account_wodgets/header_button.dart';
 import 'package:naheelsoufan_game/src/features/screens/account_screens/presentation/widgets/my_account_wodgets/subs_status.dart';
-
+import '../../../../core/routes/route_name.dart';
+import '../../game_mode_selection_screens/presentation/widgets/home_widgets/custom_MusicOff_Button.dart';
 import '../../game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
+import '../../game_mode_selection_screens/riverpod/musicVisible_provider.dart';
+import '../riverpod/profile_state_notifier.dart';
 
-class MyAccountScreen extends StatelessWidget {
+class MyAccountScreen extends ConsumerWidget {
   const MyAccountScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
+    final selectedIndex = ref.watch(selectedProfileProvider);
 
     return Scaffold(
       body: CreateScreen(
         child: SafeArea(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 24.h),
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Back Button
                 CustomIconsButtons(
                   icon: AppIcons.backIcons,
                   onTap: () {
@@ -34,32 +37,36 @@ class MyAccountScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 40.h),
 
-                // Scrollable Content
                 Expanded(
                   child: Stack(
-                   // clipBehavior: Clip.none,
                     children: [
-                      // Main Card
                       SizedBox(
-                        height:600.h,
                         child: Align(
                           alignment: Alignment.topCenter,
                           child: Container(
-                             margin: EdgeInsets.only(top: 40.h),
-                            width: 360.w,
+                            margin: EdgeInsets.only(top: 40.h),
+                            width: 385.w,
                             decoration: BoxDecoration(
                               color: const Color(0xff3D4279),
-                              border: Border.all(color: const Color(0xffE0E0FF)),
+                              border: Border.all(color: const Color(0xffE0E0FF), width: 2),
                               borderRadius: BorderRadius.circular(16.r),
                             ),
                             child: Padding(
-                              padding: EdgeInsets.fromLTRB(28.w, 60.h, 28.w, 28.h),
+                              padding: EdgeInsets.fromLTRB(28.w, 60.h, 28.w, 0.h),
                               child: Column(
                                 children: [
-                                  Image.asset(
-                                    AppImages.profile,
+                                  selectedIndex != null
+                                      ? Image.asset(
+                                    AppIcons.profileImages[selectedIndex],
                                     height: 80.h,
                                     width: 80.w,
+                                    fit: BoxFit.cover,
+                                  )
+                                      : Image.asset(
+                                    AppIcons.profile01,
+                                    height: 80.h,
+                                    width: 80.w,
+                                    fit: BoxFit.cover,
                                   ),
                                   SizedBox(height: 16.h),
                                   Text(
@@ -78,7 +85,12 @@ class MyAccountScreen extends StatelessWidget {
                                     ),
                                   ),
                                   SizedBox(height: 16.h),
-                                  EditProfileButton(style: style),
+                                  GestureDetector(
+                                    onTap: () {
+                                      context.push(RouteName.editProfileScreen);
+                                    },
+                                    child: EditProfileButton(style: style),
+                                  ),
                                   SizedBox(height: 16.h),
                                   Divider(color: Color(0xffE0E0FF)),
                                   SizedBox(height: 16.h),
@@ -90,17 +102,13 @@ class MyAccountScreen extends StatelessWidget {
                                     ),
                                   ),
                                   SizedBox(height: 24.h),
-                                  SubscriptionStatus(
-                                      style: style, type: 'Type', pilot: 'Pilot'),
-                                  SubscriptionStatus(
-                                      style: style, type: 'Games Remaining', pilot: '1'),
-                                  SubscriptionStatus(
-                                      style: style, type: 'Max Players', pilot: '1'),
-                                  SubscriptionStatus(
-                                      style: style, type: 'Questions Per Games', pilot: '10'),
-
-
-
+                                  SubscriptionStatus(style: style, type: 'Type', pilot: 'Pilot'),
+                                  SizedBox(height: 12.h),
+                                  SubscriptionStatus(style: style, type: 'Games Remaining', pilot: '1'),
+                                  SizedBox(height: 12.h),
+                                  SubscriptionStatus(style: style, type: 'Max Players', pilot: '1'),
+                                  SizedBox(height: 12.h),
+                                  SubscriptionStatus(style: style, type: 'Questions Per Games', pilot: '10'),
                                 ],
                               ),
                             ),
@@ -108,34 +116,61 @@ class MyAccountScreen extends StatelessWidget {
                         ),
                       ),
 
-                      // Floating Header Button
                       Positioned(
-                        top: 0,
+                        top: 10,
                         left: 0,
                         right: 0,
                         child: Align(
                           alignment: Alignment.center,
                           child: HeaderButton(
-                            textTitle: 'Quit Game?',
-                            borderColor: Color(0xffA80710),
+                            textTitle: 'My Account',
+                            textStyle: style.titleLarge?.copyWith(
+                              color: Color(0xff2E1126),
+                              fontWeight: FontWeight.w500,
+                            ),
+                            borderColor: Color(0xff2E1126),
                             gradientColor: LinearGradient(
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
                               colors: [
-                                Color(0xFFA80710),
-                                Color(0xFFFF897D),
-                                Color(0xFFA80710)
+                                Color(0xFFF2E792),
+                                Color(0xFFF8B133),
+                                Color(0xFFDE712B),
                               ],
                               stops: [0.0, 0.4904, 1.0],
                             ),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 12.w, vertical: 8.h),
+                            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
                           ),
                         ),
                       ),
                     ],
                   ),
                 ),
+                SizedBox(height: 36.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Consumer(
+                      builder: (context, ref, _) {
+                        final isVisible = ref.watch(isMusicVisibleProvider);
+                        return CustomMusicoffButton(
+                          onTap: () {
+                            ref.read(isMusicVisibleProvider.notifier).state = !isVisible;
+                          },
+                          isSelected: isVisible,
+                        );
+                      },
+                    ),
+                    SizedBox(width: 10.w),
+                    CustomIconsButtons(
+                      icon: AppIcons.sound,
+                      onTap: () {},
+                      bgIcon: AppIcons.iconBG,
+                    ),
+                  ],
+                ),
+                SizedBox(height: 40.h),
               ],
             ),
           ),
