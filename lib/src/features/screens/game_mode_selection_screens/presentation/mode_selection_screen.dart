@@ -14,22 +14,22 @@ class ModeSelectionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> keys = GlobalKey<ScaffoldState>();  
+    final GlobalKey<ScaffoldState> keys = GlobalKey<ScaffoldState>();
 
     return CreateScreen(
-        keys: keys,
+      keys: keys,
 
       child: Padding(
-      
         padding: AppPadding.horizontalPadding,
-      child: Column(
-           children: [
-             Row(
+        child: Column(
+          children: [
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-              CustomIconsButtons(icon: AppIcons.cubeIcons, onTap: () {
-                
-              debugPrint("Drawer Tapped");
+                CustomIconsButtons(
+                  icon: AppIcons.cubeIcons,
+                  onTap: () {
+                    debugPrint("Drawer Tapped");
                     if (keys.currentState != null) {
                       keys.currentState?.openDrawer();
                     } else {
@@ -43,9 +43,9 @@ class ModeSelectionScreen extends StatelessWidget {
               SizedBox(height: 28.h),
               Image.asset(AppImages.logo, height: 52.h, width: 150.w),
               SizedBox(height: 26.h,),
-              CustomCard(img: AppImages.playoffline, text: 'PLAY OFFLINE',onTap: (){context.push(RouteName.freeGameScreen);},),
+              CustomCard(img: AppImages.playoffline, text: 'PLAY OFFLINE',onTap: (){},),
               SizedBox(height: 20.h),
-              CustomCard(img: AppImages.card, text: 'CREATE ROOM',secondaryImg: AppImages.primaryUpsidedown,onTap: () {},),
+              CustomCard(img: AppImages.card, text: 'CREATE ROOM',secondaryImg: AppImages.primaryUpsidedown,onTap: () {context.push(RouteName.freeGameScreen);},),
               ],
              
               

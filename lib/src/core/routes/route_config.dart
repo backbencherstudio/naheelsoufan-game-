@@ -2,7 +2,7 @@ part of 'route_import_part.dart';
 
 class RouteConfig {
   GoRouter goRouter = GoRouter(
-    initialLocation: RouteName.questionAnswerScreen,
+    initialLocation: RouteName.gameModeScreens,
     routes: [
       GoRoute(
         path: RouteName.clickedSettingScreen,
@@ -156,6 +156,29 @@ class RouteConfig {
             state: state,
             transitionType: PageTransitionType.slideRightToLeft,
             child: PlayerSelectionScreen(),
+          );
+        },
+      ),
+
+      GoRoute(
+        path: RouteName.questionAnswerScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: QuestionAnswerScreen(),
+          );
+        },
+      ),
+ GoRoute(
+        path: RouteName.quizScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: QuizScreen(),
           );
         },
       ),

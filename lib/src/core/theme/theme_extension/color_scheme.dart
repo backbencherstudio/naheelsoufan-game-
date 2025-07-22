@@ -55,6 +55,8 @@ class AppColorScheme {
 
    static const Color secondaryFixed = Color(0xFF10144B);
   // static const Color  = ;
+  static const Color playerContainerColor = Color(0xff464C92);
+  static const Color scrollbarColor = Color(0xff10144B);
   // static const Color  = ;
   // static const Color  = ;
   // static const Color  = ;
