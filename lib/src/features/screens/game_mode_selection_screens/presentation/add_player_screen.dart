@@ -79,31 +79,36 @@ class AddPlayerScreen extends StatelessWidget {
                   itemCount: keys.length,
                   itemBuilder: (context, index) {
                     final key = keys[index];
-                    final isFixed = key == 0 || key == 1;
                     final isSelected = true;
 
                     return Padding(
                       padding: EdgeInsets.only(bottom: 16.h),
-                      child: GestureDetector(
-                        onTap: (){ showNameDialog(context, 'Player ${key + 1}');},
-                        child: SelectionTile(
-                          index: '${key + 1}',
-                          iselected: isSelected,
-                          onTap: (!dynamicPlayerKeys.contains(key))
-                              ? null
-                              : () {
-                            final updated = Map<int, bool>.from(
-                              state.selectedTiles,
-                            )..remove(key);
-                            notifier.state = state.copyWith(
-                              selectedTiles: updated,
-                            );
-                          },
-                        ),
+                      child: SelectionTile(
+                        index: '${key + 1}',
+                        iselected: isSelected,
+
+                        /// Tapping the tile opens name dialog
+                        onTap: () {
+                          showNameDialog(context, 'Player ${key + 1}');
+                        },
+
+                        /// Only dynamic players (2, 3) can be removed
+                        onTabRemove: dynamicPlayerKeys.contains(key)
+                            ? () {
+                          final updated = Map<int, bool>.from(
+                            state.selectedTiles,
+                          )..remove(key);
+
+                          notifier.state = state.copyWith(
+                            selectedTiles: updated,
+                          );
+                        }
+                            : null,
                       ),
                     );
                   },
                 ),
+
 
                 SizedBox(height: 40.h),
 
