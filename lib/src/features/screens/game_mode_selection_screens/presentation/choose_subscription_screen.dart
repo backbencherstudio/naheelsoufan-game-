@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/choose_subscription_widgets/pay_to_play.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/choose_subscription_widgets/subscription_card.dart';
@@ -102,7 +104,7 @@ class ChoosePaymentCard extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  // context.push(RouteName.paymentScreen);
+                  context.push(RouteName.paymentScreen);
                 },
                 child: Container(
                   padding: EdgeInsets.symmetric(
