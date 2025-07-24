@@ -42,8 +42,8 @@ class LeaderboardScreen extends StatelessWidget {
 
             SizedBox(height: 20.h),
             Leaderbox(),
-SizedBox(height: 40.h,),
-                  Row(
+            SizedBox(height: 40.h),
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 CustomroundButton(

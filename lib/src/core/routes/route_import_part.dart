@@ -6,10 +6,12 @@ import 'package:naheelsoufan_game/src/features/screens/auth/forgot_pass/presenta
 import 'package:naheelsoufan_game/src/features/screens/auth/register/presentation/register_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/auth/signin_screen/presentation/signin_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/catagory_selection_screen.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/choose_subscription_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/create_room_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/free_game_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/game_mode_screens.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/mode_selection_screen.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/payment_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/player_selection_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/share_room_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/leaderBoard_Screen.dart';
