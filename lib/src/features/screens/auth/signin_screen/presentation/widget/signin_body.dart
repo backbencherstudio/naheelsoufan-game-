@@ -114,6 +114,8 @@ class _RegisterBodyState extends State<SignInBody> {
             CustomElevatedButton(
               onPressed: () {
                 //Logic
+
+                context.go(RouteName.gameModeScreens);
               },
               buttonName: 'Sign In',
             ),

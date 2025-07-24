@@ -19,17 +19,12 @@ class RouteName {
       "/forgetPasswordLinkSentScreen";
 
   static const String chooseCategoryScreen = "/chooseCategoryScreen";
-
   static const String chooseDifficultyScreen = "/chooseDifficultyScreen";
-
-  static const String addPlayerScreen = "/addPlayerScreen";
+  static const String addPlayerScreen = "/AddPlayerScreen";
   static const String shareRoomScreen = "/ShareRoomScreen";
-
   static const String playerSelectionScreen = "/PlayerSelectionScreen";
-
   static const String questionAnswerScreen = "/QuestionAnswerScreen";
   static const String catagorySelectionScreen = "/CatagorySelectionScreen";
-
   static const String deficultyLevelScreen = "/DeficultyLevelScreen";
   static const String quizScreen = "/QuizScreen";
 
@@ -45,5 +40,4 @@ class RouteName {
   static const String addSelectionScreen = "/AddPlayerScreen";
 
   static const String leaderboardScreen = "/LeaderboardScreen";
-  
 }

@@ -47,6 +47,10 @@ void showNameDialog(BuildContext context, String title) {
                   SizedBox(height: 8.h),
 
                   TextFormField(
+                    style: style.bodyMedium?.copyWith(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w500,
+                    ),
                     decoration: InputDecoration(
                       hintText: 'Enter Player Name',
                       hintStyle: style.bodyMedium?.copyWith(
@@ -65,6 +69,7 @@ void showNameDialog(BuildContext context, String title) {
                       ),
                     ),
                   ),
+
                   SizedBox(height: 24.h),
 
                   Align(
