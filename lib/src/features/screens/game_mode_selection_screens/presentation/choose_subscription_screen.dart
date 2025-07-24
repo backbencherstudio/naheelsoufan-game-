@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/choose_subscription_widgets/pay_to_play.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/choose_subscription_widgets/subscription_card.dart';
@@ -8,7 +7,6 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 
 import '../../../../core/constant/icons.dart';
 import '../../../../core/constant/images.dart';
-import '../../../../core/routes/route_name.dart';
 
 class ChoosePaymentCard extends StatelessWidget {
   const ChoosePaymentCard({super.key});

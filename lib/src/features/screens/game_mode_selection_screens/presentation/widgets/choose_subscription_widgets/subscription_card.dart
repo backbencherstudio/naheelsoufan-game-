@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../../../../../../core/constant/images.dart';
 import 'app_custom_buttons.dart';
 import 'card_title.dart';

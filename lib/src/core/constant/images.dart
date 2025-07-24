@@ -17,14 +17,14 @@ class AppImages {
   static const String unClickedButton = "$imagePath/unclickedAddButton.png";
   static const String appBarButton = "$imagePath/icon Button.png";
   static const String profile = "$imagePath/profile.png";
-  static const String pageChangeButtonBg = "$imagePath/page_changer_button_background.png";
+  static const String pageChangeButtonBg =
+      "$imagePath/page_changer_button_background.png";
   static const String freeGame = "$imagePath/free_game.png";
 
   //Quick Game - Offline
   static const String purchaseSuccess = "$imagePath/purchase_success.png";
 
   //Quick Game - Online
-
 
   //Auth background image
   static const String backgroundImage = "$imagePath/Launch Screen 1.png";
@@ -39,9 +39,9 @@ class AppImages {
   static const String buttonYellow = "$imagePath/button_yellow.png";
   static const String subscription = "$imagePath/subscription.png";
   static const String softgreenBG = "$imagePath/softgreenBG.png";
-  // static const String = "$imagePath/  ";
-  // static const String = "$imagePath/  ";
-  // static const String = "$imagePath/  ";
+  static const String award = "$imagePath/award.png";
+  static const String madel = "$imagePath/madel.png";
+  static const String trophy = "$imagePath/trophy.png";
   // static const String = "$imagePath/  ";
   // static const String = "$imagePath/  ";
   // static const String = "$imagePath/  ";

@@ -2,7 +2,7 @@ part of 'route_import_part.dart';
 
 class RouteConfig {
   GoRouter goRouter = GoRouter(
-    initialLocation: RouteName.quizScreen,
+    initialLocation: RouteName.leaderboardScreen,
 
     routes: [
       // GoRoute(
@@ -27,6 +27,18 @@ class RouteConfig {
           );
         },
       ),
+ GoRoute(
+        path: RouteName.leaderboardScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: LeaderboardScreen(),
+          );
+        },
+      ),
+
       GoRoute(
         path: RouteName.signInScreen,
         pageBuilder: (context, state) {
