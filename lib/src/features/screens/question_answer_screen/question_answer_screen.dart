@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:naheelsoufan_game/src/core/constant/padding.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
-import 'package:naheelsoufan_game/src/features/screens/game_type/all_types/mcq_question/mcq_question_with_image_video.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_type/game_type.dart';
 
 class QuestionAnswerScreen extends StatelessWidget {

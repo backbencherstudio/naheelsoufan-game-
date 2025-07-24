@@ -35,4 +35,7 @@ class RouteName {
   static const String test = "/test";
 
   static const String quizScreen = "/QuizScreen";
+
+  static const String leaderboardScreen = "/LeaderboardScreen";
+  
 }

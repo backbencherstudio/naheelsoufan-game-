@@ -10,7 +10,6 @@ class PayToPlay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final style = Theme.of(context).textTheme;
 
     return Container(
       width:212.w ,
