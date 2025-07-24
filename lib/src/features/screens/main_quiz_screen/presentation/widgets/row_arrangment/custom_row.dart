@@ -31,7 +31,7 @@ class CustomRow extends StatelessWidget {
               title: 'Player Name',
               icon: AppImages.trophy,
             
-              width: 221,
+              width: 201,
             
               isIconOpen: true,
             ),

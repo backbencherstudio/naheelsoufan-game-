@@ -11,7 +11,6 @@ class CustomListTile extends StatelessWidget {
   const CustomListTile({super.key, required this.title, required this.icon,
   required this.onTap
   });
-
   @override
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;

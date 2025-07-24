@@ -11,12 +11,15 @@ import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/add_player_widgets/type_player_name_dialog.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/player_selection_widgets/selection_tile.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/selection_provider.dart';
 
 class AddPlayerScreen extends StatelessWidget {
   const AddPlayerScreen({super.key});
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +33,15 @@ class AddPlayerScreen extends StatelessWidget {
             final state = ref.watch(selectionProvider);
             final notifier = ref.read(selectionProvider.notifier);
 
-            // Start with fixed players 0 & 1
-            final fixedPlayers = {0: true, 1: true};
+            final fixedPlayers = {
+              0: true,
+              1: true,
+            };
+            final dynamicPlayerKeys = [2, 3];
             final dynamicPlayers = state.selectedTiles;
 
-            // Combine fixed + dynamic players
             final allPlayers = {...fixedPlayers, ...dynamicPlayers};
             final keys = allPlayers.keys.toList()..sort();
-
             final totalPlayers = allPlayers.length;
             final isMaxPlayers = totalPlayers >= 4;
 
@@ -51,15 +55,10 @@ class AddPlayerScreen extends StatelessWidget {
                       icon: AppIcons.backIcons,
                       onTap: () => Navigator.pop(context),
                     ),
-                    Image.asset(
-                      AppImages.profilePic,
-                      height: 40.h,
-                      width: 40.w,
-                    ),
+                    Image.asset(AppImages.profilePic, height: 40.h, width: 40.w),
                     CustomIconsButtons(icon: AppIcons.settings, onTap: () {}),
                   ],
                 ),
-
                 SizedBox(height: 140.h),
 
                 // Title
@@ -71,10 +70,9 @@ class AddPlayerScreen extends StatelessWidget {
                     color: AppColorScheme.primary,
                   ),
                 ),
-
                 SizedBox(height: 24.h),
 
-                // Player tiles
+                // Player Tiles
                 ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -82,25 +80,26 @@ class AddPlayerScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final key = keys[index];
                     final isFixed = key == 0 || key == 1;
-                    final isSelected =
-                        isFixed ? true : state.selectedTiles[key] ?? false;
+                    final isSelected = true;
 
                     return Padding(
                       padding: EdgeInsets.only(bottom: 16.h),
-                      child: SelectionTile(
-                        index: '${key + 1}',
-                        iselected: isSelected,
-                        onTap:
-                            isFixed
-                                ? null
-                                : () {
-                                  final updated = Map<int, bool>.from(
-                                    state.selectedTiles,
-                                  )..remove(key);
-                                  notifier.state = state.copyWith(
-                                    selectedTiles: updated,
-                                  );
-                                },
+                      child: GestureDetector(
+                        onTap: (){ showNameDialog(context, 'Player ${key + 1}');},
+                        child: SelectionTile(
+                          index: '${key + 1}',
+                          iselected: isSelected,
+                          onTap: (!dynamicPlayerKeys.contains(key))
+                              ? null
+                              : () {
+                            final updated = Map<int, bool>.from(
+                              state.selectedTiles,
+                            )..remove(key);
+                            notifier.state = state.copyWith(
+                              selectedTiles: updated,
+                            );
+                          },
+                        ),
                       ),
                     );
                   },
@@ -108,7 +107,6 @@ class AddPlayerScreen extends StatelessWidget {
 
                 SizedBox(height: 40.h),
 
-                // Max player message
                 if (isMaxPlayers)
                   Container(
                     width: 300.w,
@@ -117,10 +115,7 @@ class AddPlayerScreen extends StatelessWidget {
                       border: Border.all(color: AppColorScheme.borderColor),
                     ),
                     child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 8.w,
-                        vertical: 10.h,
-                      ), // reduced horizontal padding
+                      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 10.h),
                       child: Align(
                         alignment: Alignment.center,
                         child: Text(
@@ -137,49 +132,46 @@ class AddPlayerScreen extends StatelessWidget {
 
                 SizedBox(height: 12.h),
 
-                // Add / Remove Buttons
                 if (!isMaxPlayers)
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // ➖ Remove last dynamic player (2 or 3)
                       GestureDetector(
                         onTap: () {
-                          final removable =
-                              state.selectedTiles.keys.toList()..sort();
+                          final removable = state.selectedTiles.keys
+                              .where((k) => dynamicPlayerKeys.contains(k))
+                              .toList()
+                            ..sort();
                           if (removable.isNotEmpty) {
                             final lastKey = removable.last;
-                            final updated = Map<int, bool>.from(
-                              state.selectedTiles,
-                            )..remove(lastKey);
+                            final updated = Map<int, bool>.from(state.selectedTiles)
+                              ..remove(lastKey);
                             notifier.state = state.copyWith(
                               selectedTiles: updated,
                             );
                           }
                         },
                         child: Opacity(
-                          opacity: state.selectedTiles.length > 0 ? 1 : 0.4,
+                          opacity: state.selectedTiles.keys.any((k) => dynamicPlayerKeys.contains(k)) ? 1 : 0.4,
                           child: SvgPicture.asset(AppIcons.minusBtn),
                         ),
                       ),
                       SizedBox(width: 25.w),
                       Text('Add Player'),
                       SizedBox(width: 25.w),
-
-                      // ➕ Add new player (starts at index 2+)
                       GestureDetector(
                         onTap: () {
                           if (totalPlayers < 4) {
-                            int newKey = 2;
-                            while (state.selectedTiles.containsKey(newKey)) {
-                              newKey++;
+                            for (final key in dynamicPlayerKeys) {
+                              if (!state.selectedTiles.containsKey(key)) {
+                                final updated = Map<int, bool>.from(state.selectedTiles)
+                                  ..[key] = true;
+                                notifier.state = state.copyWith(
+                                  selectedTiles: updated,
+                                );
+                                break;
+                              }
                             }
-                            final updated = Map<int, bool>.from(
-                              state.selectedTiles,
-                            )..[newKey] = true;
-                            notifier.state = state.copyWith(
-                              selectedTiles: updated,
-                            );
                           }
                         },
                         child: Opacity(
@@ -192,7 +184,6 @@ class AddPlayerScreen extends StatelessWidget {
 
                 SizedBox(height: 20.h),
 
-                // Start Button
                 GestureDetector(
                   onTap: () => context.push(RouteName.catagorySelectionScreen),
                   child: Container(
@@ -201,18 +192,9 @@ class AddPlayerScreen extends StatelessWidget {
                       color: const Color(0xff008A39),
                       borderRadius: BorderRadius.circular(8.r),
                       border: Border(
-                        left: BorderSide(
-                          color: AppColorScheme.softGradGreen,
-                          width: 0.5.w,
-                        ),
-                        right: BorderSide(
-                          color: AppColorScheme.softGradGreen,
-                          width: 0.5.w,
-                        ),
-                        bottom: BorderSide(
-                          color: AppColorScheme.softGradGreen,
-                          width: 1.5.w,
-                        ),
+                        left: BorderSide(color: AppColorScheme.softGradGreen, width: 0.5.w),
+                        right: BorderSide(color: AppColorScheme.softGradGreen, width: 0.5.w),
+                        bottom: BorderSide(color: AppColorScheme.softGradGreen, width: 1.5.w),
                       ),
                       boxShadow: [
                         BoxShadow(
