@@ -16,6 +16,8 @@ class QuizScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final style = Theme.of(context).textTheme;
+
     return CreateScreen(
       child: Padding(
         padding: AppPadding.horizontalPadding,
@@ -55,7 +57,14 @@ class QuizScreen extends StatelessWidget {
             ),
             SizedBox(height: 90.h),
             PlayerPointContainer(),
-
+            SizedBox(height: 30),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "Question 01/ 15",
+                style: style.bodyMedium!.copyWith(fontWeight: FontWeight.w500),
+              ),
+            ),
           ],
         ),
       ),

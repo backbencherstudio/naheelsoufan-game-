@@ -3,7 +3,6 @@ part of 'route_import_part.dart';
 class RouteConfig {
   GoRouter goRouter = GoRouter(
     initialLocation: RouteName.addSelectionScreen,
-
     routes: [
       // GoRoute(
       //   path: RouteName.test,
@@ -30,13 +29,13 @@ class RouteConfig {
       ),
 
       GoRoute(
-        path: RouteName.myAccountScreen,
+        path: RouteName.leaderboardScreen,
         pageBuilder: (context, state) {
           return buildPageWithTransition(
             context: context,
             state: state,
             transitionType: PageTransitionType.slideRightToLeft,
-            child: MyAccountScreen(),
+            child: LeaderboardScreen(),
           );
         },
       ),

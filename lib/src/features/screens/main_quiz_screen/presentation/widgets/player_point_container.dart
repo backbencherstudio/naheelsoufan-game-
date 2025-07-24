@@ -20,54 +20,52 @@ class PlayerPointContainer extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-           SizedBox(
-  height: 145.h,
-  child: Stack(
-    children: [
-     
-      Align(
-        alignment: Alignment.bottomCenter,
-        child: Container(
-          height: 12.0, 
-          margin: EdgeInsets.symmetric(horizontal: 2.w),
-          decoration: BoxDecoration(
-            color: AppColorScheme.containerColor,
-            borderRadius: BorderRadius.circular(20.r),
-          ),
-        ),
-      ),
+            SizedBox(
+              height: 145.h,
+              child: Stack(
+                children: [
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      height: 12.0,
+                      margin: EdgeInsets.symmetric(horizontal: 1.w),
+                      decoration: BoxDecoration(
+                        color: AppColorScheme.containerColor,
+                        borderRadius: BorderRadius.circular(20.r),
+                      ),
+                    ),
+                  ),
 
-      Positioned(
-        child: VsScrollbar(
-          controller: scrollController,
-          showTrackOnHover: true,
-          isAlwaysShown: true,
-          scrollbarFadeDuration: const Duration(milliseconds: 500),
-          scrollbarTimeToFade: const Duration(milliseconds: 800),
-          style: VsScrollbarStyle(
-            hoverThickness: 10.0,
-            radius: Radius.circular(20.r),
-            thickness: 8.0,
-            color: AppColorScheme.scrollbarColor,
-          ),
-          child: ListView.builder(
-            controller: scrollController,
-            scrollDirection: Axis.horizontal,
-            padding: EdgeInsets.fromLTRB(8.w, 0, 8.w, 33.h), 
-            itemCount: 4,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: EdgeInsets.only(right: 8.w),
-                child: PlayerPointblock(isSelected: index == 0),
-              );
-            },
-          ),
-        ),
-      ),
-    ],
-  ),
-)
-
+                  Positioned(
+                    child: VsScrollbar(
+                      controller: scrollController,
+                      showTrackOnHover: true,
+                      isAlwaysShown: true,
+                      scrollbarFadeDuration: const Duration(milliseconds: 500),
+                      scrollbarTimeToFade: const Duration(milliseconds: 800),
+                      style: VsScrollbarStyle(
+                        hoverThickness: 10.0,
+                        radius: Radius.circular(20.r),
+                        thickness: 8.0,
+                        color: AppColorScheme.scrollbarColor,
+                      ),
+                      child: ListView.builder(
+                        controller: scrollController,
+                        scrollDirection: Axis.horizontal,
+                        padding: EdgeInsets.fromLTRB(8.w, 0, 8.w, 33.h),
+                        itemCount: 4,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: EdgeInsets.only(right: 8.w),
+                            child: PlayerPointblock(isSelected: index == 0),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
