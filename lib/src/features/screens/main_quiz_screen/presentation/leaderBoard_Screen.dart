@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
-import 'package:naheelsoufan_game/src/core/constant/images.dart';
 import 'package:naheelsoufan_game/src/core/constant/padding.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/catagory_selection_widgets/customRound_button.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/leaderBoard_widgets/leaderBox.dart';
 
@@ -42,8 +42,19 @@ class LeaderboardScreen extends StatelessWidget {
 
             SizedBox(height: 20.h),
             Leaderbox(),
-
-                 
+SizedBox(height: 40.h,),
+                  Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CustomroundButton(
+                  icon: AppIcons.reload,
+                  onTap: () {},
+                  bgIcon: AppIcons.roundIcontop,
+                ),
+                SizedBox(width: 40.w),
+                CustomroundButton(icon: AppIcons.playButtn, onTap: () {}),
+              ],
+            ),
           ],
         ),
       ),

@@ -55,7 +55,7 @@ class Leaderbox extends StatelessWidget {
                       alignment: Alignment.bottomCenter,
                       child: Container(
                         height: 13.0,
-                        margin: EdgeInsets.symmetric(horizontal: 1.w),
+                        margin: EdgeInsets.symmetric(horizontal: 2.w),
                         decoration: BoxDecoration(
                           color: AppColorScheme.containerColor,
                           borderRadius: BorderRadius.circular(20.r),
@@ -75,6 +75,7 @@ class Leaderbox extends StatelessWidget {
                         hoverThickness: 10.0,
                         radius: Radius.circular(20.r),
                         thickness: 8.0,
+      
                         color: AppColorScheme.scrollbarColor,
                       ),
                       child: SingleChildScrollView(
