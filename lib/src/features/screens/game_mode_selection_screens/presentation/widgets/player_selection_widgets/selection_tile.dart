@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:naheelsoufan_game/src/core/constant/icons.dart';
-import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
+
+import '../../../../../../core/constant/icons.dart';
+import '../home_widgets/custom_icons_Buttons.dart';
 
 class SelectionTile extends StatelessWidget {
   final String index;
   final bool iselected;
-  final Color? color; // optional background override
+  final Color? color;
   final void Function()? onTap;
+  final void Function()? onTabRemove;
 
   const SelectionTile({
     super.key,
@@ -16,6 +18,7 @@ class SelectionTile extends StatelessWidget {
     required this.onTap,
     required this.iselected,
     this.color,
+    this.onTabRemove,
   });
 
   @override
@@ -30,7 +33,10 @@ class SelectionTile extends StatelessWidget {
           Container(
             width: 253.w,
             decoration: BoxDecoration(
-              color: color ?? (iselected ? const Color(0xff63DF7C) : const Color(0xffC9C6C5)),
+              color: color ??
+                  (iselected
+                      ? const Color(0xff63DF7C)
+                      : const Color(0xffC9C6C5)),
               borderRadius: BorderRadius.circular(8.r),
               border: Border.all(color: const Color(0xff5F5E5E)),
             ),
@@ -54,9 +60,10 @@ class SelectionTile extends StatelessWidget {
             ),
           ),
           SizedBox(width: 12.h),
+
           CustomIconsButtons(
             icon: AppIcons.substract,
-            onTap: onTap,
+            onTap: onTabRemove,
             bgIcon: iselected ? AppIcons.goldenBG : AppIcons.greyBG,
           ),
         ],
