@@ -114,6 +114,7 @@ class AppIcons {
   static const String tinydot = "$iconPath/tinydot.svg";
   static const String stopWatch = "$iconPath/stop-watch.svg";
   static const String playerpoint = "$iconPath/playerpoint.svg";
+  static const String circleSgv = "$iconPath/circle.svg";
   // static const String      = "$iconPath/ ";
   // static const String      = "$iconPath/ ";
   // static const String      = "$iconPath/ ";
@@ -127,6 +128,8 @@ class AppIcons {
   static const String cancelSvg = "$iconPath/cancel_button.svg";
   static const String editFilledBle = "$iconPath/filled_icon_btn.svg";
   static const String selectedFilledBle = "$iconPath/filled_selected_btn.svg";
+  static const String minusBtn = "$iconPath/minus_btn.svg";
+  static const String plusBtn = "$iconPath/plus_btn.svg";
 
   static  List<String> profileImages = [
     profile01,

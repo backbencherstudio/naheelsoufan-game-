@@ -27,14 +27,9 @@ class ChoosePaymentCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CustomIconsButtons(
-                    icon: AppIcons.cubeIcons,
+                    icon: AppIcons.backSvg,
                     onTap: () {
-                      debugPrint("Drawer Tapped");
-                      if (keys.currentState != null) {
-                        keys.currentState?.openDrawer();
-                      } else {
-                        debugPrint("Scaffold keys is null");
-                      }
+                      Navigator.pop(context);
                     },
                   ),
                   Image.asset(AppImages.profilePic, height: 40.h, width: 40.w),
@@ -104,7 +99,7 @@ class ChoosePaymentCard extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  // context.push(RouteName.paymentScreen);
+                  context.push(RouteName.paymentScreen);
                 },
                 child: Container(
                   padding: EdgeInsets.symmetric(

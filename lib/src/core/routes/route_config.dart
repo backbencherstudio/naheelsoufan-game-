@@ -2,7 +2,7 @@ part of 'route_import_part.dart';
 
 class RouteConfig {
   GoRouter goRouter = GoRouter(
-    initialLocation: RouteName.myAccountScreen,
+    initialLocation: RouteName.addSelectionScreen,
 
     routes: [
       // GoRoute(
@@ -16,6 +16,7 @@ class RouteConfig {
       //     );
       //   },
       // ),
+
       GoRoute(
         path: RouteName.registerScreen,
         pageBuilder: (context, state) {
@@ -60,6 +61,54 @@ class RouteConfig {
             state: state,
             transitionType: PageTransitionType.slideRightToLeft,
             child: ProfileIconScreen(),
+          );
+        },
+      ),
+
+      GoRoute(
+        path: RouteName.choosePaymentCard,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: ChoosePaymentCard(),
+          );
+        },
+      ),
+
+      GoRoute(
+        path: RouteName.paymentScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: PaymentScreen(),
+          );
+        },
+      ),
+
+      GoRoute(
+        path: RouteName.addSelectionScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: AddPlayerScreen(),
+          );
+        },
+      ),
+
+      GoRoute(
+        path: RouteName.nextTurnScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: NextTurnScreen(),
           );
         },
       ),

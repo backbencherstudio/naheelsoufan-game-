@@ -41,4 +41,6 @@ class RouteName {
   static const String myAccountScreen = "/MyAccountScreen";
   static const String editProfileScreen = "/EditProfileScreen";
   static const String profileIconScreen = "/ProfileIconScreen";
+  static const String nextTurnScreen = "/NextTurnScreen";
+  static const String addSelectionScreen = "/AddPlayerScreen";
 }

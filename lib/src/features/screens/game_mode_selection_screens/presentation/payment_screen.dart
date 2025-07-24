@@ -26,18 +26,13 @@ class PaymentScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CustomIconsButtons(
-                    icon: AppIcons.cubeIcons,
+                    icon: AppIcons.backSvg,
                     onTap: () {
-                      debugPrint("Drawer Tapped");
-                      if (keys.currentState != null) {
-                        keys.currentState?.openDrawer();
-                      } else {
-                        debugPrint("Scaffold keys is null");
-                      }
+                     Navigator.pop(context);
                     },
                   ),
                   Image.asset(AppImages.profilePic, height: 40.h, width: 40.w),
-                  CustomIconsButtons(icon: AppIcons.threeDot, onTap: () {}),
+                  CustomIconsButtons(icon: AppIcons.threeDot, onTap: () {})
                 ],
               ),
               SizedBox(height: 28.h),

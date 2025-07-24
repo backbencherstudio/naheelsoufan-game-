@@ -7,7 +7,10 @@ import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.da
 class CustomListTile extends StatelessWidget {
   final String title;
   final String icon;
-  const CustomListTile({super.key, required this.title, required this.icon});
+  final void Function() onTap;
+  const CustomListTile({super.key, required this.title, required this.icon,
+  required this.onTap
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,22 +29,20 @@ class CustomListTile extends StatelessWidget {
           ),
         ),
       ),
-      child: GestureDetector(
-        onTap: () {},
-        child: ListTile(
-          title: Text(
-            title,
-            softWrap: true,
-            overflow: TextOverflow.ellipsis,
-            style: style.titleMedium!.copyWith(
-              fontWeight: FontWeight.w500,
-              fontSize: 18.sp,
-              color: AppColorScheme.deepPuroleBG,
-            ),
+      child: ListTile(
+        onTap: ()=> onTap(),
+        title: Text(
+          title,
+          softWrap: true,
+          overflow: TextOverflow.ellipsis,
+          style: style.titleMedium!.copyWith(
+            fontWeight: FontWeight.w500,
+            fontSize: 18.sp,
+            color: AppColorScheme.deepPuroleBG,
           ),
-          leading: SvgPicture.asset(icon),
-          trailing: SvgPicture.asset(AppIcons.forwardIcon),
         ),
+        leading: SvgPicture.asset(icon),
+        trailing: SvgPicture.asset(AppIcons.forwardIcon),
       ),
     );
   }
