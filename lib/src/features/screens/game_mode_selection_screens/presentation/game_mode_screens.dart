@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/constant/images.dart';
 import 'package:naheelsoufan_game/src/core/constant/padding.dart';
@@ -8,49 +9,57 @@ import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/crea
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_button.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_language_container.dart';
-
 import '../../../../core/constant/icons.dart';
 
 class GameModeScreens extends StatelessWidget {
-  const GameModeScreens({
-    super.key,
-  });
+  const GameModeScreens({super.key});
 
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> keys = GlobalKey<ScaffoldState>();
 
-
     return CreateScreen(
       keys: keys,
+
       child: Padding(
         padding: AppPadding.horizontalPadding,
         child: Column(
           children: [
             Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CustomIconsButtons(icon: AppIcons.cubeIcons, onTap: () {
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CustomIconsButtons(
+                  icon: AppIcons.cubeIcons,
+                  onTap: () {
                     debugPrint("Drawer Tapped");
                     if (keys.currentState != null) {
                       keys.currentState?.openDrawer();
                     } else {
                       debugPrint("Scaffold keys is null");
                     }
+                  },
+                ),
 
-                  }),
-
-                  Image.asset(AppImages.profilePic, height: 40.h, width: 40.w),
-                  CustomIconsButtons(icon: AppIcons.threeDot, onTap: () {}),]),
+                Image.asset(AppImages.profilePic, height: 40.h, width: 40.w),
+                CustomIconsButtons(icon: AppIcons.threeDot, onTap: () {}),
+              ],
+            ),
             SizedBox(height: 200.h),
             Image.asset(AppImages.logo, height: 104.h, width: 300.w),
-            SizedBox(height: 50.h,),
-            CustomButton(text:"QUICK GAME" , onTap: () {context.push(RouteName.modeSelectionScreen);},),
-            SizedBox(height: 16.h,),
-            CustomButton(text:"GRID STYLE" , onTap: (){
-              context.push(RouteName.freeModeScreen);
-            },img: AppImages.primaryUpsidedown,),
-            SizedBox(height: 40.h,),
+            SizedBox(height: 50.h),
+            CustomButton(
+              text: "QUICK GAME",
+              onTap: () {
+                context.push(RouteName.modeSelectionScreen);
+              },
+            ),
+            SizedBox(height: 16.h),
+            CustomButton(
+              text: "GRID STYLE",
+              onTap: () {},
+              img: AppImages.primaryUpsidedown,
+            ),
+            SizedBox(height: 40.h),
             CustomLanguageContainer(),
           ],
         ),

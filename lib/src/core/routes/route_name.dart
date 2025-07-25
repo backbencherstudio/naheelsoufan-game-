@@ -32,16 +32,25 @@ class RouteName {
   static const String questionAnswerScreen = "/QuestionAnswerScreen";
   static const String clickedSettingScreen = "/ClickedSettingScreen";
   static const String catagorySelectionScreen = "/CatagorySelectionScreen";
-
   static const String deficultyLevelScreen = "/DeficultyLevelScreen";
+  static const String quizScreen = "/QuizScreen";
+
 
   static const String test = "/test";
+  static const String choosePaymentCard = "/ChoosePaymentCard";
+  static const String paymentScreen = "/PaymentScreen";
 
-  static const String quizScreen = "/QuizScreen";
 
   static const String freeModeScreen = "/FreeModeScreen";
 
   static const String enterTeamNameScreen = "/EnterTeamNameScreen";
 
   static const String gridDifficultyLevelScreen = "/GridDifficultyLevelScreen";
+  static const String myAccountScreen = "/MyAccountScreen";
+  static const String editProfileScreen = "/EditProfileScreen";
+  static const String profileIconScreen = "/ProfileIconScreen";
+  static const String nextTurnScreen = "/NextTurnScreen";
+  static const String addSelectionScreen = "/AddPlayerScreen";
+
+  static const String leaderboardScreen = "/LeaderboardScreen";
 }

@@ -8,12 +8,16 @@ import 'package:naheelsoufan_game/src/features/screens/game_type/game_type.dart'
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/custom_countdown.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/player_point_container.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/point.dart';
+import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/show_quit_dialog.dart';
+import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/times_up.dart';
 
 class QuizScreen extends StatelessWidget {
   const QuizScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final style = Theme.of(context).textTheme;
+
     return CreateScreen(
       child: Padding(
         padding: AppPadding.horizontalPadding,
@@ -25,12 +29,14 @@ class QuizScreen extends StatelessWidget {
                 CustomIconsButtons(
                   icon: AppIcons.crossIcon,
                   onTap: () {
-                    // botttom sheet jabe
+                    onQuitGameTap(context);
                   },
                   bgIcon: AppIcons.redBGsqare,
                 ),
 
-                CustomCountdown(),
+                GestureDetector(
+                    onTap: ()=> timesUp(context),
+                    child: CustomCountdown()),
                 CustomIconsButtons(
                   icon: AppIcons.threeDot,
                   onTap: () {
@@ -51,7 +57,14 @@ class QuizScreen extends StatelessWidget {
             ),
             SizedBox(height: 90.h),
             PlayerPointContainer(),
-
+            SizedBox(height: 30),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "Question 01/ 15",
+                style: style.bodyMedium!.copyWith(fontWeight: FontWeight.w500),
+              ),
+            ),
           ],
         ),
       ),

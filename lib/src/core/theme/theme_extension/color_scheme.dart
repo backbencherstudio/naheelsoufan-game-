@@ -51,6 +51,7 @@ class AppColorScheme {
 
   static const Color socialBack = Color(0xFF9FA5F2);
   static const Color redGrad = Color(0xffF80715);
+  static const Color redgradMid = Color(0xffFF897D);
   static const Color redGrad2 = Color(0xffA80710);
 
    static const Color secondaryFixed = Color(0xFF10144B);
@@ -58,6 +59,7 @@ class AppColorScheme {
   static const Color playerContainerColor = Color(0xff464C92);
   static const Color scrollbarColor = Color(0xff10144B);
   static const Color difficultyTextColor = Color(0xFF171717);
+  static const Color scondaryTextColor = Color(0xff45263C);
   // static const Color  = ;
   // static const Color  = ;
   // static const Color  = ;

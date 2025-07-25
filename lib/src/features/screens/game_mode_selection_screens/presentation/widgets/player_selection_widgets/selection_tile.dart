@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:naheelsoufan_game/src/core/constant/icons.dart';
-import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
+
+import '../../../../../../core/constant/icons.dart';
+import '../home_widgets/custom_icons_Buttons.dart';
 
 class SelectionTile extends StatelessWidget {
   final String index;
   final bool iselected;
+  final Color? color;
   final void Function()? onTap;
-  const SelectionTile({super.key,
-  required this.index,
-  required this.onTap,
-  required this.iselected,
+  final void Function()? onTabRemove;
+
+  const SelectionTile({
+    super.key,
+    required this.index,
+    required this.onTap,
+    required this.iselected,
+    this.color,
+    this.onTabRemove,
   });
 
   @override
@@ -26,9 +33,12 @@ class SelectionTile extends StatelessWidget {
           Container(
             width: 253.w,
             decoration: BoxDecoration(
-              color:iselected? Color(0xff63DF7C): Color(0xffC9C6C5),
+              color: color ??
+                  (iselected
+                      ? const Color(0xff63DF7C)
+                      : const Color(0xffC9C6C5)),
               borderRadius: BorderRadius.circular(8.r),
-              border: Border.all(color: Color(0xff5F5E5E)),
+              border: Border.all(color: const Color(0xff5F5E5E)),
             ),
             child: Padding(
               padding: EdgeInsets.all(8.r),
@@ -40,20 +50,21 @@ class SelectionTile extends StatelessWidget {
                     "Player $index",
                     style: style.bodyMedium!.copyWith(
                       fontWeight: FontWeight.w500,
-                      color: Color(0xff5F5E5E),
+                      color: const Color(0xff5F5E5E),
                     ),
                   ),
-                  Spacer(),
-  if (iselected) SvgPicture.asset(AppIcons.tick),                  
+                  const Spacer(),
+                  if (iselected) SvgPicture.asset(AppIcons.tick),
                 ],
               ),
             ),
           ),
           SizedBox(width: 12.h),
+
           CustomIconsButtons(
             icon: AppIcons.substract,
-            onTap: onTap,
-            bgIcon: iselected? AppIcons.goldenBG: AppIcons.greyBG,
+            onTap: onTabRemove,
+            bgIcon: iselected ? AppIcons.goldenBG : AppIcons.greyBG,
           ),
         ],
       ),

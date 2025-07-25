@@ -2,7 +2,7 @@ part of 'route_import_part.dart';
 
 class RouteConfig {
   GoRouter goRouter = GoRouter(
-    initialLocation: RouteName.gridDifficultyLevelScreen,
+    initialLocation: RouteName.clickedSettingScreen,
     routes: [
       GoRoute(
         path: RouteName.chooseCategoryScreen,
@@ -92,6 +92,119 @@ class RouteConfig {
           );
         },
       ),
+
+
+
+ GoRoute(
+        path: RouteName.choosePaymentCard,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: ChoosePaymentCard(),
+          );
+        },
+      ),
+
+ GoRoute(
+        path: RouteName.paymentScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: PaymentScreen(),
+          );
+        },
+      ),
+
+ GoRoute(
+        path: RouteName.leaderboardScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: LeaderboardScreen(),
+          );
+        },
+      ),
+
+      GoRoute(
+        path: RouteName.editProfileScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: EditProfileScreen(),
+          );
+        },
+      ),
+
+      GoRoute(
+        path: RouteName.profileIconScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: ProfileIconScreen(),
+          );
+        },
+      ),
+
+      GoRoute(
+        path: RouteName.choosePaymentCard,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: ChoosePaymentCard(),
+          );
+        },
+      ),
+
+      GoRoute(
+        path: RouteName.paymentScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: PaymentScreen(),
+          );
+        },
+      ),
+
+      GoRoute(
+        path: RouteName.addSelectionScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: AddPlayerScreen(),
+          );
+        },
+      ),
+
+      GoRoute(
+        path: RouteName.nextTurnScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: NextTurnScreen(),
+          );
+        },
+      ),
+
+
+
       GoRoute(
         path: RouteName.signInScreen,
         pageBuilder: (context, state) {
@@ -180,8 +293,8 @@ class RouteConfig {
           );
         },
       ),
-  GoRoute(
-        path: RouteName.difficultyLevelScreen,
+      GoRoute(
+        path: RouteName.deficultyLevelScreen,
         pageBuilder: (context, state) {
           return buildPageWithTransition(
             context: context,
@@ -215,7 +328,7 @@ class RouteConfig {
           );
         },
       ),
- GoRoute(
+      GoRoute(
         path: RouteName.quizScreen,
         pageBuilder: (context, state) {
           return buildPageWithTransition(
@@ -226,7 +339,6 @@ class RouteConfig {
           );
         },
       ),
-
   GoRoute(
         path: RouteName.categorySelectionScreen,
         pageBuilder: (context, state) {

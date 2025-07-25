@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/choose_subscription_widgets/pay_to_play.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/choose_subscription_widgets/subscription_card.dart';
@@ -8,7 +9,6 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 
 import '../../../../core/constant/icons.dart';
 import '../../../../core/constant/images.dart';
-import '../../../../core/routes/route_name.dart';
 
 class ChoosePaymentCard extends StatelessWidget {
   const ChoosePaymentCard({super.key});
@@ -27,14 +27,9 @@ class ChoosePaymentCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CustomIconsButtons(
-                    icon: AppIcons.cubeIcons,
+                    icon: AppIcons.backSvg,
                     onTap: () {
-                      debugPrint("Drawer Tapped");
-                      if (keys.currentState != null) {
-                        keys.currentState?.openDrawer();
-                      } else {
-                        debugPrint("Scaffold keys is null");
-                      }
+                      Navigator.pop(context);
                     },
                   ),
                   Image.asset(AppImages.profilePic, height: 40.h, width: 40.w),
@@ -104,7 +99,7 @@ class ChoosePaymentCard extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  // context.push(RouteName.paymentScreen);
+                  context.push(RouteName.paymentScreen);
                 },
                 child: Container(
                   padding: EdgeInsets.symmetric(
