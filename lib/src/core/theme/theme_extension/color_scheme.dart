@@ -54,10 +54,10 @@ class AppColorScheme {
   static const Color redGrad2 = Color(0xffA80710);
 
    static const Color secondaryFixed = Color(0xFF10144B);
-  // static const Color  = ;
+   static const Color sweetViolet = Color(0xFF858BD5);
   static const Color playerContainerColor = Color(0xff464C92);
   static const Color scrollbarColor = Color(0xff10144B);
-  // static const Color  = ;
+  static const Color difficultyTextColor = Color(0xFF171717);
   // static const Color  = ;
   // static const Color  = ;
   // static const Color  = ;

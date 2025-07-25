@@ -31,15 +31,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(430, 947),
-      minTextAdapt: true,
-      builder: (context, child) => MaterialApp.router(
-        title: 'Gaming app',
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.darkTheme,
-        routerConfig: RouteConfig().goRouter,
-      ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isPortrait = constraints.maxHeight > constraints.maxWidth;
+        return ScreenUtilInit(
+          designSize: const Size(430, 947),
+          minTextAdapt: true,
+          builder: (context, child) => MaterialApp.router(
+            title: 'Gaming app',
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.darkTheme,
+            routerConfig: RouteConfig().goRouter,
+          ),
+        );
+      }
     );
   }
 }

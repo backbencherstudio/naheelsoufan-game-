@@ -17,7 +17,7 @@ class RouteName {
 
   static const String forgetPasswordLinkSentScreen = "/forgetPasswordLinkSentScreen";
 
-  static const String chooseCategoryScreen = "/chooseCategoryScreen";
+  static const String chooseCategoryScreen = "/ChooseCategoryScreen";
 
   static const String chooseDifficultyScreen = "/chooseDifficultyScreen";
 
@@ -38,4 +38,10 @@ class RouteName {
   static const String test = "/test";
 
   static const String quizScreen = "/QuizScreen";
+
+  static const String freeModeScreen = "/FreeModeScreen";
+
+  static const String enterTeamNameScreen = "/EnterTeamNameScreen";
+
+  static const String gridDifficultyLevelScreen = "/GridDifficultyLevelScreen";
 }

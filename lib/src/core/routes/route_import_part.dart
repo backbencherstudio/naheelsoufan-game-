@@ -5,7 +5,6 @@ import 'package:naheelsoufan_game/src/features/screens/auth/forgot_link/presenta
 import 'package:naheelsoufan_game/src/features/screens/auth/forgot_pass/presentation/forgot_pass_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/auth/register/presentation/register_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/auth/signin_screen/presentation/signin_screen.dart';
-import 'package:naheelsoufan_game/src/features/screens/clicked_setting%20_while_playing/presentatoin/clicked_setting_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/catagory_selection_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/create_room_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/free_game_screen.dart';
@@ -13,10 +12,13 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/mode_selection_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/player_selection_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/share_room_screen.dart';
+import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentation/choose_category_screen.dart';
+import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentation/enter_team_name_screen.dart';
+import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentation/free_mode_screen.dart';
+import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentation/grid_difficulty_level_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/quiz_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/question_answer_screen/question_answer_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/deficulty_level_screen.dart';
-import '../../features/screens/game_mode_selection_screens/presentation/choose_subscription_screen.dart';
-import '../../features/screens/game_mode_selection_screens/presentation/payment_screen.dart';
+import '../../features/screens/clicked_setting _while_playing/presentation/clicked_setting_screen.dart';
 import 'build_page_with_transition.dart';
 part 'route_config.dart';

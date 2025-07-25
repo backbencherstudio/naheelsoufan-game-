@@ -2,8 +2,52 @@ part of 'route_import_part.dart';
 
 class RouteConfig {
   GoRouter goRouter = GoRouter(
-    initialLocation: RouteName.gameModeScreens,
+    initialLocation: RouteName.gridDifficultyLevelScreen,
     routes: [
+      GoRoute(
+        path: RouteName.chooseCategoryScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: ChooseCategoryScreen(),
+          );
+        },
+      ),
+      GoRoute(
+        path: RouteName.gridDifficultyLevelScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: GridDifficultyLevelScreen(),
+          );
+        },
+      ),
+      GoRoute(
+        path: RouteName.enterTeamNameScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: EnterTeamNameScreen(),
+          );
+        },
+      ),
+      GoRoute(
+        path: RouteName.freeModeScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: FreeModeScreen(),
+          );
+        },
+      ),
       GoRoute(
         path: RouteName.clickedSettingScreen,
         pageBuilder: (context, state) {
