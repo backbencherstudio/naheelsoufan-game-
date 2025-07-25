@@ -18,6 +18,8 @@ class RouteConfig {
       //   },
       // ),
 
+
+
       GoRoute(
         path: RouteName.registerScreen,
         pageBuilder: (context, state) {
@@ -105,13 +107,25 @@ class RouteConfig {
       ),
 
       GoRoute(
-        path: RouteName.paymentScreen,
+        path: RouteName.settingWhileInGameScreen,
         pageBuilder: (context, state) {
           return buildPageWithTransition(
             context: context,
             state: state,
             transitionType: PageTransitionType.slideRightToLeft,
-            child: PaymentScreen(),
+            child: SettingWhileInGameScreen(),
+          );
+        },
+      ),
+
+      GoRoute(
+        path: RouteName.myAccountScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: MyAccountScreen(),
           );
         },
       ),

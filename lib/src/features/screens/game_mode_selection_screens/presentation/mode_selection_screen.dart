@@ -37,34 +37,41 @@ class ModeSelectionScreen extends StatelessWidget {
                     } else {
                       debugPrint("Scaffold keys is null");
                     }
-                
-            
-              }),
-              Image.asset(AppImages.profilePic, height: 40.h, width: 40.w),
-              CustomIconsButtons(icon: AppIcons.threeDot, onTap: () {}),]),
-              SizedBox(height: 28.h),
-              Image.asset(AppImages.logo, height: 52.h, width: 150.w),
-              SizedBox(height: 26.h,),
-              CustomCard(img: AppImages.playoffline, text: 'PLAY OFFLINE',onTap: (){},),
-              SizedBox(height: 20.h),
-              Consumer(
-                builder: (context,ref,_) {
-                  final data = ref.watch(isFreeModeOnProvider);
-                  return CustomCard(img: AppImages.card, text: 'CREATE ROOM',secondaryImg: AppImages.primaryUpsidedown,onTap: () {
-                    
-                    if(data==true){
-                          context.push(RouteName.choosePaymentCard);
-                    }else{
- context.push(RouteName.freeGameScreen);
-                    }
-                    
-                   },);
-                }
-              ),
+                  },
+                ),
+                Image.asset(AppImages.profilePic, height: 40.h, width: 40.w),
+                CustomIconsButtons(icon: AppIcons.threeDot, onTap: () {}),
               ],
-             
-              
+            ),
+            SizedBox(height: 28.h),
+            Image.asset(AppImages.logo, height: 52.h, width: 150.w),
+            SizedBox(height: 26.h),
+            CustomCard(
+              img: AppImages.playoffline,
+              text: 'PLAY OFFLINE',
+              onTap: () {},
+            ),
+            SizedBox(height: 20.h),
+            Consumer(
+              builder: (context, ref, _) {
+                final data = ref.watch(isFreeModeOnProvider);
+                return CustomCard(
+                  img: AppImages.card,
+                  text: 'CREATE ROOM',
+                  secondaryImg: AppImages.primaryUpsidedown,
+                  onTap: () {
+                    if (data == true) {
+                      context.push(RouteName.choosePaymentCard);
+                    } else {
+                      context.push(RouteName.freeGameScreen);
+                    }
+                  },
+                );
+              },
+            ),
+          ],
+        ),
       ),
-    ));
+    );
   }
 }

@@ -15,36 +15,33 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 
 Drawer appDrawer({required BuildContext context}) {
   final List<Map<String, dynamic>> map = [
-
     {
-    "icon": AppIcons.personSetting,
-    "title": "My Account",
-    "routeName": RouteName.choosePaymentCard,
-
-  },
+      "icon": AppIcons.personSetting,
+      "title": "My Account",
+      "routeName": RouteName.myAccountScreen,
+    },
     {
       "icon": AppIcons.setting,
       "title": "Setting",
-      "routeName": RouteName.choosePaymentCard,
+      "routeName": RouteName.settingWhileInGameScreen,
     },
     {
       "icon": AppIcons.personShield,
       "title": "Leaderboard",
-      "routeName": RouteName.choosePaymentCard,
+      "routeName": RouteName.leaderboardScreen,
     },
     {
       "icon": AppIcons.tvQuestion,
       "title": "How to play",
       "routeName": RouteName.choosePaymentCard,
-    },    {
+    },
+    {
       "icon": AppIcons.youtubeIcon,
       "title": "How to play video",
       "routeName": RouteName.choosePaymentCard,
     },
-
-
   ];
-        final style = Theme.of(context).textTheme;
+  final style = Theme.of(context).textTheme;
 
   return Drawer(
     backgroundColor: AppColorScheme.deepPuroleBG,
@@ -101,47 +98,46 @@ Drawer appDrawer({required BuildContext context}) {
                 final data = map[index];
                 return Padding(
                   padding: EdgeInsets.only(bottom: 13.h),
-                  child: CustomListTile(title: data['title'], icon: data["icon"],
+                  child: CustomListTile(
+                    title: data['title'],
+                    icon: data["icon"],
 
-                  onTap: (){
-               context.push(data["routeName"]);
-
-                  },
+                    onTap: () {
+                      context.push(data["routeName"]);
+                    },
                   ),
                 );
               },
             ),
             SizedBox(height: 40.h),
             CustomLogoutButton(onTap: () {}),
-                            SizedBox(height: 40.h,),
+            SizedBox(height: 40.h),
 
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Terms of Use",
-                style: style.bodyLarge!.copyWith(
-                  color: AppColorScheme.newText
-                )
+                Text(
+                  "Terms of Use",
+                  style: style.bodyLarge!.copyWith(
+                    color: AppColorScheme.newText,
+                  ),
                 ),
-                SizedBox(width: 8.w,),
-                 SvgPicture.asset(AppIcons.tinydot),
-                SizedBox(width: 8.w,),
-                Text("Privacy Policy",
-                 style: style.bodyLarge!.copyWith(
-                  color: AppColorScheme.newText
-                )
+                SizedBox(width: 8.w),
+                SvgPicture.asset(AppIcons.tinydot),
+                SizedBox(width: 8.w),
+                Text(
+                  "Privacy Policy",
+                  style: style.bodyLarge!.copyWith(
+                    color: AppColorScheme.newText,
+                  ),
                 ),
-
               ],
-
             ),
-                SizedBox(height: 16.h,),
-                Text("Question & Answers",
-                 style: style.bodyLarge!.copyWith(
-                  color: AppColorScheme.newText
-                )
-                ),
-
+            SizedBox(height: 16.h),
+            Text(
+              "Question & Answers",
+              style: style.bodyLarge!.copyWith(color: AppColorScheme.newText),
+            ),
           ],
         ),
       ),
