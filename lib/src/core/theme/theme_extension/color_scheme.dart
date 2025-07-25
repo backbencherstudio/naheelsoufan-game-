@@ -46,7 +46,7 @@ class AppColorScheme {
   static const Color listContainerColor = Color(0xffE0E0FF);
   static const Color newText  = Color(0xffBEC2FF);
 
-  // static const Color  customGreenBT = Color(0xff008A39);
+  static const Color answerBoxShadow = Color.fromRGBO(34, 34, 34, 0.2);
   // static const Color  greenery = Color(0xff63DF7C);
 
   static const Color socialBack = Color(0xFF9FA5F2);

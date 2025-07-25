@@ -48,7 +48,7 @@ class QuizScreen extends StatelessWidget {
             ),
             SizedBox(height: 16.h),
             //point container
-            Point(),
+            PointShow(),
             SizedBox(height: 16.h),
 
             GameType.multipleChoiceQuestion(

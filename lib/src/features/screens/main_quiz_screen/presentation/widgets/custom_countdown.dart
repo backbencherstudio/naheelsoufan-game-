@@ -10,11 +10,12 @@ class CustomCountdown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
-
+    bool isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
     return Container(
-      padding: EdgeInsets.all(4.r),
+      padding: isPortrait ? EdgeInsets.all(4.r) : EdgeInsets.symmetric(horizontal: 61.6.h, vertical: 1.8.w),
       decoration: BoxDecoration(
-        shape: BoxShape.circle,
+        borderRadius:isPortrait ? null: BorderRadius.all(Radius.circular(24.r)),
+        shape: isPortrait ? BoxShape.circle : BoxShape.rectangle,
         color: AppColorScheme.softGradGreen.withValues(alpha: 0.2),
       ),
       child: Stack(
@@ -30,13 +31,13 @@ class CustomCountdown extends StatelessWidget {
               child: Text(
                 "60",
                 style: style.headlineLarge!.copyWith(
-                  fontSize: 32.sp,
+                  fontSize: isPortrait ? 32.sp : 14.4.sp,
                   fontWeight: FontWeight.w500,
                 ),
               ),
             ),
           ),
-          
+
         ],
       ),
     );
