@@ -27,6 +27,7 @@ class RouteName {
   static const String catagorySelectionScreen = "/CatagorySelectionScreen";
   static const String deficultyLevelScreen = "/DeficultyLevelScreen";
   static const String quizScreen = "/QuizScreen";
+  static const String settingWhileInGameScreen = "/SettingWhileInGameScreen";
 
 
   static const String test = "/test";
@@ -40,4 +41,6 @@ class RouteName {
   static const String addSelectionScreen = "/AddPlayerScreen";
 
   static const String leaderboardScreen = "/LeaderboardScreen";
+  static const String myAccountWithCancelSubscription = "/MyAccountWithCancelSubscription";
+
 }
