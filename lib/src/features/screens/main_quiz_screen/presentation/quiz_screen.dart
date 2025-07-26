@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/constant/padding.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
@@ -10,6 +11,8 @@ import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presenta
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/point.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/show_quit_dialog.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/times_up.dart';
+
+import '../../../../core/routes/route_name.dart';
 
 class QuizScreen extends StatelessWidget {
   const QuizScreen({super.key});
@@ -40,7 +43,7 @@ class QuizScreen extends StatelessWidget {
                 CustomIconsButtons(
                   icon: AppIcons.threeDot,
                   onTap: () {
-                    // botttom sheet jabe
+                    context.push(RouteName.settingWhileInGameScreen);
                   },
                   bgIcon: AppIcons.iconBG,
                 ),

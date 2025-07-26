@@ -134,6 +134,9 @@ class AppIcons {
   static const String selectedFilledBle = "$iconPath/filled_selected_btn.svg";
   static const String minusBtn = "$iconPath/minus_btn.svg";
   static const String plusBtn = "$iconPath/plus_btn.svg";
+  static const String lineSvg = "$iconPath/lineSvg.svg";
+  static const String greenBtnBg = "$iconPath/green_btn_bg.svg";
+
 
   static  List<String> profileImages = [
     profile01,

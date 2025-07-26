@@ -2,7 +2,7 @@ part of 'route_import_part.dart';
 
 class RouteConfig {
   GoRouter goRouter = GoRouter(
-    initialLocation: RouteName.questionRevealedScreen,
+    initialLocation: RouteName.signInScreen,
     routes: [
       GoRoute(
         path: RouteName.questionRevealedScreen,
@@ -92,6 +92,7 @@ class RouteConfig {
           );
         },
       ),
+
       GoRoute(
         path: RouteName.registerScreen,
         pageBuilder: (context, state) {
@@ -104,9 +105,7 @@ class RouteConfig {
         },
       ),
 
-
-
- GoRoute(
+      GoRoute(
         path: RouteName.choosePaymentCard,
         pageBuilder: (context, state) {
           return buildPageWithTransition(
@@ -118,7 +117,7 @@ class RouteConfig {
         },
       ),
 
- GoRoute(
+      GoRoute(
         path: RouteName.paymentScreen,
         pageBuilder: (context, state) {
           return buildPageWithTransition(
@@ -130,7 +129,7 @@ class RouteConfig {
         },
       ),
 
- GoRoute(
+      GoRoute(
         path: RouteName.leaderboardScreen,
         pageBuilder: (context, state) {
           return buildPageWithTransition(
@@ -179,19 +178,31 @@ class RouteConfig {
       ),
 
       GoRoute(
-        path: RouteName.paymentScreen,
+        path: RouteName.settingWhileInGameScreen,
         pageBuilder: (context, state) {
           return buildPageWithTransition(
             context: context,
             state: state,
             transitionType: PageTransitionType.slideRightToLeft,
-            child: PaymentScreen(),
+            child: SettingWhileInGameScreen(),
           );
         },
       ),
 
       GoRoute(
-        path: RouteName.addSelectionScreen,
+        path: RouteName.myAccountScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: MyAccountScreen(),
+          );
+        },
+      ),
+
+      GoRoute(
+        path: RouteName.addPlayerScreen,
         pageBuilder: (context, state) {
           return buildPageWithTransition(
             context: context,
@@ -213,8 +224,17 @@ class RouteConfig {
           );
         },
       ),
-
-
+      GoRoute(
+        path: RouteName.myAccountWithCancelSubscription,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: MyAccountWithCancelSubscription(),
+          );
+        },
+      ),
 
       GoRoute(
         path: RouteName.signInScreen,
@@ -352,6 +372,7 @@ class RouteConfig {
       ),
   GoRoute(
         path: RouteName.categorySelectionScreen,
+
         pageBuilder: (context, state) {
           return buildPageWithTransition(
             context: context,

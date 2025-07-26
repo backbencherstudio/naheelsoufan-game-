@@ -34,6 +34,7 @@ class RouteName {
   static const String catagorySelectionScreen = "/CatagorySelectionScreen";
   static const String deficultyLevelScreen = "/DeficultyLevelScreen";
   static const String quizScreen = "/QuizScreen";
+  static const String settingWhileInGameScreen = "/SettingWhileInGameScreen";
 
 
   static const String test = "/test";
@@ -50,8 +51,8 @@ class RouteName {
   static const String editProfileScreen = "/EditProfileScreen";
   static const String profileIconScreen = "/ProfileIconScreen";
   static const String nextTurnScreen = "/NextTurnScreen";
-  static const String addSelectionScreen = "/AddPlayerScreen";
 
   static const String leaderboardScreen = "/LeaderboardScreen";
   static const String questionRevealedScreen = "/QuestionRevealedScreen";
+  static const String myAccountWithCancelSubscription = "/MyAccountWithCancelSubscription";
 }
