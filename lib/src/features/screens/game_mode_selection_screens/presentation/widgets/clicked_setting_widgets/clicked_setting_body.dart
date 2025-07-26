@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/constant/images.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
-import '../../riverpod/click_setting_riverpod.dart';
+import '../../../../clicked_setting _while_playing/riverpod/click_setting_riverpod.dart';
 
 class ClickedSettingBody extends StatelessWidget {
   const ClickedSettingBody({super.key});
@@ -33,20 +32,20 @@ class ClickedSettingBody extends StatelessWidget {
             decoration: BoxDecoration(
               color: AppColorScheme.deepPuroleBG,
               borderRadius: BorderRadius.all(Radius.circular(16.r)),
-              border: Border.all(width: 2.sp, color: AppColorScheme.primary),
+              border: Border.all(width: 2.r, color: AppColorScheme.primary),
             ),
             child: Padding(padding: EdgeInsets.only(
                 top: 16.h,
                 left: 28.w,
                 right: 28.w,
-                bottom: 28.w
+                bottom: 28.h
             ),
             child: Column(
               children: [
                 SizedBox(height: 40.h,),
                 SizedBox(
                   height: 88.5.h,
-                  width: 88.h,
+                  width: 88.w,
                   child: Stack(children: [
                     Positioned(right:8.w,top: 8.5.h,child: Image.asset(AppImages.profile, height: 80.h, width: 80.w,)),
                     Positioned(right:0,
