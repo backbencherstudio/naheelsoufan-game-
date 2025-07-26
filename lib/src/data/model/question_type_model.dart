@@ -4,12 +4,14 @@ class QuestionTypeModel {
   final String questionCategory;
   final int questionNumber;
   final String questionLevel;
+  final String? questionPoint;
 
   QuestionTypeModel({
    required this.questionId,
     required this.iconUrl,
     required this.questionLevel,
     required this.questionNumber,
-    required this.questionCategory
+    required this.questionCategory,
+    this.questionPoint
   });
 }

@@ -5,17 +5,95 @@ class RouteConfig {
     initialLocation: RouteName.splashScreen,
 
     routes: [
-      // GoRoute(
-      //   path: RouteName.test,
-      //   pageBuilder: (context, state) {
-      //     return buildPageWithTransition(
-      //       context: context,
-      //       state: state,
-      //       transitionType: PageTransitionType.slideRightToLeft,
-      //       child: Test(),
-      //     );
-      //   },
-      // ),
+      GoRoute(
+        path: RouteName.questionRevealedScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: QuestionRevealed(),
+          );
+        },
+      ),
+      GoRoute(
+        path: RouteName.chooseCategoryScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: ChooseCategoryScreen(),
+          );
+        },
+      ),
+      GoRoute(
+        path: RouteName.gridDifficultyLevelScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: GridDifficultyLevelScreen(),
+          );
+        },
+      ),
+      GoRoute(
+        path: RouteName.enterTeamNameScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: EnterTeamNameScreen(),
+          );
+        },
+      ),
+      GoRoute(
+        path: RouteName.freeModeScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: FreeModeScreen(),
+          );
+        },
+      ),
+      GoRoute(
+        path: RouteName.clickedSettingScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: ClickedSettingScreen(),
+          );
+        },
+      ),
+      GoRoute(
+        path: RouteName.questionAnswerScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: QuestionAnswerScreen(),
+          );
+        },
+      ),
+      GoRoute(
+        path: RouteName.difficultyLevelScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: DeficultyLevelScreen(),
+          );
+        },
+      ),
+
       GoRoute(
         path: RouteName.splashScreen,
         pageBuilder: (context, state) {
@@ -145,7 +223,7 @@ class RouteConfig {
       ),
 
       GoRoute(
-        path: RouteName.addSelectionScreen,
+        path: RouteName.addPlayerScreen,
         pageBuilder: (context, state) {
           return buildPageWithTransition(
             context: context,
@@ -234,7 +312,7 @@ class RouteConfig {
           );
         },
       ),
-      GoRoute(
+        GoRoute(
         path: RouteName.createRoomScreen,
         pageBuilder: (context, state) {
           return buildPageWithTransition(
@@ -245,7 +323,7 @@ class RouteConfig {
           );
         },
       ),
-      GoRoute(
+       GoRoute(
         path: RouteName.shareRoomScreen,
         pageBuilder: (context, state) {
           return buildPageWithTransition(
@@ -256,7 +334,7 @@ class RouteConfig {
           );
         },
       ),
-      GoRoute(
+     GoRoute(
         path: RouteName.modeSelectionScreen,
         pageBuilder: (context, state) {
           return buildPageWithTransition(
@@ -313,9 +391,9 @@ class RouteConfig {
           );
         },
       ),
+  GoRoute(
+        path: RouteName.categorySelectionScreen,
 
-      GoRoute(
-        path: RouteName.catagorySelectionScreen,
         pageBuilder: (context, state) {
           return buildPageWithTransition(
             context: context,

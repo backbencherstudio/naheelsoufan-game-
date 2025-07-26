@@ -114,12 +114,14 @@ class AppIcons {
   static const String tinydot = "$iconPath/tinydot.svg";
   static const String stopWatch = "$iconPath/stop-watch.svg";
   static const String playerpoint = "$iconPath/playerpoint.svg";
+  static const String groupProfile = "$iconPath/group_profile.svg";
+  static const String redButtonBG = "$iconPath/redButtonBG.svg";
   static const String circleSgv = "$iconPath/circle.svg";
-  // static const String      = "$iconPath/ ";
+  static const String dot = "$iconPath/dot.svg";
   // static const String      = "$iconPath/ ";
   static const String profileIcons = "$iconPath/profileIcons.svg";
   static const String  reload    = "$iconPath/reload.svg";
-  // static const String      = "$iconPath/ ";
+  static const String landScapeStopWatch = "$iconPath/timerLandscape.svg";
   // static const String      = "$iconPath/ ";
   // static const String      = "$iconPath/ ";
   // static const String      = "$iconPath/ ";
