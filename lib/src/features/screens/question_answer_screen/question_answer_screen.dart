@@ -74,6 +74,36 @@ class QuestionAnswerScreen extends StatelessWidget {
                 videoUrl: 'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
                 videoThumbnailUrl: 'https://cdn.britannica.com/94/494-050-A674AD3A/Fallow-deer-dama-dama.jpg',
               ),
+              SizedBox(height: 20),
+              Divider(),
+              SizedBox(height: 20),
+              GameType.trueFalseQuestionWithImage(
+                  question: "What is in the image?",
+                  image: 'https://www.worldanimalprotection.org/cdn-cgi/image/width=1920,format=auto/globalassets/images/elephants/1033551-elephant.jpg'
+              ),
+              SizedBox(height: 20),
+              Divider(),
+              SizedBox(height: 20),
+              GameType.trueFalseQuestionWithVideo(
+                  question: "What is in the video?",
+                  thumbnail: 'https://cdn.britannica.com/94/494-050-A674AD3A/Fallow-deer-dama-dama.jpg',
+                  video: 'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4'
+              ),
+              SizedBox(height: 20),
+              Divider(),
+              SizedBox(height: 20),
+              GameType.typedQuestionWithImage(
+                  question: "What is in the image?",
+                  image: 'https://cdn.britannica.com/94/494-050-A674AD3A/Fallow-deer-dama-dama.jpg',
+              ),
+              SizedBox(height: 20),
+              Divider(),
+              SizedBox(height: 20),
+              GameType.typedQuestionWithVideo(
+                  question: "What is in the video?",
+                  thumbnail: 'https://cdn.britannica.com/94/494-050-A674AD3A/Fallow-deer-dama-dama.jpg',
+                  video: 'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4'
+              ),
             ],
           ),
         ),

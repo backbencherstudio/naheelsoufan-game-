@@ -102,7 +102,7 @@ class PlayerSelectionScreen extends StatelessWidget {
                 SizedBox(height: 20.h),
                 GestureDetector(
                   onTap: () {
-                    context.push(RouteName.catagorySelectionScreen);
+                    context.push(RouteName.categorySelectionScreen);
                   },
                   child: Container(
                     width: 229.w,

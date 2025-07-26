@@ -14,6 +14,15 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/payment_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/player_selection_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/share_room_screen.dart';
+import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentation/choose_category_screen.dart';
+import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentation/enter_team_name_screen.dart';
+import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentation/free_mode_screen.dart';
+import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentation/grid_difficulty_level_screen.dart';
+import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentation/question_revealed.dart';
+import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/quiz_screen.dart';
+import 'package:naheelsoufan_game/src/features/screens/question_answer_screen/question_answer_screen.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/deficulty_level_screen.dart';
+import '../../features/screens/clicked_setting _while_playing/presentation/clicked_setting_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/leaderBoard_Screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/quiz_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/question_answer_screen/question_answer_screen.dart';

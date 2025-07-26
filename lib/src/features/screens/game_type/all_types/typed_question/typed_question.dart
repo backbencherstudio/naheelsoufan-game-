@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:naheelsoufan_game/src/features/screens/auth/register/presentation/widget/custom_textformfield.dart';
 
 import '../../widgets/full_screen_image_popup.dart';
+import '../mcq_question/widget/image_part.dart';
+import '../mcq_question/widget/video_part.dart';
 
-class TypedQuestion extends StatelessWidget {
+class TypedQuestionWithImageVideo extends StatelessWidget {
   final String question;
-  final String? image;
-  const TypedQuestion({super.key, required this.question, this.image});
+  final String? imageUrl;
+  final String? videoUrl;
+  final String? videoThumbnailUrl;
+  const TypedQuestionWithImageVideo({super.key, required this.question, this.imageUrl, this.videoUrl, this.videoThumbnailUrl});
 
   @override
   Widget build(BuildContext context) {
@@ -19,57 +24,18 @@ class TypedQuestion extends StatelessWidget {
           style: textTheme.titleLarge,
           textAlign: TextAlign.center,
         ),
-        image !=null ?
-        Column(
-          children: [
-            SizedBox(height: 40.h),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(12.r),
-              child: Stack(
-                children: [
-                  SizedBox(
-                    width: 345.w,
-                    height: 133.h,
-                    child: Image.network(image!, fit: BoxFit.fill),
-                  ),
-                  Positioned(
-                    right: 10.w,
-                    top: 10.h,
-                    child: GestureDetector(
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (_) => FullScreenImagePopup(imageUrl: image!),
-                        );
-                      },
-                      child: SvgPicture.asset('assets/icons/expandButton.svg'),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 20.h),
-          ],
-        ): const SizedBox(height: 20),
+        ///Image part
+        if (imageUrl != null) ImagePart(imageUrl: imageUrl),
 
+        ///video part
+        if (videoUrl != null) VideoPart(thumbnailUrl: videoThumbnailUrl, videoUrl: videoUrl!),
+        SizedBox(height: 17.h,),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('Answer', style: textTheme.bodyLarge),
-            const SizedBox(height: 10),
-            TextFormField(
-              decoration: InputDecoration(
-                hintText: 'Enter your answer',
-                // contentPadding: EdgeInsetsGeometry.symmetric(
-                //   horizontal: 12.w,
-                // ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                filled: true,
-                fillColor: Colors.white,
-              ),
-            ),
+            SizedBox(height: 4.h),
+            CustomTextFormField(hintText: "Type your answer here"),
           ],
         ),
       ],

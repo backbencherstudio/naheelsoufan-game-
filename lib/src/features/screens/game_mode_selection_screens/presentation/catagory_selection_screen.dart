@@ -72,7 +72,7 @@ class CatagorySelectionScreen extends StatelessWidget {
                                 Future.delayed(Duration(milliseconds: 1000), () {
                                   if (context.mounted) {
                                     context.push(
-                                      RouteName.deficultyLevelScreen,
+                                      RouteName.difficultyLevelScreen,
                                     );
                                   }
                                 });
@@ -100,11 +100,15 @@ class CatagorySelectionScreen extends StatelessWidget {
               children: [
                 CustomroundButton(
                   icon: AppIcons.playleft,
-                  onTap: () {},
+                  onTap: () {
+
+                  },
                   bgIcon: AppIcons.roundIcontop,
                 ),
                 SizedBox(width: 40.w),
-                CustomroundButton(icon: AppIcons.playButtn, onTap: () {}),
+                CustomroundButton(icon: AppIcons.playButtn, onTap: () {
+
+                }),
               ],
             ),
             SizedBox(height: 20.h),
