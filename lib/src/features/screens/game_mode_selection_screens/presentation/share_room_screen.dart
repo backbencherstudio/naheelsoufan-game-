@@ -45,7 +45,6 @@ class ShareRoomScreen extends StatelessWidget {
 
             Text(
               "Share Room",
-
               style: style.headlineLarge!.copyWith(
                 fontSize: 32.sp,
                 fontWeight: FontWeight.w500,
@@ -57,7 +56,7 @@ class ShareRoomScreen extends StatelessWidget {
               padding: EdgeInsets.all(12.r),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(24.r),
-                border: Border.all(color:AppColorScheme.borderColor),
+                border: Border.all(color: AppColorScheme.borderColor),
               ),
               child: Column(
                 children: [
@@ -84,20 +83,20 @@ class ShareRoomScreen extends StatelessWidget {
                   QrBox(),
                   SizedBox(height: 60.h),
                   Consumer(
-                    builder: (context,ref,_) {
+                    builder: (context, ref, _) {
                       final isOffLine = ref.watch(isOfflineOnProvider);
                       return CustomButton(
                         text: "NEXT",
                         img: AppImages.primaryUpsidedown,
                         onTap: () {
-                          if( isOffLine == true){
+                          if (isOffLine == true) {
                             context.push(RouteName.addPlayerScreen);
-                          }else{
+                          } else {
                             context.push(RouteName.playerSelectionScreen);
                           }
                         },
                       );
-                    }
+                    },
                   ),
                 ],
               ),

@@ -1,5 +1,5 @@
 class RouteName {
-  static const String splashScreen = "/splash";
+  static const String splashScreen = "/SplashScreen";
 
   static const String gameModeScreens = "/GameModeScreens";
 
@@ -55,4 +55,6 @@ class RouteName {
   static const String leaderboardScreen = "/LeaderboardScreen";
   static const String questionRevealedScreen = "/QuestionRevealedScreen";
   static const String myAccountWithCancelSubscription = "/MyAccountWithCancelSubscription";
+  static const String onboardingScreen = "/OnboardingScreen";
+
 }
