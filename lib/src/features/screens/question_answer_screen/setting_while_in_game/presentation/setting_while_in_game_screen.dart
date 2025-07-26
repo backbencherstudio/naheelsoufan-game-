@@ -44,7 +44,7 @@ class SettingWhileInGameScreen extends ConsumerWidget {
                     ),
                   ),
                   SizedBox(width: 100.w),
-                  LanguageDropDown(menuKey: _menuKey),
+                  LanguageDropDown(menuKey: _menuKey, width: 190),
                 ],
               ),
               SizedBox(height: 36.h),
@@ -57,7 +57,8 @@ class SettingWhileInGameScreen extends ConsumerWidget {
                       final isVisible = ref.watch(isMusicVisibleProvider);
                       return CustomMusicoffButton(
                         onTap: () {
-                          ref.read(isMusicVisibleProvider.notifier).state = !isVisible;
+                          ref.read(isMusicVisibleProvider.notifier).state =
+                              !isVisible;
                         },
                         isSelected: isVisible,
                       );
@@ -81,7 +82,7 @@ class SettingWhileInGameScreen extends ConsumerWidget {
                       leadingIconPath: AppIcons.personSetting,
                       trailingIconPath: AppIcons.forwardIcon,
                       onTap: () {
-                        context.push(RouteName.myAccountScreen);
+                        context.push(RouteName.myAccountWithCancelSubscription);
                       },
                     ),
                     SizedBox(height: 13.h),

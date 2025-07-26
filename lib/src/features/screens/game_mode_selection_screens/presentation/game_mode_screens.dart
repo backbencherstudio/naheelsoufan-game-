@@ -10,6 +10,7 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_button.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_language_container.dart';
 import '../../../../core/constant/icons.dart';
+import '../../question_answer_screen/setting_while_in_game/widgets/language_drop_down_menu.dart';
 
 class GameModeScreens extends StatelessWidget {
   const GameModeScreens({super.key});
@@ -17,6 +18,7 @@ class GameModeScreens extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> keys = GlobalKey<ScaffoldState>();
+    final _menuKey = GlobalKey();
 
     return CreateScreen(
       keys: keys,
@@ -60,7 +62,7 @@ class GameModeScreens extends StatelessWidget {
               img: AppImages.primaryUpsidedown,
             ),
             SizedBox(height: 40.h),
-            CustomLanguageContainer(),
+            LanguageDropDown(menuKey: _menuKey,),
           ],
         ),
       ),

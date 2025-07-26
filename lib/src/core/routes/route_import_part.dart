@@ -20,6 +20,7 @@ import 'package:naheelsoufan_game/src/features/screens/question_answer_screen/qu
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/deficulty_level_screen.dart';
 import '../../features/screens/account_screens/presentation/edit_profile_screen.dart';
 import '../../features/screens/account_screens/presentation/my_account_screen.dart';
+import '../../features/screens/account_screens/presentation/my_account_with_cancel_subscription.dart';
 import '../../features/screens/account_screens/presentation/profile_icon_sreen.dart';
 import '../../features/screens/game_mode_selection_screens/presentation/add_player_screen.dart';
 import '../../features/screens/game_mode_selection_screens/presentation/choose_subscription_screen.dart';

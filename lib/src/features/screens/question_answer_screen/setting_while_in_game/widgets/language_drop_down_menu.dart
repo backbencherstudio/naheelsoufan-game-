@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-
 import '../../../../../core/constant/icons.dart';
 import '../riverpod/chceking.dart';
 import 'custom_menu.dart';
@@ -10,10 +9,12 @@ import 'custom_menu.dart';
 class LanguageDropDown extends StatelessWidget {
   const LanguageDropDown({
     super.key,
-    required GlobalKey<State<StatefulWidget>> menuKey,
+    required GlobalKey<State<StatefulWidget>> menuKey, this.width,
   }) : _menuKey = menuKey;
 
   final GlobalKey<State<StatefulWidget>> _menuKey;
+  final double? width;
+
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +29,7 @@ class LanguageDropDown extends StatelessWidget {
               key: _menuKey,
               list: {"US ENGLISH", "عربي"},
               height: 150.h,
+              width: width
             );
             ref.read(result.notifier).state = value;
           },

@@ -46,10 +46,23 @@ class ModeSelectionScreen extends StatelessWidget {
             SizedBox(height: 28.h),
             Image.asset(AppImages.logo, height: 52.h, width: 150.w),
             SizedBox(height: 26.h),
-            CustomCard(
-              img: AppImages.playoffline,
-              text: 'PLAY OFFLINE',
-              onTap: () {},
+            Consumer(
+              builder: (context,ref,_) {
+                final data = ref.watch(isFreeModeOnProvider);
+                final isOffline = ref.watch(isOfflineOnProvider);
+                return CustomCard(
+                  img: AppImages.playoffline,
+                  text: 'PLAY OFFLINE',
+                  onTap: () {
+                    if (data == true) {
+                      ref.read(isOfflineOnProvider.notifier).state=true;
+                      context.push(RouteName.choosePaymentCard);
+                    } else {
+                      context.push(RouteName.freeGameScreen);
+                    }
+                  },
+                );
+              }
             ),
             SizedBox(height: 20.h),
             Consumer(

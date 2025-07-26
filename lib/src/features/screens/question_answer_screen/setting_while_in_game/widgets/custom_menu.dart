@@ -6,12 +6,14 @@ Future<String?> customPopupMenu({
   required GlobalKey key,
   required Set<String> list,
   double? height,
+  double? width,
 }) async {
   final RenderBox renderBox =
       key.currentContext!.findRenderObject() as RenderBox;
   final Offset offset = renderBox.localToGlobal(Offset.zero);
 
   final Size size = renderBox.size;
+  // final double width = size.width;
 
   final result = await showMenu<String>(
     context: context,
@@ -21,7 +23,7 @@ Future<String?> customPopupMenu({
     constraints: BoxConstraints(minWidth: 150.w, maxHeight: height ?? 130.h),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
     position: RelativeRect.fromLTRB(
-      190.w,
+      width ?? 190,
       offset.dy + size.height,
       20.w,
       offset.dy,

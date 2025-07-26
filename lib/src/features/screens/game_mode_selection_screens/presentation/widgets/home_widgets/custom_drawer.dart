@@ -13,7 +13,10 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_logout_button.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/musicVisible_provider.dart';
 
+import '../../../../question_answer_screen/setting_while_in_game/widgets/language_drop_down_menu.dart';
+
 Drawer appDrawer({required BuildContext context}) {
+  final menuKey = GlobalKey();
   final List<Map<String, dynamic>> map = [
     {
       "icon": AppIcons.personSetting,
@@ -52,7 +55,7 @@ Drawer appDrawer({required BuildContext context}) {
           children: [
             Row(
               children: [
-                CustomLanguageContainer(),
+                LanguageDropDown(menuKey: menuKey,width: 15,),
                 Spacer(),
                 CustomIconsButtons(
                   icon: AppIcons.crossIcon,

@@ -41,5 +41,6 @@ class RouteName {
   static const String addSelectionScreen = "/AddPlayerScreen";
 
   static const String leaderboardScreen = "/LeaderboardScreen";
+  static const String myAccountWithCancelSubscription = "/MyAccountWithCancelSubscription";
 
 }
