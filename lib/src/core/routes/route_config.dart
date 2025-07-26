@@ -2,7 +2,7 @@ part of 'route_import_part.dart';
 
 class RouteConfig {
   GoRouter goRouter = GoRouter(
-    initialLocation: RouteName.onboardingScreen,
+    initialLocation: RouteName.splashScreen,
 
     routes: [
       // GoRoute(
@@ -17,6 +17,16 @@ class RouteConfig {
       //   },
       // ),
       GoRoute(
+        path: RouteName.splashScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.fade,
+            child: SplashScreen(),
+          );
+        },
+      ), GoRoute(
         path: RouteName.registerScreen,
         pageBuilder: (context, state) {
           return buildPageWithTransition(
@@ -56,7 +66,7 @@ class RouteConfig {
           return buildPageWithTransition(
             context: context,
             state: state,
-            transitionType: PageTransitionType.slideRightToLeft,
+            transitionType: PageTransitionType.fade,
             child: OnboardingScreen(),
           );
         },

@@ -1,31 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/constant/images.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
-
 import '../../../../core/routes/route_name.dart';
 import '../../../../core/theme/theme_extension/color_scheme.dart';
 
-class OnboardingScreen extends StatefulWidget {
-  const OnboardingScreen({super.key});
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
 
   @override
-  State<OnboardingScreen> createState() => _OnboardingScreenState();
+  State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _OnboardingScreenState extends State<OnboardingScreen> {
-
+class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-
     super.initState();
     _moveToHomeScreen();
   }
 
   Future<void> _moveToHomeScreen() async {
     await Future.delayed(Duration(seconds: 1));
-    context.push(RouteName.signInScreen);
+    if (mounted) {
+      context.push(RouteName.onboardingScreen);
+    }
   }
 
   @override
@@ -39,26 +40,20 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: 298.h),
-              Image.asset(AppImages.logo),
-              SizedBox(height: 20.h),
-              Text(
-                'Trivia Game',
-                style: style.bodyLarge?.copyWith(
-                  fontWeight: FontWeight.w500,
-                  color: AppColorScheme.optionBg,
-                ),
-              ),
-              SizedBox(height: 171.h),
-              Text(
-                'Developed by',
-                style: style.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.w500,
-                  color: AppColorScheme.newText,
-                ),
-              ),
               Spacer(),
-              Image.asset(AppImages.developedBy),
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  SvgPicture.asset(
+                    AppIcons.blueLogoBg,
+                    height: 150.h,
+                    width: 150.w,
+                  ),
+                  SvgPicture.asset(AppIcons.manIcon, height: 96.h, width: 70.w),
+                ],
+              ),
+
+              Spacer(),
             ],
           ),
         ),

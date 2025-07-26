@@ -9,7 +9,13 @@ import '../../../common_widegts/create_screen/create_screen.dart';
 import '../../game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 
 class EditProfileScreen extends StatelessWidget {
-  const EditProfileScreen({super.key});
+  EditProfileScreen({super.key});
+
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController currentPasswordController = TextEditingController();
+  TextEditingController newPasswordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +66,7 @@ class EditProfileScreen extends StatelessWidget {
                                     EditProfileIcon(),
                                     SizedBox(height: 16.h),
                                     InfoInputBox(
+                                      controller: nameController,
                                       style: style,
                                       labelName: 'Name',
                                       hintText: 'Waleed',
@@ -77,6 +84,7 @@ class EditProfileScreen extends StatelessWidget {
                                     ),
                                     SizedBox(height: 16.h),
                                     InfoInputBox(
+                                      controller: emailController,
                                       style: style,
                                       labelName: 'Email',
                                       hintText: 'waleed929@gmail.com',
@@ -111,6 +119,7 @@ class EditProfileScreen extends StatelessWidget {
                                     ),
                                     SizedBox(height: 16.h),
                                     InfoInputBox(
+                                      controller: currentPasswordController,
                                       style: style,
                                       labelName: 'Current Password',
                                       picture: SvgPicture.asset(
