@@ -47,7 +47,7 @@ class AppColorScheme {
   static const Color newText  = Color(0xffBEC2FF);
 
   static const Color answerBoxShadow = Color.fromRGBO(34, 34, 34, 0.2);
-  // static const Color  greenery = Color(0xff63DF7C);
+  static const Color  errorColor = Color(0xffBA1A1A);
 
   static const Color socialBack = Color(0xFF9FA5F2);
   static const Color redGrad = Color(0xffF80715);
@@ -60,7 +60,7 @@ class AppColorScheme {
   static const Color scrollbarColor = Color(0xff10144B);
   static const Color difficultyTextColor = Color(0xFF171717);
   static const Color scondaryTextColor = Color(0xff45263C);
-  // static const Color  = ;
+  static const Color rightOptionBorderColor = Color(0xFF80FC95);
   // static const Color  = ;
   // static const Color  = ;
 

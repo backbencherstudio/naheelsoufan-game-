@@ -53,6 +53,7 @@ class QuestionRevealed extends StatelessWidget {
           child: GameType.multipleChoiceQuestion(
             choices: ["Chemical energy", "Sonic energy", "Thermal energy", "Nuclear energy"],
             question: "What kind of energy does that sun create?",
+            rightChoice: 3
           ),
         ),
         SizedBox(height: 90.h),
