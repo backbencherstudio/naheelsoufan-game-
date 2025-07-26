@@ -42,6 +42,7 @@ class AppImages {
   static const String award = "$imagePath/award.png";
   static const String madel = "$imagePath/madel.png";
   static const String trophy = "$imagePath/trophy.png";
+  static const String developedBy = "$imagePath/developed_by.png";
   // static const String = "$imagePath/  ";
   // static const String = "$imagePath/  ";
   // static const String = "$imagePath/  ";

@@ -11,12 +11,15 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/mode_selection_widgets/custom_card.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/freeExpire_provider.dart';
 
+import '../../question_answer_screen/setting_while_in_game/widgets/language_drop_down_menu.dart';
+
 class ModeSelectionScreen extends StatelessWidget {
   const ModeSelectionScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> keys = GlobalKey<ScaffoldState>();
+    final _menuKey = GlobalKey();
 
     return CreateScreen(
       keys: keys,
@@ -82,6 +85,8 @@ class ModeSelectionScreen extends StatelessWidget {
                 );
               },
             ),
+SizedBox(height: 16.h,),
+            LanguageDropDown(menuKey: _menuKey,),
           ],
         ),
       ),
