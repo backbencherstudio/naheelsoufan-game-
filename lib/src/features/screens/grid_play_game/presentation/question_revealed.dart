@@ -38,9 +38,7 @@ class QuestionRevealed extends StatelessWidget {
                     bgIcon: AppIcons.redBGsqare,
                   ),
                   PointShow(),
-                  GestureDetector(
-                      onTap: ()=> timesUp(context),
-                      child: CustomCountdown()),
+                  CustomCountdown(),
                 ],
               ),
             ),
@@ -75,13 +73,13 @@ class QuestionRevealed extends StatelessWidget {
             rightChoice: 3
           ),
         ),
-        SizedBox(height: 90.h),
+        SizedBox(height: isPortrait ? 100.h : 15.w),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            PlatoonHunterCard(cardName: "Platoon",),
+            PlatoonHunterCard(cardName: "Platoon", index: 1,),
             SizedBox(width: isPortrait ? 24.w : 52.8.h,),
-            PlatoonHunterCard(cardName: "Hunt", )
+            PlatoonHunterCard(cardName: "Hunt", index: 0,)
           ],
         ),
       ],

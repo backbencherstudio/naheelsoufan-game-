@@ -69,7 +69,7 @@ class GridDifficultyLevelScreen extends StatelessWidget {
                 fontSize: 7.2.sp
               ))),
             )] else ...[
-              SizedBox(height: isPortrait ? 11.h : 4.95.w,),
+              SizedBox(height: isPortrait ? 11.h : 3.w,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

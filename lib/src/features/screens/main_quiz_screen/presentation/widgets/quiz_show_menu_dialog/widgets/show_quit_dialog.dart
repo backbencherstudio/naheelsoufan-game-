@@ -10,25 +10,28 @@ void onQuitGameTap(BuildContext context) {
   showDialog(
     context: context,
     builder: (_) {
+      bool isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
       return Dialog(
         backgroundColor: Colors.transparent,
         elevation: 1,
         child: SizedBox(
-          height: 360.h,
+          height: isPortrait ? 360.h : 90.w,
+          width: isPortrait ? null: 860.h,
           child: Stack(
             children: [
               Positioned.fill(
-                top: 26,
+                top: isPortrait ? 26.w : 57.2.h,
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 24.w),
+                  padding: EdgeInsets.symmetric(horizontal: isPortrait ? 24.w : 52.8.h),
                   decoration: BoxDecoration(
-                    border: Border.all(color: Color(0xffFFB4AB), width: 3),
+                    border: Border.all(color: Color(0xffFFB4AB), width: isPortrait ? 3.w : 6.6.h),
                     color: Color(0xffFFDAD6),
-                    borderRadius: BorderRadius.circular(24.r),
+                    borderRadius: BorderRadius.circular(isPortrait ? 24.r : 40.r),
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      SizedBox(height: isPortrait ? 0 : 10.w,),
                       Align(
                         alignment: Alignment.center,
                         child: Text(
@@ -37,21 +40,22 @@ void onQuitGameTap(BuildContext context) {
                           style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                             fontWeight: FontWeight.w500,
                             color: Color(0xff93000A),
-                            fontSize: 28.sp,
+                            fontSize: isPortrait ? 28.sp : 9.sp,
                           ),
                         ),
                       ),
-                      SizedBox(height: 40.h),
-
+                      SizedBox(height: isPortrait ? 40.h: 10.w),
                       HeaderButton(
-                        textStyle: Theme.of(context).textTheme.titleSmall,
+                        textStyle: Theme.of(context).textTheme.titleSmall?.copyWith(
+                          fontSize: isPortrait ? 22.sp: 9.sp
+                        ),
                         textTitle: 'Yes, Quit',
                         gradientColor: LinearGradient(
                           colors: [Color(0xffF80715), Color(0xffA80710)],
                         ),
                         padding: EdgeInsets.symmetric(
-                          horizontal: 60.w,
-                          vertical: 16.h,
+                          horizontal: isPortrait ? 60.w : 80.h,
+                          vertical: isPortrait ? 16.h : 6.w,
                         ),
                       ),
                     ],

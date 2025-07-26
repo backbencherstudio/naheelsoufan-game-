@@ -26,14 +26,6 @@ class PlatoonHunterCard extends StatelessWidget {
       width: isPortrait ? 104.w : 228.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(isPortrait ?12.r: 26.4.r),
-        boxShadow: [
-          BoxShadow(
-            color: Color.fromRGBO(34, 34, 34, 0.20),
-            offset: Offset(0, 4), // x: 0, y: 4
-            blurRadius: 25,
-            spreadRadius: 0,
-          )
-        ],
         gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -42,8 +34,6 @@ class PlatoonHunterCard extends StatelessWidget {
               AppColorScheme.midYellow,
               AppColorScheme.yellowborder,
             ]),
-        //Color(0xFF6B71B9),
-        border: Border(bottom: BorderSide(width: isPortrait ? 3.w : 6.6.h, color: Color(0xFF52589F))),
       ),
       child: Container(
         padding: EdgeInsets.all(isPortrait ? 12.r : 26.4.r),
@@ -60,9 +50,10 @@ class PlatoonHunterCard extends StatelessWidget {
         ),
         child: Column(
           children: [
-            SvgPicture.asset(AppIcons.groupProfile, height: 52.8.h, width: 52.8.h,),
+            SvgPicture.asset(AppIcons.groupProfile, width: isPortrait ? 24.w : 52.8.h, colorFilter: ColorFilter.mode(Color(0xFF171717), BlendMode.srcIn),),
             RichText(text: TextSpan(text: cardName, style: textTheme.displayMedium?.copyWith(
-                fontSize: isPortrait ? 16.sp : 7.2.sp
+                fontSize: isPortrait ? 16.sp : 7.2.sp,
+              color: Color(0xFF171717)
             ))),
           ],
         ),
@@ -74,7 +65,7 @@ class PlatoonHunterCard extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: Color.fromRGBO(34, 34, 34, 0.20),
-            offset: Offset(0, 4), // x: 0, y: 4
+            offset: Offset(0, 4),
             blurRadius: 25,
             spreadRadius: 0,
           )
@@ -91,21 +82,59 @@ class PlatoonHunterCard extends StatelessWidget {
           ))),
         ],
       ),
-    ):Container(
+    ):(cardStatus[finalIndex] == "wrong")?Container(
       padding: EdgeInsets.all(isPortrait ? 12.r : 26.4.r),
       width: isPortrait ? 104.w : 228.h,
       decoration: BoxDecoration(
         color: Color(0xFF52589F),
         borderRadius: BorderRadius.circular(isPortrait ? 12.r : 26.4.r),
-        border: Border(bottom: BorderSide(width: isPortrait ? 3.w : 6.6.h, color: Color(0xFF6B71B9))),
+        border: Border.all(width: isPortrait ? 3.w : 6.6.h, color: Color(0xFF6B71B9)),
       ),
       child: Column(
         children: [
-          SvgPicture.asset(AppIcons.groupProfile, width: isPortrait ? 24.w : 52.8.h,),
+          SvgPicture.asset(AppIcons.groupProfile, width: isPortrait ? 24.w : 52.8.h, colorFilter: ColorFilter.mode(Color(0xFF6B71B9), BlendMode.srcIn),),
           RichText(text: TextSpan(text: cardName, style: textTheme.displayMedium?.copyWith(
-              fontSize: isPortrait ? 16.sp : 7.2.sp
+              fontSize: isPortrait ? 16.sp : 7.2.sp,
+            color: Color(0xFF6B71B9)
           ))),
         ],
+      ),
+    ):Container(
+      padding: EdgeInsets.all(isPortrait ? 3.r : 5.r),
+      width: isPortrait ? 104.w : 228.h,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(isPortrait ?12.r: 26.4.r),
+        gradient: LinearGradient(
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+            colors: [
+              AppColorScheme.startGradGreen,
+              AppColorScheme.midGradGreen,
+              AppColorScheme.hardGradGreen,
+            ]),
+      ),
+      child: Container(
+        padding: EdgeInsets.all(isPortrait ? 12.r : 26.4.r),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(isPortrait ?12.r: 26.4.r),
+            gradient: LinearGradient(
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter,
+                colors: [
+                  AppColorScheme.startGradGreen,
+                  AppColorScheme.midGradGreen,
+                  AppColorScheme.hardGradGreen,
+                ])
+        ),
+        child: Column(
+          children: [
+            SvgPicture.asset(AppIcons.groupProfile, width: isPortrait ? 24.w : 52.8.h, colorFilter: ColorFilter.mode(Color(0xFFB8F1B9), BlendMode.srcIn),),
+            RichText(text: TextSpan(text: cardName, style: textTheme.displayMedium?.copyWith(
+                fontSize: isPortrait ? 16.sp : 7.2.sp,
+                color: Color(0xFFB8F1B9)
+            ))),
+          ],
+        ),
       ),
     );
   }
