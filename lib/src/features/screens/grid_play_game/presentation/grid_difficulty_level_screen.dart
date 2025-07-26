@@ -2,13 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import 'package:naheelsoufan_game/src/data/dummy/question_types_data.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentation/widget/custom_grid_question_card.dart';
+import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentation/widget/platoon_hunter_card.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/riverpod/function.dart';
 
 class GridDifficultyLevelScreen extends StatelessWidget {
@@ -73,57 +73,9 @@ class GridDifficultyLevelScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    padding: EdgeInsets.all(12.r),
-                    width: isPortrait ? 104.w : 228.h,
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color.fromRGBO(34, 34, 34, 0.20),
-                          offset: Offset(0, 4), // x: 0, y: 4
-                          blurRadius: 25,
-                          spreadRadius: 0,
-                        )
-                      ],
-                      color: Color(0xFF6B71B9),
-                      borderRadius: BorderRadius.circular(12.r),
-                      border: Border(bottom: BorderSide(width: isPortrait ? 3.w : 6.6.h, color: Color(0xFF52589F))),
-                    ),
-                    child: Column(
-                      children: [
-                        SvgPicture.asset(AppIcons.groupProfile, height: 52.8.h, width: 52.8.h,),
-                        RichText(text: TextSpan(text: "Platoon", style: textTheme.displayMedium?.copyWith(
-                          fontSize: 7.2.sp
-                        ))),
-                      ],
-                    ),
-                  ),
+                  PlatoonHunterCard(cardName: "Platoon", ),
                   SizedBox(width: isPortrait ? 24.w : 52.8.h,),
-                  Container(
-                    padding: EdgeInsets.all(12.r),
-                    width: isPortrait ? 104.w : 228.h,
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color.fromRGBO(34, 34, 34, 0.20),
-                          offset: Offset(0, 4), // x: 0, y: 4
-                          blurRadius: 25,
-                          spreadRadius: 0,
-                        )
-                      ],
-                      color: Color(0xFF6B71B9),
-                      borderRadius: BorderRadius.circular(12.r),
-                      border: Border(bottom: BorderSide(width: isPortrait ? 3.w : 6.6.h, color: Color(0xFF52589F))),
-                    ),
-                    child: Column(
-                      children: [
-                        SvgPicture.asset(AppIcons.groupProfile, height: 52.8.h, width: 52.8.h,),
-                        RichText(text: TextSpan(text: "Hunt", style: textTheme.displayMedium?.copyWith(
-                            fontSize: 7.2.sp
-                        ))),
-                      ],
-                    ),
-                  ),
+                  PlatoonHunterCard(cardName: "Hunt", ),
                 ],
               ),
             ]

@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:naheelsoufan_game/src/data/dummy/dummy_question.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
+import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentation/widget/platoon_hunter_card.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/point.dart';
 import '../../../../core/constant/icons.dart';
 import '../../../../core/constant/padding.dart';
@@ -20,18 +21,37 @@ class QuestionRevealed extends StatelessWidget {
     return CreateScreen(child: Padding(padding: AppPadding.horizontalPadding,
     child: Column(
       children: [
+        SizedBox(height: isPortrait ? 30.h : 13.5.w,),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            CustomIconsButtons(
+            if(!isPortrait) SizedBox(
+              width: 990.h,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustomIconsButtons(
+                    icon: AppIcons.crossIcon,
+                    onTap: () {
+                      onQuitGameTap(context);
+                    },
+                    bgIcon: AppIcons.redBGsqare,
+                  ),
+                  PointShow(),
+                  GestureDetector(
+                      onTap: ()=> timesUp(context),
+                      child: CustomCountdown()),
+                ],
+              ),
+            ),
+            if(isPortrait) CustomIconsButtons(
               icon: AppIcons.crossIcon,
               onTap: () {
                 onQuitGameTap(context);
               },
               bgIcon: AppIcons.redBGsqare,
             ),
-
-            GestureDetector(
+            if(isPortrait) GestureDetector(
                 onTap: ()=> timesUp(context),
                 child: CustomCountdown()),
             CustomIconsButtons(
@@ -45,9 +65,8 @@ class QuestionRevealed extends StatelessWidget {
         ),
         SizedBox(height: 16.h),
         //point container
-        PointShow(),
+        if(isPortrait) PointShow(),
         SizedBox(height: 16.h),
-
         Padding(
           padding: EdgeInsets.symmetric(horizontal: isPortrait ? 0.h : 300.h),
           child: GameType.multipleChoiceQuestion(
@@ -57,6 +76,14 @@ class QuestionRevealed extends StatelessWidget {
           ),
         ),
         SizedBox(height: 90.h),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            PlatoonHunterCard(cardName: "Platoon",),
+            SizedBox(width: isPortrait ? 24.w : 52.8.h,),
+            PlatoonHunterCard(cardName: "Hunt", )
+          ],
+        ),
       ],
     ),)
     );

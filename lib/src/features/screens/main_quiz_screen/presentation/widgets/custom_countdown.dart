@@ -12,7 +12,7 @@ class CustomCountdown extends StatelessWidget {
     final style = Theme.of(context).textTheme;
     bool isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
     return Container(
-      padding: isPortrait ? EdgeInsets.all(4.r) : EdgeInsets.symmetric(horizontal: 11.6.h, vertical: 1.5.w),
+      padding: isPortrait ? EdgeInsets.all(4.r) : EdgeInsets.symmetric(horizontal: 12.h),
       decoration: BoxDecoration(
         borderRadius: isPortrait ? null: BorderRadius.all(Radius.circular(50.r)),
         shape: isPortrait ? BoxShape.circle : BoxShape.rectangle,
