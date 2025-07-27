@@ -108,7 +108,6 @@ void onWrongAnswerTap(BuildContext context) {
                                 for (final id in listID) {
                                   ref.read(checkChoicesProvider(id).notifier).state = -1;
                                 }
-                                context.go(RouteName.gridDifficultyLevelScreen);
                               },
                               height: isPortrait ? null : 25.w,
                               textTitle: 'Change to steal the point',

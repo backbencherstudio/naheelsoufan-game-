@@ -137,14 +137,23 @@ class QuestionRevealed extends StatelessWidget {
                   children: [
                     if (ref.read(isRightWrongElse.notifier).state == -1) ...[
                       PlatoonHunterCard(cardName: "Platoon", index: 1),
-                    ] else if (ref.read(isRightWrongElse.notifier).state ==
-                        1) ...[
+                    ] else if (ref.read(isRightWrongElse.notifier).state == 1) ...[
                       PlatoonHunterCard(cardName: "100 Pts", index: 3),
                     ] else ...[
                       PlatoonHunterCard(cardName: "Platoon", index: 2),
                     ],
+
                     SizedBox(width: isPortrait ? 24.w : 52.8.h),
-                    PlatoonHunterCard(cardName: "Hunt", index: 0),
+
+                    if (ref.read(huntModeOn.notifier).state) ...[
+                      PlatoonHunterCard(cardName: "Hunt", index: 1),
+                    ] else if (ref.read(isRightWrongElse2.notifier).state == -1) ...[
+                      PlatoonHunterCard(cardName: "Hunt", index: 1),
+                    ] else if (ref.read(isRightWrongElse2.notifier).state == 1) ...[
+                      PlatoonHunterCard(cardName: "Hunt", index: 3),
+                    ] else ...[
+                      PlatoonHunterCard(cardName: "Hunt", index: 2),
+                    ],
                   ],
                 );
               },
