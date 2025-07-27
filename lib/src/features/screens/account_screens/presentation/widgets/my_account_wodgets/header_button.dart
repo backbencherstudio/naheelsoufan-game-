@@ -13,9 +13,9 @@ class HeaderButton extends StatelessWidget {
     this.height,
     this.borderWidth,
     this.borderRadius,
-     this.onTap
+    this.onClick
   });
-
+  final GestureTapCallback? onClick;
   final String textTitle;
   final Gradient? gradientColor;
   final Color? borderColor;
@@ -25,21 +25,22 @@ class HeaderButton extends StatelessWidget {
   final double? height;
   final double? borderWidth;
   final BorderRadius? borderRadius;
-  final void Function()? onTap;
+
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Align(
-        alignment: Alignment.topCenter,
+    bool isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+    return Align(
+      alignment: Alignment.topCenter,
+      child: InkWell(
+        onTap: onClick,
         child: Container(
           width: width,
           height: height,
           padding:
               padding ??
               EdgeInsets.symmetric(
-                horizontal: 40.w,
-                vertical: 16.h,
+                horizontal: isPortrait ? 40.w : 88.h,
+                vertical: isPortrait ? 16.h : 7.2.w,
               ), // Default padding
           decoration: BoxDecoration(
             gradient:
@@ -56,13 +57,15 @@ class HeaderButton extends StatelessWidget {
                 ),
             border: Border.all(
               color: borderColor ?? Colors.transparent,
-              width: borderWidth ?? 2.5.w,
+              width: borderWidth ?? (isPortrait ? 2.5.w : 5.5.h),
             ),
-            borderRadius: borderRadius ?? BorderRadius.circular(12.r),
+            borderRadius: borderRadius ?? BorderRadius.circular(isPortrait ? 12.r : 26.4.r),
           ),
           child: Text(
             textTitle,
-            style: textStyle ?? Theme.of(context).textTheme.headlineMedium,
+            style: textStyle ?? Theme.of(context).textTheme.headlineMedium?.copyWith(
+                fontSize: isPortrait ? 28.sp : 12.6.sp
+            ),
             textAlign: TextAlign.center,
           ),
         ),

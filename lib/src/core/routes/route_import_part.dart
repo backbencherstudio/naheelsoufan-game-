@@ -16,7 +16,6 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/share_room_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentation/choose_category_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentation/enter_team_name_screen.dart';
-import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentation/free_mode_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentation/grid_difficulty_level_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentation/question_revealed.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/quiz_screen.dart';

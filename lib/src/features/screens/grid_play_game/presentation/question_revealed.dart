@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentation/widget/platoon_hunter_card.dart';
+import 'package:naheelsoufan_game/src/features/screens/grid_play_game/riverpod/function.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/point.dart';
+import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/wrong_answer_dialog.dart';
 import '../../../../core/constant/icons.dart';
 import '../../../../core/constant/padding.dart';
+import '../../account_screens/presentation/widgets/my_account_wodgets/header_button.dart';
 import '../../game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import '../../game_type/game_type.dart';
 import '../../main_quiz_screen/presentation/widgets/custom_countdown.dart';
@@ -17,75 +21,137 @@ class QuestionRevealed extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
-    return CreateScreen(child: Padding(padding: AppPadding.horizontalPadding,
-    child: Column(
-      children: [
-        SizedBox(height: isPortrait ? 30.h : 13.5.w,),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    bool isPortrait =
+        MediaQuery.of(context).orientation == Orientation.portrait;
+    return CreateScreen(
+      child: Padding(
+        padding: AppPadding.horizontalPadding,
+        child: Column(
           children: [
-            if(!isPortrait) SizedBox(
-              width: 990.h,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CustomIconsButtons(
-                    icon: AppIcons.crossIcon,
-                    onTap: () {
-                      onQuitGameTap(context);
-                    },
-                    bgIcon: AppIcons.redBGsqare,
-                  ),
-                  PointShow(),
-                  GestureDetector(
-                      onTap: ()=> timesUp(context),
-                      child: CustomCountdown()),
+            SizedBox(height: isPortrait ? 30.h : 13.5.w),
+            Consumer(
+              builder: (_,ref,_) {
+                final huntCheck = ref.watch(huntModeOn);
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    if (!isPortrait)
+                      SizedBox(
+                        width: 990.h,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            CustomIconsButtons(
+                              icon: AppIcons.crossIcon,
+                              onTap: () {
+                                onQuitGameTap(context);
+                              },
+                              bgIcon: AppIcons.redBGsqare,
+                            ),
+                            PointShow(),
+                            CustomCountdown(),
+                          ],
+                        ),
+                      ),
+                    if (isPortrait)
+                      CustomIconsButtons(
+                        icon: AppIcons.crossIcon,
+                        onTap: () {
+                          onQuitGameTap(context);
+                        },
+                        bgIcon: AppIcons.redBGsqare,
+                      ),
+                    if (isPortrait)
+                      GestureDetector(
+                        onTap: () => timesUp(context),
+                        child: CustomCountdown(),
+                      ),
+                    if(!isPortrait && ref.read(huntModeOn.notifier).state) HeaderButton(
+                      height: isPortrait ? 40.h : 20.w,
+                      textTitle: 'Steal Point',
+                      borderColor: Color(0xffFFB4AB),
+                      borderWidth: 3,
+                      borderRadius: BorderRadius.circular(isPortrait ? 8.r : 20.r),
+                      textStyle: Theme.of(context).textTheme.titleSmall?.copyWith(
+                        color: Color(0xffFFDAD6),
+                        fontWeight: FontWeight.w500,
+                        fontSize: isPortrait ? 18.sp : 8.sp,
+                      ),
+
+                      gradientColor: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Color(0xFFFF5449),
+                          Color(0xFFFF5449),
+                          Color(0xFFFF5449),
+                        ],
+                        stops: [0.0, 0.4904, 1.0],
+                      ),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: isPortrait ? 12.w : 26.4.h,
+                        vertical: isPortrait ? 4.h : 3.6.w,
+                      ),
+                    ),
+                    CustomIconsButtons(
+                      icon: AppIcons.threeDot,
+                      onTap: () {
+                        // botttom sheet jabe
+                      },
+                      bgIcon: AppIcons.iconBG,
+                    ),
+                  ],
+                );
+              }
+            ),
+            SizedBox(height: 16.h),
+            //point container
+            if (isPortrait) PointShow(),
+            SizedBox(height: 16.h),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: isPortrait ? 0.h : 300.h,
+              ),
+              child: GameType.multipleChoiceQuestion(
+                choices: [
+                  "Chemical energy",
+                  "Sonic energy",
+                  "Thermal energy",
+                  "Nuclear energy",
                 ],
+                question: "What kind of energy does that sun create?",
+                rightChoice: 3,
               ),
             ),
-            if(isPortrait) CustomIconsButtons(
-              icon: AppIcons.crossIcon,
-              onTap: () {
-                onQuitGameTap(context);
+            SizedBox(height: isPortrait ? 100.h : 15.w),
+            Consumer(
+              builder: (_, ref, _) {
+                final checkRight = ref.watch(isRightWrongElse);
+                if (checkRight != 1 && checkRight != -1) {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    onWrongAnswerTap(context);
+                  });
+                }
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    if (ref.read(isRightWrongElse.notifier).state == -1) ...[
+                      PlatoonHunterCard(cardName: "Platoon", index: 1),
+                    ] else if (ref.read(isRightWrongElse.notifier).state ==
+                        1) ...[
+                      PlatoonHunterCard(cardName: "100 Pts", index: 3),
+                    ] else ...[
+                      PlatoonHunterCard(cardName: "Platoon", index: 2),
+                    ],
+                    SizedBox(width: isPortrait ? 24.w : 52.8.h),
+                    PlatoonHunterCard(cardName: "Hunt", index: 0),
+                  ],
+                );
               },
-              bgIcon: AppIcons.redBGsqare,
-            ),
-            if(isPortrait) GestureDetector(
-                onTap: ()=> timesUp(context),
-                child: CustomCountdown()),
-            CustomIconsButtons(
-              icon: AppIcons.threeDot,
-              onTap: () {
-                // botttom sheet jabe
-              },
-              bgIcon: AppIcons.iconBG,
             ),
           ],
         ),
-        SizedBox(height: 16.h),
-        //point container
-        if(isPortrait) PointShow(),
-        SizedBox(height: 16.h),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: isPortrait ? 0.h : 300.h),
-          child: GameType.multipleChoiceQuestion(
-            choices: ["Chemical energy", "Sonic energy", "Thermal energy", "Nuclear energy"],
-            question: "What kind of energy does that sun create?",
-            rightChoice: 3
-          ),
-        ),
-        SizedBox(height: 90.h),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            PlatoonHunterCard(cardName: "Platoon",),
-            SizedBox(width: isPortrait ? 24.w : 52.8.h,),
-            PlatoonHunterCard(cardName: "Hunt", )
-          ],
-        ),
-      ],
-    ),)
+      ),
     );
   }
 }

@@ -12,6 +12,7 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/freeExpire_provider.dart';
 import '../../../../core/constant/icons.dart';
 import '../../../../core/constant/images.dart';
+import '../../../../data/riverpod/route_control.dart';
 
 class FreeGameScreen extends StatelessWidget {
   const FreeGameScreen({super.key});
@@ -38,16 +39,16 @@ class FreeGameScreen extends StatelessWidget {
               SizedBox(height: 40.h,),
               FreeGametile(),
               SizedBox(height: 121.h,),
-              Consumer(
-                builder: (context, ref,_) {
-
+            Consumer(
+                builder: (_, ref, _) {
+                  final checkScreen = ref.watch(checkNormalGridScreen);
                   return FreeGameCard(onTap: () {
-                    ref.read(isFreeModeOnProvider.notifier).state=true;
-                    context.push(RouteName.createRoomScreen);
-                    debugPrint("${ ref.watch(isFreeModeOnProvider)}");
+                    //choosePaymentCard
+                    ref.read(checkGridSubscription.notifier).state = true;
+                    (ref.read(checkNormalGridScreen.notifier).state) ? context.push(RouteName.createRoomScreen) : context.push(RouteName.enterTeamNameScreen);
                   },);
                 }
-              ),
+            ),
               Spacer(),
               SeePlansContainer(),
               SizedBox(height: 40.h,)
