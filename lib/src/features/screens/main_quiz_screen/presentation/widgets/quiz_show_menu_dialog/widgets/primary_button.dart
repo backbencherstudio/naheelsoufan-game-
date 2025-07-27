@@ -55,7 +55,7 @@ class PrimaryButton extends StatelessWidget {
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
               color: isSelected ? Colors.white : Color(0xff2E1126),
               fontWeight: FontWeight.w500,
-              fontSize: textSize ?? 16.sp,
+              fontSize: (textSize ?? 16.sp),
             ),
           ),
         ),

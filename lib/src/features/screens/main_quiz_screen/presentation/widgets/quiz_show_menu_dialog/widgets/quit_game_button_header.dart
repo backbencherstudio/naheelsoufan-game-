@@ -8,6 +8,7 @@ class QuitGameButtonHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
     return Align(
       alignment: Alignment.center,
       child: HeaderButton(

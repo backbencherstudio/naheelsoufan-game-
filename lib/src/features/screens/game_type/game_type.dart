@@ -10,7 +10,7 @@ class GameType {
   static Widget multipleChoiceQuestion({
     required List<String> choices,
     required String question,
-    int? rightChoice
+    int? rightChoice,
   }) => MultipleChoiceQuestion(choices: choices, question: question, rightIndex: rightChoice,);
 
   /// true or false question
