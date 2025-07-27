@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
@@ -11,6 +12,7 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/share_room%20widgets/qr_box.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/share_room%20widgets/room_link_box.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/freeExpire_provider.dart';
 
 import '../../../../core/constant/images.dart';
 
@@ -43,7 +45,6 @@ class ShareRoomScreen extends StatelessWidget {
 
             Text(
               "Share Room",
-
               style: style.headlineLarge!.copyWith(
                 fontSize: 32.sp,
                 fontWeight: FontWeight.w500,
@@ -55,7 +56,7 @@ class ShareRoomScreen extends StatelessWidget {
               padding: EdgeInsets.all(12.r),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(24.r),
-                border: Border.all(color:AppColorScheme.borderColor),
+                border: Border.all(color: AppColorScheme.borderColor),
               ),
               child: Column(
                 children: [
@@ -81,11 +82,20 @@ class ShareRoomScreen extends StatelessWidget {
                   SizedBox(height: 8.h),
                   QrBox(),
                   SizedBox(height: 60.h),
-                  CustomButton(
-                    text: "NEXT",
-                    img: AppImages.primaryUpsidedown,
-                    onTap: () {
-                      context.push(RouteName.playerSelectionScreen);
+                  Consumer(
+                    builder: (context, ref, _) {
+                      final isOffLine = ref.watch(isOfflineOnProvider);
+                      return CustomButton(
+                        text: "NEXT",
+                        img: AppImages.primaryUpsidedown,
+                        onTap: () {
+                          if (isOffLine == true) {
+                            context.push(RouteName.addPlayerScreen);
+                          } else {
+                            context.push(RouteName.playerSelectionScreen);
+                          }
+                        },
+                      );
                     },
                   ),
                 ],

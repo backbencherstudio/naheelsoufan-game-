@@ -4,11 +4,22 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/theme/theme_extension/color_scheme.dart';
 import '../../riverpod/true_false_provider.dart';
+import '../mcq_question/widget/image_part.dart';
+import '../mcq_question/widget/video_part.dart';
 
-class TrueFalseQuestion extends ConsumerWidget {
+class TrueFalseQuestionWithImageVideo extends ConsumerWidget {
   final String question;
+  final String? imageUrl;
+  final String? videoUrl;
+  final String? videoThumbnailUrl;
 
-  const TrueFalseQuestion({super.key, required this.question});
+  const TrueFalseQuestionWithImageVideo({
+    super.key,
+    required this.question,
+    this.imageUrl,
+    this.videoUrl,
+    this.videoThumbnailUrl
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -23,7 +34,14 @@ class TrueFalseQuestion extends ConsumerWidget {
           style: textTheme.titleLarge,
           textAlign: TextAlign.center,
         ),
-        const SizedBox(height: 20),
+        SizedBox(height: 40.h,),
+        ///Image part\
+        if (imageUrl != null) ImagePart(imageUrl: imageUrl),
+
+        ///video part
+        if (videoUrl != null) VideoPart(thumbnailUrl: videoThumbnailUrl, videoUrl: videoUrl!),
+
+        SizedBox(height: 40.h,),
         Row(
           children: [
             Expanded(
@@ -37,7 +55,7 @@ class TrueFalseQuestion extends ConsumerWidget {
                       : AppColorScheme.optionBg,
                   padding: EdgeInsets.symmetric(vertical: 40.h),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(12.r),
                   ),
                 ),
                 child: Text(
@@ -51,7 +69,7 @@ class TrueFalseQuestion extends ConsumerWidget {
                 ),
               ),
             ),
-            const SizedBox(width: 10),
+            SizedBox(width: 10.w),
             Expanded(
               child: ElevatedButton(
                 onPressed: () {

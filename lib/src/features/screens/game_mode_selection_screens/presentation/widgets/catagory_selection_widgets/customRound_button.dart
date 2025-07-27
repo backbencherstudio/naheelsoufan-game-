@@ -5,7 +5,7 @@ import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 class CustomroundButton extends StatelessWidget {
 
    final String icon;
-  final void Function()? onTap;
+  final GestureTapCallback onTap;
   final String? bgIcon;
   const CustomroundButton({
     super.key,

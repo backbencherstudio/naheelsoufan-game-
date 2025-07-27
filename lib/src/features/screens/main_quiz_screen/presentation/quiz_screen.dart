@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/constant/padding.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
@@ -8,6 +9,10 @@ import 'package:naheelsoufan_game/src/features/screens/game_type/game_type.dart'
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/custom_countdown.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/player_point_container.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/point.dart';
+import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/show_quit_dialog.dart';
+import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/times_up.dart';
+
+import '../../../../core/routes/route_name.dart';
 
 class QuizScreen extends StatelessWidget {
   const QuizScreen({super.key});
@@ -27,16 +32,18 @@ class QuizScreen extends StatelessWidget {
                 CustomIconsButtons(
                   icon: AppIcons.crossIcon,
                   onTap: () {
-                    // botttom sheet jabe
+                    onQuitGameTap(context);
                   },
                   bgIcon: AppIcons.redBGsqare,
                 ),
 
-                CustomCountdown(),
+                GestureDetector(
+                    onTap: ()=> timesUp(context),
+                    child: CustomCountdown()),
                 CustomIconsButtons(
                   icon: AppIcons.threeDot,
                   onTap: () {
-                    // botttom sheet jabe
+                    context.push(RouteName.settingWhileInGameScreen);
                   },
                   bgIcon: AppIcons.iconBG,
                 ),
@@ -44,7 +51,7 @@ class QuizScreen extends StatelessWidget {
             ),
             SizedBox(height: 16.h),
             //point container
-            Point(),
+            PointShow(),
             SizedBox(height: 16.h),
 
             GameType.multipleChoiceQuestion(

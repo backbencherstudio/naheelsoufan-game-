@@ -5,7 +5,7 @@ import 'package:naheelsoufan_game/src/core/theme/theme_extension/text_theme.dart
 
 class CustomTextFormField extends StatelessWidget {
   final String hintText;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final TextInputType keyboardType;
   final bool obscureText;
   final Widget? suffixIcon;
@@ -16,7 +16,7 @@ class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
     super.key,
     required this.hintText,
-    required this.controller,
+    this.controller,
     this.keyboardType = TextInputType.text,
     this.obscureText = false,
     this.suffixIcon,

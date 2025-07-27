@@ -44,19 +44,23 @@ class AppColorScheme {
   static const Color customGreenBT = Color(0xff008A39);
   static const Color greenery = Color(0xff63DF7C);
   static const Color listContainerColor = Color(0xffE0E0FF);
-   static const Color newText  = Color(0xffBEC2FF);
+  static const Color newText  = Color(0xffBEC2FF);
 
-  // static const Color  customGreenBT = Color(0xff008A39);
-  // static const Color  greenery = Color(0xff63DF7C);
+  static const Color answerBoxShadow = Color.fromRGBO(34, 34, 34, 0.2);
+  static const Color  errorColor = Color(0xffBA1A1A);
 
   static const Color socialBack = Color(0xFF9FA5F2);
   static const Color redGrad = Color(0xffF80715);
   static const Color redgradMid = Color(0xffFF897D);
   static const Color redGrad2 = Color(0xffA80710);
+
+   static const Color secondaryFixed = Color(0xFF10144B);
+   static const Color sweetViolet = Color(0xFF858BD5);
   static const Color playerContainerColor = Color(0xff464C92);
   static const Color scrollbarColor = Color(0xff10144B);
+  static const Color difficultyTextColor = Color(0xFF171717);
   static const Color scondaryTextColor = Color(0xff45263C);
-  // static const Color  = ;
+  static const Color rightOptionBorderColor = Color(0xFF80FC95);
   // static const Color  = ;
   // static const Color  = ;
 
