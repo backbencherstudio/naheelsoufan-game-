@@ -9,7 +9,7 @@ class InfoInputBox extends StatelessWidget {
     required this.labelName,
     this.hintText,
     required this.picture,
-    this.validator,
+    this.validator, this.controller,
   });
 
   final TextTheme style;
@@ -17,6 +17,8 @@ class InfoInputBox extends StatelessWidget {
   final String? hintText;
   final SvgPicture picture;
   final String? Function(String?)? validator;
+  final TextEditingController? controller;
+
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +39,7 @@ class InfoInputBox extends StatelessWidget {
             children: [
               Expanded(
                 child: TextFormField(
+                  controller: controller,
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.only(top: 8.h),
                     hintText: hintText,

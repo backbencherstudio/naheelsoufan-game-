@@ -14,16 +14,19 @@ class SignInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CreateScreen(
-      child: Padding(
-        padding: AppPadding.horizontalPadding,
-        child: Column(
-          children: [
-            RegisterAppbar(),
-            SizedBox(height: 126.h),
-            SignInBody(),
-            SizedBox(height: 154.h),
-            SignInBottom()
-          ],
+      child: SingleChildScrollView(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+        child: Padding(
+          padding: AppPadding.horizontalPadding,
+          child: Column(
+            children: [
+              RegisterAppbar(),
+              SizedBox(height: 126.h),
+              SignInBody(),
+              SizedBox(height: 154.h),
+              SignInBottom()
+            ],
+          ),
         ),
       ),
     );
