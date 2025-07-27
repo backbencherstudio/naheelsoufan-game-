@@ -13,6 +13,7 @@ class HeaderButton extends StatelessWidget {
     this.height,
     this.borderWidth,
     this.borderRadius,
+     this.onTap
   });
 
   final String textTitle;
@@ -24,43 +25,46 @@ class HeaderButton extends StatelessWidget {
   final double? height;
   final double? borderWidth;
   final BorderRadius? borderRadius;
-
+  final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.topCenter,
-      child: Container(
-        width: width,
-        height: height,
-        padding:
-            padding ??
-            EdgeInsets.symmetric(
-              horizontal: 40.w,
-              vertical: 16.h,
-            ), // Default padding
-        decoration: BoxDecoration(
-          gradient:
-              gradientColor ??
-              LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Color(0xFF1D5128),
-                  Color(0xFF14BA37),
-                  Color(0xFF1D5128),
-                ],
-                stops: [0.0, 0.4904, 1.0],
-              ),
-          border: Border.all(
-            color: borderColor ?? Colors.transparent,
-            width: borderWidth ?? 2.5.w,
+    return GestureDetector(
+      onTap: onTap,
+      child: Align(
+        alignment: Alignment.topCenter,
+        child: Container(
+          width: width,
+          height: height,
+          padding:
+              padding ??
+              EdgeInsets.symmetric(
+                horizontal: 40.w,
+                vertical: 16.h,
+              ), // Default padding
+          decoration: BoxDecoration(
+            gradient:
+                gradientColor ??
+                LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Color(0xFF1D5128),
+                    Color(0xFF14BA37),
+                    Color(0xFF1D5128),
+                  ],
+                  stops: [0.0, 0.4904, 1.0],
+                ),
+            border: Border.all(
+              color: borderColor ?? Colors.transparent,
+              width: borderWidth ?? 2.5.w,
+            ),
+            borderRadius: borderRadius ?? BorderRadius.circular(12.r),
           ),
-          borderRadius: borderRadius ?? BorderRadius.circular(12.r),
-        ),
-        child: Text(
-          textTitle,
-          style: textStyle ?? Theme.of(context).textTheme.headlineMedium,
-          textAlign: TextAlign.center,
+          child: Text(
+            textTitle,
+            style: textStyle ?? Theme.of(context).textTheme.headlineMedium,
+            textAlign: TextAlign.center,
+          ),
         ),
       ),
     );

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
 import 'package:naheelsoufan_game/src/features/screens/account_screens/presentation/widgets/my_account_wodgets/header_button.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/quit_game_button_header.dart';
 
@@ -44,6 +46,9 @@ void onQuitGameTap(BuildContext context) {
                       SizedBox(height: 40.h),
 
                       HeaderButton(
+                        onTap: () {
+                          context.go(RouteName.modeSelectionScreen);
+                        },
                         textStyle: Theme.of(context).textTheme.titleSmall,
                         textTitle: 'Yes, Quit',
                         gradientColor: LinearGradient(
