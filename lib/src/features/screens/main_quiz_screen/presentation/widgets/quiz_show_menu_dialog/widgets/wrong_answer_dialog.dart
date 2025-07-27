@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/features/screens/account_screens/presentation/widgets/my_account_wodgets/header_button.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_type/riverpod/multiple_choice_provider.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/riverpod/function.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/primary_button.dart';
 
 import '../../../../../../../core/constant/icons.dart';
+import '../../../../../../../core/routes/route_name.dart';
 
 
 void onWrongAnswerTap(BuildContext context) {
@@ -14,6 +17,7 @@ void onWrongAnswerTap(BuildContext context) {
   showDialog(
     context: context,
     builder: (_) {
+      List<int> listID = [0, 1, 2, 3, 4];
       return Dialog(
         backgroundColor: Colors.transparent,
         elevation: 1,
@@ -66,7 +70,7 @@ void onWrongAnswerTap(BuildContext context) {
                               width: 1,
                             ),
                             color: Color(0xffEBFFE7),
-                            borderRadius: BorderRadius.circular(24.r),
+                            borderRadius: BorderRadius.circular(isPortrait ? 24.r : 52.r),
                           ),
                           child: Column(
                             children: [
@@ -85,7 +89,7 @@ void onWrongAnswerTap(BuildContext context) {
                                 isSelected: true,
                                 onTap: () {},
                                 width: isPortrait ? 166.w : 365.h,
-                                height: 23.w,
+                                height: isPortrait ? 53.h : 23.w,
                                 color: Colors.white,
                                 textSize: isPortrait ? 16.sp : 8.sp,
                               ),
@@ -101,13 +105,16 @@ void onWrongAnswerTap(BuildContext context) {
                             return HeaderButton(
                               onClick: (){
                                 ref.read(huntModeOn.notifier).state = true;
-                                Navigator.pop(context);
+                                for (final id in listID) {
+                                  ref.read(checkChoicesProvider(id).notifier).state = -1;
+                                }
+                                context.go(RouteName.gridDifficultyLevelScreen);
                               },
                               height: isPortrait ? null : 25.w,
                               textTitle: 'Change to steal the point',
                               borderColor: Color(0xffFFB4AB),
                               borderWidth: 3,
-                              borderRadius: BorderRadius.circular(isPortrait ? 8.r : 17.6.r),
+                              borderRadius: BorderRadius.circular(isPortrait ? 8.r : 20.r),
                               textStyle: Theme.of(context).textTheme.titleSmall
                                   ?.copyWith(
                                     color: Color(0xffFFDAD6),
