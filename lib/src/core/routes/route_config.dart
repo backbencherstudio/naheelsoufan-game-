@@ -2,7 +2,7 @@ part of 'route_import_part.dart';
 
 class RouteConfig {
   GoRouter goRouter = GoRouter(
-    initialLocation: RouteName.chooseCategoryScreen,
+    initialLocation: RouteName.splashScreen,
     routes: [
       GoRoute(
         path: RouteName.questionRevealedScreen,
@@ -45,17 +45,6 @@ class RouteConfig {
             state: state,
             transitionType: PageTransitionType.slideRightToLeft,
             child: EnterTeamNameScreen(),
-          );
-        },
-      ),
-      GoRoute(
-        path: RouteName.freeModeScreen,
-        pageBuilder: (context, state) {
-          return buildPageWithTransition(
-            context: context,
-            state: state,
-            transitionType: PageTransitionType.slideRightToLeft,
-            child: FreeModeScreen(),
           );
         },
       ),
@@ -111,18 +100,6 @@ class RouteConfig {
             state: state,
             transitionType: PageTransitionType.slideRightToLeft,
             child: RegisterScreen(),
-          );
-        },
-      ),
-
-      GoRoute(
-        path: RouteName.choosePaymentCard,
-        pageBuilder: (context, state) {
-          return buildPageWithTransition(
-            context: context,
-            state: state,
-            transitionType: PageTransitionType.slideRightToLeft,
-            child: ChoosePaymentCard(),
           );
         },
       ),

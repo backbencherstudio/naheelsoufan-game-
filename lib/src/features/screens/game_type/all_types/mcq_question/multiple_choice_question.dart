@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_type/riverpod/multiple_choice_provider.dart';
+import 'package:naheelsoufan_game/src/features/screens/grid_play_game/riverpod/function.dart';
 
 class MultipleChoiceQuestion extends StatelessWidget {
   final List<String> choices;
@@ -40,6 +41,7 @@ class MultipleChoiceQuestion extends StatelessWidget {
                 final rightChoiceIndex = rightIndex ?? 0;
                 return InkWell(
                   onTap: (){
+                    (index == rightChoiceIndex) ? ref.read(isRightWrongElse.notifier).state = 1 : ref.read(isRightWrongElse.notifier).state = 0;
                     for (int i = 0; i < choices.length; i++) {
                       if (i == index) {
                         ref.read(checkChoicesProvider(i).notifier).state =
