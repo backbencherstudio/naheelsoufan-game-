@@ -44,7 +44,11 @@ return CreateScreen(
             SizedBox(height: 50.h,),
             CustomButton(text:"QUICK GAME" , onTap: () {context.push(RouteName.modeSelectionScreen);},),
             SizedBox(height: 16.h,),
-            CustomButton(text:"GRID STYLE" , onTap: (){},img: AppImages.primaryUpsidedown,),
+            CustomButton(text:"GRID STYLE" , onTap: (){
+                   // here will go the riverpod logic isfreegame mode CB
+
+
+            },img: AppImages.primaryUpsidedown,),
             SizedBox(height: 40.h,),
             CustomLanguageContainer(),
           ],
