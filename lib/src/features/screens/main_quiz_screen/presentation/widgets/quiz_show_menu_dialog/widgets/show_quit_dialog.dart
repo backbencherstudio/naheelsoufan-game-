@@ -4,7 +4,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/features/screens/account_screens/presentation/widgets/my_account_wodgets/header_button.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/quit_game_button_header.dart';
-
 import '../../../../../../../core/constant/icons.dart';
 import '../../../../../../../core/routes/route_name.dart';
 
@@ -47,18 +46,23 @@ void onQuitGameTap(BuildContext context) {
                         ),
                       ),
                       SizedBox(height: isPortrait ? 40.h: 10.w),
-                      HeaderButton(
-                        onClick: ()=> context.go(RouteName.gridDifficultyLevelScreen),
-                        textStyle: Theme.of(context).textTheme.titleSmall?.copyWith(
-                          fontSize: isPortrait ? 22.sp: 9.sp
-                        ),
-                        textTitle: 'Yes, Quit',
-                        gradientColor: LinearGradient(
-                          colors: [Color(0xffF80715), Color(0xffA80710)],
-                        ),
-                        padding: EdgeInsets.symmetric(
-                          horizontal: isPortrait ? 60.w : 80.h,
-                          vertical: isPortrait ? 16.h : 6.w,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                          context.go(RouteName.gameModeScreens);
+                        },
+                        child: HeaderButton(
+                          textStyle: Theme.of(context).textTheme.titleSmall?.copyWith(
+                            fontSize: isPortrait ? 22.sp: 9.sp
+                          ),
+                          textTitle: 'Yes, Quit',
+                          gradientColor: LinearGradient(
+                            colors: [Color(0xffF80715), Color(0xffA80710)],
+                          ),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: isPortrait ? 60.w : 80.h,
+                            vertical: isPortrait ? 16.h : 6.w,
+                          ),
                         ),
                       ),
                     ],
