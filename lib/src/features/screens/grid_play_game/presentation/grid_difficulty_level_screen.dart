@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -14,9 +15,41 @@ import 'package:naheelsoufan_game/src/features/screens/grid_play_game/riverpod/f
 
 import '../../../../core/routes/route_name.dart';
 
-class GridDifficultyLevelScreen extends StatelessWidget {
+class GridDifficultyLevelScreen extends StatefulWidget {
   const GridDifficultyLevelScreen({super.key});
 
+  @override
+  State<GridDifficultyLevelScreen> createState() => _GridDifficultyLevelScreenState();
+}
+
+class _GridDifficultyLevelScreenState extends State<GridDifficultyLevelScreen> {
+  @override
+  void initState() {
+    super.initState();
+    _setLandscapeMode(); // Set orientation to landscape
+  }
+
+  @override
+  void dispose() {
+    _setPortraitMode(); // Reset orientation to portrait
+    super.dispose();
+  }
+
+  // Force landscape mode
+  void _setLandscapeMode() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+    ]);
+  }
+
+  // Reset to portrait mode
+  void _setPortraitMode() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+  }
   @override
   Widget build(BuildContext context) {
     bool isPortrait =
@@ -43,27 +76,20 @@ class GridDifficultyLevelScreen extends StatelessWidget {
                     Expanded(
                       child: Consumer(
                         builder: (_, ref, _) {
-                          return GestureDetector(
-                              onTap: () async {
-                                Future.delayed(const Duration(milliseconds: 1000), () {
-                                  context.push(RouteName.questionRevealedScreen);
-                                });
-                              },
-                            child: ListView.separated(
-                              scrollDirection: Axis.horizontal,
-                              padding: EdgeInsets.all(8.r),
-                              itemCount: questionList.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return CustomGridQuestionCard(
-                                  questionId: index.toString(),
-                                  questionCategory:
-                                      questionList[index].questionCategory,
-                                );
-                              },
-                              separatorBuilder:
-                                  (_, __) =>
-                                      SizedBox(width: isPortrait ? 4.w : 8.8.h),
-                            ),
+                          return ListView.separated(
+                            scrollDirection: Axis.horizontal,
+                            padding: EdgeInsets.all(8.r),
+                            itemCount: questionList.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return CustomGridQuestionCard(
+                                questionId: index.toString(),
+                                questionCategory:
+                                    questionList[index].questionCategory,
+                              );
+                            },
+                            separatorBuilder:
+                                (_, __) =>
+                                    SizedBox(width: isPortrait ? 4.w : 8.8.h),
                           );
                         },
                       ),

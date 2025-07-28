@@ -1,8 +1,8 @@
 part of 'route_import_part.dart';
 
 class RouteConfig {
-  GoRouter goRouter = GoRouter(
-    initialLocation: RouteName.questionRevealedScreen,
+  static final GoRouter goRouter = GoRouter(
+    initialLocation: RouteName.splashScreen,
     routes: [
       GoRoute(
         path: RouteName.questionRevealedScreen,
