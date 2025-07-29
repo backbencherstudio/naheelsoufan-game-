@@ -116,7 +116,7 @@ class ChooseCategoryScreen extends StatelessWidget {
                       bgIcon: AppIcons.roundIcontop,
                     ),
                     if(!ref.read(isSomethingClicked.notifier).state) ...[SizedBox(width: 40.w)] else ...[SizedBox(width: 26.w,),SpecialElevatedButton003(onTap: (){
-                      //LOGIC
+                      context.push(RouteName.gridDifficultyLevelScreen);
                     }, buttonName: "NEXT"),SizedBox(width: 26.w,)] ,
                     CustomroundButton(icon: AppIcons.playButtn, onTap:()=>ref
                         .read(pageIndexProvider.notifier).nextPage(pageController, 2)

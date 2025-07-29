@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/freeExpire_provider.dart';
 import '../../../../../../core/constant/icons.dart';
 import '../../../../../../core/constant/images.dart';
 import '../choose_subscription_widgets/app_custom_buttons.dart';
@@ -65,28 +67,33 @@ void onPaymentButton(BuildContext context) {
                 ),
                 SizedBox(height: 54.h),
 
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 28.w),
-                  child: AppCustomButton(
-                    text: 'Create Room',
-                    onTap: () {
-                     context.push(RouteName.createRoomScreen);
-                    },
-                    textColor: Colors.white,
-                    gradient: LinearGradient(
-                      colors: [
-                        Color(0xff1D5128),
-                        Color(0xff14BA37),
-                        Color(0xff1D5128),
-                      ],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                    ),
-                    borderColor: Color(0xff1D5128),
-                    borderRadius: 8,
-                    height: 58.h,
-                    width: 304.w,
-                  ),
+                Consumer(
+                  builder: (_, ref, _) {
+                    final chcekScreeen = ref.watch(checkNormalGridScreen);
+                    return Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 28.w),
+                      child: AppCustomButton(
+                        text: 'Create Room',
+                        onTap: () {
+                          (ref.read(checkNormalGridScreen.notifier).state) ? context.push(RouteName.createRoomScreen) : context.push(RouteName.enterTeamNameScreen);
+                        },
+                        textColor: Colors.white,
+                        gradient: LinearGradient(
+                          colors: [
+                            Color(0xff1D5128),
+                            Color(0xff14BA37),
+                            Color(0xff1D5128),
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                        ),
+                        borderColor: Color(0xff1D5128),
+                        borderRadius: 8,
+                        height: 58.h,
+                        width: 304.w,
+                      ),
+                    );
+                  }
                 ),
                 SizedBox(height: 42.h),
               ],

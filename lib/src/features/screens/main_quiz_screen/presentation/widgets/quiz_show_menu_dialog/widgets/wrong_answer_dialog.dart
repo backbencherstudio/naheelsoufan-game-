@@ -1,33 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/features/screens/account_screens/presentation/widgets/my_account_wodgets/header_button.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_type/riverpod/multiple_choice_provider.dart';
+import 'package:naheelsoufan_game/src/features/screens/grid_play_game/riverpod/function.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/primary_button.dart';
 
 import '../../../../../../../core/constant/icons.dart';
+import '../../../../../../../core/routes/route_name.dart';
 
 
 void onWrongAnswerTap(BuildContext context) {
+  bool isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
   showDialog(
     context: context,
     builder: (_) {
+      List<int> listID = [0, 1, 2, 3, 4];
       return Dialog(
         backgroundColor: Colors.transparent,
         elevation: 1,
         child: SizedBox(
-          height: 791.h,
+          height: isPortrait ? 791.h : 355.w,
           child: Stack(
             children: [
               Positioned(
-                top: 142.h,
+                top: isPortrait ? 142.h : 10.w,
+                left: isPortrait ? null : 300.h,
                 child: Container(
                constraints: BoxConstraints(
-                 minHeight: 371.h,
-                 maxHeight: 410.h,
-                 minWidth: 280.w,
-                 maxWidth: 330.w
+                 maxHeight: isPortrait ? 410.h : 150.5.w,
+                 maxWidth: isPortrait ? 330.w : 1000.h
                ),
-                  padding: EdgeInsets.symmetric(horizontal: 24.w),
+                  padding: EdgeInsets.symmetric(horizontal: isPortrait ? 24.w : 52.8.h),
                   decoration: BoxDecoration(
                     border: Border.all(color: Color(0xffFFB4AB), width: 3),
                     color: Color(0xffFFDAD6),
@@ -36,7 +42,7 @@ void onWrongAnswerTap(BuildContext context) {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(height: 40.h,),
+                      SizedBox(height: isPortrait ? 40.h : 22.w,),
                       Align(
                         alignment: Alignment.center,
                         child: Text(
@@ -45,18 +51,18 @@ void onWrongAnswerTap(BuildContext context) {
                               ?.copyWith(
                                 fontWeight: FontWeight.w500,
                                 color: Color(0xff93000A),
-                                fontSize: 28.sp,
+                                fontSize: isPortrait ? 28.sp : 12.6.sp,
                               ),
                           textAlign: TextAlign.center,
                         ),
                       ),
-                      SizedBox(height: 44.h),
+                      SizedBox(height: isPortrait ? 44.h : 10.w),
                       SizedBox(
                         width: double.infinity,
                         child: Container(
                           padding: EdgeInsets.symmetric(
-                            horizontal: 16.w,
-                            vertical: 12.h,
+                            horizontal: isPortrait ? 16.w : 35.2.h,
+                            vertical: isPortrait ? 12.h : 0,
                           ),
                           decoration: BoxDecoration(
                             border: Border.all(
@@ -64,7 +70,7 @@ void onWrongAnswerTap(BuildContext context) {
                               width: 1,
                             ),
                             color: Color(0xffEBFFE7),
-                            borderRadius: BorderRadius.circular(24.r),
+                            borderRadius: BorderRadius.circular(isPortrait ? 24.r : 52.r),
                           ),
                           child: Column(
                             children: [
@@ -74,59 +80,75 @@ void onWrongAnswerTap(BuildContext context) {
                                     ?.copyWith(
                                       color: Color(0xff009940),
                                       fontWeight: FontWeight.w500,
+                                  fontSize: isPortrait ? 16.sp : 7.2.sp
                                     ),
                               ),
-                              SizedBox(height: 12.w),
+                              SizedBox(height: isPortrait ? 12.w : 26.4.h),
                               PrimaryButton(
-                                text: 'China',
+                                text: 'Nuclear energy',
                                 isSelected: true,
                                 onTap: () {},
-                                width: 166.w,
+                                width: isPortrait ? 166.w : 365.h,
+                                height: isPortrait ? 53.h : 23.w,
                                 color: Colors.white,
+                                textSize: isPortrait ? 16.sp : 8.sp,
                               ),
-                              SizedBox(height: 16.w),
+                              SizedBox(height: isPortrait ? 16.w : 35.2.h),
                             ],
                           ),
                         ),
                       ),
-                      SizedBox(height: 44.h),
+                      SizedBox(height: isPortrait ? 44.h : 10.w),
                       Expanded(
-                        child: HeaderButton(
-                          textTitle: 'Change to steal the point',
-                          borderColor: Color(0xffFFB4AB),
-                          borderWidth: 3,
-                          borderRadius: BorderRadius.circular(8.r),
-                          textStyle: Theme.of(context).textTheme.titleSmall
-                              ?.copyWith(
-                                color: Color(0xffFFDAD6),
-                                fontWeight: FontWeight.w500,
-                              ),
+                        child: Consumer(
+                          builder: (_, ref, _) {
+                            return HeaderButton(
+                              onClick: (){
+                                ref.read(huntModeOn.notifier).state = true;
+                                for (final id in listID) {
+                                  ref.read(checkChoicesProvider(id).notifier).state = -1;
+                                }
+                                context.go(RouteName.gridDifficultyLevelScreen);
+                              },
+                              height: isPortrait ? null : 25.w,
+                              textTitle: 'Change to steal the point',
+                              borderColor: Color(0xffFFB4AB),
+                              borderWidth: 3,
+                              borderRadius: BorderRadius.circular(isPortrait ? 8.r : 20.r),
+                              textStyle: Theme.of(context).textTheme.titleSmall
+                                  ?.copyWith(
+                                    color: Color(0xffFFDAD6),
+                                    fontWeight: FontWeight.w500,
+                                fontSize: isPortrait ? 20.sp : 10.sp
+                                  ),
 
-                          gradientColor: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              Color(0xFFFF5449),
-                              Color(0xFFFF5449),
-                              Color(0xFFFF5449),
-                            ],
-                            stops: [0.0, 0.4904, 1.0],
-                          ),
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 12.w,
-                            vertical: 8.h,
-                          ),
+                              gradientColor: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Color(0xFFFF5449),
+                                  Color(0xFFFF5449),
+                                  Color(0xFFFF5449),
+                                ],
+                                stops: [0.0, 0.4904, 1.0],
+                              ),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: isPortrait ? 12.w : 26.4.h,
+                                vertical: isPortrait ? 8.h : 3.6.w,
+                              ),
+                            );
+                          }
                         ),
                       ),
-                      SizedBox(height: 40.h,),
+                      SizedBox(height: isPortrait ? 40.h : 18.w,),
                     ],
                   ),
                 ),
               ),
 
               Positioned(
-                top: 110.h,
-                left: 130.w,
+                top: isPortrait ? 110.h : -0.5.w,
+                left: isPortrait ? 130.w : 750.h,
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
@@ -138,8 +160,8 @@ void onWrongAnswerTap(BuildContext context) {
               ),
 
               Positioned(
-                top: 115.h,
-                right: 10,
+                top: isPortrait ? 115.h : 0,
+                right: isPortrait ? 10 : 280.h,
                 child: GestureDetector(
                   onTap: () {
                     Navigator.pop(context);
@@ -157,14 +179,14 @@ void onWrongAnswerTap(BuildContext context) {
                   child:  Stack(
                     alignment: Alignment.center,
                     children: [
-                      SvgPicture.asset(AppIcons.circleSgv,width: 36.w,height: 36.h,),
+                      SvgPicture.asset(AppIcons.circleSgv,width: isPortrait ? 36.w : 79.h,height: isPortrait ? 36.h: 16.2.w,),
                       Positioned(
                           child: Padding(
                             padding:  EdgeInsets.all(2.r),
                             child: Text('5',style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                               color: Color(0xffBA1A1A),
                               fontWeight: FontWeight.w500,
-                              fontSize: 20.sp
+                              fontSize: isPortrait ? 20.sp : 9.sp
                             ),),
                           ))
                     ],
