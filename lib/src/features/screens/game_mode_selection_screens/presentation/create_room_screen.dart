@@ -84,7 +84,7 @@ class CreateRoomScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                                          SizedBox(height: 4.h,),
+                      SizedBox(height: 4.h),
 
                       Container(
                         decoration: BoxDecoration(
@@ -98,7 +98,12 @@ class CreateRoomScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8.r),
                         ),
 
-                        child: TextFormField(),
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            hintText: 'Type your room name here',
+                            hintStyle: style.bodyMedium
+                          ),
+                        ),
                       ),
                       SizedBox(height: 24.h),
                       Align(
@@ -108,14 +113,13 @@ class CreateRoomScreen extends StatelessWidget {
                           style: style.labelLarge!.copyWith(
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w600,
-                                color: AppColorScheme.primary,
-
+                            color: AppColorScheme.primary,
                           ),
                         ),
                       ),
-                      SizedBox(height: 4.h,),
+                      SizedBox(height: 4.h),
                       Container(
-                         decoration: BoxDecoration(
+                        decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
                               color: AppColorScheme.onPrimary,
@@ -125,7 +129,8 @@ class CreateRoomScreen extends StatelessWidget {
                           ],
                           borderRadius: BorderRadius.circular(8.r),
                         ),
-                        child: TextFormField()),
+                        child: TextFormField(),
+                      ),
                       SizedBox(height: 60.h),
                       CustomButton(
                         text: "CREATE ROOM",
