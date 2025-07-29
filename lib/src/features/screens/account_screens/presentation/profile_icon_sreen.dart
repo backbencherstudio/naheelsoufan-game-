@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import 'package:naheelsoufan_game/src/features/screens/account_screens/presentation/widgets/edit_profile_widgets/edit_profile_icon.dart';
 import 'package:naheelsoufan_game/src/features/screens/account_screens/presentation/widgets/my_account_wodgets/header_button.dart';
 import '../../../../core/constant/icons.dart';
@@ -41,9 +42,9 @@ class ProfileIconScreen extends ConsumerWidget {
                           margin: EdgeInsets.only(top: 40.h),
                           width: 385.w,
                           decoration: BoxDecoration(
-                            color: const Color(0xff3D4279),
+                            color: AppColorScheme.deepPuroleBG,
                             border: Border.all(
-                              color: const Color(0xffE0E0FF),
+                              color: AppColorScheme.listContainerColor,
                               width: 2,
                             ),
                             borderRadius: BorderRadius.circular(16.r),
@@ -59,7 +60,7 @@ class ProfileIconScreen extends ConsumerWidget {
                               children: [
                                 EditProfileIcon(),
                                 SizedBox(height: 12.h),
-                                Divider(color: Color(0xff6B71B9)),
+                                Divider(color: AppColorScheme.primaryTextColor),
                                 SizedBox(height: 40.h),
 
                                 Expanded(
@@ -82,7 +83,7 @@ class ProfileIconScreen extends ConsumerWidget {
                                               )
                                               .selectProfile(
                                                 index,
-                                              ); // Select profile
+                                              );
                                         },
                                         child: Center(
                                           child: Container(
@@ -91,7 +92,7 @@ class ProfileIconScreen extends ConsumerWidget {
                                               border: Border.all(
                                                 color:
                                                     selectedIndex == index
-                                                        ? Colors.white
+                                                        ? AppColorScheme.white
                                                         : Colors.transparent,
                                                 width: 2,
                                               ),
@@ -117,7 +118,7 @@ class ProfileIconScreen extends ConsumerWidget {
                                   padding: EdgeInsets.all(8.r),
                                   width: double.infinity,
                                   height: 58.h,
-                                  borderColor: Color(0xff1D5128),
+                                  borderColor: AppColorScheme.hardGradGreen,
                                 ),
                               ],
                             ),
@@ -142,9 +143,9 @@ class ProfileIconScreen extends ConsumerWidget {
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
                               colors: [
-                                Color(0xFFF2E792),
-                                Color(0xFFF8B133),
-                                Color(0xFFDE712B),
+                                AppColorScheme.softYellow,
+                                AppColorScheme.midYellow,
+                                AppColorScheme.darkYellow,
                               ],
                               stops: [0.0, 0.4904, 1.0],
                             ),

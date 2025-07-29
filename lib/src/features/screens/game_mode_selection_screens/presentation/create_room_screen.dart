@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/constant/padding.dart';
@@ -100,8 +101,13 @@ class CreateRoomScreen extends StatelessWidget {
 
                         child: TextFormField(
                           decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(
+                              horizontal: 12.w,
+                            ),
                             hintText: 'Type your room name here',
-                            hintStyle: style.bodyMedium
+                            hintStyle: style.displaySmall?.copyWith(
+                              color: AppColorScheme.primaryTextColor,
+                            ),
                           ),
                         ),
                       ),
@@ -129,7 +135,22 @@ class CreateRoomScreen extends StatelessWidget {
                           ],
                           borderRadius: BorderRadius.circular(8.r),
                         ),
-                        child: TextFormField(),
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(
+                              horizontal: 12.w,
+                            ),
+                            hintText: 'Select time',
+                            hintStyle: style.displaySmall?.copyWith(
+                              color: AppColorScheme.primaryTextColor,
+                            ),
+                            suffixIcon: SvgPicture.asset(AppIcons.dropdownIcon),
+                            suffixIconConstraints: BoxConstraints(
+                              maxHeight: 24.h,
+                              maxWidth: 24.w,
+                            )
+                          ),
+                        ),
                       ),
                       SizedBox(height: 60.h),
                       CustomButton(

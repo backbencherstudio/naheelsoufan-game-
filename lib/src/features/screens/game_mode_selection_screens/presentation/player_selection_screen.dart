@@ -43,7 +43,7 @@ class PlayerSelectionScreen extends StatelessWidget {
                       height: 40.h,
                       width: 40.w,
                     ),
-                    CustomIconsButtons(icon: AppIcons.settings, onTap: () {}),
+                    CustomIconsButtons(icon: AppIcons.threeDotSvg, onTap: () {}),
                   ],
                 ),
                 SizedBox(height: 140.h),

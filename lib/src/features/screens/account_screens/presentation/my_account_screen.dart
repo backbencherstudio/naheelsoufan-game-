@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
+import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/account_screens/presentation/widgets/my_account_wodgets/edit_profile_button.dart';
 import 'package:naheelsoufan_game/src/features/screens/account_screens/presentation/widgets/my_account_wodgets/header_button.dart';
@@ -47,27 +48,35 @@ class MyAccountScreen extends ConsumerWidget {
                             margin: EdgeInsets.only(top: 40.h),
                             width: 385.w,
                             decoration: BoxDecoration(
-                              color: const Color(0xff3D4279),
-                              border: Border.all(color: const Color(0xffE0E0FF), width: 2),
+                              color: AppColorScheme.deepPuroleBG,
+                              border: Border.all(
+                                color: AppColorScheme.listContainerColor,
+                                width: 2,
+                              ),
                               borderRadius: BorderRadius.circular(16.r),
                             ),
                             child: Padding(
-                              padding: EdgeInsets.fromLTRB(28.w, 60.h, 28.w, 0.h),
+                              padding: EdgeInsets.fromLTRB(
+                                28.w,
+                                60.h,
+                                28.w,
+                                0.h,
+                              ),
                               child: Column(
                                 children: [
                                   selectedIndex != null
                                       ? Image.asset(
-                                    AppIcons.profileImages[selectedIndex],
-                                    height: 80.h,
-                                    width: 80.w,
-                                    fit: BoxFit.cover,
-                                  )
+                                        AppIcons.profileImages[selectedIndex],
+                                        height: 80.h,
+                                        width: 80.w,
+                                        fit: BoxFit.cover,
+                                      )
                                       : Image.asset(
-                                    AppIcons.profile01,
-                                    height: 80.h,
-                                    width: 80.w,
-                                    fit: BoxFit.cover,
-                                  ),
+                                        AppIcons.profile01,
+                                        height: 80.h,
+                                        width: 80.w,
+                                        fit: BoxFit.cover,
+                                      ),
                                   SizedBox(height: 16.h),
                                   Text(
                                     'Waleed',
@@ -92,7 +101,9 @@ class MyAccountScreen extends ConsumerWidget {
                                     child: EditProfileButton(style: style),
                                   ),
                                   SizedBox(height: 16.h),
-                                  Divider(color: Color(0xffE0E0FF)),
+                                  Divider(
+                                    color: AppColorScheme.listContainerColor,
+                                  ),
                                   SizedBox(height: 16.h),
                                   Text(
                                     "Subscription Status",
@@ -102,13 +113,29 @@ class MyAccountScreen extends ConsumerWidget {
                                     ),
                                   ),
                                   SizedBox(height: 24.h),
-                                  SubscriptionStatus(style: style, type: 'Type', pilot: 'Pilot'),
+                                  SubscriptionStatus(
+                                    style: style,
+                                    type: 'Type',
+                                    pilot: 'Pilot',
+                                  ),
                                   SizedBox(height: 12.h),
-                                  SubscriptionStatus(style: style, type: 'Games Remaining', pilot: '1'),
+                                  SubscriptionStatus(
+                                    style: style,
+                                    type: 'Games Remaining',
+                                    pilot: '1',
+                                  ),
                                   SizedBox(height: 12.h),
-                                  SubscriptionStatus(style: style, type: 'Max Players', pilot: '1'),
+                                  SubscriptionStatus(
+                                    style: style,
+                                    type: 'Max Players',
+                                    pilot: '1',
+                                  ),
                                   SizedBox(height: 12.h),
-                                  SubscriptionStatus(style: style, type: 'Questions Per Games', pilot: '10'),
+                                  SubscriptionStatus(
+                                    style: style,
+                                    type: 'Questions Per Games',
+                                    pilot: '10',
+                                  ),
                                 ],
                               ),
                             ),
@@ -125,21 +152,24 @@ class MyAccountScreen extends ConsumerWidget {
                           child: HeaderButton(
                             textTitle: 'My Account',
                             textStyle: style.titleLarge?.copyWith(
-                              color: Color(0xff2E1126),
+                              color: AppColorScheme.labelTextColor,
                               fontWeight: FontWeight.w500,
                             ),
-                            borderColor: Color(0xff2E1126),
+                            borderColor: AppColorScheme.labelTextColor,
                             gradientColor: LinearGradient(
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
                               colors: [
-                                Color(0xFFF2E792),
-                                Color(0xFFF8B133),
-                                Color(0xFFDE712B),
+                                AppColorScheme.softYellow,
+                                AppColorScheme.midYellow,
+                                AppColorScheme.darkYellow,
                               ],
                               stops: [0.0, 0.4904, 1.0],
                             ),
-                            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 12.w,
+                              vertical: 8.h,
+                            ),
                           ),
                         ),
                       ),
@@ -156,7 +186,8 @@ class MyAccountScreen extends ConsumerWidget {
                         final isVisible = ref.watch(isMusicVisibleProvider);
                         return CustomMusicoffButton(
                           onTap: () {
-                            ref.read(isMusicVisibleProvider.notifier).state = !isVisible;
+                            ref.read(isMusicVisibleProvider.notifier).state =
+                                !isVisible;
                           },
                           isSelected: isVisible,
                         );

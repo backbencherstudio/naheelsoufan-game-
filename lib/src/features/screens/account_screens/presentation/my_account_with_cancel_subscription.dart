@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
+import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/account_screens/presentation/widgets/my_account_wodgets/edit_profile_button.dart';
 import 'package:naheelsoufan_game/src/features/screens/account_screens/presentation/widgets/my_account_wodgets/header_button.dart';
@@ -45,9 +46,9 @@ class MyAccountWithCancelSubscription extends ConsumerWidget {
                             margin: EdgeInsets.only(top: 40.h),
                             width: 385.w,
                             decoration: BoxDecoration(
-                              color: const Color(0xff3D4279),
+                              color: AppColorScheme.deepPuroleBG,
                               border: Border.all(
-                                color: const Color(0xffE0E0FF),
+                                color: AppColorScheme.listContainerColor,
                                 width: 2,
                               ),
                               borderRadius: BorderRadius.circular(16.r),
@@ -78,7 +79,7 @@ class MyAccountWithCancelSubscription extends ConsumerWidget {
                                   Text(
                                     'Waleed',
                                     style: style.bodyLarge?.copyWith(
-                                      color: Colors.white,
+                                      color: AppColorScheme.white,
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
@@ -86,7 +87,7 @@ class MyAccountWithCancelSubscription extends ConsumerWidget {
                                   Text(
                                     'wkh929@gmail.com',
                                     style: style.bodyMedium?.copyWith(
-                                      color: Colors.white,
+                                      color: AppColorScheme.white,
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
@@ -98,12 +99,12 @@ class MyAccountWithCancelSubscription extends ConsumerWidget {
                                     child: EditProfileButton(style: style),
                                   ),
                                   SizedBox(height: 16.h),
-                                  Divider(color: Color(0xffE0E0FF)),
+                                  Divider(color: AppColorScheme.listContainerColor),
                                   SizedBox(height: 16.h),
                                   Text(
                                     "Subscription Status",
                                     style: style.titleLarge?.copyWith(
-                                      color: Colors.white,
+                                      color: AppColorScheme.white,
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
@@ -135,16 +136,17 @@ class MyAccountWithCancelSubscription extends ConsumerWidget {
                                   SizedBox(height: 16.h),
                                   HeaderButton(
                                     textTitle: 'Cancel Subscription',
-                                    borderColor: Color(0xff93000A),
+                                    borderColor: AppColorScheme.deepRed,
                                     gradientColor: LinearGradient(
                                       colors: [
-                                        Color(0xffDE3730),
-                                        Color(0xffDE3730),
+                                       AppColorScheme.midRed,
+                                       AppColorScheme.midRed,
+                                       AppColorScheme.midRed,
                                       ],
                                     ),
                                     textStyle: style.titleSmall?.copyWith(
                                       fontSize: 18.sp,
-                                      color: Colors.white
+                                      color: AppColorScheme.white
                                     ),
                                     padding: EdgeInsets.all(12.r),
                                     width: 304.w,
@@ -166,17 +168,18 @@ class MyAccountWithCancelSubscription extends ConsumerWidget {
                           child: HeaderButton(
                             textTitle: 'My Account',
                             textStyle: style.titleLarge?.copyWith(
-                              color: Color(0xff2E1126),
+                              color: AppColorScheme.labelTextColor,
                               fontWeight: FontWeight.w500,
                             ),
-                            borderColor: Color(0xff2E1126),
+                            borderColor: AppColorScheme.labelTextColor,
                             gradientColor: LinearGradient(
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
                               colors: [
-                                Color(0xFFF2E792),
-                                Color(0xFFF8B133),
-                                Color(0xFFDE712B),
+                                AppColorScheme.softYellow,
+                                AppColorScheme.midYellow,
+                                AppColorScheme.darkYellow,
+
                               ],
                               stops: [0.0, 0.4904, 1.0],
                             ),

@@ -50,9 +50,10 @@ class MultipleChoiceQuestion extends StatelessWidget {
                 final checkChoice = ref.watch(checkChoicesProvider(index));
                 final rightChoiceIndex = rightIndex ?? 0;
                 return InkWell(
-
-                  onTap: (){
-                    (index == rightChoiceIndex) ? ref.read(isRightWrongElse.notifier).state = 1 : ref.read(isRightWrongElse.notifier).state = 0;
+                  onTap: () {
+                    (index == rightChoiceIndex)
+                        ? ref.read(isRightWrongElse.notifier).state = 1
+                        : ref.read(isRightWrongElse.notifier).state = 0;
                     for (int i = 0; i < choices.length; i++) {
                       if (i == index) {
                         ref.read(checkChoicesProvider(i).notifier).state =
