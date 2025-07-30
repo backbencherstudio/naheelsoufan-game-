@@ -123,7 +123,7 @@ class QuestionRevealed extends StatelessWidget {
                 ],
                 question: "What kind of energy does that sun create?",
                 rightChoice: 3,
-                nextScreen: RouteName.gridDifficultyLevelScreen2
+                func: ()=>context.push(RouteName.gridDifficultyLevelScreen2)
               ),
             ),
             SizedBox(height: isPortrait ? 100.h : 15.w),

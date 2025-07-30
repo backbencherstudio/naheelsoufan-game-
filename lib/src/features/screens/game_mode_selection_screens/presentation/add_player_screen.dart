@@ -55,7 +55,7 @@ class AddPlayerScreen extends StatelessWidget {
                         height: 40.h,
                         width: 40.w,
                       ),
-                      CustomIconsButtons(icon: AppIcons.settings, onTap: () {}),
+                      CustomIconsButtons(icon: AppIcons.threeDotSvg, onTap: () {}),
                     ],
                   ),
                   SizedBox(height: 140.h),
@@ -84,14 +84,12 @@ class AddPlayerScreen extends StatelessWidget {
                         padding: EdgeInsets.only(bottom: 16.h),
                         child: SelectionTile(
                           index: '${key + 1}',
-                          iselected: isSelected,
+                          isSelected: isSelected,
 
-                          /// Tapping the tile opens name dialog
                           onTap: () {
                             showNameDialog(context, 'Player ${key + 1}');
                           },
 
-                          /// Only dynamic players (2, 3) can be removed
                           onTabRemove:
                               dynamicPlayerKeys.contains(key)
                                   ? () {

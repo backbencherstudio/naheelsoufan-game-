@@ -11,8 +11,9 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_language_container.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_list_tile.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_logout_button.dart';
-import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/musicVisible_provider.dart';
+import 'package:naheelsoufan_game/src/features/common_widegts/music_off_on_whole_screen/riverpod/musicVisible_provider.dart';
 
+import '../../../../../common_widegts/music_off_on_whole_screen/music_volume_widgets.dart';
 import '../../../../question_answer_screen/setting_while_in_game/widgets/language_drop_down_menu.dart';
 
 Drawer appDrawer({required BuildContext context}) {
@@ -67,30 +68,7 @@ Drawer appDrawer({required BuildContext context}) {
               ],
             ),
             SizedBox(height: 24.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Consumer(
-                  builder: (context, ref, _) {
-                    final isVisible = ref.watch(isMusicVisibleProvider);
-                    return CustomMusicoffButton(
-                      onTap: () {
-                        ref.read(isMusicVisibleProvider.notifier).state =
-                            !isVisible;
-                      },
-                      isSelected: isVisible,
-                    );
-                  },
-                ),
-                SizedBox(width: 10.w),
-                CustomIconsButtons(
-                  icon: AppIcons.sound,
-                  onTap: () {},
-                  bgIcon: AppIcons.iconBG,
-                ),
-              ],
-            ),
+            MusicOffOnWholePage(),
 
             SizedBox(height: 40.h),
             ListView.builder(
@@ -113,7 +91,9 @@ Drawer appDrawer({required BuildContext context}) {
               },
             ),
             SizedBox(height: 40.h),
-            CustomLogoutButton(onTap: () {}),
+            CustomLogoutButton(onTap: () {
+              context.push(RouteName.signInScreen);
+            }),
             SizedBox(height: 40.h),
 
             Row(

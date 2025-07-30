@@ -19,13 +19,13 @@ class CustomPlacebox extends StatelessWidget {
         Text("Player Name", style: style.bodyLarge),
         SizedBox(height: 8.h),
         Container(
-        
-           padding:place==2? EdgeInsets.all(8.r): EdgeInsets.symmetric(horizontal:8, vertical: 4, ),
+
+          padding:place==2? EdgeInsets.all(8.r): EdgeInsets.symmetric(horizontal:8, vertical: 4, ),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8.r),
             gradient:place ==1 ?
-            
-          LinearGradient(
+
+            LinearGradient(
               colors: [
                 AppColorScheme.startGradGreen,
                 AppColorScheme.midGradGreen,
@@ -34,11 +34,11 @@ class CustomPlacebox extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ):
-            
-            
-            
-            
-             LinearGradient(
+
+
+
+
+            LinearGradient(
               colors: [Color(0xffF2E792), Color(0xffF8B133), Color(0xffDE712B)],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
@@ -69,7 +69,7 @@ class CustomPlacebox extends StatelessWidget {
                   ),
                 ),
               ],
-          
+
               Text(
                 "650 point",
                 style: style.bodyLarge!.copyWith(

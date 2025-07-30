@@ -3,13 +3,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 
-class CustomMusicoffButton extends StatelessWidget {
+class CustomOnOffButton extends StatelessWidget {
   final bool isSelected;
   final void Function()? onTap;
-  const CustomMusicoffButton({
+  final SvgPicture? picture;
+  final SvgPicture? pictureBg;
+  const CustomOnOffButton({
     super.key,
     required this.onTap,
     required this.isSelected,
+    this.picture, this.pictureBg,
   });
 
   @override
@@ -20,20 +23,20 @@ class CustomMusicoffButton extends StatelessWidget {
         child: Stack(
           alignment: Alignment.center,
           children: [
-            SvgPicture.asset(AppIcons.bgblue),
+           pictureBg ?? SvgPicture.asset(AppIcons.bgblue),
             Positioned(
               top: 0,
               bottom: 0,
               child: Align(
                 alignment: Alignment.center,
-                child: SvgPicture.asset(AppIcons.musicIcon),
+                child: picture ?? SvgPicture.asset(AppIcons.musicIcon),
               ),
             ),
             if (isSelected)
               Positioned(
                 top: 0,
-                bottom: 0, 
-        
+                bottom: 0,
+
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(6),
                   child: SvgPicture.asset(

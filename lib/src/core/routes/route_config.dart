@@ -2,7 +2,7 @@ part of 'route_import_part.dart';
 
 class RouteConfig {
   static final GoRouter goRouter = GoRouter(
-    initialLocation: RouteName.gridDifficultyLevelScreen,
+    initialLocation: RouteName.splashScreen,
     routes: [
       GoRoute(
         path: RouteName.gridDifficultyLevelScreen2,
@@ -99,7 +99,7 @@ class RouteConfig {
             context: context,
             state: state,
             transitionType: PageTransitionType.slideRightToLeft,
-            child: DeficultyLevelScreen(),
+            child: DifficultyLevelScreen(),
           );
         },
       ),
@@ -350,7 +350,7 @@ class RouteConfig {
             context: context,
             state: state,
             transitionType: PageTransitionType.slideRightToLeft,
-            child: DeficultyLevelScreen(),
+            child: DifficultyLevelScreen(),
           );
         },
       ),

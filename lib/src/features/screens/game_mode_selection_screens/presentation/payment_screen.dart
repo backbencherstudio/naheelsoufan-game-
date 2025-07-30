@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/choose_subscription_widgets/subscription_card.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
@@ -50,7 +51,7 @@ class PaymentScreen extends StatelessWidget {
                     'All 25+ categories unlocked',
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       fontWeight: FontWeight.w400,
-                      color: Color(0xffE0E0FF),
+                      color: AppColorScheme.listContainerColor,
                     ),
                   ),
                 ],
@@ -67,11 +68,11 @@ class PaymentScreen extends StatelessWidget {
                   subtitle2: ': Up to 8 Players',
                   description:
                       'Get your game on with 3 quick rounds of fun with your friends!',
-                  borderColor: Color(0xff1D5128),
-                  rocketBackground: Color(0xffB8F1B9),
+                  borderColor: AppColorScheme.surface,
+                  rocketBackground: AppColorScheme.greenborder,
                   buttonText: '\$10 per 3 game',
                   quality: 'Standard',
-                  color: Color(0xffB8F1B9),
+                  color: AppColorScheme.greenborder,
                 ),
               ),
 
@@ -84,10 +85,10 @@ class PaymentScreen extends StatelessWidget {
                   width: 115.w,
                   height: 58.h,
                   decoration: BoxDecoration(
-                    color: Color(0xff008A39),
+                    color: AppColorScheme.customGreenBT,
                     borderRadius: BorderRadius.circular(8.r),
                     border: Border(
-                      bottom: BorderSide(color: Color(0xffB8F1B9), width: 2.w),
+                      bottom: BorderSide(color: AppColorScheme.greenborder, width: 2.w),
                     ),
                   ),
                   child: Center(

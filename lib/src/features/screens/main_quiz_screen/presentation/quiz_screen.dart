@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
@@ -13,6 +14,7 @@ import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presenta
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/times_up.dart';
 
 import '../../../../core/routes/route_name.dart';
+import '../../question_answer_screen/next_turn/riverpod/player_name_state_provider.dart';
 
 class QuizScreen extends StatelessWidget {
   const QuizScreen({super.key});
@@ -20,6 +22,7 @@ class QuizScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
+    final List players = ['Player 1', 'Player 2', 'Player 3', 'Player 4'];
 
     return CreateScreen(
       child: Padding(
@@ -54,9 +57,31 @@ class QuizScreen extends StatelessWidget {
             PointShow(),
             SizedBox(height: 16.h),
 
-            GameType.multipleChoiceQuestion(
-              choices: ["India", "China", "Bangladesh", "Indonesia"],
-              question: "Which country has the highest population?",
+            Consumer(
+              builder: (_, ref, _) {
+                return GameType.multipleChoiceQuestion(
+                  choices: ["India", "China", "Bangladesh", "Indonesia"],
+                  question: "Which country has the highest population?",
+                  func: ()=>{
+                        Future.delayed(Duration(seconds: 1), () {
+                          int currentPlayerTurn = ref.read(playerTurnProvider);
+
+                          int nextPlayerTurn = (currentPlayerTurn + 1) % 4;
+                          ref.read(playerTurnProvider.notifier).state =
+                              nextPlayerTurn;
+
+                          ref.read(playerNameProvider.notifier).state =
+                              players[nextPlayerTurn];
+
+                          if (nextPlayerTurn == 0) {
+                            context.push(RouteName.leaderboardScreen);
+                          } else {
+                            context.push(RouteName.nextTurnScreen);
+                          }
+                    })
+                  }
+                );
+              }
             ),
             SizedBox(height: 90.h),
             PlayerPointContainer(),

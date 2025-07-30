@@ -48,6 +48,8 @@ class AppColorScheme {
 
   static const Color answerBoxShadow = Color.fromRGBO(34, 34, 34, 0.2);
   static const Color  errorColor = Color(0xffBA1A1A);
+  static const Color  deepRed = Color(0xff93000A);
+  static const Color  midRed = Color(0xffDE3730);
 
   static const Color socialBack = Color(0xFF9FA5F2);
   static const Color redGrad = Color(0xffF80715);

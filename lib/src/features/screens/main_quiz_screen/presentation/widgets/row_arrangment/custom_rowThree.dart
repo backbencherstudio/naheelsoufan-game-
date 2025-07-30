@@ -6,13 +6,13 @@ import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presenta
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/custom_boxes_widgets/custom_yellowBox.dart';
 
 class CustomRowthree extends StatelessWidget {
-final String name;
+  final String name;
   final String id;
   final String scores;
   const CustomRowthree({super.key,
-  required this.id,
-  required this.name,
-  required this.scores,
+    required this.id,
+    required this.name,
+    required this.scores,
   });
 
   @override
@@ -31,7 +31,7 @@ final String name;
         SizedBox(width: 8.w),
         CustomWhiteboxes(title: '750', icon: "", isIconOpen: false),
         SizedBox(width: 8.w),
-        
+
         SizedBox(width: 8.w),
         Customgreenbox(title: '01', icon: '', isIconOpen: false),
         SizedBox(width: 8.w),

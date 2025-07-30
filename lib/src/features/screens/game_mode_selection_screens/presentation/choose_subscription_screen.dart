@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
+import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/choose_subscription_widgets/pay_to_play.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/choose_subscription_widgets/subscription_card.dart';
@@ -52,11 +53,11 @@ class ChoosePaymentCard extends StatelessWidget {
                           subtitle2: ': Up to 8 Players',
                           description:
                               'Get your game on with 3 quick rounds of fun with your friends!',
-                          borderColor: Color(0xff3D4279),
-                          rocketBackground: Color(0xffE0E0FF),
+                          borderColor: AppColorScheme.secondary,
+                          rocketBackground: AppColorScheme.borderColor,
                           buttonText: '\$5 per 3 game',
                           quality: 'Basic',
-                          color: Color(0xffE0E0FF),
+                          color: AppColorScheme.borderColor,
                         ),
 
                         SizedBox(height: 12.h),
@@ -68,11 +69,11 @@ class ChoosePaymentCard extends StatelessWidget {
                           subtitle2: ': Up to 8 Players',
                           description:
                               'Get your game on with 3 quick rounds of fun with your friends!',
-                          borderColor: Color(0xff1D5128),
-                          rocketBackground: Color(0xffB8F1B9),
+                          borderColor: AppColorScheme.hardGradGreen,
+                          rocketBackground: AppColorScheme.softGradGreen,
                           buttonText: '\$10 per 3 game',
                           quality: 'Standard',
-                          color: Color(0xffB8F1B9),
+                          color: AppColorScheme.softGradGreen,
                         ),
                         SizedBox(height: 12.h),
 
@@ -83,17 +84,15 @@ class ChoosePaymentCard extends StatelessWidget {
                           subtitle2: ': Up to 8 Players',
                           description:
                               'Get your game on with 3 quick rounds of fun with your friends!',
-                          borderColor: Color(0xff2E1126),
-                          rocketBackground: Color(0xffFFD8EE),
+                          borderColor: AppColorScheme.labelTextColor,
+                          rocketBackground: AppColorScheme.optionBg,
                           buttonText: '\$15 per 3 game',
                           quality: 'Premium',
-                          color: Color(0xffFFD8EE),
+                          color: AppColorScheme.optionBg,
                         ),
                       ],
                     ),
                     SizedBox(height: 19.h),
-
-
                   ],
                 ),
               ),
@@ -106,16 +105,13 @@ class ChoosePaymentCard extends StatelessWidget {
                     horizontal: 66.w,
                     vertical: 16.h,
                   ),
-                  margin: EdgeInsets.symmetric(
-                    horizontal: 64.w,
-                    // vertical: 16.h,
-                  ),
+                  margin: EdgeInsets.symmetric(horizontal: 64.w),
                   decoration: BoxDecoration(
-                    color: Color(0xff008A39),
+                    color: AppColorScheme.customGreenBT,
                     borderRadius: BorderRadius.circular(8.r),
                     border: Border(
                       bottom: BorderSide(
-                        color: Color(0xffB8F1B9),
+                        color: AppColorScheme.greenborder,
                         width: 2.w,
                       ),
                     ),
@@ -123,9 +119,7 @@ class ChoosePaymentCard extends StatelessWidget {
                   child: Center(
                     child: Text(
                       'NEXT',
-                      style: Theme.of(
-                        context,
-                      ).textTheme.titleSmall?.copyWith(
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.w500,
                       ),
