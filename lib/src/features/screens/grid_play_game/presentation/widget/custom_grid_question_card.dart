@@ -11,10 +11,12 @@ class CustomGridQuestionCard extends ConsumerWidget {
   final String questionId;
   final String? questionLevel;
   final String questionCategory;
+  final String nextScreen;
 
   const CustomGridQuestionCard({
     super.key,
     required this.questionId,
+    required this.nextScreen,
     this.questionLevel,
     required this.questionCategory,
   });
@@ -57,7 +59,7 @@ class CustomGridQuestionCard extends ConsumerWidget {
             ref.read(isDifficultyVanished.notifier).state = true;
             await Future.delayed(const Duration(seconds: 1));
             if (!context.mounted) return;
-            context.push(RouteName.questionRevealedScreen);
+            context.push(nextScreen);
           },
           child: CustomDifficultyLevelCard(
             difficulty: "EASY",

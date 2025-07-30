@@ -2,7 +2,7 @@ part of 'route_import_part.dart';
 
 class RouteConfig {
   static final GoRouter goRouter = GoRouter(
-    initialLocation: RouteName.gridDifficultyLevelScreen2,
+    initialLocation: RouteName.gridDifficultyLevelScreen,
     routes: [
       GoRoute(
         path: RouteName.gridDifficultyLevelScreen2,

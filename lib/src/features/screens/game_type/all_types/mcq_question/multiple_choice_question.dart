@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_type/riverpod/multiple_choice_provider.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/riverpod/function.dart';
 
+import '../../../../../core/routes/route_name.dart';
+
 class MultipleChoiceQuestion extends StatelessWidget {
   final List<String> choices;
+  final String? nextScreen;
   final String question;
   final int? rightIndex;
-  const MultipleChoiceQuestion({super.key, required this.choices, required this.question, this.rightIndex});
+  const MultipleChoiceQuestion({super.key, required this.choices, required this.question, this.rightIndex, this.nextScreen});
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +53,13 @@ class MultipleChoiceQuestion extends StatelessWidget {
                       } else {
                         ref.read(checkChoicesProvider(i).notifier).state = -1;
                       }
+                    }
+
+                    if (rightChoiceIndex == index) {
+                      Future.delayed(Duration (seconds: 2),() {
+                        if(!context.mounted) return;
+                        context.push(nextScreen ?? RouteName.nextTurnScreen);
+                      });
                     }
                   },
                   child: Container(

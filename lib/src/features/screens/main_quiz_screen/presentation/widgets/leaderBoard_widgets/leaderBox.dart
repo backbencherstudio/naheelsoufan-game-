@@ -16,49 +16,49 @@ class Leaderbox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isPortrait =
+        MediaQuery.of(context).orientation == Orientation.portrait;
     final ScrollController scrollController = ScrollController();
 
     return CustomContainerBox(
       child: Container(
         decoration: BoxDecoration(
           color: Color(0xff3D4279).withValues(alpha: 0.9),
-          borderRadius: BorderRadius.circular(16.r),
+          borderRadius: BorderRadius.circular(isPortrait ? 16.r : 35.2.r),
         ),
         child: Column(
           children: [
             Padding(
               padding: EdgeInsets.only(
-                left: 20.w,
-                top: 20.h,
-                bottom: 20.h,
-                right: 20.w,
+                left: isPortrait ? 20.w : 44.h,
+                top: isPortrait ? 20.h : 9.w,
+                bottom: isPortrait ? 20.h : 9.w,
+                right: isPortrait ? 20.w : 44.h,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   CustomPlacebox(place: 2),
-                  Customfisrtplace(),
-                  CustomPlacebox(place: 3),
                 ],
               ),
             ),
-            SizedBox(height: 10.h),
+            SizedBox(height: isPortrait ? 10.h : 4.5.w),
            Stack(
                 children: [
                   Positioned(
-                    top: 5,
-                    left: 5,
-                    right: 5,
-                    bottom:1,
+                    top: isPortrait ? 5.h : 2.25.w,
+                    left: isPortrait ? 5.w : 11.h,
+                    right:isPortrait ? 5.w : 11.h,
+                    bottom:isPortrait ?1.h : 0.45.w,
                     child: Align(
                       alignment: Alignment.bottomCenter,
                       child: Container(
-                        height: 13.0,
-                        margin: EdgeInsets.symmetric(horizontal: 2.w),
+                        height: isPortrait ? 13.h : 5.85.w,
+                        margin: EdgeInsets.symmetric(horizontal: isPortrait ? 2.w : 4.4.h),
                         decoration: BoxDecoration(
                           color: AppColorScheme.containerColor,
-                          borderRadius: BorderRadius.circular(20.r),
+                          borderRadius: BorderRadius.circular(isPortrait ? 20.r : 44.r),
                         ),
                       ),
                     ),
@@ -73,28 +73,28 @@ class Leaderbox extends StatelessWidget {
                       scrollbarTimeToFade: const Duration(milliseconds: 800),
                       style: VsScrollbarStyle(
                         hoverThickness: 10.0,
-                        radius: Radius.circular(20.r),
+                        radius: Radius.circular(isPortrait ? 20.r : 44.r),
                         thickness: 8.0,
       
                         color: AppColorScheme.scrollbarColor,
                       ),
                       child: SingleChildScrollView(
                         controller: scrollController,
-                scrollDirection: Axis.horizontal,
+                scrollDirection: Axis.vertical,
 
                 child: Padding(
                   padding: EdgeInsets.only(
-                    left: 20.w,
-                    bottom: 30.h,
-                    right: 20.w,
+                    left: isPortrait ? 20.w : 44.h,
+                    bottom: isPortrait ? 30.h : 13.5.h,
+                    right: isPortrait ? 20.w : 44.h,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 20.h),
+                      SizedBox(height: isPortrait ? 20.h : 9.w),
                       CustomRow(),
 
-                      SizedBox(height: 10.h),
+                      SizedBox(height: isPortrait ? 10.h : 4.5.w),
 
                       Customrowtwo(
                         id: '02',
@@ -103,7 +103,7 @@ class Leaderbox extends StatelessWidget {
                         icons: AppImages.award,
                       ),
 
-                      SizedBox(height: 10.h),
+                      SizedBox(height: isPortrait ? 10.h : 4.5.w),
 
                       Customrowtwo(
                         id: '03',
@@ -111,7 +111,7 @@ class Leaderbox extends StatelessWidget {
                         scores: '750',
                         icons: AppImages.madel,
                       ),
-                      SizedBox(height: 10.h),
+                      SizedBox(height: isPortrait ? 10.h : 4.5.w),
 
                       CustomRowthree(
                         id: '04',
@@ -125,7 +125,7 @@ class Leaderbox extends StatelessWidget {
             ),
          )],
         ),
-SizedBox(height: 20.h,)
+SizedBox(height: isPortrait ? 20.h : 9.w,)
       ],
       
     

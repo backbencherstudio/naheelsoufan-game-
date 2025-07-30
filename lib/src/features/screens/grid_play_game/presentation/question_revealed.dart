@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentation/widget/platoon_hunter_card.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/riverpod/function.dart';
@@ -9,6 +10,7 @@ import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presenta
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/wrong_answer_dialog.dart';
 import '../../../../core/constant/icons.dart';
 import '../../../../core/constant/padding.dart';
+import '../../../../core/routes/route_name.dart';
 import '../../account_screens/presentation/widgets/my_account_wodgets/header_button.dart';
 import '../../game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import '../../game_type/game_type.dart';
@@ -121,6 +123,7 @@ class QuestionRevealed extends StatelessWidget {
                 ],
                 question: "What kind of energy does that sun create?",
                 rightChoice: 3,
+                nextScreen: RouteName.gridDifficultyLevelScreen2
               ),
             ),
             SizedBox(height: isPortrait ? 100.h : 15.w),
@@ -128,7 +131,7 @@ class QuestionRevealed extends StatelessWidget {
               builder: (_, ref, _) {
                 final checkRight = ref.watch(isRightWrongElse);
                 final checkHunt = ref.watch(huntModeOn);
-                if (checkRight != 1) {
+                if (checkRight != 1 && checkRight != -1 && !checkHunt) {
                   WidgetsBinding.instance.addPostFrameCallback((_) {
                     onWrongAnswerTap(context);
                   });
@@ -148,11 +151,19 @@ class QuestionRevealed extends StatelessWidget {
                     else ...[
                     PlatoonHunterCard(cardName: "Platoon", index: 2),
                     SizedBox(width: isPortrait ? 24.w : 52.8.h),
-                    (ref.read(isRightWrongElse.notifier).state == -1) ?
-                    PlatoonHunterCard(cardName: "Hunt", index: 1):
-                    (ref.read(isRightWrongElse.notifier).state == 1) ?
-                    PlatoonHunterCard(cardName: "150 Pts", index: 3) :
-                    PlatoonHunterCard(cardName: "Hunt", index: 1),
+                    if (ref.read(isRightWrongElse.notifier).state == -1) ...[
+                      PlatoonHunterCard(cardName: "Hunt", index: 1),
+                    ] else if (ref.read(isRightWrongElse.notifier).state == 1) ...[
+                      GestureDetector(
+                          onTap: ()async{
+                            await Future.delayed(const Duration(seconds: 1));
+                            if (!context.mounted) return;
+                            context.push(RouteName.splashScreen);
+                          },
+                          child: PlatoonHunterCard(cardName: "150 Pts", index: 3)),
+                    ] else ...[
+                      PlatoonHunterCard(cardName: "Hunt", index: 1),
+                    ],
                   ],
                 ]
                 );

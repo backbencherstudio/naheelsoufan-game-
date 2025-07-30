@@ -12,6 +12,8 @@ class GridLeaderBoardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isPortrait =
+        MediaQuery.of(context).orientation == Orientation.portrait;
     final style = Theme.of(context).textTheme;
 
     return CreateScreen(
@@ -40,9 +42,9 @@ class GridLeaderBoardScreen extends StatelessWidget {
               ],
             ),
 
-            SizedBox(height: 20.h),
+            SizedBox(height: isPortrait ? 20.h : 9.w),
             Leaderbox(),
-            SizedBox(height: 40.h),
+            SizedBox(height: isPortrait ?40.h : 18.w),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -51,7 +53,7 @@ class GridLeaderBoardScreen extends StatelessWidget {
                   onTap: () {},
                   bgIcon: AppIcons.roundIcontop,
                 ),
-                SizedBox(width: 40.w),
+                SizedBox(width: isPortrait ? 40.w : 88.h),
                 CustomroundButton(icon: AppIcons.playButtn, onTap: () {}),
               ],
             ),
