@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../../core/constant/icons.dart';
@@ -6,17 +7,18 @@ import '../../../../../core/routes/route_name.dart';
 import '../../../../common_widegts/create_screen/create_screen.dart';
 import '../../../account_screens/presentation/widgets/my_account_wodgets/header_button.dart';
 import '../../../game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
+import '../riverpod/player_name_state_provider.dart';
 
-class NextTurnScreen extends StatelessWidget {
+class NextTurnScreen extends ConsumerWidget {
   const NextTurnScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> keys = GlobalKey<ScaffoldState>();
+  Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
+    final currentPlayer = ref.watch(playerNameProvider);
+
     return Scaffold(
       body: CreateScreen(
-        key: keys,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 18.h),
           child: Column(
@@ -50,12 +52,7 @@ class NextTurnScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(16.r),
                       ),
                       child: Padding(
-                        padding: EdgeInsets.fromLTRB(
-                          126.w,
-                          60.h,
-                          126.w,
-                          48.h,
-                        ),
+                        padding: EdgeInsets.fromLTRB(126.w, 60.h, 126.w, 48.h),
                         child: Column(
                           children: [
                             Image.asset(
@@ -65,7 +62,7 @@ class NextTurnScreen extends StatelessWidget {
                             ),
                             SizedBox(height: 16.h),
                             Text(
-                              'Player 2',
+                              currentPlayer,
                               style: style.titleLarge?.copyWith(
                                 color: Color(0xffE0E0FF),
                                 fontWeight: FontWeight.w500,
@@ -76,7 +73,6 @@ class NextTurnScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-
                   Positioned(
                     top: 10,
                     left: 0,
@@ -119,10 +115,7 @@ class NextTurnScreen extends StatelessWidget {
                     horizontal: 66.w,
                     vertical: 16.h,
                   ),
-                  margin: EdgeInsets.symmetric(
-                    horizontal: 64.w,
-                    // vertical: 16.h,
-                  ),
+                  margin: EdgeInsets.symmetric(horizontal: 64.w),
                   decoration: BoxDecoration(
                     color: Color(0xff008A39),
                     borderRadius: BorderRadius.circular(8.r),

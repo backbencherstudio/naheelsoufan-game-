@@ -34,9 +34,10 @@ class SelectionTile extends StatelessWidget {
           Container(
             width: 253.w,
             decoration: BoxDecoration(
-              color: color ??
+              color:
+                  color ??
                   (isSelected
-                      ? const Color(0xff63DF7C)
+                      ? const Color(0xff63DF7C) // reusable
                       : const Color(0xffC9C6C5)),
               borderRadius: BorderRadius.circular(8.r),
               border: Border.all(color: const Color(0xff5F5E5E)),
@@ -69,11 +70,10 @@ class SelectionTile extends StatelessWidget {
           CustomIconsButtons(
             icon: AppIcons.substract,
             onTap: onTabRemove,
-            bgIcon: isSelected ? AppIcons.goldenBG : AppIcons.greyBG,
+            bgIcon: isSelected ? AppIcons.goldenBG : AppIcons.greyBG, // reusable
           ),
         ],
       ),
     );
   }
 }
-

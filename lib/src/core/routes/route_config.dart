@@ -77,7 +77,7 @@ class RouteConfig {
             context: context,
             state: state,
             transitionType: PageTransitionType.slideRightToLeft,
-            child: DeficultyLevelScreen(),
+            child: DifficultyLevelScreen(),
           );
         },
       ),
@@ -328,7 +328,7 @@ class RouteConfig {
             context: context,
             state: state,
             transitionType: PageTransitionType.slideRightToLeft,
-            child: DeficultyLevelScreen(),
+            child: DifficultyLevelScreen(),
           );
         },
       ),

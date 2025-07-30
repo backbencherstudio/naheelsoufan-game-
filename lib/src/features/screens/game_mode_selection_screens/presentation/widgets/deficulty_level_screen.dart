@@ -13,16 +13,17 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/dificulty_level_widgets/custom_green_button.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/difficulty_selection_provider.dart';
+import 'package:naheelsoufan_game/src/features/screens/question_answer_screen/next_turn/riverpod/player_name_state_provider.dart';
 
-class DeficultyLevelScreen extends StatelessWidget {
-  const DeficultyLevelScreen({super.key});
+class DifficultyLevelScreen extends StatelessWidget {
+  const DifficultyLevelScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
     final List<String> levels = ["EASY", "MEDIUM", "HARD"];
+
     return CreateScreen(
-      
       child: Padding(
         padding: AppPadding.horizontalPadding,
         child: Column(
@@ -41,31 +42,34 @@ class DeficultyLevelScreen extends StatelessWidget {
               ],
             ),
             SizedBox(height: 24.h),
-            Text(
-              "player 1",
-              style: style.titleLarge!.copyWith(
-                fontWeight: FontWeight.w400,
-                color: AppColorScheme.primary,
-              ),
+            Consumer(
+              builder: (_,ref,_) {
+                final playerName = ref.watch(playerNameProvider);
+                return Text(
+                 playerName ?? 'Player 1' ,
+                  style: style.titleLarge!.copyWith(
+                    fontWeight: FontWeight.w400,
+                    color: AppColorScheme.primary,
+                  ),
+                );
+              }
             ),
-
             SizedBox(height: 25.h),
             Consumer(
-              
-              builder: (context, ref,_) {
-                final isSelected = ref.watch(levelSelectionProvider);
+              builder: (context, ref, _) {
+                final selectedLevel = ref.watch(levelSelectionProvider);
                 return CustomBox(
                   child: Column(
                     children: [
                       ListView.builder(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
-                        itemCount: 3,
+                        itemCount: levels.length,
                         itemBuilder: (context, index) {
                           return CustomButtonsNormal(
-                            isSelected: isSelected == index,
+                            isSelected: selectedLevel == index,
                             onTap: () {
-                              ref.read(levelSelectionProvider.notifier).state=index;
+                              ref.read(levelSelectionProvider.notifier).state = index;
                             },
                             title: levels[index],
                           );
@@ -78,7 +82,7 @@ class DeficultyLevelScreen extends StatelessWidget {
                     ],
                   ),
                 );
-              }
+              },
             ),
           ],
         ),

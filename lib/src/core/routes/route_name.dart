@@ -28,7 +28,7 @@ class RouteName {
 
  static const String categorySelectionScreen = "/CatagorySelectionScreen";
 
- static const String difficultyLevelScreen = "/DeficultyLevelScreen";
+ static const String difficultyLevelScreen = "/DifficultyLevelScreen";
   static const String questionAnswerScreen = "/QuestionAnswerScreen";
   static const String clickedSettingScreen = "/ClickedSettingScreen";
   static const String catagorySelectionScreen = "/CatagorySelectionScreen";
