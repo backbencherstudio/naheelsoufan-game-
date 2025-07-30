@@ -19,32 +19,30 @@ class CustomRow extends StatelessWidget {
           children: [
 
             Text("Rank"),
-            SizedBox(height: isPortrait ? 9.h : 4.05.w,),
+            SizedBox(height: 9.h,),
             CustomSmallBox(title: '01', icon: '', isIconOpen: false),
           ],
         ),
 
-        SizedBox(width: isPortrait ? 8.w : 17.6.h),
+        SizedBox(width: 8.w),
         Column(
           children: [
-             Text("Name"),
-            SizedBox(height: isPortrait ? 9.h : 4.05.w,),
+            Text("Name"),
+            SizedBox(height: 9.h,),
             CustomSmallBox(
               title: 'Player Name',
               icon: AppImages.trophy,
-            
               width: isPortrait ? 221.w : 486.2.h,
-            
               isIconOpen: true,
             ),
           ],
         ),
-        SizedBox(width: isPortrait ? 8.w : 17.6.h),
+        SizedBox(width: 8.w),
         Column(
           children: [
 
-             Text("Score"),
-            SizedBox(height: isPortrait ? 9.h : 4.05.w,),
+            Text("Score"),
+            SizedBox(height: 9.h,),
             CustomSmallBox(title: '750', icon: "", isIconOpen: false),
           ],
         ),
@@ -54,24 +52,24 @@ class CustomRow extends StatelessWidget {
         Column(
           children: [
 
-             Text("Right"),
-            SizedBox(height: isPortrait ? 9.h : 4.05.w,),
+            Text("Right"),
+            SizedBox(height: 9.h,),
             Customgreenbox(title: '01', icon: '', isIconOpen: false),
           ],
         ),
-        SizedBox(width: isPortrait ? 8.w : 17.6.h),
+        SizedBox(width: 8.w),
         Column(
           children: [
-             Text("Wrong"),
-            SizedBox(height: isPortrait ? 9.h : 4.05.w,),
+            Text("Wrong"),
+            SizedBox(height: 9.h,),
             CustomRedbox(title: '01', icon: '', isIconOpen: false),
           ],
         ),
-        SizedBox(width: isPortrait ? 8.w : 17.6.h),
+        SizedBox(width: 8.w),
         Column(
           children: [
-             Text("Steal"),
-            SizedBox(height: isPortrait ? 9.h : 4.05.w,),
+            Text("Steal"),
+            SizedBox(height: 9.h,),
             CustomYellowbox(title: '01', icon: '', isIconOpen: false),
           ],
         ),

@@ -15,9 +15,9 @@ class Crownstack extends StatelessWidget {
       height: isPortrait ? 90.h : 40.5.w,
       width: isPortrait ? 120.w : 264.h,
       child: Stack(
-        
+
         alignment: Alignment.center,
-      
+
         children: [
           Positioned(
             bottom: 0,

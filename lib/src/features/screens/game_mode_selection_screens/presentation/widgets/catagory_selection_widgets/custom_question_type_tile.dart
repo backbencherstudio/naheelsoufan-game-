@@ -7,7 +7,7 @@ import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.da
 class CustomQuestionTypeTile extends StatelessWidget {
   final bool isSelected;
   final void Function()? onTap;
-  const CustomQuestionTypeTile({super.key, required this.isSelected, required this.onTap});
+  const CustomQuestionTypeTile({super.key, required this.isSelected, required this.onTap, required String title});
 
   @override
   Widget build(BuildContext context) {

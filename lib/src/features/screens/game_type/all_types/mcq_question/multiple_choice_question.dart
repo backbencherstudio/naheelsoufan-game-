@@ -2,29 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_type/riverpod/multiple_choice_provider.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/riverpod/function.dart';
+import 'package:naheelsoufan_game/src/features/screens/question_answer_screen/next_turn/riverpod/player_name_state_provider.dart';
+import '../../../main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/wrong_answer_dialog.dart';
 
 import '../../../../../core/routes/route_name.dart';
 
 class MultipleChoiceQuestion extends StatelessWidget {
   final List<String> choices;
-  final String? nextScreen;
+  final Function? func;
   final String question;
   final int? rightIndex;
-  const MultipleChoiceQuestion({super.key, required this.choices, required this.question, this.rightIndex, this.nextScreen});
+
+  const MultipleChoiceQuestion({super.key, required this.choices, required this.question, this.rightIndex, this.func});
 
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
-    bool isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+    bool isPortrait =
+        MediaQuery.of(context).orientation == Orientation.portrait;
 
     return Column(
       children: [
         Text(
           question,
-          style: textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500, fontSize: isPortrait ? 24.sp : 10.8.sp),
+          style: textTheme.bodyLarge?.copyWith(
+            fontWeight: FontWeight.w500,
+            fontSize: isPortrait ? 24.sp : 10.8.sp,
+          ),
           textAlign: TextAlign.center,
         ),
         SizedBox(height: isPortrait ? 40.h : 18.w),
@@ -44,41 +52,68 @@ class MultipleChoiceQuestion extends StatelessWidget {
                 final checkChoice = ref.watch(checkChoicesProvider(index));
                 final rightChoiceIndex = rightIndex ?? 0;
                 return InkWell(
-                  onTap: (){
-                    (index == rightChoiceIndex) ? ref.read(isRightWrongElse.notifier).state = 1 : ref.read(isRightWrongElse.notifier).state = 0;
+                  onTap: () {
+                    (index == rightChoiceIndex)
+                        ? ref.read(isRightWrongElse.notifier).state = 1
+                        : ref.read(isRightWrongElse.notifier).state = 0;
                     for (int i = 0; i < choices.length; i++) {
                       if (i == index) {
                         ref.read(checkChoicesProvider(i).notifier).state =
-                        (i == rightChoiceIndex) ? 1 : 0;
+                            (i == rightChoiceIndex) ? 1 : 0;
                       } else {
                         ref.read(checkChoicesProvider(i).notifier).state = -1;
                       }
                     }
 
-                    if (rightChoiceIndex == index) {
-                      Future.delayed(Duration (seconds: 2),() {
-                        if(!context.mounted) return;
-                        context.push(nextScreen ?? RouteName.nextTurnScreen);
-                      });
+                    // if (rightChoiceIndex == index) {
+                    //   Future.delayed(Duration (seconds: 2),() {
+                    //     if(!context.mounted) return;
+                    //     context.push(nextScreen ?? RouteName.nextTurnScreen);
+                    //   });
+                    // }
+
+                    if (rightChoiceIndex != index) {
+                      onWrongAnswerTap(context);
+                    } else {
+                        func!() ?? debugPrint("No function");
                     }
-                  },
+                    },
                   child: Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(isPortrait ? 12.r : 26.4.r),
-                      gradient: LinearGradient(colors: (ref.read(checkChoicesProvider(index).notifier).state == 1) ? [
-                        AppColorScheme.startGradGreen,
-                        AppColorScheme.midGradGreen,
-                        AppColorScheme.hardGradGreen
-                      ] : (ref.read(checkChoicesProvider(index).notifier).state == 0) ? [
-                        AppColorScheme.errorColor,
-                        AppColorScheme.errorColor,
-                        AppColorScheme.errorColor
-                      ] : [
-                        AppColorScheme.optionBg,
-                        AppColorScheme.optionBg,
-                        AppColorScheme.optionBg
-                      ], begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter
+                      borderRadius: BorderRadius.circular(
+                        isPortrait ? 12.r : 26.4.r,
+                      ),
+                      gradient: LinearGradient(
+                        colors:
+                            (ref
+                                        .read(
+                                          checkChoicesProvider(index).notifier,
+                                        )
+                                        .state ==
+                                    1)
+                                ? [
+                                  AppColorScheme.startGradGreen,
+                                  AppColorScheme.midGradGreen,
+                                  AppColorScheme.hardGradGreen,
+                                ]
+                                : (ref
+                                        .read(
+                                          checkChoicesProvider(index).notifier,
+                                        )
+                                        .state ==
+                                    0)
+                                ? [
+                                  AppColorScheme.errorColor,
+                                  AppColorScheme.errorColor,
+                                  AppColorScheme.errorColor,
+                                ]
+                                : [
+                                  AppColorScheme.optionBg,
+                                  AppColorScheme.optionBg,
+                                  AppColorScheme.optionBg,
+                                ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
                       ),
                       boxShadow: [
                         BoxShadow(
@@ -89,10 +124,30 @@ class MultipleChoiceQuestion extends StatelessWidget {
                       ],
                       border: Border(
                         bottom: BorderSide(
-                          color: (ref.read(checkChoicesProvider(index).notifier).state == 1) ? AppColorScheme.rightOptionBorderColor : (ref.read(checkChoicesProvider(index).notifier).state == 0) ? AppColorScheme.optionBg : AppColorScheme.labelTextColor,
+                          color:
+                              (ref
+                                          .read(
+                                            checkChoicesProvider(
+                                              index,
+                                            ).notifier,
+                                          )
+                                          .state ==
+                                      1)
+                                  ? AppColorScheme.rightOptionBorderColor
+                                  : (ref
+                                          .read(
+                                            checkChoicesProvider(
+                                              index,
+                                            ).notifier,
+                                          )
+                                          .state ==
+                                      0)
+                                  ? AppColorScheme.optionBg
+                                  : AppColorScheme.labelTextColor,
                           width: isPortrait ? 4.r : 8.8.r,
                         ),
-                    ),),
+                      ),
+                    ),
                     alignment: Alignment.center,
                     child: Text(
                       choices[index],
@@ -104,7 +159,7 @@ class MultipleChoiceQuestion extends StatelessWidget {
                     ),
                   ),
                 );
-              }
+              },
             );
           },
         ),

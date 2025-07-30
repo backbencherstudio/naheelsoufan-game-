@@ -9,10 +9,21 @@ import '../../../core/constant/images.dart';
 import '../../../data/riverpod/common_state_control.dart';
 import '../custom_show_menu/custom_menu_card.dart';
 
-class RegisterAppbar extends StatelessWidget {
-   RegisterAppbar({super.key});
+class RegisterAppbar extends StatefulWidget {
+   const RegisterAppbar({super.key});
 
+  @override
+  State<RegisterAppbar> createState() => _RegisterAppbarState();
+}
+
+class _RegisterAppbarState extends State<RegisterAppbar> {
   final  menuKey = GlobalKey();
+
+  @override
+  void dispose() {
+    menuKey.currentState?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

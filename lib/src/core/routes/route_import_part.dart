@@ -23,7 +23,7 @@ import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentati
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/quiz_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/question_answer_screen/question_answer_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/deficulty_level_screen.dart';
-import '../../features/screens/clicked_setting _while_playing/presentation/clicked_setting_screen.dart';
+import '../../features/screens/game_mode_selection_screens/presentation/clicked_setting_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/leaderBoard_Screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/quiz_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/question_answer_screen/question_answer_screen.dart';

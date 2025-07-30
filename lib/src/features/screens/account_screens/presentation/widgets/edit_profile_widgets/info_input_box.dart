@@ -8,17 +8,24 @@ class InfoInputBox extends StatelessWidget {
     required this.style,
     required this.labelName,
     this.hintText,
-    required this.picture,
-    this.validator, this.controller,
+
+    this.validator,
+    this.controller,
+    this.keyboardType = TextInputType.text,
+    this.obscureText = false,
+    this.suffixIcon,
+    this.onSuffixTap,
   });
 
   final TextTheme style;
   final String labelName;
   final String? hintText;
-  final SvgPicture picture;
   final String? Function(String?)? validator;
   final TextEditingController? controller;
-
+  final TextInputType keyboardType;
+  final bool obscureText;
+  final Widget? suffixIcon;
+  final VoidCallback? onSuffixTap;
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +46,8 @@ class InfoInputBox extends StatelessWidget {
             children: [
               Expanded(
                 child: TextFormField(
+                  keyboardType: keyboardType,
+                  obscureText: obscureText,
                   controller: controller,
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.only(top: 8.h),
@@ -61,10 +70,13 @@ class InfoInputBox extends StatelessWidget {
                     ),
                     fillColor: Colors.transparent,
                     filled: true,
-                    suffixIcon: Padding(
-                      padding: EdgeInsets.only(bottom: 12.h, top: 12.h),
-                      child: picture,
-                    ),
+                    suffixIcon:
+                        suffixIcon != null
+                            ? IconButton(
+                              onPressed: onSuffixTap,
+                              icon: suffixIcon!,
+                            )
+                            : null,
                   ),
                   validator: validator,
                 ),

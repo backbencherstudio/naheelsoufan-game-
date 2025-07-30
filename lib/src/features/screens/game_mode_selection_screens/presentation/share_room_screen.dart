@@ -38,7 +38,7 @@ class ShareRoomScreen extends StatelessWidget {
                   },
                 ),
                 Image.asset(AppImages.profilePic, height: 40.h, width: 40.w),
-                CustomIconsButtons(icon: AppIcons.settings, onTap: () {}),
+                CustomIconsButtons(icon: AppIcons.threeDotSvg, onTap: () {}),
               ],
             ),
             SizedBox(height: 20.h),

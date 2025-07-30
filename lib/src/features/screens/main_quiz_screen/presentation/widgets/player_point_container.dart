@@ -57,6 +57,8 @@ class PlayerPointContainer extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: EdgeInsets.only(right: 8.w),
+
+                            // here will be color change logic
                             child: PlayerPointblock(isSelected: index == 0),
                           );
                         },

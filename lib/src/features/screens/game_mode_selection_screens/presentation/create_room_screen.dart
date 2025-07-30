@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/constant/padding.dart';
@@ -84,7 +85,7 @@ class CreateRoomScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                                          SizedBox(height: 4.h,),
+                      SizedBox(height: 4.h),
 
                       Container(
                         decoration: BoxDecoration(
@@ -98,7 +99,17 @@ class CreateRoomScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8.r),
                         ),
 
-                        child: TextFormField(),
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(
+                              horizontal: 12.w,
+                            ),
+                            hintText: 'Type your room name here',
+                            hintStyle: style.displaySmall?.copyWith(
+                              color: AppColorScheme.primaryTextColor,
+                            ),
+                          ),
+                        ),
                       ),
                       SizedBox(height: 24.h),
                       Align(
@@ -108,14 +119,13 @@ class CreateRoomScreen extends StatelessWidget {
                           style: style.labelLarge!.copyWith(
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w600,
-                                color: AppColorScheme.primary,
-
+                            color: AppColorScheme.primary,
                           ),
                         ),
                       ),
-                      SizedBox(height: 4.h,),
+                      SizedBox(height: 4.h),
                       Container(
-                         decoration: BoxDecoration(
+                        decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
                               color: AppColorScheme.onPrimary,
@@ -125,7 +135,23 @@ class CreateRoomScreen extends StatelessWidget {
                           ],
                           borderRadius: BorderRadius.circular(8.r),
                         ),
-                        child: TextFormField()),
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(
+                              horizontal: 12.w,
+                            ),
+                            hintText: 'Select time',
+                            hintStyle: style.displaySmall?.copyWith(
+                              color: AppColorScheme.primaryTextColor,
+                            ),
+                            suffixIcon: SvgPicture.asset(AppIcons.dropdownIcon),
+                            suffixIconConstraints: BoxConstraints(
+                              maxHeight: 24.h,
+                              maxWidth: 24.w,
+                            )
+                          ),
+                        ),
+                      ),
                       SizedBox(height: 60.h),
                       CustomButton(
                         text: "CREATE ROOM",

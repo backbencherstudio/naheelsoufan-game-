@@ -11,10 +11,10 @@ class Customrowtwo extends StatelessWidget {
   final String scores;
   final String icons;
   const Customrowtwo({super.key,
-  required this.id,
-  required this.name,
-  required this.scores,
-  required this.icons,
+    required this.id,
+    required this.name,
+    required this.scores,
+    required this.icons,
   });
 
   @override

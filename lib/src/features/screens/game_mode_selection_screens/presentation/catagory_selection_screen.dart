@@ -12,13 +12,19 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/catagory_selection_widgets/custom_question_type_tile.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/selection_provider.dart';
+import '../../question_answer_screen/next_turn/riverpod/player_name_state_provider.dart';
 
-class CatagorySelectionScreen extends StatelessWidget {
+class CatagorySelectionScreen extends ConsumerWidget {
   const CatagorySelectionScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
+    final currentPlayerName = ref.watch(playerNameProvider);
+    final selectedState = ref.watch(selectProvider);
+
+    final List<String> levels = ["General Knowledge", "Math", "Science","General Knowledge", "Math", "Science","General Knowledge", "Math", "Science",];
+
     return CreateScreen(
       child: Padding(
         padding: AppPadding.horizontalPadding,
@@ -39,7 +45,7 @@ class CatagorySelectionScreen extends StatelessWidget {
             ),
             SizedBox(height: 8.h),
             Text(
-              "player 1",
+              currentPlayerName,
               style: style.titleLarge!.copyWith(
                 fontWeight: FontWeight.w400,
                 color: AppColorScheme.primary,
@@ -47,68 +53,56 @@ class CatagorySelectionScreen extends StatelessWidget {
             ),
             SizedBox(height: 36.h),
 
-            Consumer(
-              builder: (context, ref, _) {
-                final selectedState = ref.watch(selectProvider);
-                return Expanded(
-                  child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      crossAxisSpacing: 30,
-                      childAspectRatio: (0.5),
-                    ),
-                    itemCount: 9,
-                    itemBuilder: (context, index) {
-                      final isSelected = selectedState == index;
-                      return Column(
-                        children: [
-                          CustomQuestionTypeTile(
-                            isSelected: isSelected,
-                            onTap: () {
-                              debugPrint("\n\n$selectedState\n\n");
-                              ref.read(selectProvider.notifier).state = index;
-
-                           
-                                Future.delayed(Duration(milliseconds: 1000), () {
-                                  if (context.mounted) {
-                                    context.push(
-                                      RouteName.difficultyLevelScreen,
-                                    );
-                                  }
-                                });
-                              }
-                    
-                          ),
-                          Text(
-                            "General\nKnowledge",
-                            style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                              fontWeight: FontWeight.w400,
-                              color: AppColorScheme.primary
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                );
-              },
+            Expanded(
+              child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 30,
+                  childAspectRatio: (0.5),
+                ),
+                itemCount: levels.length,
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: [
+                      CustomQuestionTypeTile(
+                        isSelected: selectedState == index,
+                        onTap: () {
+                          ref.read(selectProvider.notifier).state = index;
+                          Future.delayed(Duration(milliseconds: 1000), () {
+                            if (context.mounted) {
+                              context.push(RouteName.difficultyLevelScreen);
+                            }
+                          });
+                        },
+                        title: levels[index],
+                      ),
+                      Text(
+                        levels[index],
+                        style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                          fontWeight: FontWeight.w400,
+                          color: AppColorScheme.primary,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  );
+                },
+              ),
             ),
+
+
             SizedBox(height: 20.h),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 CustomroundButton(
                   icon: AppIcons.playleft,
-                  onTap: () {
-
-                  },
+                  onTap: () {},
                   bgIcon: AppIcons.roundIcontop,
                 ),
                 SizedBox(width: 40.w),
-                CustomroundButton(icon: AppIcons.playButtn, onTap: () {
-
-                }),
+                CustomroundButton(icon: AppIcons.playButtn, onTap: () {}),
               ],
             ),
             SizedBox(height: 20.h),

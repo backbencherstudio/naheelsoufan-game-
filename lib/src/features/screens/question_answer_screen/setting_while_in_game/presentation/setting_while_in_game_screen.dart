@@ -6,9 +6,10 @@ import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import '../../../../../core/constant/icons.dart';
 import '../../../../../core/routes/route_name.dart';
+import '../../../../common_widegts/music_off_on_whole_screen/music_volume_widgets.dart';
 import '../../../account_screens/presentation/widgets/custom_music_volume_buttton.dart';
 import '../../../game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
-import '../../../game_mode_selection_screens/riverpod/musicVisible_provider.dart';
+import '../../../../common_widegts/music_off_on_whole_screen/riverpod/musicVisible_provider.dart';
 import '../widgets/centered_button.dart';
 import '../widgets/language_drop_down_menu.dart';
 import '../widgets/setting_while_game_tile.dart';
@@ -48,30 +49,7 @@ class SettingWhileInGameScreen extends ConsumerWidget {
                 ],
               ),
               SizedBox(height: 36.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Consumer(
-                    builder: (context, ref, _) {
-                      final isVisible = ref.watch(isMusicVisibleProvider);
-                      return CustomMusicoffButton(
-                        onTap: () {
-                          ref.read(isMusicVisibleProvider.notifier).state =
-                              !isVisible;
-                        },
-                        isSelected: isVisible,
-                      );
-                    },
-                  ),
-                  SizedBox(width: 10.w),
-                  CustomIconsButtons(
-                    icon: AppIcons.sound,
-                    onTap: () {},
-                    bgIcon: AppIcons.iconBG,
-                  ),
-                ],
-              ),
+              MusicOffOnWholePage(),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 28.w),
                 child: Column(
@@ -105,7 +83,11 @@ class SettingWhileInGameScreen extends ConsumerWidget {
                 ),
               ),
               SizedBox(height: 250.h),
-              CenteredButton(),
+              CenteredButton(
+                onTap: () {
+                  context.push(RouteName.modeSelectionScreen);
+                },
+              ),
               SizedBox(height: 24.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
