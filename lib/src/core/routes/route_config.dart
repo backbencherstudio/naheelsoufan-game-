@@ -1,9 +1,31 @@
 part of 'route_import_part.dart';
 
 class RouteConfig {
-  GoRouter goRouter = GoRouter(
-    initialLocation: RouteName.splashScreen,
+  static final GoRouter goRouter = GoRouter(
+    initialLocation: RouteName.gridDifficultyLevelScreen,
     routes: [
+      GoRoute(
+        path: RouteName.gridDifficultyLevelScreen2,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: SecondGridDifficultyLevelScreen()
+          );
+        },
+      ),
+      GoRoute(
+        path: RouteName.gridLeaderboard,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: GridLeaderBoardScreen(),
+          );
+        },
+      ),
       GoRoute(
         path: RouteName.questionRevealedScreen,
         pageBuilder: (context, state) {

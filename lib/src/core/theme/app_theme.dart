@@ -8,12 +8,15 @@ import 'theme_extension/text_theme.dart';
 
 class AppTheme {
   AppTheme._();
-  static ThemeData darkTheme = ThemeData(
-    scaffoldBackgroundColor: Color(0xff101010),
-    textTheme: AppTextTheme.darkTextTheme,
-    colorScheme: AppColorScheme.colorScheme,
-    inputDecorationTheme: AppInputDecorationTheme.darkInputDecorationTheme,
-    elevatedButtonTheme: AppEvaluatedButtonThemes.darkEvaluatedButtonTheme,
-    appBarTheme: CustomAppBarTheme.lightAppBarTheme,
-  );
+
+  static ThemeData darkTheme(BuildContext context) {
+    return ThemeData(
+      scaffoldBackgroundColor: const Color(0xff101010),
+      textTheme: AppTextTheme.darkTextTheme(context),  // use the method from previous answer
+      colorScheme: AppColorScheme.colorScheme,
+      inputDecorationTheme: AppInputDecorationTheme.darkInputDecorationTheme,
+      elevatedButtonTheme: AppEvaluatedButtonThemes.darkEvaluatedButtonTheme,
+      appBarTheme: CustomAppBarTheme.lightAppBarTheme,
+    );
+  }
 }

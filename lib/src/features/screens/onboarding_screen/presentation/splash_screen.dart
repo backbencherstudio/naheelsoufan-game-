@@ -34,27 +34,31 @@ class _SplashScreenState extends State<SplashScreen> {
     final style = Theme.of(context).textTheme;
     return Scaffold(
       body: CreateScreen(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 46.w, vertical: 16.h),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Spacer(),
-              Stack(
-                alignment: Alignment.center,
+        child: SafeArea(
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 46.w, vertical: 16.h),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SvgPicture.asset(
-                    AppIcons.blueLogoBg,
-                    height: 150.h,
-                    width: 150.w,
+                  SizedBox(height: 80.h), // replaces Spacer()
+                  Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      SvgPicture.asset(
+                        AppIcons.blueLogoBg,
+                        height: 150.h,
+                        width: 150.w,
+                      ),
+                      SvgPicture.asset(AppIcons.manIcon,
+                          height: 96.h, width: 70.w),
+                    ],
                   ),
-                  SvgPicture.asset(AppIcons.manIcon, height: 96.h, width: 70.w),
+                  SizedBox(height: 80.h), // replaces Spacer()
                 ],
               ),
-
-              Spacer(),
-            ],
+            ),
           ),
         ),
       ),

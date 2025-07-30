@@ -2,13 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../../core/constant/icons.dart';
+import '../../../../../core/routes/route_name.dart';
 import '../../../../../core/theme/theme_extension/color_scheme.dart';
 
 class PlatoonHunterCard extends StatelessWidget {
   final String cardName;
   final int? index;
-  static const List<String> cardStatus = ["inactive", "active", "wrong", "right"];
+  static const List<String> cardStatus = ["default", "active", "inactive", "right"];
 
   const PlatoonHunterCard({
     super.key,
@@ -58,7 +60,7 @@ class PlatoonHunterCard extends StatelessWidget {
           ],
         ),
       ),
-    ):(cardStatus[finalIndex] == "inactive")? Container(
+    ):(cardStatus[finalIndex] == "default")? Container(
       padding: EdgeInsets.all(isPortrait ? 12.r : 26.4.r),
       width: isPortrait ? 104.w : 228.h,
       decoration: BoxDecoration(
@@ -82,7 +84,7 @@ class PlatoonHunterCard extends StatelessWidget {
           ))),
         ],
       ),
-    ):(cardStatus[finalIndex] == "wrong")?Container(
+    ): (cardStatus[finalIndex] == "inactive") ? Container(
       padding: EdgeInsets.all(isPortrait ? 12.r : 26.4.r),
       width: isPortrait ? 104.w : 228.h,
       decoration: BoxDecoration(
@@ -99,7 +101,7 @@ class PlatoonHunterCard extends StatelessWidget {
           ))),
         ],
       ),
-    ):Container(
+    ): Container(
       padding: EdgeInsets.all(isPortrait ? 3.r : 5.r),
       width: isPortrait ? 104.w : 228.h,
       decoration: BoxDecoration(

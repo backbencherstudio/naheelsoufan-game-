@@ -19,10 +19,10 @@ final isSelectedClicked = StateProvider.family<bool, int>((ref, questionID)=>fal
 final isSomethingClicked = StateProvider<bool>((ref)=>false);
 
 
-final isDifficultyClicked1 = StateProvider.family<bool, int>((ref, id)=>false);
-final isDifficultyClicked2 = StateProvider.family<bool, int>((ref, id)=>false);
-final isDifficultyClicked3 = StateProvider.family<bool, int>((ref, id)=>false);
-final isDifficultyVanished = StateProvider<bool>((ref)=>false);
+final isDifficultyClicked1 = StateProvider.autoDispose.family<bool, int>((ref, id) => false);
+final isDifficultyClicked2 = StateProvider.autoDispose.family<bool, int>((ref, id) => false);
+final isDifficultyClicked3 = StateProvider.autoDispose.family<bool, int>((ref, id) => false);
+final isDifficultyVanished = StateProvider.autoDispose<bool>((ref) => false);
 
 final isRightWrongElse = StateProvider<int>((ref)=>-1);
 final huntModeOn = StateProvider<bool>((ref)=>false);
