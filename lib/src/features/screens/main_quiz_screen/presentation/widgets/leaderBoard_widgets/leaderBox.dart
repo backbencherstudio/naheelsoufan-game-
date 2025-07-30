@@ -19,32 +19,32 @@ class Leaderbox extends StatelessWidget {
     final ScrollController scrollController = ScrollController();
 
     return CustomContainerBox(
-      child: Container(
-        decoration: BoxDecoration(
-          color: Color(0xff3D4279).withValues(alpha: 0.9),
-          borderRadius: BorderRadius.circular(16.r),
-        ),
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(
-                left: 20.w,
-                top: 20.h,
-                bottom: 20.h,
-                right: 20.w,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Color(0xff3D4279).withValues(alpha: 0.9),
+            borderRadius: BorderRadius.circular(16.r),
+          ),
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                  left: 20.w,
+                  top: 20.h,
+                  bottom: 20.h,
+                  right: 20.w,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    CustomPlacebox(place: 2),
+                    Customfisrtplace(),
+                    CustomPlacebox(place: 3),
+                  ],
+                ),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  CustomPlacebox(place: 2),
-                  Customfisrtplace(),
-                  CustomPlacebox(place: 3),
-                ],
-              ),
-            ),
-            SizedBox(height: 10.h),
-           Stack(
+              SizedBox(height: 10.h),
+              Stack(
                 children: [
                   Positioned(
                     top: 5,
@@ -75,61 +75,61 @@ class Leaderbox extends StatelessWidget {
                         hoverThickness: 10.0,
                         radius: Radius.circular(20.r),
                         thickness: 8.0,
-      
+
                         color: AppColorScheme.scrollbarColor,
                       ),
                       child: SingleChildScrollView(
                         controller: scrollController,
-                scrollDirection: Axis.horizontal,
+                        scrollDirection: Axis.horizontal,
 
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    left: 20.w,
-                    bottom: 30.h,
-                    right: 20.w,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 20.h),
-                      CustomRow(),
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            left: 20.w,
+                            bottom: 30.h,
+                            right: 20.w,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height: 20.h),
+                              CustomRow(),
 
-                      SizedBox(height: 10.h),
+                              SizedBox(height: 10.h),
 
-                      Customrowtwo(
-                        id: '02',
-                        name: 'Player Name',
-                        scores: '650',
-                        icons: AppImages.award,
+                              Customrowtwo(
+                                id: '02',
+                                name: 'Player Name',
+                                scores: '650',
+                                icons: AppImages.award,
+                              ),
+
+                              SizedBox(height: 10.h),
+
+                              Customrowtwo(
+                                id: '03',
+                                name: 'Player Name',
+                                scores: '750',
+                                icons: AppImages.madel,
+                              ),
+                              SizedBox(height: 10.h),
+
+                              CustomRowthree(
+                                id: '04',
+                                name: 'Player Name',
+                                scores: '556',
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-
-                      SizedBox(height: 10.h),
-
-                      Customrowtwo(
-                        id: '03',
-                        name: 'Player Name',
-                        scores: '750',
-                        icons: AppImages.madel,
-                      ),
-                      SizedBox(height: 10.h),
-
-                      CustomRowthree(
-                        id: '04',
-                        name: 'Player Name',
-                        scores: '556',
-                      ),
-                    ],
-                  ),
-                ),
+                    ),
+                  )],
               ),
-            ),
-         )],
-        ),
-SizedBox(height: 20.h,)
-      ],
-      
-    
-      ),
-    ));
+              SizedBox(height: 20.h,)
+            ],
+
+
+          ),
+        ));
   }
 }

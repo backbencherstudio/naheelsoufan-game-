@@ -10,8 +10,7 @@ class Customrowtwo extends StatelessWidget {
   final String id;
   final String scores;
   final String icons;
-  const Customrowtwo({
-    super.key,
+  const Customrowtwo({super.key,
     required this.id,
     required this.name,
     required this.scores,
@@ -30,6 +29,7 @@ class Customrowtwo extends StatelessWidget {
           icon: icons,
           isIconOpen: true,
           width: 216.w,
+
         ),
         SizedBox(width: 8.w),
         CustomYellowborderbox(title: '750', icon: "", isIconOpen: false),
@@ -40,7 +40,7 @@ class Customrowtwo extends StatelessWidget {
         SizedBox(width: 8.w),
         CustomRedbox(title: '01', icon: '', isIconOpen: false),
         SizedBox(width: 8.w),
-        CustomYellowbox(title: '01', icon: '', isIconOpen: false),
+        CustomYellowbox(title: '01', icon: '', isIconOpen: false,)
       ],
     );
   }

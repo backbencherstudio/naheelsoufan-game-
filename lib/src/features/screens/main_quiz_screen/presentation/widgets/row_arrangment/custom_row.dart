@@ -25,14 +25,14 @@ class CustomRow extends StatelessWidget {
         SizedBox(width: 8.w),
         Column(
           children: [
-             Text("Name"),
+            Text("Name"),
             SizedBox(height: 9.h,),
             CustomSmallBox(
               title: 'Player Name',
               icon: AppImages.trophy,
-            
+
               width: 221,
-            
+
               isIconOpen: true,
             ),
           ],
@@ -41,7 +41,7 @@ class CustomRow extends StatelessWidget {
         Column(
           children: [
 
-             Text("Score"),
+            Text("Score"),
             SizedBox(height: 9.h,),
             CustomSmallBox(title: '750', icon: "", isIconOpen: false),
           ],
@@ -52,7 +52,7 @@ class CustomRow extends StatelessWidget {
         Column(
           children: [
 
-             Text("Right"),
+            Text("Right"),
             SizedBox(height: 9.h,),
             Customgreenbox(title: '01', icon: '', isIconOpen: false),
           ],
@@ -60,7 +60,7 @@ class CustomRow extends StatelessWidget {
         SizedBox(width: 8.w),
         Column(
           children: [
-             Text("Wrong"),
+            Text("Wrong"),
             SizedBox(height: 9.h,),
             CustomRedbox(title: '01', icon: '', isIconOpen: false),
           ],
@@ -68,7 +68,7 @@ class CustomRow extends StatelessWidget {
         SizedBox(width: 8.w),
         Column(
           children: [
-             Text("Steal"),
+            Text("Steal"),
             SizedBox(height: 9.h,),
             CustomYellowbox(title: '01', icon: '', isIconOpen: false),
           ],

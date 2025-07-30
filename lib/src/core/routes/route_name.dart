@@ -57,4 +57,6 @@ class RouteName {
   static const String myAccountWithCancelSubscription = "/MyAccountWithCancelSubscription";
   static const String onboardingScreen = "/OnboardingScreen";
 
+  static const String gridLeaderboard = "/GridLeaderBoard";
+  static const String gridDifficultyLevelScreen2 = "/GridDifficultyLevelScreen2";
 }

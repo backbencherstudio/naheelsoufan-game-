@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
@@ -14,41 +13,9 @@ import 'package:naheelsoufan_game/src/features/screens/grid_play_game/riverpod/f
 
 import '../../../../core/routes/route_name.dart';
 
-class GridDifficultyLevelScreen extends StatefulWidget {
-  const GridDifficultyLevelScreen({super.key});
+class SecondGridDifficultyLevelScreen extends StatelessWidget {
+  const SecondGridDifficultyLevelScreen({super.key});
 
-  @override
-  State<GridDifficultyLevelScreen> createState() => _GridDifficultyLevelScreenState();
-}
-
-class _GridDifficultyLevelScreenState extends State<GridDifficultyLevelScreen> {
-  @override
-  void initState() {
-    super.initState();
-    _setLandscapeMode(); // Set orientation to landscape
-  }
-
-  @override
-  void dispose() {
-    _setPortraitMode(); // Reset orientation to portrait
-    super.dispose();
-  }
-
-  // Force landscape mode
-  void _setLandscapeMode() {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-    ]);
-  }
-
-  // Reset to portrait mode
-  void _setPortraitMode() {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
-  }
   @override
   Widget build(BuildContext context) {
     bool isPortrait =
@@ -83,13 +50,13 @@ class _GridDifficultyLevelScreenState extends State<GridDifficultyLevelScreen> {
                               return CustomGridQuestionCard(
                                 questionId: index.toString(),
                                 questionCategory:
-                                    questionList[index].questionCategory,
-                                nextScreen: RouteName.questionRevealedScreen,
+                                questionList[index].questionCategory,
+                                nextScreen: RouteName.gridLeaderboard,
                               );
                             },
                             separatorBuilder:
-                                (_, _) =>
-                                    SizedBox(width: isPortrait ? 4.w : 8.8.h),
+                                (_, __) =>
+                                SizedBox(width: isPortrait ? 4.w : 8.8.h),
                           );
                         },
                       ),

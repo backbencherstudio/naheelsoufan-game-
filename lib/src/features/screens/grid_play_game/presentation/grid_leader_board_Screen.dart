@@ -7,11 +7,13 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/leaderBoard_widgets/leaderBox.dart';
 
-class LeaderboardScreen extends StatelessWidget {
-  const LeaderboardScreen({super.key});
+class GridLeaderBoardScreen extends StatelessWidget {
+  const GridLeaderBoardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    bool isPortrait =
+        MediaQuery.of(context).orientation == Orientation.portrait;
     final style = Theme.of(context).textTheme;
 
     return CreateScreen(
@@ -40,9 +42,9 @@ class LeaderboardScreen extends StatelessWidget {
               ],
             ),
 
-            SizedBox(height: 20.h),
+            SizedBox(height: isPortrait ? 20.h : 9.w),
             Leaderbox(),
-            SizedBox(height: 40.h),
+            SizedBox(height: isPortrait ?40.h : 18.w),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -51,7 +53,7 @@ class LeaderboardScreen extends StatelessWidget {
                   onTap: () {},
                   bgIcon: AppIcons.roundIcontop,
                 ),
-                SizedBox(width: 40.w),
+                SizedBox(width: isPortrait ? 40.w : 88.h),
                 CustomroundButton(icon: AppIcons.playButtn, onTap: () {}),
               ],
             ),

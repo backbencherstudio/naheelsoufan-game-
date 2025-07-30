@@ -9,21 +9,19 @@ import 'package:naheelsoufan_game/src/features/screens/grid_play_game/riverpod/f
 import 'package:naheelsoufan_game/src/features/screens/question_answer_screen/next_turn/riverpod/player_name_state_provider.dart';
 import '../../../main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/wrong_answer_dialog.dart';
 
+import '../../../../../core/routes/route_name.dart';
+
 class MultipleChoiceQuestion extends StatelessWidget {
   final List<String> choices;
+  final Function? func;
   final String question;
   final int? rightIndex;
-  const MultipleChoiceQuestion({
-    super.key,
-    required this.choices,
-    required this.question,
-    this.rightIndex,
-  });
+
+  const MultipleChoiceQuestion({super.key, required this.choices, required this.question, this.rightIndex, this.func});
 
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
-    final List players = ['Player 1', 'Player 2', 'Player 3', 'Player 4'];
     bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
 
@@ -67,27 +65,19 @@ class MultipleChoiceQuestion extends StatelessWidget {
                       }
                     }
 
+                    // if (rightChoiceIndex == index) {
+                    //   Future.delayed(Duration (seconds: 2),() {
+                    //     if(!context.mounted) return;
+                    //     context.push(nextScreen ?? RouteName.nextTurnScreen);
+                    //   });
+                    // }
+
                     if (rightChoiceIndex != index) {
                       onWrongAnswerTap(context);
                     } else {
-                      Future.delayed(Duration(seconds: 1), () {
-                        int currentPlayerTurn = ref.read(playerTurnProvider);
-
-                        int nextPlayerTurn = (currentPlayerTurn + 1) % 4;
-                        ref.read(playerTurnProvider.notifier).state =
-                            nextPlayerTurn;
-
-                        ref.read(playerNameProvider.notifier).state =
-                            players[nextPlayerTurn];
-
-                        if (nextPlayerTurn == 0) {
-                          context.push(RouteName.leaderboardScreen);
-                        } else {
-                          context.push(RouteName.nextTurnScreen);
-                        }
-                      });
+                        func!() ?? debugPrint("No function");
                     }
-                  },
+                    },
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(
