@@ -10,11 +10,12 @@ class Customrowtwo extends StatelessWidget {
   final String id;
   final String scores;
   final String icons;
-  const Customrowtwo({super.key,
-  required this.id,
-  required this.name,
-  required this.scores,
-  required this.icons,
+  const Customrowtwo({
+    super.key,
+    required this.id,
+    required this.name,
+    required this.scores,
+    required this.icons,
   });
 
   @override
@@ -28,19 +29,18 @@ class Customrowtwo extends StatelessWidget {
           title: 'Player Name',
           icon: icons,
           isIconOpen: true,
-                    width: 216.w,
-
+          width: 216.w,
         ),
         SizedBox(width: 8.w),
         CustomYellowborderbox(title: '750', icon: "", isIconOpen: false),
         SizedBox(width: 8.w),
-        
+
         SizedBox(width: 8.w),
         Customgreenbox(title: '01', icon: '', isIconOpen: false),
         SizedBox(width: 8.w),
         CustomRedbox(title: '01', icon: '', isIconOpen: false),
         SizedBox(width: 8.w),
-        CustomYellowbox(title: '01', icon: '', isIconOpen: false,)
+        CustomYellowbox(title: '01', icon: '', isIconOpen: false),
       ],
     );
   }

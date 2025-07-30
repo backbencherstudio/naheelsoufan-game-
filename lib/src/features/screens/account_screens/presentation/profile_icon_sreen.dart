@@ -127,7 +127,7 @@ class ProfileIconScreen extends ConsumerWidget {
                       ),
 
                       Positioned(
-                        top: 10,
+                        top: 13,
                         left: 0,
                         right: 0,
                         child: Align(

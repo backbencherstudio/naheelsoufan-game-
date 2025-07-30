@@ -85,7 +85,7 @@ void onWrongAnswerTap(BuildContext context) {
                               ),
                               SizedBox(height: isPortrait ? 12.w : 26.4.h),
                               PrimaryButton(
-                                text: 'Nuclear energy',
+                                text: 'China',
                                 isSelected: true,
                                 onTap: () {},
                                 width: isPortrait ? 166.w : 365.h,

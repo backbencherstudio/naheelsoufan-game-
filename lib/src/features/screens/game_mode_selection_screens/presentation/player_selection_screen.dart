@@ -12,135 +12,131 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import '../../../../core/constant/icons.dart';
 import '../../../../core/constant/images.dart';
 
-class PlayerSelectionScreen extends StatelessWidget {
+class PlayerSelectionScreen extends ConsumerWidget {
   const PlayerSelectionScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
+    final isSelected = ref.watch(selectionProvider);
+    final areAllSelected = ref.watch(selectionProvider.notifier).areAllTilesSelected(4);
+
     return CreateScreen(
       child: Padding(
         padding: AppPadding.horizontalPadding,
-        child: Consumer(
-          builder: (context, ref, _) {
-            final isSelected = ref.watch(selectionProvider);
-            final areAllSelected = ref
-                .read(selectionProvider.notifier)
-                .areAllTilesSelected(4);
-            return Column(
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CustomIconsButtons(
-                      icon: AppIcons.backIcons,
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
+                CustomIconsButtons(
+                  icon: AppIcons.backIcons,
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                Image.asset(
+                  AppImages.profilePic,
+                  height: 40.h,
+                  width: 40.w,
+                ),
+                CustomIconsButtons(icon: AppIcons.threeDotSvg, onTap: () {}),
+              ],
+            ),
+            SizedBox(height: 140.h),
+            Text(
+              "Waiting for Players",
+              style: style.headlineLarge!.copyWith(
+                fontSize: 32.sp,
+                fontWeight: FontWeight.w500,
+                color: AppColorScheme.primary,
+              ),
+            ),
+            SizedBox(height: 24.h),
+
+            // List of player selection tiles
+            ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: 4,
+              itemBuilder: (context, index) {
+                final bool isTileSelected = isSelected.selectedTiles[index] ?? false;
+
+                return Padding(
+                  padding: EdgeInsets.only(bottom: 16.h),
+                  child: SelectionTile(
+                    index: '${index + 1}',
+                    onTap: () {
+                      ref.read(selectionProvider.notifier).toggleTileSelection(index);
+                    },
+                    isSelected: isTileSelected,
+                  ),
+                );
+              },
+            ),
+
+            SizedBox(height: 70.h),
+
+            // Display "All players joined" message when all players are selected
+            if (areAllSelected) ...[
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8.r),
+                  border: Border.all(color: AppColorScheme.borderColor),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(10.r),
+                  child: Text(
+                    "All players joined. You can start now!",
+                    style: style.bodyLarge!.copyWith(
+                      fontWeight: FontWeight.w500,
+                      color: AppColorScheme.primary,
                     ),
-                    Image.asset(
-                      AppImages.profilePic,
-                      height: 40.h,
-                      width: 40.w,
+                  ),
+                ),
+              ),
+            ],
+            SizedBox(height: 20.h),
+
+            // Start button, navigates to the next screen when pressed
+            GestureDetector(
+              onTap: () {
+                context.push(RouteName.categorySelectionScreen);
+              },
+              child: Container(
+                width: 229.w,
+                decoration: BoxDecoration(
+                  color: Color(0xff008A39),
+                  borderRadius: BorderRadius.circular(8.r),
+                  border: Border(
+                    left: BorderSide(color: AppColorScheme.softGradGreen, width: 0.5.w),
+                    right: BorderSide(color: AppColorScheme.softGradGreen, width: 0.5.w),
+                    bottom: BorderSide(color: AppColorScheme.softGradGreen, width: 1.5.w),
+                    top: BorderSide.none,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColorScheme.softGradGreen.withOpacity(0.3),
+                      blurRadius: 8,
+                      offset: Offset(0, 0),
                     ),
-                    CustomIconsButtons(icon: AppIcons.threeDotSvg, onTap: () {}),
                   ],
                 ),
-                SizedBox(height: 140.h),
-                Text(
-                  "Waiting for Players",
-                  style: style.headlineLarge!.copyWith(
-                    fontSize: 32.sp,
-                    fontWeight: FontWeight.w500,
-                    color: AppColorScheme.primary
-                  ),
-                ),
-                SizedBox(height: 24.h),
-
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: 4,
-                  itemBuilder: (context, index) {
-                    final bool isTileSelected =
-                        isSelected.selectedTiles[index] ?? false;
-
-                    return Padding(
-                      padding: EdgeInsets.only(bottom: 16.h),
-                      child: SelectionTile(
-                        index: '${index + 1}',
-                        onTap: () {
-                          ref
-                              .read(selectionProvider.notifier)
-                              .toggleTileSelection(index);
-                        },
-                        iselected: isTileSelected,
-                      ),
-                    );
-                  },
-                ),
-
-                SizedBox(height: 70.h),
-                if (areAllSelected == true) ...[
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8.r),
-                      border: Border.all(color:AppColorScheme.borderColor,)
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(10.r),
-                      child: Text(
-                        "All players joined. You can start now!",
-                        style: style.bodyLarge!.copyWith(
-                          fontWeight: FontWeight.w500,
-                          color: AppColorScheme.primary
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-                SizedBox(height: 20.h),
-                GestureDetector(
-                  onTap: () {
-                    context.push(RouteName.categorySelectionScreen);
-                  },
-                  child: Container(
-                    width: 229.w,
-                    decoration: BoxDecoration(
-                      color: Color(0xff008A39),
-                      borderRadius: BorderRadius.circular(8.r),
-
-                      border: Border(
-                        left: BorderSide(color: AppColorScheme.softGradGreen, width: 0.5.w),
-                        right: BorderSide(color: AppColorScheme.softGradGreen, width: 0.5.w),
-                        bottom: BorderSide(color: AppColorScheme.softGradGreen, width: 1.5.w),
-                        top: BorderSide.none,
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color:  AppColorScheme.softGradGreen.withValues(alpha: 0.3),
-                          blurRadius: 8,
-                          offset: Offset(0, 0),
-                        ),
-                      ],
-                    ),
-                    child: Center(
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 16.h),
-                        child: Text(
-                          "Start",
-                          style: style.titleMedium!.copyWith(
-                            fontWeight: FontWeight.w500,
-                            color: AppColorScheme.primary,
-                          ),
-                        ),
+                child: Center(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 16.h),
+                    child: Text(
+                      "Start",
+                      style: style.titleMedium!.copyWith(
+                        fontWeight: FontWeight.w500,
+                        color: AppColorScheme.primary,
                       ),
                     ),
                   ),
                 ),
-              ],
-            );
-          },
+              ),
+            ),
+          ],
         ),
       ),
     );

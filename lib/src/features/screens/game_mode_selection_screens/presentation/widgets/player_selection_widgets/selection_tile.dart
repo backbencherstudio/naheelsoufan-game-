@@ -3,11 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../../../core/constant/icons.dart';
+import '../add_player_widgets/type_player_name_dialog.dart';
 import '../home_widgets/custom_icons_Buttons.dart';
 
 class SelectionTile extends StatelessWidget {
   final String index;
-  final bool iselected;
+  final bool isSelected;
   final Color? color;
   final void Function()? onTap;
   final void Function()? onTabRemove;
@@ -16,7 +17,7 @@ class SelectionTile extends StatelessWidget {
     super.key,
     required this.index,
     required this.onTap,
-    required this.iselected,
+    required this.isSelected,
     this.color,
     this.onTabRemove,
   });
@@ -34,7 +35,7 @@ class SelectionTile extends StatelessWidget {
             width: 253.w,
             decoration: BoxDecoration(
               color: color ??
-                  (iselected
+                  (isSelected
                       ? const Color(0xff63DF7C)
                       : const Color(0xffC9C6C5)),
               borderRadius: BorderRadius.circular(8.r),
@@ -46,28 +47,33 @@ class SelectionTile extends StatelessWidget {
                 children: [
                   SvgPicture.asset(AppIcons.profile),
                   SizedBox(width: 11.w),
-                  Text(
-                    "Player $index",
-                    style: style.bodyMedium!.copyWith(
-                      fontWeight: FontWeight.w500,
-                      color: const Color(0xff5F5E5E),
+                  GestureDetector(
+                    onTap: () {
+                      showNameDialog(context, "Player $index");
+                    },
+                    child: Text(
+                      "Player $index",
+                      style: style.bodyMedium!.copyWith(
+                        fontWeight: FontWeight.w500,
+                        color: const Color(0xff5F5E5E),
+                      ),
                     ),
                   ),
                   const Spacer(),
-                  if (iselected) SvgPicture.asset(AppIcons.tick),
+                  if (isSelected) SvgPicture.asset(AppIcons.tick),
                 ],
               ),
             ),
           ),
           SizedBox(width: 12.h),
-
           CustomIconsButtons(
             icon: AppIcons.substract,
             onTap: onTabRemove,
-            bgIcon: iselected ? AppIcons.goldenBG : AppIcons.greyBG,
+            bgIcon: isSelected ? AppIcons.goldenBG : AppIcons.greyBG,
           ),
         ],
       ),
     );
   }
 }
+

@@ -57,12 +57,12 @@ class ModeSelectionScreen extends StatelessWidget {
                   img: AppImages.playoffline,
                   text: 'PLAY OFFLINE',
                   onTap: () {
-                    if (data == true) {
-                      ref.read(isOfflineOnProvider.notifier).state = true;
-                      context.push(RouteName.choosePaymentCard);
-                    } else {
-                      context.push(RouteName.freeGameScreen);
-                    }
+                    // if (data == true) {
+                    //   ref.read(isOfflineOnProvider.notifier).state = true;
+                    //   context.push(RouteName.choosePaymentCard);
+                    // } else {
+                      context.push(RouteName.addPlayerScreen);
+                   // }
                   },
                 );
               },

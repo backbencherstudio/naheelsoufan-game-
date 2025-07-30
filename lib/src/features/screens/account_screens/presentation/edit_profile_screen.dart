@@ -263,7 +263,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       ),
 
                       Positioned(
-                        top: 10,
+                        top: 13,
                         left: 0,
                         right: 0,
                         child: Align(

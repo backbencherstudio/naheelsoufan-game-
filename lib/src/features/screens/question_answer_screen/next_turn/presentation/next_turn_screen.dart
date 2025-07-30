@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../../core/constant/icons.dart';
+import '../../../../../core/routes/route_name.dart';
 import '../../../../common_widegts/create_screen/create_screen.dart';
 import '../../../account_screens/presentation/widgets/my_account_wodgets/header_button.dart';
 import '../../../game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
@@ -110,7 +112,7 @@ class NextTurnScreen extends StatelessWidget {
               Spacer(),
               GestureDetector(
                 onTap: () {
-                  // context.push(RouteName.paymentScreen);
+                  context.push(RouteName.catagorySelectionScreen);
                 },
                 child: Container(
                   padding: EdgeInsets.symmetric(

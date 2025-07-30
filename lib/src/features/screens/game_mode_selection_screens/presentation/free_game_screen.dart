@@ -46,6 +46,7 @@ class FreeGameScreen extends StatelessWidget {
                 return FreeGameCard(
                   onTap: () {
                     //choosePaymentCard
+                    ref.read(isFreeModeOnProvider.notifier).state = true;
                     ref.read(checkGridSubscription.notifier).state = true;
                     (ref.read(checkNormalGridScreen.notifier).state)
                         ? context.push(RouteName.createRoomScreen)
