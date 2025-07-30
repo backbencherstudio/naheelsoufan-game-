@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentation/widget/custom_difficulty_level_card.dart';
+import '../../../../../core/routes/route_name.dart';
 import '../../riverpod/function.dart';
 
 class CustomGridQuestionCard extends ConsumerWidget {
@@ -47,94 +49,127 @@ class CustomGridQuestionCard extends ConsumerWidget {
           ),
         ),
         SizedBox(height: isPortrait ? 16.h : 7.2.w,),
-        CustomDifficultyLevelCard(
-          difficulty: "EASY",
-          point: "100",
-          style: textTheme.bodyLarge!.copyWith(color: ref
-              .read(isDifficultyClicked1(int.parse(questionId)).notifier)
-              .state ? AppColorScheme.secondary : AppColorScheme.difficultyTextColor, fontSize: 7.2.sp),
-          backgroundColor: ref
-              .read(isDifficultyClicked1(int.parse(questionId)).notifier)
-              .state ? [
-            AppColorScheme.darkYellow,
-            AppColorScheme.midYellow,
-            AppColorScheme.yellowborder,
-          ] : [
-            AppColorScheme.sweetViolet,
-            AppColorScheme.sweetViolet,
-            AppColorScheme.sweetViolet
-          ],
-          foregroundColor:ref
-              .read(isDifficultyClicked1(int.parse(questionId)).notifier)
-              .state ? [
-            AppColorScheme.yellowborder,
-            AppColorScheme.midYellow,
-            AppColorScheme.darkYellow
-          ] : [
-            AppColorScheme.listContainerColor,
-            AppColorScheme.listContainerColor,
-            AppColorScheme.listContainerColor,
-          ],
+        GestureDetector(
+          onTap: ()async {
+            ref.read(isDifficultyClicked1(int.parse(questionId)).notifier).state = true;
+            ref.read(isDifficultyClicked2(int.parse(questionId)).notifier).state = false;
+            ref.read(isDifficultyClicked3(int.parse(questionId)).notifier).state = false;
+            ref.read(isDifficultyVanished.notifier).state = true;
+            await Future.delayed(const Duration(seconds: 1));
+            if (!context.mounted) return;
+            context.push(RouteName.questionRevealedScreen);
+          },
+          child: CustomDifficultyLevelCard(
+            difficulty: "EASY",
+            point: "100",
+            style: textTheme.bodyLarge!.copyWith(color: ref
+                .read(isDifficultyClicked1(int.parse(questionId)).notifier)
+                .state ? AppColorScheme.secondary : AppColorScheme.difficultyTextColor, fontSize: 7.2.sp),
+            backgroundColor: ref
+                .read(isDifficultyClicked1(int.parse(questionId)).notifier)
+                .state ? [
+              AppColorScheme.darkYellow,
+              AppColorScheme.midYellow,
+              AppColorScheme.yellowborder,
+            ] : [
+              AppColorScheme.sweetViolet,
+              AppColorScheme.sweetViolet,
+              AppColorScheme.sweetViolet
+            ],
+            foregroundColor:ref
+                .read(isDifficultyClicked1(int.parse(questionId)).notifier)
+                .state ? [
+              AppColorScheme.yellowborder,
+              AppColorScheme.midYellow,
+              AppColorScheme.darkYellow
+            ] : [
+              AppColorScheme.listContainerColor,
+              AppColorScheme.listContainerColor,
+              AppColorScheme.listContainerColor,
+            ],
+          ),
         ),
         SizedBox(height: isPortrait ? 8.h : 3.6.w,),
-        CustomDifficultyLevelCard(
-          difficulty: "MEDIUM",
-          point: "200",
-          style: textTheme.bodyLarge!.copyWith(color: ref
-              .read(isDifficultyClicked2(int.parse(questionId)).notifier)
-              .state ? AppColorScheme.secondary : AppColorScheme.difficultyTextColor, fontSize: 7.2.sp),
-          backgroundColor: ref
-              .read(isDifficultyClicked2(int.parse(questionId)).notifier)
-              .state ? [
-            AppColorScheme.darkYellow,
-            AppColorScheme.midYellow,
-            AppColorScheme.yellowborder,
-          ] : [
-            AppColorScheme.sweetViolet,
-            AppColorScheme.sweetViolet,
-            AppColorScheme.sweetViolet
-          ],
-          foregroundColor:ref
-              .read(isDifficultyClicked2(int.parse(questionId)).notifier)
-              .state ? [
-            AppColorScheme.yellowborder,
-            AppColorScheme.midYellow,
-            AppColorScheme.darkYellow
-          ] : [
-            AppColorScheme.listContainerColor,
-            AppColorScheme.listContainerColor,
-            AppColorScheme.listContainerColor,
-          ],
+        GestureDetector(
+          onTap: ()async {
+            ref.read(isDifficultyClicked2(int.parse(questionId)).notifier).state = true;
+            ref.read(isDifficultyClicked1(int.parse(questionId)).notifier).state = false;
+            ref.read(isDifficultyClicked3(int.parse(questionId)).notifier).state = false;
+            ref.read(isDifficultyVanished.notifier).state = true;
+            await Future.delayed(const Duration(seconds: 1));
+            if (!context.mounted) return;
+            context.push(RouteName.questionRevealedScreen);
+          },
+          child: CustomDifficultyLevelCard(
+            difficulty: "MEDIUM",
+            point: "200",
+            style: textTheme.bodyLarge!.copyWith(color: ref
+                .read(isDifficultyClicked2(int.parse(questionId)).notifier)
+                .state ? AppColorScheme.secondary : AppColorScheme.difficultyTextColor, fontSize: 7.2.sp),
+            backgroundColor: ref
+                .read(isDifficultyClicked2(int.parse(questionId)).notifier)
+                .state ? [
+              AppColorScheme.darkYellow,
+              AppColorScheme.midYellow,
+              AppColorScheme.yellowborder,
+            ] : [
+              AppColorScheme.sweetViolet,
+              AppColorScheme.sweetViolet,
+              AppColorScheme.sweetViolet
+            ],
+            foregroundColor:ref
+                .read(isDifficultyClicked2(int.parse(questionId)).notifier)
+                .state ? [
+              AppColorScheme.yellowborder,
+              AppColorScheme.midYellow,
+              AppColorScheme.darkYellow
+            ] : [
+              AppColorScheme.listContainerColor,
+              AppColorScheme.listContainerColor,
+              AppColorScheme.listContainerColor,
+            ],
+          ),
         ),
         SizedBox(height: isPortrait ? 8.h : 3.6.w,),
-        CustomDifficultyLevelCard(
-          difficulty: "HARD",
-          point: "400",
-          style: textTheme.bodyLarge!.copyWith(color: ref
-              .read(isDifficultyClicked3(int.parse(questionId)).notifier)
-              .state ? AppColorScheme.secondary : AppColorScheme.difficultyTextColor, fontSize: 7.2.sp),
-          backgroundColor: ref
-              .read(isDifficultyClicked3(int.parse(questionId)).notifier)
-              .state ? [
-            AppColorScheme.darkYellow,
-            AppColorScheme.midYellow,
-            AppColorScheme.yellowborder,
-          ] : [
-            AppColorScheme.sweetViolet,
-            AppColorScheme.sweetViolet,
-            AppColorScheme.sweetViolet
-          ],
-          foregroundColor:ref
-              .read(isDifficultyClicked3(int.parse(questionId)).notifier)
-              .state ? [
-            AppColorScheme.yellowborder,
-            AppColorScheme.midYellow,
-            AppColorScheme.darkYellow
-          ] : [
-            AppColorScheme.listContainerColor,
-            AppColorScheme.listContainerColor,
-            AppColorScheme.listContainerColor,
-          ],
+        GestureDetector(
+          onTap: ()async {
+            ref.read(isDifficultyClicked3(int.parse(questionId)).notifier).state = true;
+            ref.read(isDifficultyClicked2(int.parse(questionId)).notifier).state = false;
+            ref.read(isDifficultyClicked1(int.parse(questionId)).notifier).state = false;
+            ref.read(isDifficultyVanished.notifier).state = true;
+            await Future.delayed(const Duration(seconds: 1));
+            if (!context.mounted) return;
+            context.push(RouteName.questionRevealedScreen);
+          },
+          child: CustomDifficultyLevelCard(
+            difficulty: "HARD",
+            point: "400",
+            style: textTheme.bodyLarge!.copyWith(color: ref
+                .read(isDifficultyClicked3(int.parse(questionId)).notifier)
+                .state ? AppColorScheme.secondary : AppColorScheme.difficultyTextColor, fontSize: 7.2.sp),
+            backgroundColor: ref
+                .read(isDifficultyClicked3(int.parse(questionId)).notifier)
+                .state ? [
+              AppColorScheme.darkYellow,
+              AppColorScheme.midYellow,
+              AppColorScheme.yellowborder,
+            ] : [
+              AppColorScheme.sweetViolet,
+              AppColorScheme.sweetViolet,
+              AppColorScheme.sweetViolet
+            ],
+            foregroundColor:ref
+                .read(isDifficultyClicked3(int.parse(questionId)).notifier)
+                .state ? [
+              AppColorScheme.yellowborder,
+              AppColorScheme.midYellow,
+              AppColorScheme.darkYellow
+            ] : [
+              AppColorScheme.listContainerColor,
+              AppColorScheme.listContainerColor,
+              AppColorScheme.listContainerColor,
+            ],
+          ),
         ),
       ],
     );

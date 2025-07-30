@@ -25,5 +25,4 @@ final isDifficultyClicked3 = StateProvider.family<bool, int>((ref, id)=>false);
 final isDifficultyVanished = StateProvider<bool>((ref)=>false);
 
 final isRightWrongElse = StateProvider<int>((ref)=>-1);
-final isRightWrongElse2 = StateProvider<int>((ref)=>-1);
 final huntModeOn = StateProvider<bool>((ref)=>false);

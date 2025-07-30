@@ -127,7 +127,8 @@ class QuestionRevealed extends StatelessWidget {
             Consumer(
               builder: (_, ref, _) {
                 final checkRight = ref.watch(isRightWrongElse);
-                if (checkRight != 1 && checkRight != -1) {
+                final checkHunt = ref.watch(huntModeOn);
+                if (checkRight != 1) {
                   WidgetsBinding.instance.addPostFrameCallback((_) {
                     onWrongAnswerTap(context);
                   });
@@ -135,26 +136,25 @@ class QuestionRevealed extends StatelessWidget {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    if (ref.read(isRightWrongElse.notifier).state == -1) ...[
-                      PlatoonHunterCard(cardName: "Platoon", index: 1),
-                    ] else if (ref.read(isRightWrongElse.notifier).state == 1) ...[
-                      PlatoonHunterCard(cardName: "100 Pts", index: 3),
-                    ] else ...[
-                      PlatoonHunterCard(cardName: "Platoon", index: 2),
-                    ],
-
+                  if (!ref.read(huntModeOn.notifier).state) ...[
+                    (ref.read(isRightWrongElse.notifier).state == -1) ?
+                      PlatoonHunterCard(cardName: "Platoon", index: 1) :
+                      (ref.read(isRightWrongElse.notifier).state == 1) ?
+                      PlatoonHunterCard(cardName: "100 Pts", index: 3) :
+                    PlatoonHunterCard(cardName: "Platoon", index: 1),
                     SizedBox(width: isPortrait ? 24.w : 52.8.h),
-
-                    if (ref.read(huntModeOn.notifier).state) ...[
-                      PlatoonHunterCard(cardName: "Hunt", index: 1),
-                    ] else if (ref.read(isRightWrongElse2.notifier).state == -1) ...[
-                      PlatoonHunterCard(cardName: "Hunt", index: 1),
-                    ] else if (ref.read(isRightWrongElse2.notifier).state == 1) ...[
-                      PlatoonHunterCard(cardName: "Hunt", index: 3),
-                    ] else ...[
-                      PlatoonHunterCard(cardName: "Hunt", index: 2),
-                    ],
+                    PlatoonHunterCard(cardName: "Hunt", index: 0)
+                    ]
+                    else ...[
+                    PlatoonHunterCard(cardName: "Platoon", index: 2),
+                    SizedBox(width: isPortrait ? 24.w : 52.8.h),
+                    (ref.read(isRightWrongElse.notifier).state == -1) ?
+                    PlatoonHunterCard(cardName: "Hunt", index: 1):
+                    (ref.read(isRightWrongElse.notifier).state == 1) ?
+                    PlatoonHunterCard(cardName: "150 Pts", index: 3) :
+                    PlatoonHunterCard(cardName: "Hunt", index: 1),
                   ],
+                ]
                 );
               },
             ),
