@@ -7,6 +7,8 @@ class CustomContainerBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isPortrait =
+        MediaQuery.of(context).orientation == Orientation.portrait;
     return Container(
       padding: EdgeInsets.all(2.h),
       decoration: BoxDecoration(

@@ -36,10 +36,12 @@ class Leaderbox extends StatelessWidget {
                 right: isPortrait ? 20.w : 44.h,
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: isPortrait ? MainAxisAlignment.spaceBetween : MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  CustomPlacebox(place: 2),
+                  isPortrait ? CustomPlacebox(place: 2) : SizedBox(),
+                  Customfisrtplace(),
+                  isPortrait ? CustomPlacebox(place: 3) : CustomPlacebox(place: 2),
                 ],
               ),
             ),
@@ -75,55 +77,48 @@ class Leaderbox extends StatelessWidget {
                         hoverThickness: 10.0,
                         radius: Radius.circular(isPortrait ? 20.r : 44.r),
                         thickness: 8.0,
-      
-                        color: AppColorScheme.scrollbarColor,
-                      ),
+                        color: AppColorScheme.scrollbarColor,),
                       child: SingleChildScrollView(
                         controller: scrollController,
-                scrollDirection: Axis.vertical,
-
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    left: isPortrait ? 20.w : 44.h,
-                    bottom: isPortrait ? 30.h : 13.5.h,
-                    right: isPortrait ? 20.w : 44.h,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: isPortrait ? 20.h : 9.w),
-                      CustomRow(),
-
-                      SizedBox(height: isPortrait ? 10.h : 4.5.w),
-
-                      Customrowtwo(
-                        id: '02',
-                        name: 'Player Name',
-                        scores: '650',
-                        icons: AppImages.award,
+                        scrollDirection: isPortrait ? Axis.horizontal : Axis.vertical,
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            left: isPortrait ? 20.w : 44.h,
+                            right:isPortrait ? 20.w : 44.h,
+                            bottom: isPortrait ? 30.h : 13.5.w,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height: isPortrait ? 20.h : 9.w),
+                              CustomRow(),
+                              SizedBox(height: isPortrait ? 10.h : 4.5.w),
+                              Customrowtwo(
+                                id: '02',
+                                name: 'Player Name',
+                                scores: '650',
+                                icons: AppImages.award,
+                              ),
+                              SizedBox(height: isPortrait ? 10.h : 4.5.w),
+                              Customrowtwo(
+                                id: '03',
+                                name: 'Player Name',
+                                scores: '750',
+                                icons: AppImages.madel,
+                              ),
+                              SizedBox(height: isPortrait ? 10.h : 4.5.w),
+                              CustomRowthree(
+                                id: '04',
+                                name: 'Player Name',
+                                scores: '556',
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
+                    ),
 
-                      SizedBox(height: isPortrait ? 10.h : 4.5.w),
-
-                      Customrowtwo(
-                        id: '03',
-                        name: 'Player Name',
-                        scores: '750',
-                        icons: AppImages.madel,
-                      ),
-                      SizedBox(height: isPortrait ? 10.h : 4.5.w),
-
-                      CustomRowthree(
-                        id: '04',
-                        name: 'Player Name',
-                        scores: '556',
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-         )],
+                  )],
         ),
 SizedBox(height: isPortrait ? 20.h : 9.w,)
       ],

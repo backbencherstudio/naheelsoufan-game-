@@ -33,7 +33,7 @@ class CustomRow extends StatelessWidget {
               title: 'Player Name',
               icon: AppImages.trophy,
             
-              width: 221,
+              width: isPortrait ? 221.w : 486.2.h,
             
               isIconOpen: true,
             ),
@@ -48,9 +48,9 @@ class CustomRow extends StatelessWidget {
             CustomSmallBox(title: '750', icon: "", isIconOpen: false),
           ],
         ),
-        SizedBox(width: 8.w),
+        SizedBox(width: isPortrait ? 8.w : 17.6.h),
 
-        SizedBox(width: 8.w),
+        SizedBox(width: isPortrait ? 8.w : 17.6.h),
         Column(
           children: [
 

@@ -19,27 +19,29 @@ class Customrowtwo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isPortrait =
+        MediaQuery.of(context).orientation == Orientation.portrait;
     return Row(
       children: [
         CustomYellowborderbox(title: id, icon: '', isIconOpen: false),
 
-        SizedBox(width: 8.w),
+        SizedBox(width: isPortrait ? 8.w : 17.6.h),
         CustomYellowborderbox(
           title: 'Player Name',
           icon: icons,
           isIconOpen: true,
-                    width: 216.w,
+                    width: isPortrait ? 216.w : 475.2.h,
 
         ),
-        SizedBox(width: 8.w),
+        SizedBox(width: isPortrait ? 8.w : 17.6.h),
         CustomYellowborderbox(title: '750', icon: "", isIconOpen: false),
-        SizedBox(width: 8.w),
+        SizedBox(width: isPortrait ? 8.w : 17.6.h),
         
-        SizedBox(width: 8.w),
+        SizedBox(width: isPortrait ? 8.w : 17.6.h),
         Customgreenbox(title: '01', icon: '', isIconOpen: false),
-        SizedBox(width: 8.w),
+        SizedBox(width: isPortrait ? 8.w : 17.6.h),
         CustomRedbox(title: '01', icon: '', isIconOpen: false),
-        SizedBox(width: 8.w),
+        SizedBox(width: isPortrait ? 8.w : 17.6.h),
         CustomYellowbox(title: '01', icon: '', isIconOpen: false,)
       ],
     );
