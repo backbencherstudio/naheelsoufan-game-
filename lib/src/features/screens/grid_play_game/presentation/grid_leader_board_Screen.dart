@@ -43,7 +43,7 @@ class GridLeaderBoardScreen extends StatelessWidget {
                   ),
           
                   Text(
-                    "Congratulation\n“Player Name”",
+                    "Congratulation “Team Name”",
                     textAlign: TextAlign.center,
                     style: style.headlineLarge!.copyWith(
                       fontWeight: FontWeight.w500,
@@ -54,69 +54,77 @@ class GridLeaderBoardScreen extends StatelessWidget {
               ),
           
               SizedBox(height: isPortrait ? 20.h : 5.w),
-            CustomContainerBox(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Color(0xff3D4279).withValues(alpha: 0.9),
-                  borderRadius: BorderRadius.circular(16.r),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: isPortrait ? 20.w : 500.h,
-                          right: isPortrait ? 20.w : 500.h,
-                        ),
-                        child: Row(
-                          mainAxisAlignment:
-                          isPortrait
-                              ? MainAxisAlignment.spaceBetween
-                              : MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Customfisrtplace(),
-                            isPortrait
-                                ? CustomPlacebox(place: 3)
-                                : CustomPlacebox(place: 2),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: isPortrait ? 10.h : 4.w),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CustomContainerBox(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Color(0xff3D4279).withValues(alpha: 0.9),
+                      borderRadius: BorderRadius.circular(16.r),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
                           Padding(
                             padding: EdgeInsets.only(
-                              left: isPortrait ? 20.w : 44.h,
-                              right: isPortrait ? 20.w : 44.h,
-                              bottom: isPortrait ? 30.h : 13.5.w,
+                              left: isPortrait ? 20.w : 500.h,
+                              right: isPortrait ? 20.w : 500.h,
                             ),
-                            child: Padding(
-                              padding: EdgeInsets.only(left: 50.w),
-                              child: Column(
+                            child: Row(
+                              mainAxisAlignment:
+                              isPortrait
+                                  ? MainAxisAlignment.spaceBetween
+                                  : MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                SizedBox(height: isPortrait ? 20.h : 5.w),
-                                CustomRow(),
-                                SizedBox(height: isPortrait ? 10.h : 4.w),
-                                Customrowtwo(
-                                  id: '02',
-                                  name: 'Player Name',
-                                  scores: '650',
-                                  icons: AppImages.award,
-                                ),
-                              ]),
+                                Customfisrtplace(),
+                                isPortrait
+                                    ? CustomPlacebox(place: 3)
+                                    : CustomPlacebox(place: 2),
+                              ],
                             ),
+                          ),
+                          SizedBox(height: isPortrait ? 10.h : 4.w),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                  left: isPortrait ? 20.w : 44.h,
+                                  right: isPortrait ? 20.w : 44.h,
+                                  bottom: isPortrait ? 30.h : 13.5.w,
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.only(left: 15.w),
+                                  child: Column(
+                                  children: [
+                                    SizedBox(height: isPortrait ? 20.h : 5.w),
+                                    CustomRow(),
+                                    SizedBox(height: isPortrait ? 10.h : 4.w),
+                                    Customrowtwo(
+                                      id: '02',
+                                      name: 'Player Name',
+                                      scores: '650',
+                                      icons: AppImages.award,
+                                    ),
+                                  ]),
+                                ),
+                      ),
+                    ]),
                   ),
-                ]),
-              ),
+                ),
+                SizedBox(
+                  width: 17.6.h,
+                ),
+                CustomroundButton(
+                  icon: AppIcons.reload,
+                  onTap: () {},
+                  bgIcon: AppIcons.roundIcontop,
+                ),
+              ],
             ),
               if(isPortrait) ...[SizedBox(height: isPortrait ?40.h : 0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CustomroundButton(
-                    icon: AppIcons.reload,
-                    onTap: () {},
-                    bgIcon: AppIcons.roundIcontop,
-                  ),
                   SizedBox(width: isPortrait ? 40.w : 88.h),
                   CustomroundButton(icon: AppIcons.playButtn, onTap: () {}),]
               ),]

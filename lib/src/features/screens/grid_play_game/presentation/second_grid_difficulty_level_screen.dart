@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
@@ -11,44 +10,12 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentation/widget/custom_grid_question_card.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentation/widget/platoon_hunter_card.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/riverpod/function.dart';
+
 import '../../../../core/routes/route_name.dart';
-import '../../main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/show_quit_dialog.dart';
 
-class GridDifficultyLevelScreen extends StatefulWidget {
-  const GridDifficultyLevelScreen({super.key});
+class SecondGridDifficultyLevelScreen extends StatelessWidget {
+  const SecondGridDifficultyLevelScreen({super.key});
 
-  @override
-  State<GridDifficultyLevelScreen> createState() => _GridDifficultyLevelScreenState();
-}
-
-class _GridDifficultyLevelScreenState extends State<GridDifficultyLevelScreen> {
-  @override
-  void initState() {
-    super.initState();
-    _setLandscapeMode(); // Set orientation to landscape
-  }
-
-  @override
-  void dispose() {
-    _setPortraitMode(); // Reset orientation to portrait
-    super.dispose();
-  }
-
-  // Force landscape mode
-  void _setLandscapeMode() {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-    ]);
-  }
-
-  // Reset to portrait mode
-  void _setPortraitMode() {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
-  }
   @override
   Widget build(BuildContext context) {
     bool isPortrait =
@@ -69,34 +36,29 @@ class _GridDifficultyLevelScreenState extends State<GridDifficultyLevelScreen> {
                     CustomIconsButtons(
                       icon: AppIcons.crossIcon,
                       bgIcon: AppIcons.redButtonBG,
-                      onTap: () {
-                        onQuitGameTap(context);
-                      },
+                      onTap: () {},
                     ),
                     SizedBox(width: isPortrait ? 8.w : 17.6.h),
                     Expanded(
-                      child: ListView.separated(
-                        scrollDirection: Axis.horizontal,
-                        padding: EdgeInsets.all(8.r),
-                        itemCount: questionList.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Consumer(
-                            builder: (_, ref, _) {
-                              final checkScreen = ref.watch(checkSecondDifficultyScreen.notifier).state;
+                      child: Consumer(
+                        builder: (_, ref, _) {
+                          return ListView.separated(
+                            scrollDirection: Axis.horizontal,
+                            padding: EdgeInsets.all(8.r),
+                            itemCount: questionList.length,
+                            itemBuilder: (BuildContext context, int index) {
                               return CustomGridQuestionCard(
                                 questionId: index.toString(),
                                 questionCategory:
-                                    questionList[index].questionCategory,
-                                nextScreen: checkScreen ?
-                                    RouteName.gridLeaderboard :
-                                    RouteName.questionRevealedScreen,
+                                questionList[index].questionCategory,
+                                nextScreen: RouteName.gridLeaderboard,
                               );
-                            }
+                            },
+                            separatorBuilder:
+                                (_, _) =>
+                                SizedBox(width: isPortrait ? 4.w : 8.8.h),
                           );
                         },
-                        separatorBuilder:
-                            (_, _) =>
-                                SizedBox(width: isPortrait ? 4.w : 8.8.h),
                       ),
                     ),
                     SizedBox(width: isPortrait ? 8.w : 17.6.h),
