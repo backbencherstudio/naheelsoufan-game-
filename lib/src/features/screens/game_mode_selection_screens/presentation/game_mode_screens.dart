@@ -11,6 +11,7 @@ import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/crea
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_button.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_language_container.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
 import '../../../../core/constant/icons.dart';
 import '../../question_answer_screen/setting_while_in_game/widgets/language_drop_down_menu.dart';
 import '../riverpod/freeExpire_provider.dart';
@@ -46,7 +47,7 @@ class GameModeScreens extends StatelessWidget {
                 ),
 
                 Image.asset(AppImages.profilePic, height: 40.h, width: 40.w),
-                CustomIconsButtons(icon: AppIcons.threeDot, onTap: () {}),
+                CustomPopUpMenu()
               ],
             ),
             SizedBox(height: 200.h),
