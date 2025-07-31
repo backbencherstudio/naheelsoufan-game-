@@ -5,12 +5,12 @@ import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.da
 
 import '../../../../../core/constant/icons.dart';
 
-class PlayerPointblock extends StatelessWidget {
+class PlayerPointBlock extends StatelessWidget {
   final bool isSelected;
   final String playerName;
   final int points;
 
-  const PlayerPointblock({
+  const PlayerPointBlock({
     super.key,
     required this.isSelected,
     required this.playerName,
@@ -25,23 +25,24 @@ class PlayerPointblock extends StatelessWidget {
       padding: EdgeInsets.all(1.r),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12.r),
-        gradient: isSelected
-            ? LinearGradient(
-          colors: [
-            AppColorScheme.softYellow,
-            AppColorScheme.midYellow,
-            AppColorScheme.darkYellow,
-          ],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        )
-            : LinearGradient(
-          colors: [
-            Colors.transparent,
-            Colors.transparent,
-            Colors.transparent,
-          ],
-        ),
+        gradient:
+            isSelected
+                ? LinearGradient(
+                  colors: [
+                    AppColorScheme.softYellow,
+                    AppColorScheme.midYellow,
+                    AppColorScheme.darkYellow,
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                )
+                : LinearGradient(
+                  colors: [
+                    Colors.transparent,
+                    Colors.transparent,
+                    Colors.transparent,
+                  ],
+                ),
       ),
       child: Padding(
         padding: const EdgeInsets.all(0.5),
@@ -51,44 +52,53 @@ class PlayerPointblock extends StatelessWidget {
           height: 105.h,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12.r),
-            gradient: isSelected
-                ? LinearGradient(
-              colors: [
-                AppColorScheme.softYellow,
-                AppColorScheme.midYellow,
-                AppColorScheme.darkYellow,
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            )
-                : LinearGradient(
-              colors: [
-                AppColorScheme.primaryTextColor,
-                AppColorScheme.primaryTextColor,
-                AppColorScheme.primaryTextColor,
-              ],
-            ),
+            gradient:
+                isSelected
+                    ? LinearGradient(
+                      colors: [
+                        AppColorScheme.softYellow,
+                        AppColorScheme.midYellow,
+                        AppColorScheme.darkYellow,
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    )
+                    : LinearGradient(
+                      colors: [
+                        AppColorScheme.primaryTextColor,
+                        AppColorScheme.primaryTextColor,
+                        AppColorScheme.primaryTextColor,
+                      ],
+                    ),
             border: Border(
               top: BorderSide(
-                  color: isSelected
-                      ? AppColorScheme.deepPuroleBG
-                      : Colors.transparent,
-                  width: 3.w),
+                color:
+                    isSelected
+                        ? AppColorScheme.deepPuroleBG
+                        : Colors.transparent,
+                width: 3.w,
+              ),
               left: BorderSide(
-                  color: isSelected
-                      ? AppColorScheme.deepPuroleBG
-                      : Colors.transparent,
-                  width: 3.w),
+                color:
+                    isSelected
+                        ? AppColorScheme.deepPuroleBG
+                        : Colors.transparent,
+                width: 3.w,
+              ),
               right: BorderSide(
-                  color: isSelected
-                      ? AppColorScheme.deepPuroleBG
-                      : Colors.transparent,
-                  width: 3.w),
+                color:
+                    isSelected
+                        ? AppColorScheme.deepPuroleBG
+                        : Colors.transparent,
+                width: 3.w,
+              ),
               bottom: BorderSide(
-                  color: isSelected
-                      ? AppColorScheme.deepPuroleBG
-                      : Colors.transparent,
-                  width: 3.w),
+                color:
+                    isSelected
+                        ? AppColorScheme.deepPuroleBG
+                        : Colors.transparent,
+                width: 3.w,
+              ),
             ),
           ),
           child: Column(
@@ -96,27 +106,30 @@ class PlayerPointblock extends StatelessWidget {
             children: [
               SvgPicture.asset(
                 AppIcons.playerpoint,
-                color: isSelected
-                    ? AppColorScheme.screenBackground
-                    : AppColorScheme.onPrimary,
+                color:
+                    isSelected
+                        ? AppColorScheme.screenBackground
+                        : AppColorScheme.onPrimary,
               ),
               SizedBox(height: 4.h),
               Text(
                 playerName,
                 style: style.bodyLarge!.copyWith(
                   fontWeight: FontWeight.w500,
-                  color: isSelected
-                      ? AppColorScheme.screenBackground
-                      : AppColorScheme.onPrimary,
+                  color:
+                      isSelected
+                          ? AppColorScheme.screenBackground
+                          : AppColorScheme.onPrimary,
                 ),
               ),
               SizedBox(height: 4.h),
               Text(
                 "$points point",
                 style: style.labelMedium!.copyWith(
-                  color: isSelected
-                      ? AppColorScheme.optionBg
-                      : AppColorScheme.newText,
+                  color:
+                      isSelected
+                          ? AppColorScheme.optionBg
+                          : AppColorScheme.newText,
                 ),
               ),
             ],

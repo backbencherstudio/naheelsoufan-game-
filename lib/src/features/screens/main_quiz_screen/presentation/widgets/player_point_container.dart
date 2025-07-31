@@ -65,7 +65,7 @@ class PlayerPointContainer extends ConsumerWidget {
                               onTap: () {
                                 //ref.read(selectedPlayerIndexProvider.notifier).state = index;
                               },
-                              child: PlayerPointblock(
+                              child: PlayerPointBlock(
                                 isSelected: index == selectedIndex,
                                 playerName: 'Player ${index + 1}',
                                 points: 1000,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import '../../../../../core/constant/icons.dart';
 import '../../../../../core/routes/route_name.dart';
 import '../../../../common_widegts/create_screen/create_screen.dart';
@@ -45,9 +46,9 @@ class NextTurnScreen extends ConsumerWidget {
                       margin: EdgeInsets.only(top: 40.h),
                       width: 385.w,
                       decoration: BoxDecoration(
-                        color: const Color(0xff3D4279),
+                        color: AppColorScheme.deepPuroleBG,
                         border: Border.all(
-                          color: const Color(0xffE0E0FF),
+                          color: AppColorScheme.listContainerColor,
                           width: 2,
                         ),
                         borderRadius: BorderRadius.circular(16.r),
@@ -65,7 +66,7 @@ class NextTurnScreen extends ConsumerWidget {
                             Text(
                               currentPlayer,
                               style: style.titleLarge?.copyWith(
-                                color: Color(0xffE0E0FF),
+                                color: AppColorScheme.listContainerColor,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -83,17 +84,17 @@ class NextTurnScreen extends ConsumerWidget {
                       child: HeaderButton(
                         textTitle: 'Next Turn',
                         textStyle: style.titleLarge?.copyWith(
-                          color: Color(0xff2E1126),
+                          color: AppColorScheme.labelTextColor,
                           fontWeight: FontWeight.w500,
                         ),
-                        borderColor: Color(0xff2E1126),
+                        borderColor: AppColorScheme.labelTextColor,
                         gradientColor: LinearGradient(
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                           colors: [
-                            Color(0xFFF2E792),
-                            Color(0xFFF8B133),
-                            Color(0xFFDE712B),
+                           AppColorScheme.softYellow,
+                           AppColorScheme.midYellow,
+                           AppColorScheme.darkYellow,
                           ],
                           stops: [0.0, 0.4904, 1.0],
                         ),
@@ -109,7 +110,7 @@ class NextTurnScreen extends ConsumerWidget {
               Spacer(),
               Consumer(
                 builder: (_,ref,_) {
-                  final selectedIndex = ref.watch(selectedPlayerIndexProvider);
+                  // final selectedIndex = ref.watch(selectedPlayerIndexProvider);
                   return GestureDetector(
                     onTap: () {
                       ref.read(selectedPlayerIndexProvider.notifier).state++;
@@ -122,10 +123,10 @@ class NextTurnScreen extends ConsumerWidget {
                       ),
                       margin: EdgeInsets.symmetric(horizontal: 64.w),
                       decoration: BoxDecoration(
-                        color: Color(0xff008A39),
+                        color: AppColorScheme.customGreenBT,
                         borderRadius: BorderRadius.circular(8.r),
                         border: Border(
-                          bottom: BorderSide(color: Color(0xffB8F1B9), width: 2.w),
+                          bottom: BorderSide(color: AppColorScheme.softGradGreen, width: 2.w),
                         ),
                       ),
                       child: Center(

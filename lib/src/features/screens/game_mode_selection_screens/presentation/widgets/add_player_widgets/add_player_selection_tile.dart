@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../../core/constant/icons.dart';
+import '../add_player_widgets/type_player_name_dialog.dart';
 import '../home_widgets/custom_icons_Buttons.dart';
-import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/player_selection_widgets/type_player_name_selection_dialog.dart';
 
-class SelectionTile extends ConsumerWidget {
+class AddSelectionTile extends StatelessWidget {
   final String index;
-  final String playerName;
+  final String playerName;   // pass player name here
   final bool isSelected;
   final Color? color;
   final void Function()? onTap;
   final void Function()? onTabRemove;
 
-  const SelectionTile({
+  const AddSelectionTile({
     super.key,
     required this.index,
-    required this.playerName,
+    required this.playerName,  // new
     required this.onTap,
     required this.isSelected,
     this.color,
@@ -26,7 +25,7 @@ class SelectionTile extends ConsumerWidget {
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
 
     return GestureDetector(
@@ -38,10 +37,8 @@ class SelectionTile extends ConsumerWidget {
             width: 253.w,
             decoration: BoxDecoration(
               color:
-                  color ??
-                  (isSelected
-                      ? const Color(0xff63DF7C)
-                      : const Color(0xffC9C6C5)),
+              color ??
+                  (isSelected ? const Color(0xffB8F1B9) : const Color(0xffC9C6C5)),
               borderRadius: BorderRadius.circular(8.r),
               border: Border.all(color: const Color(0xff5F5E5E)),
             ),
@@ -52,15 +49,7 @@ class SelectionTile extends ConsumerWidget {
                   SvgPicture.asset(AppIcons.profile),
                   SizedBox(width: 11.w),
                   GestureDetector(
-                    onTap: () {
-                      final playerIndex = int.tryParse(index) ?? 1;
-                      showSelectionNameDialog(
-                        context,
-                        ref,
-                        playerIndex,
-                        playerName,
-                      );
-                    },
+                    onTap: onTap,
                     child: Text(
                       playerName.isEmpty ? "Player $index" : playerName,
                       style: style.bodyMedium!.copyWith(
@@ -79,7 +68,7 @@ class SelectionTile extends ConsumerWidget {
           CustomIconsButtons(
             icon: AppIcons.substract,
             onTap: onTabRemove,
-            bgIcon: isSelected ? AppIcons.goldenBG : AppIcons.greyBG,
+            bgIcon: isSelected ? AppIcons.redBGsqare : AppIcons.greyBG,
           ),
         ],
       ),
