@@ -1,38 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
-import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_button.dart';
-import '../../../riverpod/player_name_provider.dart';
+import '../../../../../../core/theme/theme_extension/color_scheme.dart';
+import '../../../riverpod/player_selection_name_provider.dart';
+import '../home_widgets/custom_button.dart';
 
-void showNameDialog(BuildContext context, WidgetRef ref, int playerIndex) {
+void showSelectionNameDialog(
+  BuildContext context,
+  WidgetRef ref,
+  int playerIndex,
+  String currentName,
+) {
   final style = Theme.of(context).textTheme;
+  final TextEditingController nameController = TextEditingController(
+    text: currentName,
+  );
 
   late StateProvider<String> playerProvider;
   switch (playerIndex) {
     case 1:
-      playerProvider = playerProvider1;
+      playerProvider = playerSelectionProvider1;
       break;
     case 2:
-      playerProvider = playerProvider2;
+      playerProvider = playerSelectionProvider2;
       break;
     case 3:
-      playerProvider = playerProvider3;
+      playerProvider = playerSelectionProvider3;
       break;
     case 4:
-      playerProvider = playerProvider4;
+      playerProvider = playerSelectionProvider4;
       break;
     default:
-      playerProvider = playerProvider1;
+      playerProvider = playerSelectionProvider1;
   }
-
-  final playerName = ref.read(playerProvider);
-  TextEditingController nameController = TextEditingController(
-    text: playerName,
-  );
-
-  if (playerName.isNotEmpty) {
-    nameController.text = playerName;
+  if (currentName.isNotEmpty) {
+    nameController.text = currentName;
   }
 
   showDialog(

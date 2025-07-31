@@ -39,7 +39,7 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(height: 80.h), // replaces Spacer()
+                  SizedBox(height: 300.h),
                   Stack(
                     alignment: Alignment.center,
                     children: [
@@ -48,11 +48,14 @@ class _SplashScreenState extends State<SplashScreen> {
                         height: 150.h,
                         width: 150.w,
                       ),
-                      SvgPicture.asset(AppIcons.manIcon,
-                          height: 96.h, width: 70.w),
+                      SvgPicture.asset(
+                        AppIcons.manIcon,
+                        height: 96.h,
+                        width: 70.w,
+                      ),
                     ],
                   ),
-                  SizedBox(height: 80.h), // replaces Spacer()
+                  SizedBox(height: 80.h),
                 ],
               ),
             ),

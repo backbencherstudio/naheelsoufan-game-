@@ -8,6 +8,7 @@ import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.da
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/player_selection_widgets/selection_tile.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/player_selection_name_provider.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/selection_provider.dart';
 import '../../../../core/constant/icons.dart';
 import '../../../../core/constant/images.dart';
@@ -19,7 +20,9 @@ class PlayerSelectionScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
     final isSelected = ref.watch(selectionProvider);
-    final areAllSelected = ref.watch(selectionProvider.notifier).areAllTilesSelected(4);
+    final areAllSelected = ref
+        .watch(selectionProvider.notifier)
+        .areAllTilesSelected(4);
 
     return CreateScreen(
       child: Padding(
@@ -35,11 +38,7 @@ class PlayerSelectionScreen extends ConsumerWidget {
                     Navigator.pop(context);
                   },
                 ),
-                Image.asset(
-                  AppImages.profilePic,
-                  height: 40.h,
-                  width: 40.w,
-                ),
+                Image.asset(AppImages.profilePic, height: 40.h, width: 40.w),
                 CustomIconsButtons(icon: AppIcons.threeDotSvg, onTap: () {}),
               ],
             ),
@@ -54,22 +53,41 @@ class PlayerSelectionScreen extends ConsumerWidget {
             ),
             SizedBox(height: 24.h),
 
-            // List of player selection tiles
             ListView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               itemCount: 4,
               itemBuilder: (context, index) {
-                final bool isTileSelected = isSelected.selectedTiles[index] ?? false;
+                final bool isTileSelected =
+                    isSelected.selectedTiles[index] ?? false;
+
+                String playerName = "";
+                switch (index + 1) {
+                  case 1:
+                    playerName = ref.watch(playerSelectionProvider1);
+                    break;
+                  case 2:
+                    playerName = ref.watch(playerSelectionProvider2);
+                    break;
+                  case 3:
+                    playerName = ref.watch(playerSelectionProvider3);
+                    break;
+                  case 4:
+                    playerName = ref.watch(playerSelectionProvider4);
+                    break;
+                }
 
                 return Padding(
                   padding: EdgeInsets.only(bottom: 16.h),
                   child: SelectionTile(
                     index: '${index + 1}',
-                    onTap: () {
-                      ref.read(selectionProvider.notifier).toggleTileSelection(index);
-                    },
+                    playerName: playerName,
                     isSelected: isTileSelected,
+                    onTap: () {
+                      ref
+                          .read(selectionProvider.notifier)
+                          .toggleTileSelection(index);
+                    },
                   ),
                 );
               },
@@ -77,7 +95,6 @@ class PlayerSelectionScreen extends ConsumerWidget {
 
             SizedBox(height: 70.h),
 
-            // Display "All players joined" message when all players are selected
             if (areAllSelected) ...[
               Container(
                 decoration: BoxDecoration(
@@ -98,7 +115,6 @@ class PlayerSelectionScreen extends ConsumerWidget {
             ],
             SizedBox(height: 20.h),
 
-            // Start button, navigates to the next screen when pressed
             GestureDetector(
               onTap: () {
                 context.push(RouteName.categorySelectionScreen);
@@ -109,9 +125,18 @@ class PlayerSelectionScreen extends ConsumerWidget {
                   color: Color(0xff008A39),
                   borderRadius: BorderRadius.circular(8.r),
                   border: Border(
-                    left: BorderSide(color: AppColorScheme.softGradGreen, width: 0.5.w),
-                    right: BorderSide(color: AppColorScheme.softGradGreen, width: 0.5.w),
-                    bottom: BorderSide(color: AppColorScheme.softGradGreen, width: 1.5.w),
+                    left: BorderSide(
+                      color: AppColorScheme.softGradGreen,
+                      width: 0.5.w,
+                    ),
+                    right: BorderSide(
+                      color: AppColorScheme.softGradGreen,
+                      width: 0.5.w,
+                    ),
+                    bottom: BorderSide(
+                      color: AppColorScheme.softGradGreen,
+                      width: 1.5.w,
+                    ),
                     top: BorderSide.none,
                   ),
                   boxShadow: [
