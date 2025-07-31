@@ -11,10 +11,12 @@ import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/add_player_widgets/add_player_selection_tile.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/add_player_widgets/type_player_name_dialog.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
-import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/player_selection_widgets/selection_tile.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/selection_provider.dart';
+
+import '../riverpod/player_name_provider.dart';
 
 class AddPlayerScreen extends StatelessWidget {
   const AddPlayerScreen({super.key});
@@ -55,7 +57,10 @@ class AddPlayerScreen extends StatelessWidget {
                         height: 40.h,
                         width: 40.w,
                       ),
-                      CustomIconsButtons(icon: AppIcons.threeDotSvg, onTap: () {}),
+                      CustomIconsButtons(
+                        icon: AppIcons.threeDotSvg,
+                        onTap: () {},
+                      ),
                     ],
                   ),
                   SizedBox(height: 140.h),
@@ -72,40 +77,52 @@ class AddPlayerScreen extends StatelessWidget {
                   SizedBox(height: 24.h),
 
                   // Player Tiles
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: keys.length,
-                    itemBuilder: (context, index) {
-                      final key = keys[index];
-                      final isSelected = true;
+              ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: keys.length,
+              itemBuilder: (context, index) {
+              final key = keys[index];
+              final isSelected = true;
 
-                      return Padding(
-                        padding: EdgeInsets.only(bottom: 16.h),
-                        child: SelectionTile(
-                          index: '${key + 1}',
-                          isSelected: isSelected,
+              String playerName = "";
+              switch (key + 1) {
+              case 1:
+              playerName = ref.watch(playerProvider1);
+              break;
+              case 2:
+              playerName = ref.watch(playerProvider2);
+              break;
+              case 3:
+              playerName = ref.watch(playerProvider3);
+              break;
+              case 4:
+              playerName = ref.watch(playerProvider4);
+              break;
+              }
 
-                          onTap: () {
-                            showNameDialog(context, 'Player ${key + 1}');
-                          },
+              return Padding(
+              padding: EdgeInsets.only(bottom: 16.h),
+              child: AddSelectionTile(
+              index: '${key + 1}',
+              playerName: playerName,
+              isSelected: isSelected,
+              onTap: () {
+              // Open dialog with ref to update name for that player
+              showNameDialog(context, ref, key + 1);
+              },
+              onTabRemove: dynamicPlayerKeys.contains(key)
+              ? () {
+              final updated = Map<int, bool>.from(state.selectedTiles)
+              ..remove(key);
+              notifier.state = state.copyWith(selectedTiles: updated);
+              }
+                  : null,
+              ),
+              );
+              },
+              ),
 
-                          onTabRemove:
-                              dynamicPlayerKeys.contains(key)
-                                  ? () {
-                                    final updated = Map<int, bool>.from(
-                                      state.selectedTiles,
-                                    )..remove(key);
-
-                                    notifier.state = state.copyWith(
-                                      selectedTiles: updated,
-                                    );
-                                  }
-                                  : null,
-                        ),
-                      );
-                    },
-                  ),
 
                   SizedBox(height: 40.h),
 
@@ -198,7 +215,8 @@ class AddPlayerScreen extends StatelessWidget {
                   SizedBox(height: 20.h),
 
                   GestureDetector(
-                    onTap: () => context.push(RouteName.catagorySelectionScreen),
+                    onTap:
+                        () => context.push(RouteName.catagorySelectionScreen),
                     child: Container(
                       width: 229.w,
                       decoration: BoxDecoration(
@@ -220,7 +238,9 @@ class AddPlayerScreen extends StatelessWidget {
                         ),
                         boxShadow: [
                           BoxShadow(
-                            color: AppColorScheme.softGradGreen.withOpacity(0.3),
+                            color: AppColorScheme.softGradGreen.withOpacity(
+                              0.3,
+                            ),
                             blurRadius: 8,
                             offset: const Offset(0, 0),
                           ),

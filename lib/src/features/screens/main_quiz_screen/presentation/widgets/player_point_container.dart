@@ -3,13 +3,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/player_pointBlock.dart';
 import 'package:vs_scrollbar/vs_scrollbar.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../riverpod/selected_player_index_provider.dart';
 
-class PlayerPointContainer extends StatelessWidget {
+class PlayerPointContainer extends ConsumerWidget {
   const PlayerPointContainer({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     ScrollController scrollController = ScrollController();
+
+    final selectedIndex = ref.watch(selectedPlayerIndexProvider);
+
     return Container(
       height: 169.h,
       decoration: BoxDecoration(
@@ -35,7 +40,6 @@ class PlayerPointContainer extends StatelessWidget {
                       ),
                     ),
                   ),
-
                   Positioned(
                     child: VsScrollbar(
                       controller: scrollController,
@@ -57,9 +61,16 @@ class PlayerPointContainer extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: EdgeInsets.only(right: 8.w),
-
-                            // here will be color change logic
-                            child: PlayerPointblock(isSelected: index == 0),
+                            child: GestureDetector(
+                              onTap: () {
+                                //ref.read(selectedPlayerIndexProvider.notifier).state = index;
+                              },
+                              child: PlayerPointBlock(
+                                isSelected: index == selectedIndex,
+                                playerName: 'Player ${index + 1}',
+                                points: 1000,
+                              ),
+                            ),
                           );
                         },
                       ),
