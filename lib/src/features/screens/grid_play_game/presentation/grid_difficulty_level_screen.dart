@@ -11,8 +11,8 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentation/widget/custom_grid_question_card.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentation/widget/platoon_hunter_card.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/riverpod/function.dart';
-
 import '../../../../core/routes/route_name.dart';
+import '../../main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/show_quit_dialog.dart';
 
 class GridDifficultyLevelScreen extends StatefulWidget {
   const GridDifficultyLevelScreen({super.key});
@@ -57,7 +57,7 @@ class _GridDifficultyLevelScreenState extends State<GridDifficultyLevelScreen> {
     return CreateScreen(
       child: Consumer(
         builder: (_, ref, _) {
-          final chcek = ref.watch(isDifficultyVanished);
+          final check = ref.watch(isDifficultyVanished);
           return Column(
             children: [
               SizedBox(height: isPortrait ? 30.h : 13.5.w),
@@ -69,29 +69,34 @@ class _GridDifficultyLevelScreenState extends State<GridDifficultyLevelScreen> {
                     CustomIconsButtons(
                       icon: AppIcons.crossIcon,
                       bgIcon: AppIcons.redButtonBG,
-                      onTap: () {},
+                      onTap: () {
+                        onQuitGameTap(context);
+                      },
                     ),
                     SizedBox(width: isPortrait ? 8.w : 17.6.h),
                     Expanded(
-                      child: Consumer(
-                        builder: (_, ref, _) {
-                          return ListView.separated(
-                            scrollDirection: Axis.horizontal,
-                            padding: EdgeInsets.all(8.r),
-                            itemCount: questionList.length,
-                            itemBuilder: (BuildContext context, int index) {
+                      child: ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        padding: EdgeInsets.all(8.r),
+                        itemCount: questionList.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Consumer(
+                            builder: (_, ref, _) {
+                              final checkScreen = ref.watch(checkSecondDifficultyScreen.notifier).state;
                               return CustomGridQuestionCard(
                                 questionId: index.toString(),
                                 questionCategory:
                                     questionList[index].questionCategory,
-                                nextScreen: RouteName.questionRevealedScreen,
+                                nextScreen: checkScreen ?
+                                    RouteName.gridLeaderboard :
+                                    RouteName.questionRevealedScreen,
                               );
-                            },
-                            separatorBuilder:
-                                (_, _) =>
-                                    SizedBox(width: isPortrait ? 4.w : 8.8.h),
+                            }
                           );
                         },
+                        separatorBuilder:
+                            (_, _) =>
+                                SizedBox(width: isPortrait ? 4.w : 8.8.h),
                       ),
                     ),
                     SizedBox(width: isPortrait ? 8.w : 17.6.h),

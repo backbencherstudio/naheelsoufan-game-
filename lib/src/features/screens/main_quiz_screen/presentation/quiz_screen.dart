@@ -41,8 +41,9 @@ class QuizScreen extends StatelessWidget {
                 ),
 
                 GestureDetector(
-                    onTap: ()=> timesUp(context),
-                    child: CustomCountdown()),
+                  onTap: () => timesUp(context),
+                  child: CustomCountdown(),
+                ),
                 CustomIconsButtons(
                   icon: AppIcons.threeDot,
                   onTap: () {
@@ -62,7 +63,8 @@ class QuizScreen extends StatelessWidget {
                 return GameType.multipleChoiceQuestion(
                   choices: ["India", "China", "Bangladesh", "Indonesia"],
                   question: "Which country has the highest population?",
-                  func: ()=>{
+                  func:
+                      () => {
                         Future.delayed(Duration(seconds: 1), () {
                           int currentPlayerTurn = ref.read(playerTurnProvider);
 
@@ -78,10 +80,10 @@ class QuizScreen extends StatelessWidget {
                           } else {
                             context.push(RouteName.nextTurnScreen);
                           }
-                    })
-                  }
+                        }),
+                      },
                 );
-              }
+              },
             ),
             SizedBox(height: 90.h),
             PlayerPointContainer(),

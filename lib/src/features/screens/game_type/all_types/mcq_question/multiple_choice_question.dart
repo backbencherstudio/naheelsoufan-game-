@@ -17,7 +17,13 @@ class MultipleChoiceQuestion extends StatelessWidget {
   final String question;
   final int? rightIndex;
 
-  const MultipleChoiceQuestion({super.key, required this.choices, required this.question, this.rightIndex, this.func});
+  const MultipleChoiceQuestion({
+    super.key,
+    required this.choices,
+    required this.question,
+    this.rightIndex,
+    this.func,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -65,19 +71,12 @@ class MultipleChoiceQuestion extends StatelessWidget {
                       }
                     }
 
-                    // if (rightChoiceIndex == index) {
-                    //   Future.delayed(Duration (seconds: 2),() {
-                    //     if(!context.mounted) return;
-                    //     context.push(nextScreen ?? RouteName.nextTurnScreen);
-                    //   });
-                    // }
-
                     if (rightChoiceIndex != index) {
                       onWrongAnswerTap(context);
                     } else {
-                        func!() ?? debugPrint("No function");
+                      func!() ?? debugPrint("No function");
                     }
-                    },
+                  },
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(

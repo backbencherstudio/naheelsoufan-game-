@@ -5,17 +5,6 @@ class RouteConfig {
     initialLocation: RouteName.splashScreen,
     routes: [
       GoRoute(
-        path: RouteName.gridDifficultyLevelScreen2,
-        pageBuilder: (context, state) {
-          return buildPageWithTransition(
-            context: context,
-            state: state,
-            transitionType: PageTransitionType.slideRightToLeft,
-            child: SecondGridDifficultyLevelScreen()
-          );
-        },
-      ),
-      GoRoute(
         path: RouteName.gridLeaderboard,
         pageBuilder: (context, state) {
           return buildPageWithTransition(

@@ -71,6 +71,7 @@ class CatagorySelectionScreen extends ConsumerWidget {
                           Future.delayed(Duration(milliseconds: 1000), () {
                             if (context.mounted) {
                               context.push(RouteName.difficultyLevelScreen);
+                              ref.read(selectProvider.notifier).state = null;
                             }
                           });
                         },

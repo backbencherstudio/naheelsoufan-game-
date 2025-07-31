@@ -24,7 +24,7 @@ class SecondGridDifficultyLevelScreen extends StatelessWidget {
     return CreateScreen(
       child: Consumer(
         builder: (_, ref, _) {
-          final chcek = ref.watch(isDifficultyVanished);
+          final check = ref.watch(isDifficultyVanished);
           return Column(
             children: [
               SizedBox(height: isPortrait ? 30.h : 13.5.w),
@@ -55,7 +55,7 @@ class SecondGridDifficultyLevelScreen extends StatelessWidget {
                               );
                             },
                             separatorBuilder:
-                                (_, __) =>
+                                (_, _) =>
                                 SizedBox(width: isPortrait ? 4.w : 8.8.h),
                           );
                         },
