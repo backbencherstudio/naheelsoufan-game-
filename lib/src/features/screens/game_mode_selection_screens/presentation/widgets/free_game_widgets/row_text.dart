@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 
 class RowText extends StatelessWidget {
   final String title;
@@ -17,7 +18,7 @@ class RowText extends StatelessWidget {
             title,
             style: style.bodyLarge!.copyWith(
               fontWeight: FontWeight.w600,
-              color: Color(0xff2E1126),
+              color: AppColorScheme.labelTextColor,
             ),
           ),
         ),
@@ -28,7 +29,7 @@ class RowText extends StatelessWidget {
             style: style.bodyLarge!.copyWith(
               fontWeight: FontWeight.w600,
               fontSize: 14.sp,
-              color: Color(0xff2E1126),
+              color: AppColorScheme.labelTextColor,
             ),
             textAlign: TextAlign.left, 
           ),

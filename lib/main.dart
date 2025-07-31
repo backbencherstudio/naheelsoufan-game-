@@ -11,7 +11,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await ScreenUtil.ensureScreenSize();// Add this line.
-
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   /// Run the app
   runApp(const ProviderScope(child: MyApp()));
@@ -34,12 +34,14 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: const Size(430, 947),
       minTextAdapt: true,
-      builder: (context, child) => MaterialApp.router(
-        title: 'Charging App',
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.darkTheme,
-        routerConfig: RouteConfig().goRouter,
-      ),
+      builder: (context, child) {
+        return MaterialApp.router(
+          title: 'Gaming app',
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.darkTheme(context),
+          routerConfig: RouteConfig.goRouter,
+        );
+      },
     );
   }
 }

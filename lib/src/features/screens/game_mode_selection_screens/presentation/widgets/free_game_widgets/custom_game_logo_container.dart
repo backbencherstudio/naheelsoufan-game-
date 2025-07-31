@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naheelsoufan_game/src/core/constant/images.dart';
+import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 
 class CustomGameLogoContainer extends StatelessWidget {
   const CustomGameLogoContainer({super.key});
@@ -14,19 +15,22 @@ class CustomGameLogoContainer extends StatelessWidget {
       width: 106.w,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.r),
-        color: Color(0xffffffff)
+        color: AppColorScheme.primary,
       ),
       child: Column(
         children: [
           Padding(
-            padding:  EdgeInsets.only(left: 3.w, right: 3.w, top: 7.h ,bottom: 2.h),
+            padding: EdgeInsets.only(
+              left: 3.w,
+              right: 3.w,
+              top: 7.h,
+              bottom: 2.h,
+            ),
             child: Container(
               decoration: BoxDecoration(
-                color: Color(0xffFFFFFF),
+                color: AppColorScheme.primary,
                 borderRadius: BorderRadius.circular(8.r),
-                border: Border.all(
-                  color: Color(0xff2E1126)
-                ),
+                border: Border.all(color: AppColorScheme.labelTextColor),
               ),
               child: Center(
                 child: Padding(
@@ -35,18 +39,15 @@ class CustomGameLogoContainer extends StatelessWidget {
                     "Free",
                     style: style.bodyLarge!.copyWith(
                       fontWeight: FontWeight.w500,
-                      color: Color(0xff2E1126)),
+                      color: AppColorScheme.labelTextColor,
+                    ),
                   ),
                 ),
               ),
             ),
           ),
-        SizedBox(height: 6.h,),
-      Image.asset(AppImages.rocket,
-      height: 100.h,
-      width: 100.w,
-      ),
-
+          SizedBox(height: 6.h),
+          Image.asset(AppImages.rocket, height: 100.h, width: 100.w),
         ],
       ),
     );
