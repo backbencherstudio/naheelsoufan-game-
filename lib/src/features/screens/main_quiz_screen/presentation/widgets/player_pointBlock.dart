@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
+
+import '../../../../../core/constant/icons.dart';
 
 class PlayerPointblock extends StatelessWidget {
   final bool isSelected;
-  const PlayerPointblock({super.key, required this.isSelected});
+  final String playerName;
+  final int points;
+
+  const PlayerPointblock({
+    super.key,
+    required this.isSelected,
+    required this.playerName,
+    required this.points,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,21 +27,21 @@ class PlayerPointblock extends StatelessWidget {
         borderRadius: BorderRadius.circular(12.r),
         gradient: isSelected
             ? LinearGradient(
-                colors: [
-                  AppColorScheme.softYellow,
-                  AppColorScheme.midYellow,
-                  AppColorScheme.darkYellow,
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              )
+          colors: [
+            AppColorScheme.softYellow,
+            AppColorScheme.midYellow,
+            AppColorScheme.darkYellow,
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        )
             : LinearGradient(
-                colors: [
-                  Colors.transparent,
-                  Colors.transparent,
-                  Colors.transparent,
-                ],
-              ),
+          colors: [
+            Colors.transparent,
+            Colors.transparent,
+            Colors.transparent,
+          ],
+        ),
       ),
       child: Padding(
         padding: const EdgeInsets.all(0.5),
@@ -40,34 +49,46 @@ class PlayerPointblock extends StatelessWidget {
           padding: EdgeInsets.all(12.r),
           width: 104.w,
           height: 105.h,
-
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12.r),
             gradient: isSelected
                 ? LinearGradient(
-                    colors: [
-                      AppColorScheme.softYellow,
-                      AppColorScheme.midYellow,
-                      AppColorScheme.darkYellow,
-                    ],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                  )
+              colors: [
+                AppColorScheme.softYellow,
+                AppColorScheme.midYellow,
+                AppColorScheme.darkYellow,
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            )
                 : LinearGradient(
-                    colors: [
-                      AppColorScheme.primaryTextColor,
-                      AppColorScheme.primaryTextColor,
-                      AppColorScheme.primaryTextColor,
-                    ],
-                  ),
-
+              colors: [
+                AppColorScheme.primaryTextColor,
+                AppColorScheme.primaryTextColor,
+                AppColorScheme.primaryTextColor,
+              ],
+            ),
             border: Border(
-              top: BorderSide(color:isSelected? AppColorScheme.deepPuroleBG : Colors.transparent, width: 3.w),
-              left: BorderSide(color:isSelected? AppColorScheme.deepPuroleBG : Colors.transparent, width: 3.w),
-              right: BorderSide(color:isSelected? AppColorScheme.deepPuroleBG : Colors.transparent, width: 3.w),
+              top: BorderSide(
+                  color: isSelected
+                      ? AppColorScheme.deepPuroleBG
+                      : Colors.transparent,
+                  width: 3.w),
+              left: BorderSide(
+                  color: isSelected
+                      ? AppColorScheme.deepPuroleBG
+                      : Colors.transparent,
+                  width: 3.w),
+              right: BorderSide(
+                  color: isSelected
+                      ? AppColorScheme.deepPuroleBG
+                      : Colors.transparent,
+                  width: 3.w),
               bottom: BorderSide(
-               color:isSelected? AppColorScheme.deepPuroleBG : Colors.transparent, width: 3.w
-              ),
+                  color: isSelected
+                      ? AppColorScheme.deepPuroleBG
+                      : Colors.transparent,
+                  width: 3.w),
             ),
           ),
           child: Column(
@@ -75,14 +96,13 @@ class PlayerPointblock extends StatelessWidget {
             children: [
               SvgPicture.asset(
                 AppIcons.playerpoint,
-                // ignore: deprecated_member_use
                 color: isSelected
                     ? AppColorScheme.screenBackground
                     : AppColorScheme.onPrimary,
               ),
               SizedBox(height: 4.h),
               Text(
-                "Player 2",
+                playerName,
                 style: style.bodyLarge!.copyWith(
                   fontWeight: FontWeight.w500,
                   color: isSelected
@@ -92,7 +112,7 @@ class PlayerPointblock extends StatelessWidget {
               ),
               SizedBox(height: 4.h),
               Text(
-                "50 point",
+                "$points point",
                 style: style.labelMedium!.copyWith(
                   color: isSelected
                       ? AppColorScheme.optionBg
