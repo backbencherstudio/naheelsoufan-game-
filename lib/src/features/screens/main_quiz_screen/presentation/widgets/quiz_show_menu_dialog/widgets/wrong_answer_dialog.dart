@@ -106,7 +106,7 @@ void onWrongAnswerTap(BuildContext context) {
                               onClick: (){
                                 ref.read(huntModeOn.notifier).state = true;
                                 for (final id in listID) {
-                                  ref.read(checkChoicesProvider(id).notifier).state = -1;
+                                  ref.read(checkChoicesProvider2(id).notifier).state = -1;
                                 }
                               },
                               height: isPortrait ? null : 25.w,

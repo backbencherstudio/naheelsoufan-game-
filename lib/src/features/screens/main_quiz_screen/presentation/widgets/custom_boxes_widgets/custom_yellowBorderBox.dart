@@ -20,13 +20,15 @@ class CustomYellowborderbox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
+    bool isPortrait =
+        MediaQuery.of(context).orientation == Orientation.portrait;
 
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.r),
        border: Border.all(
         color: AppColorScheme.labelTextColor,
-        width: 2.w
+        width: isPortrait ? 2.w : 4.4.h
        )
       ),
 

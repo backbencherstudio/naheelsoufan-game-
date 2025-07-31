@@ -11,6 +11,8 @@ class CustomRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isPortrait =
+        MediaQuery.of(context).orientation == Orientation.portrait;
     return Row(
       children: [
         Column(
@@ -30,9 +32,7 @@ class CustomRow extends StatelessWidget {
             CustomSmallBox(
               title: 'Player Name',
               icon: AppImages.trophy,
-
-              width: 221,
-
+              width: isPortrait ? 221.w : 486.2.h,
               isIconOpen: true,
             ),
           ],
@@ -46,9 +46,9 @@ class CustomRow extends StatelessWidget {
             CustomSmallBox(title: '750', icon: "", isIconOpen: false),
           ],
         ),
-        SizedBox(width: 8.w),
+        SizedBox(width: isPortrait ? 8.w : 17.6.h),
 
-        SizedBox(width: 8.w),
+        SizedBox(width: isPortrait ? 8.w : 17.6.h),
         Column(
           children: [
 

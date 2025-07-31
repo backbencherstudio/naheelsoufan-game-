@@ -79,10 +79,19 @@ class SettingWhileInGameScreen extends ConsumerWidget {
                       trailingIconPath: AppIcons.forwardIcon,
                       onTap: () {},
                     ),
+                    SizedBox(height: 13.h),
+                    buildSettingsTile(
+                      title: 'See More Questions',
+                      leadingIconPath: AppIcons.question,
+                      trailingIconPath: AppIcons.question,
+                      onTap: () {
+                        context.push(RouteName.questionAnswerScreen);
+                      },
+                    ),
                   ],
                 ),
               ),
-              SizedBox(height: 250.h),
+              SizedBox(height: 200.h),
               CenteredButton(
                 onTap: () {
                   context.push(RouteName.modeSelectionScreen);

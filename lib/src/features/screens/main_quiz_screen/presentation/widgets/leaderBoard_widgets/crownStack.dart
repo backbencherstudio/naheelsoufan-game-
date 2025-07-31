@@ -9,27 +9,29 @@ class Crownstack extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isPortrait =
+        MediaQuery.of(context).orientation == Orientation.portrait;
     return SizedBox(
-      height: 90.h,
-      width: 120.w,
+      height: isPortrait ? 90.h : 40.5.w,
+      width: isPortrait ? 120.w : 264.h,
       child: Stack(
 
         alignment: Alignment.center,
 
         children: [
           Positioned(
-              bottom: 0,
-              child: SvgPicture.asset(AppIcons.profileIcons,
-                height: 40.h,
-                width: 40.h,
-
-              )),
+            bottom: 0,
+            child: SvgPicture.asset(AppIcons.profileIcons,
+            height: isPortrait ? 40.h : 18.w,
+            width: isPortrait ? 40.w : 88.h,
+            
+            )),
           Positioned(
             right: 0,
-            top: 5,
+            top: isPortrait ? 5.h : 2.25.w,
             child: Image.asset(AppImages.crown,
-              height: 80.h,
-              width: 80.w,
+            height: isPortrait ? 80.h : 36.w,
+            width: isPortrait ? 80.w : 176.h,
             ),
           ),
         ],
