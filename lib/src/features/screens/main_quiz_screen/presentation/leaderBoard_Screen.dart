@@ -13,7 +13,6 @@ class LeaderboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
-
     return CreateScreen(
       child: Padding(
         padding: AppPadding.horizontalPadding,

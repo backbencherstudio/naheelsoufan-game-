@@ -14,7 +14,7 @@ class Customfisrtplace extends StatelessWidget {
     return Column(
       children: [
         Crownstack(),
-        SizedBox(height: isPortrait ?4.h: 1.8.w),
+        SizedBox(height: isPortrait ? 4.h : 1.8.w),
         Text("Player Name", style: style.bodyLarge),
         SizedBox(height: isPortrait ? 8.h : 3.6.w),
         Container(
