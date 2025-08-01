@@ -43,7 +43,9 @@ class ModeSelectionScreen extends StatelessWidget {
                   },
                 ),
                 Image.asset(AppImages.profilePic, height: 40.h, width: 40.w),
-                CustomIconsButtons(icon: AppIcons.threeDot, onTap: () {}),
+                CustomIconsButtons(icon: AppIcons.threeDot, onTap: () {
+
+                }),
               ],
             ),
             SizedBox(height: 28.h),
@@ -61,8 +63,8 @@ class ModeSelectionScreen extends StatelessWidget {
                     //   ref.read(isOfflineOnProvider.notifier).state = true;
                     //   context.push(RouteName.choosePaymentCard);
                     // } else {
-                      context.push(RouteName.addPlayerScreen);
-                   // }
+                    context.push(RouteName.addPlayerScreen);
+                    // }
                   },
                 );
               },
