@@ -135,10 +135,10 @@ class ProfileIconScreen extends ConsumerWidget {
                           child: HeaderButton(
                             textTitle: 'Change Icon',
                             textStyle: style.titleLarge?.copyWith(
-                              color: Color(0xff2E1126),
+                              color: AppColorScheme.labelTextColor,
                               fontWeight: FontWeight.w500,
                             ),
-                            borderColor: Color(0xff2E1126),
+                            borderColor: AppColorScheme.labelTextColor,
                             gradientColor: LinearGradient(
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,

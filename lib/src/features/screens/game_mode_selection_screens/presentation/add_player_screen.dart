@@ -77,52 +77,55 @@ class AddPlayerScreen extends StatelessWidget {
                   SizedBox(height: 24.h),
 
                   // Player Tiles
-              ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: keys.length,
-              itemBuilder: (context, index) {
-              final key = keys[index];
-              final isSelected = true;
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: keys.length,
+                    itemBuilder: (context, index) {
+                      final key = keys[index];
+                      final isSelected = true;
 
-              String playerName = "";
-              switch (key + 1) {
-              case 1:
-              playerName = ref.watch(playerProvider1);
-              break;
-              case 2:
-              playerName = ref.watch(playerProvider2);
-              break;
-              case 3:
-              playerName = ref.watch(playerProvider3);
-              break;
-              case 4:
-              playerName = ref.watch(playerProvider4);
-              break;
-              }
+                      String playerName = "";
+                      switch (key + 1) {
+                        case 1:
+                          playerName = ref.watch(playerProvider1);
+                          break;
+                        case 2:
+                          playerName = ref.watch(playerProvider2);
+                          break;
+                        case 3:
+                          playerName = ref.watch(playerProvider3);
+                          break;
+                        case 4:
+                          playerName = ref.watch(playerProvider4);
+                          break;
+                      }
 
-              return Padding(
-              padding: EdgeInsets.only(bottom: 16.h),
-              child: AddSelectionTile(
-              index: '${key + 1}',
-              playerName: playerName,
-              isSelected: isSelected,
-              onTap: () {
-              // Open dialog with ref to update name for that player
-              showNameDialog(context, ref, key + 1);
-              },
-              onTabRemove: dynamicPlayerKeys.contains(key)
-              ? () {
-              final updated = Map<int, bool>.from(state.selectedTiles)
-              ..remove(key);
-              notifier.state = state.copyWith(selectedTiles: updated);
-              }
-                  : null,
-              ),
-              );
-              },
-              ),
-
+                      return Padding(
+                        padding: EdgeInsets.only(bottom: 16.h),
+                        child: AddSelectionTile(
+                          index: '${key + 1}',
+                          playerName: playerName,
+                          isSelected: isSelected,
+                          onTap: () {
+                            // Open dialog with ref to update name for that player
+                            showNameDialog(context, ref, key + 1);
+                          },
+                          onTabRemove:
+                              dynamicPlayerKeys.contains(key)
+                                  ? () {
+                                    final updated = Map<int, bool>.from(
+                                      state.selectedTiles,
+                                    )..remove(key);
+                                    notifier.state = state.copyWith(
+                                      selectedTiles: updated,
+                                    );
+                                  }
+                                  : null,
+                        ),
+                      );
+                    },
+                  ),
 
                   SizedBox(height: 40.h),
 
@@ -220,7 +223,7 @@ class AddPlayerScreen extends StatelessWidget {
                     child: Container(
                       width: 229.w,
                       decoration: BoxDecoration(
-                        color: const Color(0xff008A39),
+                        color: AppColorScheme.onSurface,
                         borderRadius: BorderRadius.circular(8.r),
                         border: Border(
                           left: BorderSide(

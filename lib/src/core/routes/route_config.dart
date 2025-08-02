@@ -2,7 +2,7 @@ part of 'route_import_part.dart';
 
 class RouteConfig {
   static final GoRouter goRouter = GoRouter(
-    initialLocation: RouteName.splashScreen,
+    initialLocation: RouteName.quizScreen,
     routes: [
       GoRoute(
         path: RouteName.gridLeaderboard,
@@ -375,6 +375,18 @@ class RouteConfig {
             state: state,
             transitionType: PageTransitionType.slideRightToLeft,
             child: QuizScreen(),
+          );
+        },
+      ),
+
+      GoRoute(
+        path: RouteName.stealPointQuizScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: StealPointQuizScreen(),
           );
         },
       ),
