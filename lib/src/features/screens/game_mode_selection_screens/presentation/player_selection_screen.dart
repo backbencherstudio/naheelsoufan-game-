@@ -122,7 +122,7 @@ class PlayerSelectionScreen extends ConsumerWidget {
               child: Container(
                 width: 229.w,
                 decoration: BoxDecoration(
-                  color: Color(0xff008A39),
+                  color: AppColorScheme.onSurface,
                   borderRadius: BorderRadius.circular(8.r),
                   border: Border(
                     left: BorderSide(

@@ -389,6 +389,18 @@ class RouteConfig {
           );
         },
       ),
+
+      GoRoute(
+        path: RouteName.stealPointQuizScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: StealPointQuizScreen(),
+          );
+        },
+      ),
   GoRoute(
         path: RouteName.categorySelectionScreen,
 

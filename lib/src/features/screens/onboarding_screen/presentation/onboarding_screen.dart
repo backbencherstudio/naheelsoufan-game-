@@ -57,7 +57,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   color: AppColorScheme.newText,
                 ),
               ),
-              Spacer(),
               Image.asset(AppImages.developedBy),
             ],
           ),

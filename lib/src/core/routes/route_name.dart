@@ -34,6 +34,7 @@ class RouteName {
   static const String catagorySelectionScreen = "/CatagorySelectionScreen";
   static const String deficultyLevelScreen = "/DeficultyLevelScreen";
   static const String quizScreen = "/QuizScreen";
+  static const String stealPointQuizScreen = "/StealPointQuizScreen";
   static const String settingWhileInGameScreen = "/SettingWhileInGameScreen";
 
 

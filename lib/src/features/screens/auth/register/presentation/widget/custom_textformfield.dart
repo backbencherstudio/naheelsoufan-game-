@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
-import 'package:naheelsoufan_game/src/core/theme/theme_extension/text_theme.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final String hintText;
@@ -12,6 +11,7 @@ class CustomTextFormField extends StatelessWidget {
   final VoidCallback? onSuffixTap;
   final FormFieldValidator<String>? validator;
   final TextStyle? errorStyle;
+  final TextInputAction? textInputAction;
 
   const CustomTextFormField({
     super.key,
@@ -23,16 +23,17 @@ class CustomTextFormField extends StatelessWidget {
     this.onSuffixTap,
     this.validator,
     this.errorStyle,
+    this.textInputAction,
   });
 
   @override
   Widget build(BuildContext context) {
-    final formFieldTextStyle = Theme.of(context).textTheme.displaySmall?.copyWith(
-      color: AppColorScheme.secondary
-    );
-    final formFieldHintTextStyle = Theme.of(context).textTheme.displaySmall?.copyWith(
-        color: AppColorScheme.primaryTextColor
-    );
+    final formFieldTextStyle = Theme.of(
+      context,
+    ).textTheme.displaySmall?.copyWith(color: AppColorScheme.secondary);
+    final formFieldHintTextStyle = Theme.of(
+      context,
+    ).textTheme.displaySmall?.copyWith(color: AppColorScheme.primaryTextColor);
     return Stack(
       children: [
         Container(
@@ -45,6 +46,7 @@ class CustomTextFormField extends StatelessWidget {
         ),
         TextFormField(
           validator: validator ?? (value) => null,
+          textInputAction: textInputAction,
           controller: controller,
           obscureText: obscureText,
           style: formFieldTextStyle,
@@ -55,9 +57,10 @@ class CustomTextFormField extends StatelessWidget {
             fillColor: AppColorScheme.primary,
             hintText: hintText,
             hintStyle: formFieldHintTextStyle,
-            suffixIcon: suffixIcon != null
-                ? IconButton(onPressed: onSuffixTap, icon: suffixIcon!)
-                : null,
+            suffixIcon:
+                suffixIcon != null
+                    ? IconButton(onPressed: onSuffixTap, icon: suffixIcon!)
+                    : null,
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.r),
               borderSide: BorderSide(

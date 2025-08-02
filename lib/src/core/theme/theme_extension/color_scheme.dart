@@ -27,6 +27,8 @@ class AppColorScheme {
   static const Color darkYellow = Color(0xffDE712B);
 
   static const Color softGradGreen = Color(0xffB8F1B9);
+  static const Color whiteNear = Color(0xffC9C6C5);
+  static const Color softGrey = Color(0xff5F5E5E);
 
   static const Color startGradGreen = Color(0xff1D5128);
   static const Color midGradGreen = Color(0xff14BA37);

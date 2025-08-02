@@ -5,18 +5,18 @@ import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/constant/padding.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
+import 'package:naheelsoufan_game/src/features/screens/account_screens/presentation/widgets/my_account_wodgets/header_button.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_type/game_type.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/custom_countdown.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/player_point_container.dart';
-import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/point.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/show_quit_dialog.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/times_up.dart';
 import '../../../../core/routes/route_name.dart';
 import '../../question_answer_screen/next_turn/riverpod/player_name_state_provider.dart';
 
-class QuizScreen extends StatelessWidget {
-  const QuizScreen({super.key});
+class StealPointQuizScreen extends StatelessWidget {
+  const StealPointQuizScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +53,19 @@ class QuizScreen extends StatelessWidget {
               ],
             ),
             SizedBox(height: 16.h),
-            //point container
-            PointShow(),
+            HeaderButton(
+              textTitle: 'Steal the Point',
+              gradientColor: LinearGradient(
+                colors: [Color(0xffFF5449), Color(0xffFF5449)],
+              ),
+              borderColor: Color(0xffFFB4AB),
+              borderRadius: BorderRadius.circular(12.r),
+              borderWidth: 4,
+              textStyle: Theme.of(
+                context,
+              ).textTheme.titleSmall?.copyWith(color: Color(0xffFFDAD6)),
+              padding: EdgeInsets.symmetric(horizontal: 24.w,vertical: 7.h),
+            ),
             SizedBox(height: 16.h),
 
             Consumer(
