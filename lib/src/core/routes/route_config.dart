@@ -2,7 +2,7 @@ part of 'route_import_part.dart';
 
 class RouteConfig {
   static final GoRouter goRouter = GoRouter(
-    initialLocation: RouteName.quizScreen,
+    initialLocation: RouteName.addPlayerScreen,
     routes: [
       GoRoute(
         path: RouteName.gridLeaderboard,

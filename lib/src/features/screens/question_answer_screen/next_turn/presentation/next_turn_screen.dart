@@ -8,7 +8,7 @@ import '../../../../../core/routes/route_name.dart';
 import '../../../../common_widegts/create_screen/create_screen.dart';
 import '../../../account_screens/presentation/widgets/my_account_wodgets/header_button.dart';
 import '../../../game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
-import '../../../main_quiz_screen/presentation/riverpod/selected_player_index_provider.dart';
+import '../../../main_quiz_screen/presentation/riverpod/stateProvider.dart';
 import '../riverpod/player_name_state_provider.dart';
 
 class NextTurnScreen extends ConsumerWidget {
@@ -110,7 +110,7 @@ class NextTurnScreen extends ConsumerWidget {
               Spacer(),
               Consumer(
                 builder: (_,ref,_) {
-                  // final selectedIndex = ref.watch(selectedPlayerIndexProvider);
+                  final selectedIndex = ref.watch(selectedPlayerIndexProvider);
                   return GestureDetector(
                     onTap: () {
                       ref.read(selectedPlayerIndexProvider.notifier).state++;

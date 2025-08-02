@@ -4,16 +4,14 @@ import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.da
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/player_pointBlock.dart';
 import 'package:vs_scrollbar/vs_scrollbar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../riverpod/selected_player_index_provider.dart';
+import '../riverpod/stateProvider.dart';
 
-class PlayerPointContainer extends ConsumerWidget {
+class PlayerPointContainer extends StatelessWidget {
   const PlayerPointContainer({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     ScrollController scrollController = ScrollController();
-
-    final selectedIndex = ref.watch(selectedPlayerIndexProvider);
 
     return Container(
       height: 169.h,
@@ -53,26 +51,31 @@ class PlayerPointContainer extends ConsumerWidget {
                         thickness: 8.0,
                         color: AppColorScheme.scrollbarColor,
                       ),
-                      child: ListView.builder(
-                        controller: scrollController,
-                        scrollDirection: Axis.horizontal,
-                        padding: EdgeInsets.fromLTRB(8.w, 0, 8.w, 33.h),
-                        itemCount: 4,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: EdgeInsets.only(right: 8.w),
-                            child: GestureDetector(
-                              onTap: () {
-                                ref.read(selectedPlayerIndexProvider.notifier).state = index;
-                              },
-                              child: PlayerPointBlock(
-                                blockCardState: 2,
-                                playerName: 'Player ${index + 1}',
-                                points: 50,
-                              ),
-                            ),
+                      child: Consumer(
+                        builder: (_, ref, _) {
+                          final current = ref.read(playerProvider);
+                          final isStealMode = ref.watch(isCorrectQuiz);
+                          return ListView.builder(
+                            controller: scrollController,
+                            scrollDirection: Axis.horizontal,
+                            padding: EdgeInsets.fromLTRB(8.w, 0, 8.w, 33.h),
+                            itemCount: current.totalPlayer,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: EdgeInsets.only(right: 8.w),
+                                child: PlayerPointBlock(
+                                  blockCardState:
+                                    (!isStealMode)
+                                      ? ((current.currentPlayer == index) ? 2 : -1)
+                                    :
+                                      ((current.currentPlayer == (index + 1) % current.totalPlayer) ? 0 : 3),
+                                  playerName: 'Player ${index + 1}',
+                                  points: 50,
+                                ),
+                              );
+                            },
                           );
-                        },
+                        }
                       ),
                     ),
                   ),
