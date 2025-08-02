@@ -29,6 +29,7 @@ import '../../features/screens/account_screens/presentation/my_account_screen.da
 import '../../features/screens/account_screens/presentation/my_account_with_cancel_subscription.dart';
 import '../../features/screens/account_screens/presentation/profile_icon_sreen.dart';
 import '../../features/screens/game_mode_selection_screens/presentation/add_player_screen.dart';
+import '../../features/screens/main_quiz_screen/presentation/steal_point_quiz_screen.dart';
 import '../../features/screens/onboarding_screen/presentation/onboarding_screen.dart';
 import '../../features/screens/onboarding_screen/presentation/splash_screen.dart';
 import '../../features/screens/question_answer_screen/next_turn/presentation/next_turn_screen.dart';

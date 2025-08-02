@@ -36,7 +36,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       body: CreateScreen(
         child: SafeArea(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 16.h),
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -170,7 +170,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     ),
                                     SizedBox(height: 16.h),
                                     Consumer(
-                                      builder: (_,ref,_) {
+                                      builder: (_, ref, _) {
                                         final isVisible = ref.watch(isVisible2);
                                         return InfoInputBox(
                                           style: style,
@@ -179,13 +179,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                             width: 24.sp,
                                             height: 24.sp,
                                             child:
-                                            (!isVisible
-                                                ? SvgPicture.asset(
-                                              AppIcons.visibilityOff,
-                                            )
-                                                : SvgPicture.asset(
-                                              AppIcons.visibilityOn,
-                                            )),
+                                                (!isVisible
+                                                    ? SvgPicture.asset(
+                                                      AppIcons.visibilityOff,
+                                                    )
+                                                    : SvgPicture.asset(
+                                                      AppIcons.visibilityOn,
+                                                    )),
                                           ),
                                           onSuffixTap: () {
                                             ref
@@ -195,7 +195,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                           obscureText: !isVisible,
                                           controller: newPasswordController,
                                           validator: (value) {
-                                            if (value == null || value.isEmpty) {
+                                            if (value == null ||
+                                                value.isEmpty) {
                                               return 'Please enter your new password';
                                             }
                                             if (value.length < 6) {
@@ -204,11 +205,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                             return null;
                                           },
                                         );
-                                      }
+                                      },
                                     ),
                                     SizedBox(height: 16.h),
                                     Consumer(
-                                      builder: (_,ref, _) {
+                                      builder: (_, ref, _) {
                                         final isVisible = ref.watch(isVisible3);
                                         return InfoInputBox(
                                           style: style,
@@ -217,13 +218,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                             width: 24.sp,
                                             height: 24.sp,
                                             child:
-                                            (!isVisible
-                                                ? SvgPicture.asset(
-                                              AppIcons.visibilityOff,
-                                            )
-                                                : SvgPicture.asset(
-                                              AppIcons.visibilityOn,
-                                            )),
+                                                (!isVisible
+                                                    ? SvgPicture.asset(
+                                                      AppIcons.visibilityOff,
+                                                    )
+                                                    : SvgPicture.asset(
+                                                      AppIcons.visibilityOn,
+                                                    )),
                                           ),
                                           onSuffixTap: () {
                                             ref
@@ -233,17 +234,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                           obscureText: !isVisible,
                                           controller: confirmPasswordController,
                                           validator: (value) {
-                                            if (value == null || value.isEmpty) {
+                                            if (value == null ||
+                                                value.isEmpty) {
                                               return 'Please confirm your password';
                                             }
-                                            String? newPassword = 'New Password';
+                                            String? newPassword =
+                                                'New Password';
                                             if (value != newPassword) {
                                               return 'Passwords do not match';
                                             }
                                             return null;
                                           },
                                         );
-                                      }
+                                      },
                                     ),
                                     SizedBox(height: 40.h),
                                     HeaderButton(
@@ -302,6 +305,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       ),
     );
   }
+
   @override
   void dispose() {
     nameController.dispose();

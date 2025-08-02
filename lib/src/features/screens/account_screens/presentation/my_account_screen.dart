@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
@@ -11,9 +10,7 @@ import 'package:naheelsoufan_game/src/features/screens/account_screens/presentat
 import 'package:naheelsoufan_game/src/features/screens/account_screens/presentation/widgets/my_account_wodgets/subs_status.dart';
 import '../../../../core/routes/route_name.dart';
 import '../../../common_widegts/music_off_on_whole_screen/music_volume_widgets.dart';
-import '../../game_mode_selection_screens/presentation/widgets/home_widgets/custom_MusicOff_Button.dart';
 import '../../game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
-import '../../../common_widegts/music_off_on_whole_screen/riverpod/musicVisible_provider.dart';
 import '../riverpod/profile_state_notifier.dart';
 
 class MyAccountScreen extends ConsumerWidget {

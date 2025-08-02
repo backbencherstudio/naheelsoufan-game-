@@ -15,14 +15,16 @@ class RegisterScreen extends StatelessWidget {
     return CreateScreen(
       child: Padding(
         padding: AppPadding.horizontalPadding,
-        child: Column(
-          children: [
-            RegisterAppbar(),
-            SizedBox(height: 20.h),
-            RegisterBody(),
-            SizedBox(height: 32.h),
-            RegisterBottom()
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              RegisterAppbar(),
+              SizedBox(height: 20.h),
+              RegisterBody(),
+              SizedBox(height: 32.h),
+              RegisterBottom()
+            ],
+          ),
         ),
       ),
     );

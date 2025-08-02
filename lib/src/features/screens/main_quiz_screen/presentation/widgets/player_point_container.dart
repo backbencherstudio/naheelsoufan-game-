@@ -63,12 +63,12 @@ class PlayerPointContainer extends ConsumerWidget {
                             padding: EdgeInsets.only(right: 8.w),
                             child: GestureDetector(
                               onTap: () {
-                                //ref.read(selectedPlayerIndexProvider.notifier).state = index;
+                                ref.read(selectedPlayerIndexProvider.notifier).state = index;
                               },
                               child: PlayerPointBlock(
-                                isSelected: index == selectedIndex,
+                                blockCardState: 2,
                                 playerName: 'Player ${index + 1}',
-                                points: 1000,
+                                points: 50,
                               ),
                             ),
                           );

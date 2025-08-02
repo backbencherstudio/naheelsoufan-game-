@@ -1,13 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:naheelsoufan_game/src/core/theme/theme_extension/text_theme.dart';
+import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import '../../../../../../core/constant/icons.dart';
 import '../../../../../../core/routes/route_name.dart';
 import '../../../../../common_widegts/elevated_button/elevated_button.dart';
+import '../../../../../common_widegts/snack_bar_message/custom_snack_bar.dart';
 import '../../riverpod/check.dart';
 import 'custom_textformfield.dart';
 
@@ -41,8 +41,10 @@ class _RegisterBodyState extends State<RegisterBody> {
     emailController.dispose();
     passController.dispose();
     confirmPassController.dispose();
+    _formKey.currentState?.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     final titleStyle = Theme.of(context).textTheme.displayLarge;
@@ -50,11 +52,11 @@ class _RegisterBodyState extends State<RegisterBody> {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Color(0xFF3D4279),
+        color: AppColorScheme.deepPuroleBG,
         borderRadius: BorderRadius.all(Radius.circular(16.r)),
         border: Border.all(
           width: 2.sp,
-          color: Color(0xFFE0E0FF),
+          color: AppColorScheme.listContainerColor,
         ),
       ),
       child: Padding(
@@ -72,32 +74,41 @@ class _RegisterBodyState extends State<RegisterBody> {
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Register",
-                    style: titleStyle,
-                  ),
-                ],
+                children: [Text("Register", style: titleStyle)],
               ),
               SizedBox(height: 16.h),
 
               // CustomLabel(labelText: "Full Name"),
-             
-              Text("Full Name", style: subTitleStyle,),
+              Text("Full Name", style: subTitleStyle),
               SizedBox(height: 4.h),
               CustomTextFormField(
                 hintText: "Enter your name",
                 controller: nameController,
+                textInputAction: TextInputAction.next,
+                validator: (String? value) {
+                  if (value?.trim().isEmpty ?? true) {
+                    return 'Enter a valid Name';
+                  }
+                  return null;
+                },
               ),
               SizedBox(height: 8.h),
-              Text("Email", style: subTitleStyle,),
+              Text("Email", style: subTitleStyle),
               SizedBox(height: 4.h),
               CustomTextFormField(
                 hintText: "Enter your email",
                 controller: emailController,
+                textInputAction: TextInputAction.next,
+                // validator: (String? value) {
+                //   String emailValue = value ?? '';
+                //   if (EmailValidator.validate(emailValue) == false) {
+                //     return 'Enter a valid email';
+                //   }
+                //   return null;
+                // },
               ),
               SizedBox(height: 8.h),
-              Text("Password", style: subTitleStyle,),
+              Text("Password", style: subTitleStyle),
               SizedBox(height: 4.h),
               Consumer(
                 builder: (_, ref, _) {
@@ -105,31 +116,38 @@ class _RegisterBodyState extends State<RegisterBody> {
                   return CustomTextFormField(
                     hintText: "Enter password",
                     controller: passController,
+                    textInputAction: TextInputAction.next,
                     suffixIcon: SizedBox(
                       width: 24.sp,
                       height: 24.sp,
-                      child: (!isVisible
-                          ? SvgPicture.asset(
-                        AppIcons.visibilityOff,
-                      )
-                          : SvgPicture.asset(
-                        AppIcons.visibilityOn,
-                      )),
+                      child:
+                          (!isVisible
+                              ? SvgPicture.asset(AppIcons.visibilityOff)
+                              : SvgPicture.asset(AppIcons.visibilityOn)),
                     ),
                     onSuffixTap: () {
-                      ref.read(isObscure1.notifier).state =
-                      !isVisible;
+                      ref.read(isObscure1.notifier).state = !isVisible;
                     },
                     obscureText: !isVisible,
-                    validator: (value){
-                      return (value!.length < 8) ? "At least 8 characters long, and one number." : null;
-                    },
-                    errorStyle: TextStyle(color: Color(0xFFB8F1B9), fontSize: 14.sp),
+                    // validator: (value) {
+                    //   if (value == null || value.length < 8) {
+                    //     return "Password must be at least 8 characters.";
+                    //   }
+                    //   if (!RegExp(r'[0-9]').hasMatch(value)) {
+                    //     return "Password must include at least one number.";
+                    //   }
+                    //   return null;
+                    // },
+
+                    errorStyle: TextStyle(
+                      color: AppColorScheme.softGradGreen,
+                      fontSize: 14.sp,
+                    ),
                   );
                 },
               ),
               SizedBox(height: 8.h),
-              Text("Confirm Password", style: subTitleStyle,),
+              Text("Confirm Password", style: subTitleStyle),
               SizedBox(height: 4.h),
               Consumer(
                 builder: (_, ref, _) {
@@ -137,30 +155,40 @@ class _RegisterBodyState extends State<RegisterBody> {
                   return CustomTextFormField(
                     hintText: "Enter password again",
                     controller: confirmPassController,
-                    suffixIcon: (!isVisible
-                        ? SvgPicture.asset(
-                      AppIcons.visibilityOff,
-                    )
-                        : SvgPicture.asset(
-                      AppIcons.visibilityOn,
-                    )),
+                    textInputAction: TextInputAction.done,
+                    suffixIcon:
+                        (!isVisible
+                            ? SvgPicture.asset(AppIcons.visibilityOff)
+                            : SvgPicture.asset(AppIcons.visibilityOn)),
                     onSuffixTap: () {
-                      ref.read(isObscure2.notifier).state =
-                      !isVisible;
+                      ref.read(isObscure2.notifier).state = !isVisible;
                     },
                     obscureText: !isVisible,
-                    validator: (value){
-                      return (value != passController.text) ? "Password didn't matched" : null;
+                    validator: (value) {
+                      return (value != passController.text)
+                          ? "Password didn't matched"
+                          : null;
                     },
-                    errorStyle: TextStyle(color: Color(0xFFFF5449), fontSize: 14.sp),
+                    errorStyle: TextStyle(
+                      color: AppColorScheme.error,
+                      fontSize: 14.sp,
+                    ),
                   );
                 },
               ),
               SizedBox(height: 40.h),
               CustomElevatedButton(
                 onPressed: () {
-                  context.go(RouteName.signInScreen);
-                }, buttonName: 'Register',
+                  if (_formKey.currentState?.validate() ?? false) {
+                    context.go(RouteName.signInScreen);
+                  } else {
+                    CustomSnackBar.show(
+                      context,
+                      "Please correct the errors in the form.",
+                    );
+                  }
+                },
+                buttonName: 'Register',
               ),
             ],
           ),
