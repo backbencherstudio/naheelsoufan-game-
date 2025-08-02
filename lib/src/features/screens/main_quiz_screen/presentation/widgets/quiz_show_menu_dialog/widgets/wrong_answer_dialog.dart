@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/features/screens/account_screens/presentation/widgets/my_account_wodgets/header_button.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_type/riverpod/multiple_choice_provider.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/riverpod/function.dart';
+import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/riverpod/selected_player_index_provider.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/primary_button.dart';
 
 import '../../../../../../../core/constant/icons.dart';
@@ -109,16 +110,14 @@ void onWrongAnswerTap(BuildContext context) {
                           builder: (_, ref, _) {
                             return HeaderButton(
                               onClick: () {
+                                ref.read(isCorrectQuiz.notifier).state = true;
                                 ref.read(huntModeOn.notifier).state = true;
                                 for (final id in listID) {
-                                  ref
-                                      .read(checkChoicesProvider(id).notifier)
-                                      .state = -1;
+                                  ref.read(checkChoicesProvider2(id).notifier).state = -1;
                                 }
-                                context.push(RouteName.stealPointQuizScreen);
                               },
                               height: isPortrait ? null : 25.w,
-                              textTitle: 'Change to steal the point',
+                              textTitle: 'Chance to steal the point',
                               borderColor: Color(0xffFFB4AB),
                               borderWidth: 3,
                               borderRadius: BorderRadius.circular(

@@ -11,18 +11,18 @@ class CustomPlacebox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
-
+    bool isPortrait =
+        MediaQuery.of(context).orientation == Orientation.portrait;
     return Column(
       children: [
         SvgPicture.asset(AppIcons.profileIcons),
-        SizedBox(height: 4.h),
+        SizedBox(height: isPortrait ? 4.h : 1.6.w),
         Text("Player Name", style: style.bodyLarge),
-        SizedBox(height: 8.h),
+        SizedBox(height: isPortrait ? 8.h : 3.2.w),
         Container(
-
-          padding:place==2? EdgeInsets.all(8.r): EdgeInsets.symmetric(horizontal:8, vertical: 4, ),
+           padding:place==2? EdgeInsets.all(isPortrait ? 8.r : 17.6.r): EdgeInsets.symmetric(horizontal:isPortrait ? 8.w : 17.6.h, vertical: isPortrait ? 4.h : 1.6.w, ),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8.r),
+            borderRadius: BorderRadius.circular(isPortrait ? 8.r : 17.6.r),
             gradient:place ==1 ?
 
             LinearGradient(
@@ -43,7 +43,7 @@ class CustomPlacebox extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),
-            border: Border.all(color: AppColorScheme.labelTextColor, width: 2),
+            border: Border.all(color: AppColorScheme.labelTextColor, width: isPortrait ? 2.w : 4.4.h),
           ),
           child: Column(
             children: [
@@ -73,7 +73,7 @@ class CustomPlacebox extends StatelessWidget {
               Text(
                 "650 point",
                 style: style.bodyLarge!.copyWith(
-                  fontSize: 12.sp,
+                  fontSize: isPortrait ? 12.sp : 4.8.w,
                   color: AppColorScheme.scondaryTextColor,
                 ),
               ),

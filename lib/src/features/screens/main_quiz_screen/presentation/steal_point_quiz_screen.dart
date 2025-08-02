@@ -12,6 +12,7 @@ import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presenta
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/player_point_container.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/show_quit_dialog.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/times_up.dart';
+import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/row_arrangment/steal_container.dart';
 import '../../../../core/routes/route_name.dart';
 import '../../question_answer_screen/next_turn/riverpod/player_name_state_provider.dart';
 
@@ -53,19 +54,7 @@ class StealPointQuizScreen extends StatelessWidget {
               ],
             ),
             SizedBox(height: 16.h),
-            HeaderButton(
-              textTitle: 'Steal the Point',
-              gradientColor: LinearGradient(
-                colors: [Color(0xffFF5449), Color(0xffFF5449)],
-              ),
-              borderColor: Color(0xffFFB4AB),
-              borderRadius: BorderRadius.circular(12.r),
-              borderWidth: 4,
-              textStyle: Theme.of(
-                context,
-              ).textTheme.titleSmall?.copyWith(color: Color(0xffFFDAD6)),
-              padding: EdgeInsets.symmetric(horizontal: 24.w,vertical: 7.h),
-            ),
+            //SealContainer(),
             SizedBox(height: 16.h),
 
             Consumer(
@@ -111,3 +100,5 @@ class StealPointQuizScreen extends StatelessWidget {
     );
   }
 }
+
+

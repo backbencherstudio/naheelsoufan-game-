@@ -19,27 +19,20 @@ import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentati
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentation/grid_difficulty_level_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentation/grid_leader_board_Screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentation/question_revealed.dart';
-import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentation/second_grid_difficulty_level_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/quiz_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/question_answer_screen/question_answer_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/deficulty_level_screen.dart';
 import '../../features/screens/game_mode_selection_screens/presentation/clicked_setting_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/leaderBoard_Screen.dart';
-import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/quiz_screen.dart';
-import 'package:naheelsoufan_game/src/features/screens/question_answer_screen/question_answer_screen.dart';
-import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/deficulty_level_screen.dart';
 import '../../features/screens/account_screens/presentation/edit_profile_screen.dart';
 import '../../features/screens/account_screens/presentation/my_account_screen.dart';
 import '../../features/screens/account_screens/presentation/my_account_with_cancel_subscription.dart';
 import '../../features/screens/account_screens/presentation/profile_icon_sreen.dart';
 import '../../features/screens/game_mode_selection_screens/presentation/add_player_screen.dart';
-import '../../features/screens/game_mode_selection_screens/presentation/choose_subscription_screen.dart';
-import '../../features/screens/game_mode_selection_screens/presentation/payment_screen.dart';
 import '../../features/screens/main_quiz_screen/presentation/steal_point_quiz_screen.dart';
 import '../../features/screens/onboarding_screen/presentation/onboarding_screen.dart';
 import '../../features/screens/onboarding_screen/presentation/splash_screen.dart';
 import '../../features/screens/question_answer_screen/next_turn/presentation/next_turn_screen.dart';
-
 import '../../features/screens/question_answer_screen/setting_while_in_game/presentation/setting_while_in_game_screen.dart';
 import 'build_page_with_transition.dart';
 part 'route_config.dart';

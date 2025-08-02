@@ -81,13 +81,13 @@ class _RegisterBodyState extends State<SignInBody> {
                 hintText: "Enter your email",
                 controller: emailController,
                 textInputAction: TextInputAction.next,
-                validator: (String? value) {
-                  String emailValue = value ?? '';
-                  if (EmailValidator.validate(emailValue) == false) {
-                    return 'Enter a valid email';
-                  }
-                  return null;
-                },
+                // validator: (String? value) {
+                //   String emailValue = value ?? '';
+                //   if (EmailValidator.validate(emailValue) == false) {
+                //     return 'Enter a valid email';
+                //   }
+                //   return null;
+                // },
               ),
               SizedBox(height: 8.h),
               Text("Password", style: subTitleStyle),
