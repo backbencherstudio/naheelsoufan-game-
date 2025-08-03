@@ -111,6 +111,7 @@ void onWrongAnswerTap(BuildContext context) {
                             return HeaderButton(
                               onClick: () {
                                 ref.read(resetVersionProvider.notifier).state++;
+                                ref.read(selectedPlayerIndexProvider.notifier).state = -1;
                                 ref.read(isCorrectQuiz.notifier).state = true;
                                 ref.read(huntModeOn.notifier).state = true;
                                 for (final id in listID) {

@@ -6,13 +6,13 @@ import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.da
 import '../../../../../core/constant/icons.dart';
 
 class PlayerPointBlock extends StatelessWidget {
-  final String playerName;
+  final int playerNo;
   final int points;
   final int? blockCardState;
 
   const PlayerPointBlock({
     super.key,
-    required this.playerName,
+    required this.playerNo,
     required this.points,
     this.blockCardState,
   });
@@ -53,27 +53,27 @@ class PlayerPointBlock extends StatelessWidget {
                 AppColorScheme.midYellow,
                 AppColorScheme.darkYellow,
               ] : (blockCardState == -1) ? [
-                Color(0xff6B71B9),
-                Color(0xff6B71B9),
-                Color(0xff6B71B9),
+                AppColorScheme.primaryTextColor,
+                AppColorScheme.primaryTextColor,
+                AppColorScheme.primaryTextColor,
               ] : (blockCardState == 1) ? [
-                AppColorScheme.hardGradGreen,
-                AppColorScheme.softGradGreen,
-                AppColorScheme.hardGradGreen,
+                AppColorScheme.startGradGreen,
+                AppColorScheme.midGradGreen,
+                AppColorScheme.startGradGreen,
               ] : (blockCardState == 0) ? [
-                Color(0xff52589F),
-                Color(0xff52589F),
-                Color(0xff52589F),
+                AppColorScheme.purpleContainerColor,
+                AppColorScheme.purpleContainerColor,
+                AppColorScheme.purpleContainerColor,
               ] : [
-                Color(0xff9FA5F2),
-                Color(0xff9FA5F2),
-                Color(0xff9FA5F2),
+                AppColorScheme.socialBack,
+                AppColorScheme.socialBack,
+                AppColorScheme.socialBack,
               ],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),
             border: Border.all(
-              color: Color(0xff434686),
+              color: AppColorScheme.pointBlockBorderColor,
               width: 3.w
             )
           ),
@@ -82,11 +82,11 @@ class PlayerPointBlock extends StatelessWidget {
             children: [
               SvgPicture.asset(
                 AppIcons.playerpoint,
-                colorFilter: ColorFilter.mode((blockCardState == 2) ? Color(0xFF2E1126) : Colors.white, BlendMode.srcIn),
+                colorFilter: ColorFilter.mode((blockCardState == 2) ? AppColorScheme.labelTextColor : Colors.white, BlendMode.srcIn),
               ),
               SizedBox(height: 4.h),
               Text(
-                playerName,
+                "Player $playerNo",
                 style: style.bodyLarge!.copyWith(
                   fontWeight: FontWeight.w500,
                   color:
@@ -95,7 +95,7 @@ class PlayerPointBlock extends StatelessWidget {
               ),
               SizedBox(height: 4.h),
               Text(
-                "$points point",
+                (blockCardState == 1) ? "${points+100} point" : "$points point",
                 style: style.labelMedium!.copyWith(
                   color: AppColorScheme.newText,
                 ),

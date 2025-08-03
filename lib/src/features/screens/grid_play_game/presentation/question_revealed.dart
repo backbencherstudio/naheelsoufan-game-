@@ -11,12 +11,16 @@ import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presenta
 import '../../../../core/constant/icons.dart';
 import '../../../../core/constant/padding.dart';
 import '../../../../core/routes/route_name.dart';
+import '../../../../data/riverpod/count_down_state.dart';
 import '../../account_screens/presentation/widgets/my_account_wodgets/header_button.dart';
 import '../../game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import '../../game_type/game_type.dart';
+import '../../game_type/riverpod/multiple_choice_provider.dart';
+import '../../main_quiz_screen/presentation/riverpod/stateProvider.dart';
 import '../../main_quiz_screen/presentation/widgets/custom_countdown.dart';
 import '../../main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/show_quit_dialog.dart';
 import '../../main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/times_up.dart';
+import '../../question_answer_screen/next_turn/riverpod/player_name_state_provider.dart';
 
 class QuestionRevealed extends StatelessWidget {
   const QuestionRevealed({super.key});
@@ -35,6 +39,7 @@ class QuestionRevealed extends StatelessWidget {
               Consumer(
                 builder: (_,ref,_) {
                   final huntCheck = ref.watch(huntModeOn);
+                  final current = ref.read(playerProvider);
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -66,7 +71,9 @@ class QuestionRevealed extends StatelessWidget {
                         ),
                       if (isPortrait)
                         GestureDetector(
-                          onTap: () => timesUp(context),
+                          onTap: () {
+                                timesUp(context);
+                          },
                           child: CustomCountdown(),
                         ),
                       if(!isPortrait && ref.read(huntModeOn.notifier).state) HeaderButton(

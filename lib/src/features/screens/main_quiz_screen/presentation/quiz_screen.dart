@@ -16,6 +16,7 @@ import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presenta
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/row_arrangment/steal_container.dart';
 import '../../../../core/routes/route_name.dart';
 import '../../game_type/riverpod/multiple_choice_provider.dart';
+import '../../grid_play_game/riverpod/function.dart';
 import '../../question_answer_screen/next_turn/riverpod/player_name_state_provider.dart';
 
 class QuizScreen extends StatelessWidget {
@@ -89,6 +90,8 @@ class QuizScreen extends StatelessWidget {
                             context.push(RouteName.leaderboardScreen);
                           } else {
                             ref.read(resetVersionProvider.notifier).state++;
+                            ref.read(isRightWrongElse.notifier).state = -1;
+                            ref.read(selectedPlayerIndexProvider.notifier).state = -1;
                             context.push(RouteName.nextTurnScreen);
                           }
                         }),
