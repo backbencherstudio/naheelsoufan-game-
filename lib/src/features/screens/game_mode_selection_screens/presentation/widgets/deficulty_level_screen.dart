@@ -15,6 +15,11 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/difficulty_selection_provider.dart';
 import 'package:naheelsoufan_game/src/features/screens/question_answer_screen/next_turn/riverpod/player_name_state_provider.dart';
 
+import '../../../../../data/riverpod/count_down_state.dart';
+import '../../../game_type/riverpod/multiple_choice_provider.dart';
+import '../../../grid_play_game/riverpod/function.dart';
+import '../../../main_quiz_screen/presentation/riverpod/stateProvider.dart';
+
 class DifficultyLevelScreen extends StatelessWidget {
   const DifficultyLevelScreen({super.key});
 
@@ -76,9 +81,21 @@ class DifficultyLevelScreen extends StatelessWidget {
                         },
                       ),
                       SizedBox(height: 20.h),
-                      CustomGreenButton(onTap: () {
-                        context.push(RouteName.quizScreen);
-                      }),
+                      Consumer(
+                        builder: (_, ref, _) {
+                          final countdown = ref.watch(autoCounterProvider(10));
+                          final controller = ref.read(autoCounterProvider(10).notifier);
+                          final current = ref.read(playerProvider);
+                          return CustomGreenButton(onTap: () {
+                            if (countdown.isRunning) {
+                              controller.pause();
+                            } else {
+                              controller.start();
+                              context.push(RouteName.quizScreen);
+                            }
+                          });
+                        }
+                      ),
                     ],
                   ),
                 );

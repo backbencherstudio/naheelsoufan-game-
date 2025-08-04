@@ -16,6 +16,7 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/selection_provider.dart';
 
+import '../../main_quiz_screen/presentation/riverpod/stateProvider.dart';
 import '../riverpod/player_name_provider.dart';
 
 class AddPlayerScreen extends StatelessWidget {
@@ -41,6 +42,9 @@ class AddPlayerScreen extends StatelessWidget {
               final keys = allPlayers.keys.toList()..sort();
               final totalPlayers = allPlayers.length;
               final isMaxPlayers = totalPlayers >= 4;
+
+              final controller = ref.read(playerProvider.notifier);
+              final current = ref.read(playerProvider);
 
               return Column(
                 children: [
@@ -219,7 +223,10 @@ class AddPlayerScreen extends StatelessWidget {
 
                   GestureDetector(
                     onTap:
-                        () => context.push(RouteName.catagorySelectionScreen),
+                        () {
+                      controller.state = current.copyWith(totalPlayer: totalPlayers);// CB
+                      context.push(RouteName.catagorySelectionScreen);
+                    },
                     child: Container(
                       width: 229.w,
                       decoration: BoxDecoration(

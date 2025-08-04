@@ -7,7 +7,7 @@ import 'package:naheelsoufan_game/src/core/constant/padding.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_type/game_type.dart';
-import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/riverpod/selected_player_index_provider.dart';
+import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/riverpod/stateProvider.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/custom_countdown.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/player_point_container.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/point.dart';
@@ -15,6 +15,8 @@ import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presenta
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/times_up.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/row_arrangment/steal_container.dart';
 import '../../../../core/routes/route_name.dart';
+import '../../game_type/riverpod/multiple_choice_provider.dart';
+import '../../grid_play_game/riverpod/function.dart';
 import '../../question_answer_screen/next_turn/riverpod/player_name_state_provider.dart';
 
 class QuizScreen extends StatelessWidget {
@@ -66,6 +68,7 @@ class QuizScreen extends StatelessWidget {
 
             Consumer(
               builder: (_, ref, _) {
+                final current = ref.read(playerProvider);
                 return GameType.multipleChoiceQuestion(
                   rightChoice: 1,
                   choices: ["India", "China", "Bangladesh", "Indonesia"],
@@ -74,17 +77,21 @@ class QuizScreen extends StatelessWidget {
                       () => {
                         Future.delayed(Duration(seconds: 1), () {
                           int currentPlayerTurn = ref.read(playerTurnProvider);
-
-                          int nextPlayerTurn = (currentPlayerTurn + 1) % 4;
+                          int nextPlayerTurn = (currentPlayerTurn + 1) % current.totalPlayer;
                           ref.read(playerTurnProvider.notifier).state =
                               nextPlayerTurn;
 
                           ref.read(playerNameProvider.notifier).state =
                               players[nextPlayerTurn];
 
+                          ref.read(isCorrectQuiz.notifier).state = false;
+
                           if (nextPlayerTurn == 0) {
                             context.push(RouteName.leaderboardScreen);
                           } else {
+                            ref.read(resetVersionProvider.notifier).state++;
+                            ref.read(isRightWrongElse.notifier).state = -1;
+                            ref.read(selectedPlayerIndexProvider.notifier).state = -1;
                             context.push(RouteName.nextTurnScreen);
                           }
                         }),

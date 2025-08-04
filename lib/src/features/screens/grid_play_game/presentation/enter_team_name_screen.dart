@@ -21,32 +21,34 @@ class EnterTeamNameScreen extends StatelessWidget {
     return CreateScreen(
       child: Padding(
         padding: AppPadding.horizontalPadding,
-        child: Column(
-          children: [
-            Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CustomIconsButtons(icon: AppIcons.backIcons, onTap: () {Navigator.pop(context);}),
-                  Image.asset(AppImages.profilePic, height: 40.h, width: 40.w),
-                  CustomIconsButtons(icon: AppIcons.settings, onTap: () {}),
-                ]
-            ),
-            SizedBox(height: 105.h,),
-            Text("Enter Teams Name", style: textTheme.headlineMedium,),
-            SizedBox(height: 32.h,),
-            CustomTeamFormField(controller: nameController1, hintText: "Type team name", teamNo: '1',),
-            SizedBox(height: 4.h,),
-            Text("VS", style: textTheme.titleLarge,),
-            SizedBox(height: 4.h,),
-            CustomTeamFormField(controller: nameController2, hintText: "Type team name", teamNo: '2',),
-            SizedBox(height: 180.h,),
-            SpecialElevatedButton003(buttonName: 'NEXT', onTap: () {
-              context.push(RouteName.chooseCategoryScreen);
-            },)
-            // ElevatedButton(onPressed: (){
-            //   context.push(RouteName.chooseCategoryScreen);
-            // }, child: Text("click")),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CustomIconsButtons(icon: AppIcons.backIcons, onTap: () {Navigator.pop(context);}),
+                    Image.asset(AppImages.profilePic, height: 40.h, width: 40.w),
+                    CustomIconsButtons(icon: AppIcons.settings, onTap: () {}),
+                  ]
+              ),
+              SizedBox(height: 105.h,),
+              Text("Enter Teams Name", style: textTheme.headlineMedium,),
+              SizedBox(height: 32.h,),
+              CustomTeamFormField(controller: nameController1, hintText: "Type team name", teamNo: '1',),
+              SizedBox(height: 4.h,),
+              Text("VS", style: textTheme.titleLarge,),
+              SizedBox(height: 4.h,),
+              CustomTeamFormField(controller: nameController2, hintText: "Type team name", teamNo: '2',),
+              SizedBox(height: 100.h,),
+              SpecialElevatedButton003(buttonName: 'NEXT', onTap: () {
+                context.push(RouteName.chooseCategoryScreen);
+              },)
+              // ElevatedButton(onPressed: (){
+              //   context.push(RouteName.chooseCategoryScreen);
+              // }, child: Text("click")),
+            ],
+          ),
         ),
       ),
     );

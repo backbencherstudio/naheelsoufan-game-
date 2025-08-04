@@ -6,11 +6,11 @@ import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/features/screens/account_screens/presentation/widgets/my_account_wodgets/header_button.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_type/riverpod/multiple_choice_provider.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/riverpod/function.dart';
-import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/riverpod/selected_player_index_provider.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/primary_button.dart';
-
 import '../../../../../../../core/constant/icons.dart';
 import '../../../../../../../core/routes/route_name.dart';
+import '../../../../../question_answer_screen/next_turn/riverpod/player_name_state_provider.dart';
+import '../../../riverpod/stateProvider.dart';
 
 void onWrongAnswerTap(BuildContext context) {
   bool isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
@@ -110,11 +110,14 @@ void onWrongAnswerTap(BuildContext context) {
                           builder: (_, ref, _) {
                             return HeaderButton(
                               onClick: () {
+                                ref.read(resetVersionProvider.notifier).state++;
+                                ref.read(selectedPlayerIndexProvider.notifier).state = -1;
                                 ref.read(isCorrectQuiz.notifier).state = true;
                                 ref.read(huntModeOn.notifier).state = true;
                                 for (final id in listID) {
                                   ref.read(checkChoicesProvider2(id).notifier).state = -1;
                                 }
+                                Navigator.pop(context);
                               },
                               height: isPortrait ? null : 25.w,
                               textTitle: 'Chance to steal the point',
@@ -170,11 +173,30 @@ void onWrongAnswerTap(BuildContext context) {
               Positioned(
                 top: isPortrait ? 115.h : 0,
                 right: isPortrait ? 10 : 280.h,
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: ClipOval(child: SvgPicture.asset(AppIcons.cancelSvg)),
+                child: Consumer(
+                  builder: (_, ref, _) {
+                    final current = ref.read(playerProvider);
+                    final List players = ['Player 1', 'Player 2', 'Player 3', 'Player 4'];
+                    return GestureDetector(
+                      onTap: () {
+                        int currentPlayerTurn = ref.read(playerTurnProvider);
+
+                        int nextPlayerTurn = (currentPlayerTurn + 1) % current.totalPlayer;
+                        ref.read(playerTurnProvider.notifier).state =
+                            nextPlayerTurn;
+
+                        ref.read(playerNameProvider.notifier).state = players[nextPlayerTurn];
+
+                        if (nextPlayerTurn == 0) {
+                          context.push(RouteName.leaderboardScreen);
+                        } else {
+                          ref.read(resetVersionProvider.notifier).state++;
+                          context.push(RouteName.nextTurnScreen);
+                        }
+                      },
+                      child: ClipOval(child: SvgPicture.asset(AppIcons.cancelSvg)),
+                    );
+                  }
                 ),
               ),
 

@@ -7,6 +7,7 @@ import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.da
 import 'package:naheelsoufan_game/src/features/screens/game_type/riverpod/multiple_choice_provider.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/riverpod/function.dart';
 import 'package:naheelsoufan_game/src/features/screens/question_answer_screen/next_turn/riverpod/player_name_state_provider.dart';
+import '../../../main_quiz_screen/presentation/riverpod/stateProvider.dart';
 import '../../../main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/wrong_answer_dialog.dart';
 
 import '../../../../../core/routes/route_name.dart';
@@ -57,6 +58,9 @@ class MultipleChoiceQuestion extends StatelessWidget {
               builder: (_, ref, _) {
                 final checkChoice = ref.watch(checkChoicesProvider(index));
                 final rightChoiceIndex = rightIndex ?? 0;
+                final controller = ref.read(playerProvider.notifier);
+                final current = ref.read(playerProvider);
+                final next = (current.currentPlayer + 1) % current.totalPlayer;
                 return InkWell(
                   onTap: () {
                     (index == rightChoiceIndex)
@@ -70,12 +74,14 @@ class MultipleChoiceQuestion extends StatelessWidget {
                         ref.read(checkChoicesProvider(i).notifier).state = -1;
                       }
                     }
-
-                    if (rightChoiceIndex != index) {
+                    if (
+                    !(ref.read(isCorrectQuiz.notifier).state) &&
+                        rightChoiceIndex != index) {
                       onWrongAnswerTap(context);
                     } else {
-                      func!() ?? debugPrint("No function");
+                      func?.call() ?? debugPrint("No function");
                     }
+                    controller.state = current.copyWith(currentPlayer: next); // CB
                   },
                   child: Container(
                     decoration: BoxDecoration(

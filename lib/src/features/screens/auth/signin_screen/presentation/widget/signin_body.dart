@@ -1,4 +1,3 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -48,9 +47,7 @@ class _RegisterBodyState extends State<SignInBody> {
       width: double.infinity,
       decoration: BoxDecoration(
         color: AppColorScheme.deepPuroleBG,
-        borderRadius: BorderRadius.all(
-          Radius.circular(16.r),
-        ), // BorderRadious.Circular(16.r) use korlei hoito
+        borderRadius: BorderRadius.circular(16.r),
         border: Border.all(width: 2.sp, color: AppColorScheme.primaryTextColor),
       ),
       child: Padding(
@@ -111,12 +108,12 @@ class _RegisterBodyState extends State<SignInBody> {
                       ref.read(isObscure3.notifier).state = !isVisible;
                     },
                     obscureText: !isVisible,
-                    validator: (String? value) {
-                      if ((value?.length ?? 0) <= 6) {
-                        return 'Enter a password more than 6 characters';
-                      }
-                      return null;
-                    },
+                    // validator: (String? value) {
+                    //   if ((value?.length ?? 0) <= 6) {
+                    //     return 'Enter a password more than 6 characters';
+                    //   }
+                    //   return null;
+                    // },
                   );
                 },
               ),

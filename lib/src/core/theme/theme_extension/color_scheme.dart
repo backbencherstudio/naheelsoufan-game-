@@ -65,7 +65,7 @@ class AppColorScheme {
   static const Color difficultyTextColor = Color(0xFF171717);
   static const Color scondaryTextColor = Color(0xff45263C);
   static const Color rightOptionBorderColor = Color(0xFF80FC95);
-  // static const Color  = ;
+  static const Color pointBlockBorderColor = Color(0xFF0ff434686);
   // static const Color  = ;
 
   static ColorScheme colorScheme = ColorScheme.light(

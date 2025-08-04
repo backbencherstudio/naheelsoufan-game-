@@ -1,4 +1,3 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -100,13 +99,13 @@ class _RegisterBodyState extends State<RegisterBody> {
                 hintText: "Enter your email",
                 controller: emailController,
                 textInputAction: TextInputAction.next,
-                validator: (String? value) {
-                  String emailValue = value ?? '';
-                  if (EmailValidator.validate(emailValue) == false) {
-                    return 'Enter a valid email';
-                  }
-                  return null;
-                },
+                // validator: (String? value) {
+                //   String emailValue = value ?? '';
+                //   if (EmailValidator.validate(emailValue) == false) {
+                //     return 'Enter a valid email';
+                //   }
+                //   return null;
+                // },
               ),
               SizedBox(height: 8.h),
               Text("Password", style: subTitleStyle),
@@ -130,15 +129,15 @@ class _RegisterBodyState extends State<RegisterBody> {
                       ref.read(isObscure1.notifier).state = !isVisible;
                     },
                     obscureText: !isVisible,
-                    validator: (value) {
-                      if (value == null || value.length < 8) {
-                        return "Password must be at least 8 characters.";
-                      }
-                      if (!RegExp(r'[0-9]').hasMatch(value)) {
-                        return "Password must include at least one number.";
-                      }
-                      return null;
-                    },
+                    // validator: (value) {
+                    //   if (value == null || value.length < 8) {
+                    //     return "Password must be at least 8 characters.";
+                    //   }
+                    //   if (!RegExp(r'[0-9]').hasMatch(value)) {
+                    //     return "Password must include at least one number.";
+                    //   }
+                    //   return null;
+                    // },
 
                     errorStyle: TextStyle(
                       color: AppColorScheme.softGradGreen,

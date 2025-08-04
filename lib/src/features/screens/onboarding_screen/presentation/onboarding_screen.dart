@@ -49,7 +49,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   color: AppColorScheme.optionBg,
                 ),
               ),
-              SizedBox(height: 171.h),
+              SizedBox(height: 100.h),
               Text(
                 'Developed by',
                 style: style.bodyMedium?.copyWith(
