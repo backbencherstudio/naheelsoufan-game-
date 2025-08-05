@@ -4,20 +4,35 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/features/screens/account_screens/presentation/widgets/my_account_wodgets/header_button.dart';
-import 'package:naheelsoufan_game/src/features/screens/game_type/riverpod/multiple_choice_provider.dart';
-import 'package:naheelsoufan_game/src/features/screens/grid_play_game/riverpod/function.dart';
+import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/custom_countdown.dart';
+import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/custom_wrong_countdown.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/primary_button.dart';
 import '../../../../../../../core/constant/icons.dart';
 import '../../../../../../../core/routes/route_name.dart';
-import '../../../../../question_answer_screen/next_turn/riverpod/player_name_state_provider.dart';
+import '../../../../../../../data/riverpod/count_down_state.dart';
+import '../../../riverpod/advance_turn_controller.dart';
 import '../../../riverpod/stateProvider.dart';
 
-void onWrongAnswerTap(BuildContext context) {
+void onWrongAnswerTap(BuildContext context, ref) {
   bool isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+  // ref.listen<AdvanceNavigation>(advanceNavigationProvider, (prev, next) {
+  //   if (next == AdvanceNavigation.leaderboard) {
+  //     context.push(RouteName.leaderboardScreen);
+  //   } else if (next == AdvanceNavigation.nextTurn) {
+  //     context.push(RouteName.nextTurnScreen);
+  //   }
+  //   ref
+  //       .read(advanceNavigationProvider.notifier)
+  //       .state =
+  //       AdvanceNavigation.none;
+  // });
+  // ref.watch(advanceTurnControllerProvider);
+  // WidgetsBinding.instance.addPostFrameCallback((_) {
+  //   ref.read(autoCounterProvider(5).notifier).start();
+  // });
   showDialog(
     context: context,
     builder: (_) {
-      List<int> listID = [0, 1, 2, 3, 4];
       return Dialog(
         backgroundColor: Colors.transparent,
         elevation: 1,
@@ -106,50 +121,36 @@ void onWrongAnswerTap(BuildContext context) {
                       ),
                       SizedBox(height: isPortrait ? 44.h : 10.w),
                       Expanded(
-                        child: Consumer(
-                          builder: (_, ref, _) {
-                            return HeaderButton(
-                              onClick: () {
-                                ref.read(resetVersionProvider.notifier).state++;
-                                ref.read(selectedPlayerIndexProvider.notifier).state = -1;
-                                ref.read(isCorrectQuiz.notifier).state = true;
-                                ref.read(huntModeOn.notifier).state = true;
-                                for (final id in listID) {
-                                  ref.read(checkChoicesProvider2(id).notifier).state = -1;
-                                }
-                                Navigator.pop(context);
-                              },
-                              height: isPortrait ? null : 25.w,
-                              textTitle: 'Chance to steal the point',
-                              borderColor: Color(0xffFFB4AB),
-                              borderWidth: 3,
-                              borderRadius: BorderRadius.circular(
-                                isPortrait ? 8.r : 20.r,
-                              ),
-                              textStyle: Theme.of(
-                                context,
-                              ).textTheme.titleSmall?.copyWith(
-                                color: Color(0xffFFDAD6),
-                                fontWeight: FontWeight.w500,
-                                fontSize: isPortrait ? 20.sp : 10.sp,
-                              ),
+                        child: HeaderButton(
+                          height: isPortrait ? null : 25.w,
+                          textTitle: 'Chance to steal the point',
+                          borderColor: Color(0xffFFB4AB),
+                          borderWidth: 3.w,
+                          borderRadius: BorderRadius.circular(
+                            isPortrait ? 8.r : 20.r,
+                          ),
+                          textStyle: Theme.of(
+                            context,
+                          ).textTheme.titleSmall?.copyWith(
+                            color: Color(0xffFFDAD6),
+                            fontWeight: FontWeight.w500,
+                            fontSize: isPortrait ? 20.sp : 10.sp,
+                          ),
 
-                              gradientColor: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: [
-                                  Color(0xFFFF5449),
-                                  Color(0xFFFF5449),
-                                  Color(0xFFFF5449),
-                                ],
-                                stops: [0.0, 0.4904, 1.0],
-                              ),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: isPortrait ? 12.w : 26.4.h,
-                                vertical: isPortrait ? 8.h : 3.6.w,
-                              ),
-                            );
-                          },
+                          gradientColor: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Color(0xFFFF5449),
+                              Color(0xFFFF5449),
+                              Color(0xFFFF5449),
+                            ],
+                            stops: [0.0, 0.4904, 1.0],
+                          ),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: isPortrait ? 12.w : 26.4.h,
+                            vertical: isPortrait ? 8.h : 3.6.w,
+                          ),
                         ),
                       ),
                       SizedBox(height: isPortrait ? 40.h : 18.w),
@@ -173,65 +174,19 @@ void onWrongAnswerTap(BuildContext context) {
               Positioned(
                 top: isPortrait ? 115.h : 0,
                 right: isPortrait ? 10 : 280.h,
-                child: Consumer(
-                  builder: (_, ref, _) {
-                    final current = ref.read(playerProvider);
-                    final List players = ['Player 1', 'Player 2', 'Player 3', 'Player 4'];
-                    return GestureDetector(
-                      onTap: () {
-                        int currentPlayerTurn = ref.read(playerTurnProvider);
-
-                        int nextPlayerTurn = (currentPlayerTurn + 1) % current.totalPlayer;
-                        ref.read(playerTurnProvider.notifier).state =
-                            nextPlayerTurn;
-
-                        ref.read(playerNameProvider.notifier).state = players[nextPlayerTurn];
-
-                        if (nextPlayerTurn == 0) {
-                          context.push(RouteName.leaderboardScreen);
-                        } else {
-                          ref.read(resetVersionProvider.notifier).state++;
-                          context.push(RouteName.nextTurnScreen);
-                        }
-                      },
-                      child: ClipOval(child: SvgPicture.asset(AppIcons.cancelSvg)),
-                    );
-                  }
+                child: GestureDetector(
+                  onTap: () {
+                    context.pop();
+                  },
+                  child: ClipOval(child: SvgPicture.asset(AppIcons.cancelSvg)),
                 ),
               ),
 
               Positioned(
                 top: 0,
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      SvgPicture.asset(
-                        AppIcons.circleSgv,
-                        width: isPortrait ? 36.w : 79.h,
-                        height: isPortrait ? 36.h : 16.2.w,
-                      ),
-                      Positioned(
-                        child: Padding(
-                          padding: EdgeInsets.all(2.r),
-                          child: Text(
-                            '5',
-                            style: Theme.of(
-                              context,
-                            ).textTheme.bodyLarge?.copyWith(
-                              color: Color(0xffBA1A1A),
-                              fontWeight: FontWeight.w500,
-                              fontSize: isPortrait ? 20.sp : 9.sp,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                child: CustomWrongCountdown(onCompleted: (){
+                  context.pop();
+                })
               ),
             ],
           ),

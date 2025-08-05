@@ -57,7 +57,7 @@ class QuestionRevealed extends StatelessWidget {
                                 bgIcon: AppIcons.redBGsqare,
                               ),
                               PointShow(),
-                              CustomCountdown(),
+                              CustomCountdown(initTime: 60,),
                             ],
                           ),
                         ),
@@ -74,7 +74,7 @@ class QuestionRevealed extends StatelessWidget {
                           onTap: () {
                                 timesUp(context);
                           },
-                          child: CustomCountdown(),
+                          child: CustomCountdown(initTime: 60,),
                         ),
                       if(!isPortrait && ref.read(huntModeOn.notifier).state) HeaderButton(
                         height: isPortrait ? 40.h : 20.w,
@@ -145,7 +145,7 @@ class QuestionRevealed extends StatelessWidget {
                   final checkHunt = ref.watch(huntModeOn);
                   if (checkRight != 1 && checkRight != -1 && !checkHunt) {
                     WidgetsBinding.instance.addPostFrameCallback((_) {
-                      onWrongAnswerTap(context);
+                      onWrongAnswerTap(context, ref);
                     });
                   }
                   return Row(

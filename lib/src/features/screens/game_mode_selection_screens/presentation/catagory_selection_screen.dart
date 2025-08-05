@@ -20,7 +20,7 @@ class CatagorySelectionScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
-    final currentPlayerName = ref.watch(playerNameProvider);
+    final currentPlayerNo = ref.watch(playerNo);
     final selectedState = ref.watch(selectProvider);
 
     final List<String> levels = ["General Knowledge", "Math", "Science","General Knowledge", "Math", "Science","General Knowledge", "Math", "Science",];
@@ -45,7 +45,7 @@ class CatagorySelectionScreen extends ConsumerWidget {
             ),
             SizedBox(height: 8.h),
             Text(
-              currentPlayerName,
+              "Player $currentPlayerNo",
               style: style.titleLarge!.copyWith(
                 fontWeight: FontWeight.w400,
                 color: AppColorScheme.primary,
