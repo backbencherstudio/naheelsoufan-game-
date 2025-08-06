@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
-import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_type/riverpod/multiple_choice_provider.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/riverpod/function.dart';
-import 'package:naheelsoufan_game/src/features/screens/question_answer_screen/next_turn/riverpod/player_name_state_provider.dart';
 import '../../../../../data/riverpod/count_down_state.dart';
 import '../../../main_quiz_screen/presentation/riverpod/stateProvider.dart';
 import '../../../main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/wrong_answer_dialog.dart';
-
-import '../../../../../core/routes/route_name.dart';
 
 class MultipleChoiceQuestion extends StatelessWidget {
   final List<String> choices;
@@ -71,14 +66,17 @@ class MultipleChoiceQuestion extends StatelessWidget {
                       if (i == index) {
                         ref.read(checkChoicesProvider(i).notifier).state =
                         (i == rightChoiceIndex) ? 1 : 0;
-                      } else {
+                      }
+                      else {
                         ref.read(checkChoicesProvider(i).notifier).state = -1;
                       }
                     }
                     if (
                     !(ref.read(isCorrectQuiz.notifier).state) &&
                         rightChoiceIndex != index) {
-                      ref.read(resetVersionProvider.notifier).state++;
+                      // for (int i = 0; i < 4; i++) {
+                      //   ref.read(checkChoicesProvider(i).notifier).state = -1;
+                      // }
                       ref.read(selectedPlayerIndexProvider.notifier).state = -1;
                       ref.read(isCorrectQuiz.notifier).state = true;
                       ref.read(huntModeOn.notifier).state = true;
@@ -88,7 +86,7 @@ class MultipleChoiceQuestion extends StatelessWidget {
                       WidgetsBinding.instance.addPostFrameCallback((_) {
                         ref.read(autoCounterProvider(60).notifier).reset();
                       });
-                      onWrongAnswerTap(context, ref);
+                      onWrongAnswerTap(context, choices[rightChoiceIndex], ref);
                     } else {
                       func!();
                     }
@@ -101,22 +99,14 @@ class MultipleChoiceQuestion extends StatelessWidget {
                       ),
                       gradient: LinearGradient(
                         colors:
-                        (ref
-                            .read(
-                          checkChoicesProvider(index).notifier,
-                        )
-                            .state ==
+                        (checkChoice ==
                             1)
                             ? [
                           AppColorScheme.startGradGreen,
                           AppColorScheme.midGradGreen,
                           AppColorScheme.hardGradGreen,
                         ]
-                            : (ref
-                            .read(
-                          checkChoicesProvider(index).notifier,
-                        )
-                            .state ==
+                            : (checkChoice ==
                             0)
                             ? [
                           AppColorScheme.errorColor,
@@ -141,22 +131,10 @@ class MultipleChoiceQuestion extends StatelessWidget {
                       border: Border(
                         bottom: BorderSide(
                           color:
-                          (ref
-                              .read(
-                            checkChoicesProvider(
-                              index,
-                            ).notifier,
-                          )
-                              .state ==
+                          (checkChoice ==
                               1)
                               ? AppColorScheme.rightOptionBorderColor
-                              : (ref
-                              .read(
-                            checkChoicesProvider(
-                              index,
-                            ).notifier,
-                          )
-                              .state ==
+                              : (checkChoice ==
                               0)
                               ? AppColorScheme.optionBg
                               : AppColorScheme.labelTextColor,

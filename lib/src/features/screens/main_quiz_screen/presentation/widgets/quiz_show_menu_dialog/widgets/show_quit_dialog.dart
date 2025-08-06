@@ -58,7 +58,9 @@ void onQuitGameTap(BuildContext context) {
                               controller.state = current.copyWith(currentPlayer: 0);
                               controller.state = current.copyWith(totalPlayer: 2);
                               controller.state = current.copyWith(stealPlayer: -1);
-                              ref.read(resetVersionProvider.notifier).state++;
+                              for (final i in [0, 1, 2, 3]) {
+                                ref.read(checkChoicesProvider(i).notifier).state = -1;
+                              }
                               Navigator.pop(context);
                               context.go(RouteName.gameModeScreens);
                             },

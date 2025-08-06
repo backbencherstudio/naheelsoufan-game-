@@ -78,8 +78,6 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
                     onPaused: () {
                       ref.read(advanceTurnTriggerProvider.notifier).state++;
                       timesUp(context);
-                      ref.read(huntModeOn.notifier).state = true; //CB
-
                       WidgetsBinding.instance.addPostFrameCallback((_) {
                         ref.read(autoCounterProvider(60).notifier).reset();
                       });

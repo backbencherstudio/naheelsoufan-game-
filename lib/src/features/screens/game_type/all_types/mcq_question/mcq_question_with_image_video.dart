@@ -78,7 +78,7 @@ class McqQuestionWithImageVideo extends StatelessWidget {
                     }
 
                     if (rightChoiceIndex != index) {
-                      onWrongAnswerTap(context, ref);
+                      onWrongAnswerTap(context, choices[rightChoiceIndex], ref);
                     }
                   },
                   child: Container(

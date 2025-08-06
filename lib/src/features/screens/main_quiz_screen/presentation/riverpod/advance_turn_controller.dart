@@ -35,7 +35,9 @@ final advanceTurnControllerProvider = Provider.autoDispose<void>((ref) {
       ref.read(advanceNavigationProvider.notifier).state =
           AdvanceNavigation.leaderboard;
     } else {
-      ref.read(resetVersionProvider.notifier).state++;
+      for (final i in [0, 1, 2, 3]) {
+        ref.read(checkChoicesProvider(i).notifier).state = -1;
+      }
       ref.read(isRightWrongElse.notifier).state = -1;
       ref.read(selectedPlayerIndexProvider.notifier).state = -1;
       ref.read(advanceNavigationProvider.notifier).state =
