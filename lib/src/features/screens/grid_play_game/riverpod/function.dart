@@ -27,3 +27,5 @@ final checkSecondDifficultyScreen = StateProvider.autoDispose<bool>((ref) => fal
 
 final isRightWrongElse = StateProvider<int>((ref)=>-1);
 final huntModeOn = StateProvider.autoDispose<bool>((ref)=>false);
+
+final showTimeUp = StateProvider.autoDispose<bool>((ref)=>true);

@@ -8,6 +8,7 @@ import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.da
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/player_selection_widgets/selection_tile.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/player_selection_name_provider.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/selection_provider.dart';
 import '../../../../core/constant/icons.dart';
@@ -39,7 +40,7 @@ class PlayerSelectionScreen extends ConsumerWidget {
                   },
                 ),
                 Image.asset(AppImages.profilePic, height: 40.h, width: 40.w),
-                CustomIconsButtons(icon: AppIcons.threeDotSvg, onTap: () {}),
+                CustomPopUpMenu(),
               ],
             ),
             SizedBox(height: 140.h),
@@ -117,7 +118,7 @@ class PlayerSelectionScreen extends ConsumerWidget {
 
             GestureDetector(
               onTap: () {
-                context.push(RouteName.categorySelectionScreen);
+                context.pushReplacement(RouteName.categorySelectionScreen);
               },
               child: Container(
                 width: 229.w,

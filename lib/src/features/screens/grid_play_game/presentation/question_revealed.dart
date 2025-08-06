@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:naheelsoufan_game/src/data/riverpod/common_disposer.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentation/widget/platoon_hunter_card.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/riverpod/function.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/point.dart';
@@ -44,6 +46,20 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
   Widget build(BuildContext context) {
     bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
+    ref.listen<AdvanceNavigation>(advanceNavigationProvider, (prev, next) {
+      if (next == AdvanceNavigation.leaderboard) {
+        context.push(RouteName.gridLeaderboard);
+      } else if (next == AdvanceNavigation.nextTurn) {
+        context.pushReplacement(RouteName.gridDifficultyLevelScreen);
+      }
+      ref
+          .read(advanceNavigationProvider.notifier)
+          .state =
+          AdvanceNavigation.none;
+      ref.read(commonProviderDisposer)();
+    });
+
+    ref.watch(advanceTurnControllerProvider);
     return CreateScreen(
       child: Padding(
         padding: AppPadding.horizontalPadding,
@@ -58,7 +74,7 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      if (!isPortrait)
+                      if (!isPortrait)...[
                         SizedBox(
                           width: 990.h,
                           child: Row(
@@ -79,7 +95,7 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
                                   initTime: 60,
                                   onPaused: () {
                                     ref.read(advanceTurnTriggerProvider.notifier).state++;
-                                    timesUp(context);
+                                    timesUp(context, ref);
                                     WidgetsBinding.instance.addPostFrameCallback((_) {
                                       ref.read(autoCounterProvider(60).notifier).reset();
                                     });
@@ -88,16 +104,14 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
                               ),
                             ],
                           ),
-                        ),
-                      if (isPortrait)
-                        CustomIconsButtons(
-                          icon: AppIcons.crossIcon,
-                          onTap: () {
-                            onQuitGameTap(context);
-                          },
-                          bgIcon: AppIcons.redBGsqare,
-                        ),
-                      if (isPortrait)
+                        ),] else ...[
+                          CustomIconsButtons(
+                        icon: AppIcons.crossIcon,
+                        onTap: () {
+                          onQuitGameTap(context);
+                        },
+                        bgIcon: AppIcons.redBGsqare,
+                      ),
                         SizedBox(
                           height: 100.h,
                           width: 100.h,
@@ -105,13 +119,15 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
                             initTime: 60,
                             onPaused: () {
                               ref.read(advanceTurnTriggerProvider.notifier).state++;
-                              timesUp(context);
+                              timesUp(context, ref);
                               WidgetsBinding.instance.addPostFrameCallback((_) {
                                 ref.read(autoCounterProvider(60).notifier).reset();
                               });
                             },
                           ),
                         ),
+                      ],
+
                       if(!isPortrait && ref.read(huntModeOn.notifier).state) HeaderButton(
                         height: isPortrait ? 40.h : 20.w,
                         textTitle: 'Steal Point',
@@ -139,13 +155,7 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
                           vertical: isPortrait ? 4.h : 3.6.w,
                         ),
                       ),
-                      CustomIconsButtons(
-                        icon: AppIcons.threeDot,
-                        onTap: () {
-                          // botttom sheet jabe
-                        },
-                        bgIcon: AppIcons.iconBG,
-                      ),
+                      CustomPopUpMenu(),
                     ],
                   );
                 }
@@ -178,11 +188,11 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
                   final checkRight = ref.watch(isRightWrongElse);
                   final checkHunt = ref.watch(huntModeOn);
 
-                  if (checkRight != 1 && checkRight != -1 && !checkHunt) {
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      onWrongAnswerTap(context, "Nuclear energy", ref);
-                    });
-                  }
+                  // if (checkRight != 1 && checkHunt) {
+                  //   WidgetsBinding.instance.addPostFrameCallback((_) {
+                  //     onWrongAnswerTap(context, "Nuclear energy", ref);
+                  //   });
+                  // }
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

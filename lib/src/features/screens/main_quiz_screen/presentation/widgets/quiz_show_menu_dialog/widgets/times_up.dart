@@ -1,22 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../../../grid_play_game/riverpod/function.dart';
 import 'clock_container.dart';
 
-void timesUp(BuildContext context) {
+void timesUp(BuildContext context, ref) {
+  bool isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+  final timeUpState = ref.watch(showTimeUp);
+
+  // Show dialog immediately
   showDialog(
     context: context,
-    builder: (_) {
+    barrierDismissible: false,
+    builder: (BuildContext dialogContext) {
+      Future.delayed(Duration(seconds: 5), (){
+        ref.read(showTimeUp.notifier).state = false;
+        dialogContext.pop();
+      });
+      if(timeUpState == false) {
+        ref.read(showTimeUp.notifier).state = true;
+      }
       return Dialog(
         backgroundColor: Colors.transparent,
         elevation: 0,
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          padding: EdgeInsets.symmetric(horizontal: isPortrait ? 16.w : 35.2.h),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ClockWidgets(text: '60', color: Color(0xffDE3730)),
-              SizedBox(height: 24.h),
+              SizedBox(height: isPortrait ? 24.h : 10.8.w),
               Text(
                 'Times Up!',
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
@@ -24,14 +38,14 @@ void timesUp(BuildContext context) {
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              SizedBox(height: 8),
+              SizedBox(height: isPortrait ? 8.h : 3.6.w),
               Text(
                 textAlign: TextAlign.center,
                 'Other players will got the chance to steal the point',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: Color(0xffE0E0FF),
                   fontWeight: FontWeight.w700,
-                  fontSize: 13.sp,
+                  fontSize: isPortrait ? 13.sp : 5.85.sp,
                 ),
               ),
             ],
@@ -41,3 +55,4 @@ void timesUp(BuildContext context) {
     },
   );
 }
+

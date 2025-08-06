@@ -12,6 +12,7 @@ import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentati
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentation/widget/platoon_hunter_card.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/riverpod/function.dart';
 import '../../../../core/routes/route_name.dart';
+import '../../game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
 import '../../main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/show_quit_dialog.dart';
 
 class GridDifficultyLevelScreen extends StatefulWidget {
@@ -87,9 +88,7 @@ class _GridDifficultyLevelScreenState extends State<GridDifficultyLevelScreen> {
                                 questionId: index.toString(),
                                 questionCategory:
                                     questionList[index].questionCategory,
-                                nextScreen: checkScreen ?
-                                    RouteName.gridLeaderboard :
-                                    RouteName.questionRevealedScreen,
+                                nextScreen: RouteName.questionRevealedScreen,
                               );
                             }
                           );
@@ -100,11 +99,7 @@ class _GridDifficultyLevelScreenState extends State<GridDifficultyLevelScreen> {
                       ),
                     ),
                     SizedBox(width: isPortrait ? 8.w : 17.6.h),
-                    CustomIconsButtons(
-                      icon: AppIcons.threeDot,
-                      bgIcon: AppIcons.redButtonBG,
-                      onTap: () {},
-                    ),
+                    CustomPopUpMenu()
                   ],
                 ),
               ),

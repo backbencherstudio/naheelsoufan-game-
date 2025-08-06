@@ -33,7 +33,9 @@ class FreeGameScreen extends StatelessWidget {
                   },
                 ),
                 Image.asset(AppImages.profilePic, height: 40.h, width: 40.w),
-                CustomIconsButtons(icon: AppIcons.settings, onTap: () {}),
+                CustomIconsButtons(icon: AppIcons.settings, onTap: () {
+                  context.push(RouteName.clickedSettingScreen);
+                }),
               ],
             ),
 

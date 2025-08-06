@@ -11,26 +11,12 @@ import '../../../../../../../core/constant/icons.dart';
 import '../../../../../../../core/routes/route_name.dart';
 import '../../../../../../../data/riverpod/count_down_state.dart';
 import '../../../../../game_type/riverpod/multiple_choice_provider.dart';
+import '../../../../../grid_play_game/riverpod/function.dart';
 import '../../../riverpod/advance_turn_controller.dart';
 import '../../../riverpod/stateProvider.dart';
 
 void onWrongAnswerTap(BuildContext context, String rightAns, ref) {
   bool isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
-  // ref.listen<AdvanceNavigation>(advanceNavigationProvider, (prev, next) {
-  //   if (next == AdvanceNavigation.leaderboard) {
-  //     context.push(RouteName.leaderboardScreen);
-  //   } else if (next == AdvanceNavigation.nextTurn) {
-  //     context.push(RouteName.nextTurnScreen);
-  //   }
-  //   ref
-  //       .read(advanceNavigationProvider.notifier)
-  //       .state =
-  //       AdvanceNavigation.none;
-  // });
-  // ref.watch(advanceTurnControllerProvider);
-  // WidgetsBinding.instance.addPostFrameCallback((_) {
-  //   ref.read(autoCounterProvider(5).notifier).start();
-  // });
   showDialog(
     context: context,
     builder: (_) {
@@ -53,9 +39,9 @@ void onWrongAnswerTap(BuildContext context, String rightAns, ref) {
                     horizontal: isPortrait ? 24.w : 52.8.h,
                   ),
                   decoration: BoxDecoration(
-                    border: Border.all(color: Color(0xffFFB4AB), width: 3),
+                    border: Border.all(color: Color(0xffFFB4AB), width: isPortrait ? 3.w : 6.6.h),
                     color: Color(0xffFFDAD6),
-                    borderRadius: BorderRadius.circular(24.r),
+                    borderRadius: BorderRadius.circular(isPortrait ? 12.r : 24.r),
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -86,7 +72,7 @@ void onWrongAnswerTap(BuildContext context, String rightAns, ref) {
                           decoration: BoxDecoration(
                             border: Border.all(
                               color: Color(0xff009940),
-                              width: 1,
+                              width: isPortrait ? 1.w : 2.2.h,
                             ),
                             color: Color(0xffEBFFE7),
                             borderRadius: BorderRadius.circular(

@@ -60,7 +60,7 @@ class CustomGridQuestionCard extends ConsumerWidget {
             ref.read(isDifficultyVanished.notifier).state = true;
             await Future.delayed(const Duration(seconds: 1));
             if (!context.mounted) return;
-            context.push(nextScreen);
+            context.pushReplacement(nextScreen);
           },
           child: CustomDifficultyLevelCard(
             difficulty: "EASY",

@@ -1,15 +1,13 @@
-// countdown_provider.dart
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:async';
 
-final countdownProvider = StateNotifierProvider.family<CountdownNotifier, int, int>(
-      (ref, start) => CountdownNotifier(start),
-);
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CountdownNotifier extends StateNotifier<int> {
+  final int _initialStart;
   Timer? _timer;
 
-  CountdownNotifier(super.start) {
+  CountdownNotifier(super.start)
+      : _initialStart = start {
     _startCountdown();
   }
 
@@ -18,9 +16,15 @@ class CountdownNotifier extends StateNotifier<int> {
       if (state > 0) {
         state--;
       } else {
-        _timer?.cancel();
+        timer.cancel();
       }
     });
+  }
+
+  void reset() {
+    _timer?.cancel();
+    state = _initialStart;
+    _startCountdown();
   }
 
   @override

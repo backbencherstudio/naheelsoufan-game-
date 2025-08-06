@@ -1,6 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/riverpod/stateProvider.dart';
-
+import '../../../../../data/riverpod/count_down_state.dart';
 import '../../../game_type/riverpod/multiple_choice_provider.dart';
 import '../../../grid_play_game/riverpod/function.dart';
 import '../../../question_answer_screen/next_turn/riverpod/player_name_state_provider.dart';
@@ -24,12 +25,16 @@ final advanceTurnControllerProvider = Provider.autoDispose<void>((ref) {
     final nextPlayerTurn =
         (currentPlayerTurn + 1) % current.totalPlayer;
 
-    // Update turn and related state
+
     ref.read(playerTurnProvider.notifier).state = nextPlayerTurn;
     ref.read(playerNo.notifier).state = current.currentPlayer;
 
     ref.read(isCorrectQuiz.notifier).state = false;
     ref.read(huntModeOn.notifier).state = false;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(autoCounterProvider(60).notifier).reset();
+    });
 
     if (nextPlayerTurn == 0) {
       ref.read(advanceNavigationProvider.notifier).state =

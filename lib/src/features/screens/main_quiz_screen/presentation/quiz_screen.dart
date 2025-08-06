@@ -77,7 +77,8 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
                     initTime: 60,
                     onPaused: () {
                       ref.read(advanceTurnTriggerProvider.notifier).state++;
-                      timesUp(context);
+                      ref.read(huntModeOn.notifier).state = true;
+                      timesUp(context, ref);
                       WidgetsBinding.instance.addPostFrameCallback((_) {
                         ref.read(autoCounterProvider(60).notifier).reset();
                       });
@@ -114,13 +115,6 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
             SizedBox(height: 90.h),
             PlayerPointContainer(),
             SizedBox(height: 30.h),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "Question 01/ 15",
-                style: style.bodyMedium!.copyWith(fontWeight: FontWeight.w500),
-              ),
-            ),
           ],
         ),
       ),
