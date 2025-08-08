@@ -83,7 +83,7 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
                               CustomIconsButtons(
                                 icon: AppIcons.crossIcon,
                                 onTap: () {
-                                  onQuitGameTap(context);
+                                  //onQuitGameTap(context);
                                 },
                                 bgIcon: AppIcons.redBGsqare,
                               ),
@@ -188,6 +188,7 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
                         ref.read(checkSecondDifficultyScreen.notifier).state = true;
                       });
                     }
+                    ref.read(commonProviderDisposer);
                   }
                 ),
               ),

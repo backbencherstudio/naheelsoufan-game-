@@ -71,7 +71,7 @@ class _GridDifficultyLevelScreenState extends State<GridDifficultyLevelScreen> {
                       icon: AppIcons.crossIcon,
                       bgIcon: AppIcons.redButtonBG,
                       onTap: () {
-                        onQuitGameTap(context);
+                        //onQuitGameTap(context);
                       },
                     ),
                     SizedBox(width: isPortrait ? 8.w : 17.6.h),
@@ -81,15 +81,18 @@ class _GridDifficultyLevelScreenState extends State<GridDifficultyLevelScreen> {
                         padding: EdgeInsets.all(8.r),
                         itemCount: questionList.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return Consumer(
-                            builder: (_, ref, _) {
-                              return CustomGridQuestionCard(
-                                questionId: index.toString(),
-                                questionCategory:
-                                    questionList[index].questionCategory,
-                                nextScreen: RouteName.questionRevealedScreen,
-                              );
-                            }
+                          return SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Consumer(
+                              builder: (_, ref, _) {
+                                return CustomGridQuestionCard(
+                                  questionId: index.toString(),
+                                  questionCategory:
+                                      questionList[index].questionCategory,
+                                  nextScreen: RouteName.questionRevealedScreen,
+                                );
+                              }
+                            ),
                           );
                         },
                         separatorBuilder:

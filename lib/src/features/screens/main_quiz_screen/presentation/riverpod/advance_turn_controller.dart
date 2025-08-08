@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/riverpod/stateProvider.dart';
 import '../../../../../data/riverpod/count_down_state.dart';
@@ -12,7 +13,7 @@ enum AdvanceNavigation { none, leaderboard, nextTurn }
 final advanceNavigationProvider =
 StateProvider<AdvanceNavigation>((ref) => AdvanceNavigation.none);
 
-final advanceTurnControllerProvider = Provider<void>((ref) {
+final advanceTurnControllerProvider = Provider.autoDispose<void>((ref) {
   ref.listen<bool>(advanceTurnFlagProvider, (previous, next) async {
     if (previous == next) return;
     if (next != true) return;
@@ -21,22 +22,25 @@ final advanceTurnControllerProvider = Provider<void>((ref) {
 
     final currentPlayerTurn = ref.read(playerTurnProvider);
     final current = ref.read(playerProvider);
-    final nextPlayerTurn = (currentPlayerTurn + 1) % current.totalPlayer;
+    final nextPlayerTurn =
+        (currentPlayerTurn + 1) % current.totalPlayer;
 
-    // Advance turn
+
     ref.read(playerTurnProvider.notifier).state = nextPlayerTurn;
-    ref.read(playerNo.notifier).state = nextPlayerTurn;
+    ref.read(playerNo.notifier).state = current.currentPlayer;
 
-    // Reset states
     ref.read(isCorrectQuiz.notifier).state = false;
     ref.read(huntModeOn.notifier).state = false;
-    ref.read(autoCounterProvider(60).notifier).reset();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(autoCounterProvider(60).notifier).reset();
+    });
 
     if (nextPlayerTurn == 0) {
       ref.read(advanceNavigationProvider.notifier).state =
           AdvanceNavigation.leaderboard;
     } else {
-      for (var i = 0; i < 4; i++) {
+      for (final i in [0, 1, 2, 3]) {
         ref.read(checkChoicesProvider(i).notifier).state = -1;
       }
       ref.read(isRightWrongElse.notifier).state = -1;
@@ -45,7 +49,6 @@ final advanceTurnControllerProvider = Provider<void>((ref) {
           AdvanceNavigation.nextTurn;
     }
 
-    // Reset flag
-    //ref.read(advanceTurnFlagProvider.notifier).state = false;
+    ref.read(advanceTurnFlagProvider.notifier).state = false;
   });
 });
