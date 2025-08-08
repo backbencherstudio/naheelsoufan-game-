@@ -13,12 +13,20 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/selection_provider.dart';
 import '../../../../core/constant/icons.dart';
 import '../../../../core/constant/images.dart';
+import '../../main_quiz_screen/presentation/riverpod/stateProvider.dart';
 
 class PlayerSelectionScreen extends ConsumerWidget {
   const PlayerSelectionScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final controller = ref.read(playerProvider.notifier);
+    final state = ref.watch(selectionProvider);
+    final fixedPlayers = {0: true, 1: true};
+    final dynamicPlayers = state.selectedTiles;
+    final allPlayers = {...fixedPlayers, ...dynamicPlayers};
+    final totalPlayers = allPlayers.length;
+    final current = ref.read(playerProvider);
     final style = Theme.of(context).textTheme;
     final isSelected = ref.watch(selectionProvider);
     final areAllSelected = ref
@@ -118,6 +126,7 @@ class PlayerSelectionScreen extends ConsumerWidget {
 
             GestureDetector(
               onTap: () {
+                controller.state = current.copyWith(totalPlayer: totalPlayers);
                 context.pushReplacement(RouteName.categorySelectionScreen);
               },
               child: Container(
