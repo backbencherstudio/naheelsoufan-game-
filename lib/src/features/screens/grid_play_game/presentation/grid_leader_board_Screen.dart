@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/constant/padding.dart';
+import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/catagory_selection_widgets/customRound_button.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
@@ -10,6 +13,8 @@ import 'package:vs_scrollbar/vs_scrollbar.dart';
 
 import '../../../../core/constant/images.dart';
 import '../../../../core/theme/theme_extension/color_scheme.dart';
+import '../../../../data/riverpod/common_disposer.dart';
+import '../../game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
 import '../../main_quiz_screen/presentation/widgets/leaderBoard_widgets/Custom_placeBox.dart';
 import '../../main_quiz_screen/presentation/widgets/leaderBoard_widgets/customFisrtPlace.dart';
 import '../../main_quiz_screen/presentation/widgets/leaderBoard_widgets/custom_box.dart';
@@ -35,11 +40,16 @@ class GridLeaderBoardScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CustomIconsButtons(
-                    icon: AppIcons.backIcons,
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
+                  Consumer(
+                    builder: (_, ref, _) {
+                      return CustomIconsButtons(
+                        icon: AppIcons.backIcons,
+                        onTap: () {
+                          context.go(RouteName.gameModeScreens);
+                          ref.read(commonProviderDisposer)();
+                        },
+                      );
+                    }
                   ),
           
                   Text(
@@ -49,7 +59,7 @@ class GridLeaderBoardScreen extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  CustomIconsButtons(icon: AppIcons.threeDot, onTap: () {}),
+                  CustomPopUpMenu(),
                 ],
               ),
           

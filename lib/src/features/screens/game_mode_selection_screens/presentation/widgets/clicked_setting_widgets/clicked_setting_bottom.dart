@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../../../core/constant/icons.dart';
+import '../../../../../common_widegts/music_off_on_whole_screen/music_volume_widgets.dart';
 import '../../../../account_screens/presentation/widgets/custom_music_volume_buttton.dart';
 import '../../../../../common_widegts/music_off_on_whole_screen/riverpod/musicVisible_provider.dart';
 import '../home_widgets/custom_icons_Buttons.dart';
@@ -15,30 +16,10 @@ class ClickedSettingBottom extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Consumer(
-              builder: (context, ref, _) {
-                final isVisible = ref.watch(isMusicVisibleProvider);
-                return CustomMusicoffButton(
-                  onTap: () {
-                    ref.read(isMusicVisibleProvider.notifier).state =
-                    !isVisible;
-                  },
-                  isSelected: isVisible,
-                );
-              },
-            ),
-            SizedBox(width: 10.w),
-            CustomIconsButtons(
-              icon: AppIcons.sound,
-              onTap: () {},
-              bgIcon: AppIcons.iconBG,
-            ),
-          ],
-        ),
+        Consumer(
+          builder: (context, ref, _) {
+            final isVisible = ref.watch(isMusicVisibleProvider);
+            return MusicOffOnWholePage();}),
         SizedBox(height: 32.h,),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

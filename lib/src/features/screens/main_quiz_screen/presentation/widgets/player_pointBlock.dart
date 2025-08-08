@@ -24,19 +24,19 @@ class PlayerPointBlock extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(1.r),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12.r),
-        gradient:LinearGradient(colors: (blockCardState == 2) ? [
-        AppColorScheme.softYellow,
+          borderRadius: BorderRadius.circular(12.r),
+          gradient:LinearGradient(colors: (blockCardState == 2) ? [
+            AppColorScheme.softYellow,
             AppColorScheme.midYellow,
             AppColorScheme.darkYellow,
-        ]:  [
-          Colors.transparent,
-          Colors.transparent,
-          Colors.transparent,
-        ],
-        begin: Alignment.bottomLeft,
-        end: Alignment.topRight
-        )
+          ]:  [
+            Colors.transparent,
+            Colors.transparent,
+            Colors.transparent,
+          ],
+              begin: Alignment.bottomLeft,
+              end: Alignment.topRight
+          )
       ),
       child: Padding(
         padding: const EdgeInsets.all(0.5),
@@ -45,37 +45,37 @@ class PlayerPointBlock extends StatelessWidget {
           width: 104.w,
           height: 105.h,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12.r),
-            gradient:
-            LinearGradient(
-              colors: (blockCardState == 2) ? [
-                AppColorScheme.softYellow,
-                AppColorScheme.midYellow,
-                AppColorScheme.darkYellow,
-              ] : (blockCardState == -1) ? [
-                AppColorScheme.primaryTextColor,
-                AppColorScheme.primaryTextColor,
-                AppColorScheme.primaryTextColor,
-              ] : (blockCardState == 1) ? [
-                AppColorScheme.startGradGreen,
-                AppColorScheme.midGradGreen,
-                AppColorScheme.startGradGreen,
-              ] : (blockCardState == 0) ? [
-                AppColorScheme.purpleContainerColor,
-                AppColorScheme.purpleContainerColor,
-                AppColorScheme.purpleContainerColor,
-              ] : [
-                AppColorScheme.socialBack,
-                AppColorScheme.socialBack,
-                AppColorScheme.socialBack,
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
-            border: Border.all(
-              color: AppColorScheme.pointBlockBorderColor,
-              width: 3.w
-            )
+              borderRadius: BorderRadius.circular(12.r),
+              gradient:
+              LinearGradient(
+                colors: (blockCardState == 2) ? [
+                  AppColorScheme.softYellow,
+                  AppColorScheme.midYellow,
+                  AppColorScheme.darkYellow,
+                ] : (blockCardState == -1) ? [
+                  AppColorScheme.primaryTextColor,
+                  AppColorScheme.primaryTextColor,
+                  AppColorScheme.primaryTextColor,
+                ] : (blockCardState == 1) ? [
+                  AppColorScheme.startGradGreen,
+                  AppColorScheme.midGradGreen,
+                  AppColorScheme.startGradGreen,
+                ] : (blockCardState == 0) ? [
+                  AppColorScheme.purpleContainerColor,
+                  AppColorScheme.purpleContainerColor,
+                  AppColorScheme.purpleContainerColor,
+                ] : [
+                  AppColorScheme.socialBack,
+                  AppColorScheme.socialBack,
+                  AppColorScheme.socialBack,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+              border: Border.all(
+                  color: AppColorScheme.pointBlockBorderColor,
+                  width: 3.w
+              )
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -88,9 +88,9 @@ class PlayerPointBlock extends StatelessWidget {
               Text(
                 "Player $playerNo",
                 style: style.bodyLarge!.copyWith(
-                  fontWeight: FontWeight.w500,
-                  color:
-                  (blockCardState == 2) ? Color(0xFF2E1126) : Colors.white
+                    fontWeight: FontWeight.w500,
+                    color:
+                    (blockCardState == 2) ? Color(0xFF2E1126) : Colors.white
                 ),
               ),
               SizedBox(height: 4.h),

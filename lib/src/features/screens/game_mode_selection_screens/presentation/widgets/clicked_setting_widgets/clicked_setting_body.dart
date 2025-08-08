@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/constant/images.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
-import '../../../../clicked_setting _while_playing/riverpod/click_setting_riverpod.dart';
+import '../../../../../../core/routes/route_name.dart';
+import '../../../riverpod/click_setting_riverpod.dart';
 
 class ClickedSettingBody extends StatelessWidget {
   const ClickedSettingBody({super.key});
@@ -55,7 +57,8 @@ class ClickedSettingBody extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8.r)
                         ),
                           padding: EdgeInsets.all(4.r),
-                          child: SvgPicture.asset(AppIcons.editIcon, colorFilter: ColorFilter.mode(AppColorScheme.deepPuroleBG, BlendMode.srcIn),)
+                          child: InkWell(onTap: ()=>context.push(RouteName.editProfileScreen),
+                              child: SvgPicture.asset(AppIcons.editIcon, colorFilter: ColorFilter.mode(AppColorScheme.deepPuroleBG, BlendMode.srcIn),))
                       ),
                     ),
                   ]),

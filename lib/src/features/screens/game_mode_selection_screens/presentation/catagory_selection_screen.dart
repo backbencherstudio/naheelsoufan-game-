@@ -11,6 +11,7 @@ import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/crea
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/catagory_selection_widgets/customRound_button.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/catagory_selection_widgets/custom_question_type_tile.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/selection_provider.dart';
 import '../../question_answer_screen/next_turn/riverpod/player_name_state_provider.dart';
 
@@ -20,7 +21,7 @@ class CatagorySelectionScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
-    final currentPlayerName = ref.watch(playerNameProvider);
+    final currentPlayerNo = ref.watch(playerNo);
     final selectedState = ref.watch(selectProvider);
 
     final List<String> levels = ["General Knowledge", "Math", "Science","General Knowledge", "Math", "Science","General Knowledge", "Math", "Science",];
@@ -40,12 +41,12 @@ class CatagorySelectionScreen extends ConsumerWidget {
                   },
                 ),
                 Image.asset(AppImages.profilePic, height: 40.h, width: 40.w),
-                CustomIconsButtons(icon: AppIcons.threeDot, onTap: () {}),
+                CustomPopUpMenu(),
               ],
             ),
             SizedBox(height: 8.h),
             Text(
-              currentPlayerName,
+              "Player $currentPlayerNo",
               style: style.titleLarge!.copyWith(
                 fontWeight: FontWeight.w400,
                 color: AppColorScheme.primary,
