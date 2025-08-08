@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -38,10 +39,20 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    _setLandscapeMode();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(autoCounterProvider(60).notifier).start();
     });
   }
+
+  // Force landscape mode
+  void _setLandscapeMode() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+    ]);
+  }
+
   @override
   Widget build(BuildContext context) {
     bool isPortrait =
