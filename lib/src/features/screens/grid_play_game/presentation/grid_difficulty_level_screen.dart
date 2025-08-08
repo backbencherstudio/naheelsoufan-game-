@@ -59,31 +59,30 @@ class _GridDifficultyLevelScreenState extends State<GridDifficultyLevelScreen> {
       child: Consumer(
         builder: (_, ref, _) {
           final check = ref.watch(isDifficultyVanished);
-          return Column(
-            children: [
-              SizedBox(height: isPortrait ? 30.h : 13.5.w),
-              SizedBox(
-                height: isPortrait ? 300.h : 135.w,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CustomIconsButtons(
-                      icon: AppIcons.crossIcon,
-                      bgIcon: AppIcons.redButtonBG,
-                      onTap: () {
-                        //onQuitGameTap(context);
-                      },
-                    ),
-                    SizedBox(width: isPortrait ? 8.w : 17.6.h),
-                    Expanded(
-                      child: ListView.separated(
-                        scrollDirection: Axis.horizontal,
-                        padding: EdgeInsets.all(8.r),
-                        itemCount: questionList.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Consumer(
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(height: isPortrait ? 30.h : 13.5.w),
+                SizedBox(
+                  height: isPortrait ? 300.h : 135.w,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CustomIconsButtons(
+                        icon: AppIcons.crossIcon,
+                        bgIcon: AppIcons.redButtonBG,
+                        onTap: () {
+                          //onQuitGameTap(context);
+                        },
+                      ),
+                      SizedBox(width: isPortrait ? 8.w : 17.6.h),
+                      Expanded(
+                        child: ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          padding: EdgeInsets.all(8.r),
+                          itemCount: questionList.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Consumer(
                               builder: (_, ref, _) {
                                 return CustomGridQuestionCard(
                                   questionId: index.toString(),
@@ -92,55 +91,55 @@ class _GridDifficultyLevelScreenState extends State<GridDifficultyLevelScreen> {
                                   nextScreen: RouteName.questionRevealedScreen,
                                 );
                               }
-                            ),
-                          );
-                        },
-                        separatorBuilder:
-                            (_, _) =>
-                                SizedBox(width: isPortrait ? 4.w : 8.8.h),
+                            );
+                          },
+                          separatorBuilder:
+                              (_, _) =>
+                                  SizedBox(width: isPortrait ? 4.w : 8.8.h),
+                        ),
+                      ),
+                      SizedBox(width: isPortrait ? 8.w : 17.6.h),
+                      CustomPopUpMenu()
+                    ],
+                  ),
+                ),
+                if (!ref.read(isDifficultyVanished.notifier).state) ...[
+                  SizedBox(height: isPortrait ? 30.h : 13.5.w),
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: isPortrait ? 24.w : 52.8.h,
+                      vertical: isPortrait ? 8.h : 3.6.w,
+                    ),
+                    decoration: BoxDecoration(
+                      color: AppColorScheme.containerColor,
+                      borderRadius: BorderRadius.circular(8.r),
+                      border: Border.all(
+                        width: isPortrait ? 1.w : 2.2.h,
+                        color: AppColorScheme.onPrimary,
                       ),
                     ),
-                    SizedBox(width: isPortrait ? 8.w : 17.6.h),
-                    CustomPopUpMenu()
-                  ],
-                ),
-              ),
-              if (!ref.read(isDifficultyVanished.notifier).state) ...[
-                SizedBox(height: isPortrait ? 30.h : 13.5.w),
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: isPortrait ? 24.w : 52.8.h,
-                    vertical: isPortrait ? 8.h : 3.6.w,
-                  ),
-                  decoration: BoxDecoration(
-                    color: AppColorScheme.containerColor,
-                    borderRadius: BorderRadius.circular(8.r),
-                    border: Border.all(
-                      width: isPortrait ? 1.w : 2.2.h,
-                      color: AppColorScheme.onPrimary,
-                    ),
-                  ),
-                  child: RichText(
-                    text: TextSpan(
-                      text: "Select difficulty level",
-                      style: textTheme.displayMedium?.copyWith(
-                        fontSize: 7.2.sp,
+                    child: RichText(
+                      text: TextSpan(
+                        text: "Select difficulty level",
+                        style: textTheme.displayMedium?.copyWith(
+                          fontSize: 7.2.sp,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ] else ...[
-                SizedBox(height: isPortrait ? 11.h : 3.w),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    PlatoonHunterCard(cardName: "Platoon"),
-                    SizedBox(width: isPortrait ? 24.w : 52.8.h),
-                    PlatoonHunterCard(cardName: "Hunt"),
-                  ],
-                ),
+                ] else ...[
+                  SizedBox(height: isPortrait ? 11.h : 3.w),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      PlatoonHunterCard(cardName: "Platoon"),
+                      SizedBox(width: isPortrait ? 24.w : 52.8.h),
+                      PlatoonHunterCard(cardName: "Hunt"),
+                    ],
+                  ),
+                ],
               ],
-            ],
+            ),
           );
         },
       ),

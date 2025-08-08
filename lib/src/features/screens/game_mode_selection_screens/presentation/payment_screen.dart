@@ -6,6 +6,7 @@ import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/crea
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/choose_subscription_widgets/subscription_card.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/payment_share_dialog_widgets/show_dialog.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
 import '../../../../core/constant/icons.dart';
 import '../../../../core/constant/images.dart';
 import '../../../../core/routes/route_name.dart';
@@ -33,7 +34,7 @@ class PaymentScreen extends StatelessWidget {
                     },
                   ),
                   Image.asset(AppImages.profilePic, height: 40.h, width: 40.w),
-                  CustomIconsButtons(icon: AppIcons.threeDot, onTap: () {})
+                  CustomPopUpMenu()
                 ],
               ),
               SizedBox(height: 28.h),

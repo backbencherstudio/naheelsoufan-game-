@@ -9,6 +9,7 @@ import '../../../../../core/routes/route_name.dart';
 import '../../../../common_widegts/create_screen/create_screen.dart';
 import '../../../account_screens/presentation/widgets/my_account_wodgets/header_button.dart';
 import '../../../game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
+import '../../../game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
 import '../../../main_quiz_screen/presentation/riverpod/stateProvider.dart';
 import '../riverpod/player_name_state_provider.dart';
 
@@ -35,7 +36,7 @@ class NextTurnScreen extends ConsumerWidget {
                       Navigator.pop(context);
                     },
                   ),
-                  CustomIconsButtons(icon: AppIcons.threeDot, onTap: () {}),
+          CustomPopUpMenu(),
                 ],
               ),
               Spacer(),

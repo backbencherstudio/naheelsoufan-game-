@@ -36,7 +36,7 @@ class CreateRoomScreen extends StatelessWidget {
                     },
                   ),
                   Image.asset(AppImages.profilePic, height: 40.h, width: 40.w),
-                  CustomIconsButtons(icon: AppIcons.settings, onTap: () {}),
+                  CustomIconsButtons(icon: AppIcons.threeDot, onTap: () {}),
                 ],
               ),
               SizedBox(height: 60.h),
