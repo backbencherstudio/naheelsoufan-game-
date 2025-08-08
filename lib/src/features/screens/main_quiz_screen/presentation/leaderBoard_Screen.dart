@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
@@ -10,6 +11,7 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/leaderBoard_widgets/leaderBox.dart';
 
 import '../../../../core/routes/route_name.dart';
+import '../../../../data/riverpod/common_disposer.dart';
 
 class LeaderboardScreen extends StatelessWidget {
   const LeaderboardScreen({super.key});
@@ -25,11 +27,16 @@ class LeaderboardScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CustomIconsButtons(
-                  icon: AppIcons.backIcons,
-                  onTap: () {
-                    context.go(RouteName.gameModeScreens);
-                  },
+                Consumer(
+                  builder: (_, ref, _) {
+                    return CustomIconsButtons(
+                      icon: AppIcons.backIcons,
+                      onTap: () {
+                        context.go(RouteName.gameModeScreens);
+                        ref.read(commonProviderDisposer)();
+                      },
+                    );
+                  }
                 ),
 
                 Text(

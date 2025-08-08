@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
@@ -12,6 +13,7 @@ import 'package:vs_scrollbar/vs_scrollbar.dart';
 
 import '../../../../core/constant/images.dart';
 import '../../../../core/theme/theme_extension/color_scheme.dart';
+import '../../../../data/riverpod/common_disposer.dart';
 import '../../game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
 import '../../main_quiz_screen/presentation/widgets/leaderBoard_widgets/Custom_placeBox.dart';
 import '../../main_quiz_screen/presentation/widgets/leaderBoard_widgets/customFisrtPlace.dart';
@@ -38,11 +40,16 @@ class GridLeaderBoardScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CustomIconsButtons(
-                    icon: AppIcons.backIcons,
-                    onTap: () {
-                      context.go(RouteName.gameModeScreens);
-                    },
+                  Consumer(
+                    builder: (_, ref, _) {
+                      return CustomIconsButtons(
+                        icon: AppIcons.backIcons,
+                        onTap: () {
+                          context.go(RouteName.gameModeScreens);
+                          ref.read(commonProviderDisposer)();
+                        },
+                      );
+                    }
                   ),
           
                   Text(

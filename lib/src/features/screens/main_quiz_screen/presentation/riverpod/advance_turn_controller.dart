@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:naheelsoufan_game/src/data/riverpod/common_disposer.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/riverpod/stateProvider.dart';
 import '../../../../../data/riverpod/count_down_state.dart';
 import '../../../game_type/riverpod/multiple_choice_provider.dart';
@@ -40,13 +41,16 @@ final advanceTurnControllerProvider = Provider.autoDispose<void>((ref) {
       ref.read(advanceNavigationProvider.notifier).state =
           AdvanceNavigation.leaderboard;
     } else {
-      for (final i in [0, 1, 2, 3]) {
+      for (int i = current.currentPlayer; i < current.totalPlayer; i++) {
         ref.read(checkChoicesProvider(i).notifier).state = -1;
       }
       ref.read(isRightWrongElse.notifier).state = -1;
       ref.read(selectedPlayerIndexProvider.notifier).state = -1;
       ref.read(advanceNavigationProvider.notifier).state =
           AdvanceNavigation.nextTurn;
+          ref.invalidate(isSomethingClicked);
+          ref.invalidate(isRightWrongElse);
+          ref.invalidate(selectedPlayerIndexProvider);
     }
 
     ref.read(advanceTurnFlagProvider.notifier).state = false;
