@@ -53,7 +53,6 @@ class CustomGridQuestionCard extends ConsumerWidget {
         SizedBox(height: isPortrait ? 16.h : 7.2.w,),
         GestureDetector(
           onTap: ()async {
-            ref.read(checkSecondDifficultyScreen.notifier).state = true;
             ref.read(isDifficultyClicked1(int.parse(questionId)).notifier).state = true;
             ref.read(isDifficultyClicked2(int.parse(questionId)).notifier).state = false;
             ref.read(isDifficultyClicked3(int.parse(questionId)).notifier).state = false;
@@ -95,7 +94,6 @@ class CustomGridQuestionCard extends ConsumerWidget {
         SizedBox(height: isPortrait ? 8.h : 3.6.w,),
         GestureDetector(
           onTap: ()async {
-            ref.read(checkSecondDifficultyScreen.notifier).state = true;
             ref.read(isDifficultyClicked2(int.parse(questionId)).notifier).state = true;
             ref.read(isDifficultyClicked1(int.parse(questionId)).notifier).state = false;
             ref.read(isDifficultyClicked3(int.parse(questionId)).notifier).state = false;
@@ -137,7 +135,6 @@ class CustomGridQuestionCard extends ConsumerWidget {
         SizedBox(height: isPortrait ? 8.h : 3.6.w,),
         GestureDetector(
           onTap: ()async {
-            ref.read(checkSecondDifficultyScreen.notifier).state = true;
             ref.read(isDifficultyClicked3(int.parse(questionId)).notifier).state = true;
             ref.read(isDifficultyClicked2(int.parse(questionId)).notifier).state = false;
             ref.read(isDifficultyClicked1(int.parse(questionId)).notifier).state = false;

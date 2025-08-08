@@ -22,7 +22,7 @@ class GameModeScreens extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> keys = GlobalKey<ScaffoldState>();
-    final _menuKey = GlobalKey();
+    final menuKey = GlobalKey();
 
     return CreateScreen(
       keys: keys,
@@ -79,7 +79,7 @@ class GameModeScreens extends StatelessWidget {
               }
             ),
             SizedBox(height: 40.h),
-            LanguageDropDown(menuKey: _menuKey,),
+            LanguageDropDown(menuKey: menuKey,),
           ],
         ),
       ),

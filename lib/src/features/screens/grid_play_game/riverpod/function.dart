@@ -23,9 +23,12 @@ final isDifficultyClicked1 = StateProvider.family<bool, int>((ref, id) => false)
 final isDifficultyClicked2 = StateProvider.family<bool, int>((ref, id) => false);
 final isDifficultyClicked3 = StateProvider.family<bool, int>((ref, id) => false);
 final isDifficultyVanished = StateProvider.autoDispose<bool>((ref) => false);
-final checkSecondDifficultyScreen = StateProvider.autoDispose<bool>((ref) => false);
+
+final checkSecondDifficultyScreen = StateProvider<bool>((ref) => false);
 
 final isRightWrongElse = StateProvider<int>((ref)=>-1);
 final huntModeOn = StateProvider.autoDispose<bool>((ref)=>false);
 
 final showTimeUp = StateProvider.autoDispose<bool>((ref)=>true);
+
+final isClose = StateProvider<bool>((ref)=>false);

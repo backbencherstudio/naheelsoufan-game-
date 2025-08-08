@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -22,9 +23,41 @@ import '../../main_quiz_screen/presentation/widgets/row_arrangment/custom_row.da
 import '../../main_quiz_screen/presentation/widgets/row_arrangment/custom_rowThree.dart';
 import '../../main_quiz_screen/presentation/widgets/row_arrangment/customrowTwo.dart';
 
-class GridLeaderBoardScreen extends StatelessWidget {
+class GridLeaderBoardScreen extends StatefulWidget {
   const GridLeaderBoardScreen({super.key});
 
+  @override
+  State<GridLeaderBoardScreen> createState() => _GridLeaderBoardScreenState();
+}
+
+class _GridLeaderBoardScreenState extends State<GridLeaderBoardScreen> {
+  @override
+  void initState() {
+    super.initState();
+    _setLandscapeMode(); // Set orientation to landscape
+  }
+
+  @override
+  void dispose() {
+    _setPortraitMode(); // Reset orientation to portrait
+    super.dispose();
+  }
+
+  // Force landscape mode
+  void _setLandscapeMode() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+    ]);
+  }
+
+  //Reset to portrait mode
+  void _setPortraitMode() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+  }
   @override
   Widget build(BuildContext context) {
     bool isPortrait =
@@ -51,7 +84,7 @@ class GridLeaderBoardScreen extends StatelessWidget {
                       );
                     }
                   ),
-          
+
                   Text(
                     "Congratulation “Team Name”",
                     textAlign: TextAlign.center,
@@ -62,7 +95,7 @@ class GridLeaderBoardScreen extends StatelessWidget {
                   CustomPopUpMenu(),
                 ],
               ),
-          
+
               SizedBox(height: isPortrait ? 20.h : 5.w),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

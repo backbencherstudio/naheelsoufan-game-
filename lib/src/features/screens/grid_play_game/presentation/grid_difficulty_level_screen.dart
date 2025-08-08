@@ -29,11 +29,11 @@ class _GridDifficultyLevelScreenState extends State<GridDifficultyLevelScreen> {
     _setLandscapeMode(); // Set orientation to landscape
   }
 
-  @override
-  void dispose() {
-    _setPortraitMode(); // Reset orientation to portrait
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _setPortraitMode(); // Reset orientation to portrait
+  //   super.dispose();
+  // }
 
   // Force landscape mode
   void _setLandscapeMode() {
@@ -83,7 +83,6 @@ class _GridDifficultyLevelScreenState extends State<GridDifficultyLevelScreen> {
                         itemBuilder: (BuildContext context, int index) {
                           return Consumer(
                             builder: (_, ref, _) {
-                              final checkScreen = ref.watch(checkSecondDifficultyScreen.notifier).state;
                               return CustomGridQuestionCard(
                                 questionId: index.toString(),
                                 questionCategory:
