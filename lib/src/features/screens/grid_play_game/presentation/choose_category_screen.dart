@@ -12,6 +12,7 @@ import 'package:naheelsoufan_game/src/features/common_widegts/special_elevated_b
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/catagory_selection_widgets/customRound_button.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/catagory_selection_widgets/custom_question_type_tile.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/selection_provider.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentation/widget/grid_choose_category_question_tile.dart';
 
@@ -34,11 +35,11 @@ class ChooseCategoryScreen extends StatelessWidget {
                 CustomIconsButtons(
                   icon: AppIcons.backIcons,
                   onTap: () {
-                    Navigator.pop(context);
+                    context.pop();
                   },
                 ),
                 Image.asset(AppImages.profilePic, height: 40.h, width: 40.w),
-                CustomIconsButtons(icon: AppIcons.threeDot, onTap: () {}),
+                CustomPopUpMenu(),
               ],
             ),
             SizedBox(height: 8.h),
@@ -77,7 +78,6 @@ class ChooseCategoryScreen extends StatelessWidget {
                                   GridChooseCategoryQuestionTile(
                                       onTap: () {
                                         ref.read(isSelectedClicked(index).notifier).state = !(ref.read(isSelectedClicked(index).notifier).state);
-                                        // Update global trigger state
                                         ref.read(isSomethingClicked.notifier).state = true;
                                       }, index: index,
 

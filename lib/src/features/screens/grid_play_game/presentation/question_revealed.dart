@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:naheelsoufan_game/src/data/riverpod/common_disposer.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentation/widget/platoon_hunter_card.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/riverpod/function.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/point.dart';
@@ -16,19 +19,58 @@ import '../../account_screens/presentation/widgets/my_account_wodgets/header_but
 import '../../game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import '../../game_type/game_type.dart';
 import '../../game_type/riverpod/multiple_choice_provider.dart';
+import '../../main_quiz_screen/presentation/riverpod/advance_turn_controller.dart';
 import '../../main_quiz_screen/presentation/riverpod/stateProvider.dart';
 import '../../main_quiz_screen/presentation/widgets/custom_countdown.dart';
 import '../../main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/show_quit_dialog.dart';
 import '../../main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/times_up.dart';
 import '../../question_answer_screen/next_turn/riverpod/player_name_state_provider.dart';
 
-class QuestionRevealed extends StatelessWidget {
+class QuestionRevealed extends ConsumerStatefulWidget {
   const QuestionRevealed({super.key});
+
+  @override
+  ConsumerState<QuestionRevealed> createState() => _QuestionRevealedState();
+}
+
+class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _setLandscapeMode();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(autoCounterProvider(60).notifier).start();
+    });
+  }
+
+  // Force landscape mode
+  void _setLandscapeMode() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+    ]);
+  }
 
   @override
   Widget build(BuildContext context) {
     bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
+    ref.listen<AdvanceNavigation>(advanceNavigationProvider, (prev, next) {
+      if (next == AdvanceNavigation.leaderboard) {
+        context.push(RouteName.gridLeaderboard);
+      } else if (next == AdvanceNavigation.nextTurn) {
+        context.pushReplacement(RouteName.gridDifficultyLevelScreen);
+      }
+      ref
+          .read(advanceNavigationProvider.notifier)
+          .state =
+          AdvanceNavigation.none;
+      ref.read(commonProviderDisposer)();
+    });
+
+    ref.watch(advanceTurnControllerProvider);
     return CreateScreen(
       child: Padding(
         padding: AppPadding.horizontalPadding,
@@ -43,7 +85,7 @@ class QuestionRevealed extends StatelessWidget {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      if (!isPortrait)
+                      if (!isPortrait)...[
                         SizedBox(
                           width: 990.h,
                           child: Row(
@@ -57,25 +99,46 @@ class QuestionRevealed extends StatelessWidget {
                                 bgIcon: AppIcons.redBGsqare,
                               ),
                               PointShow(),
-                              CustomCountdown(),
+                              SizedBox(
+                                height: 20.w,
+                                width: 45.w,
+                                child: CustomCountdown(
+                                  initTime: 60,
+                                  onPaused: () {
+                                    ref.read(advanceTurnTriggerProvider.notifier).state++;
+                                    timesUp(context, ref);
+                                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                                      ref.read(autoCounterProvider(60).notifier).reset();
+                                    });
+                                  },
+                                ),
+                              ),
                             ],
                           ),
+                        ),] else ...[
+                          CustomIconsButtons(
+                        icon: AppIcons.crossIcon,
+                        onTap: () {
+                          onQuitGameTap(context);
+                        },
+                        bgIcon: AppIcons.redBGsqare,
+                      ),
+                        SizedBox(
+                          height: 100.h,
+                          width: 100.h,
+                          child: CustomCountdown(
+                            initTime: 60,
+                            onPaused: () {
+                              ref.read(advanceTurnTriggerProvider.notifier).state++;
+                              timesUp(context, ref);
+                              WidgetsBinding.instance.addPostFrameCallback((_) {
+                                ref.read(autoCounterProvider(60).notifier).reset();
+                              });
+                            },
+                          ),
                         ),
-                      if (isPortrait)
-                        CustomIconsButtons(
-                          icon: AppIcons.crossIcon,
-                          onTap: () {
-                            onQuitGameTap(context);
-                          },
-                          bgIcon: AppIcons.redBGsqare,
-                        ),
-                      if (isPortrait)
-                        GestureDetector(
-                          onTap: () {
-                                timesUp(context);
-                          },
-                          child: CustomCountdown(),
-                        ),
+                      ],
+
                       if(!isPortrait && ref.read(huntModeOn.notifier).state) HeaderButton(
                         height: isPortrait ? 40.h : 20.w,
                         textTitle: 'Steal Point',
@@ -87,7 +150,7 @@ class QuestionRevealed extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                           fontSize: isPortrait ? 18.sp : 8.sp,
                         ),
-          
+
                         gradientColor: LinearGradient(
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
@@ -103,13 +166,7 @@ class QuestionRevealed extends StatelessWidget {
                           vertical: isPortrait ? 4.h : 3.6.w,
                         ),
                       ),
-                      CustomIconsButtons(
-                        icon: AppIcons.threeDot,
-                        onTap: () {
-                          // botttom sheet jabe
-                        },
-                        bgIcon: AppIcons.iconBG,
-                      ),
+                      CustomPopUpMenu(),
                     ],
                   );
                 }
@@ -131,10 +188,8 @@ class QuestionRevealed extends StatelessWidget {
                   ],
                   question: "What kind of energy does that sun create?",
                   rightChoice: 3,
-                  func: ()async {
-                    await Future.delayed(const Duration(seconds: 1));
-                    if (!context.mounted) return;
-                    context.push(RouteName.gridDifficultyLevelScreen);
+                  func: (){
+                    ref.read(advanceTurnFlagProvider.notifier).state = true;
                   }
                 ),
               ),
@@ -143,11 +198,12 @@ class QuestionRevealed extends StatelessWidget {
                 builder: (_, ref, _) {
                   final checkRight = ref.watch(isRightWrongElse);
                   final checkHunt = ref.watch(huntModeOn);
-                  if (checkRight != 1 && checkRight != -1 && !checkHunt) {
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      onWrongAnswerTap(context);
-                    });
-                  }
+
+                  // if (checkRight != 1 && checkHunt) {
+                  //   WidgetsBinding.instance.addPostFrameCallback((_) {
+                  //     onWrongAnswerTap(context, "Nuclear energy", ref);
+                  //   });
+                  // }
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

@@ -18,7 +18,7 @@ class NextTurnScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
-    final currentPlayer = ref.watch(playerNameProvider);
+    final currentPlayer = ref.watch(playerNo);
 
     return Scaffold(
       body: CreateScreen(
@@ -50,7 +50,7 @@ class NextTurnScreen extends ConsumerWidget {
                         color: AppColorScheme.deepPuroleBG,
                         border: Border.all(
                           color: AppColorScheme.listContainerColor,
-                          width: 2,
+                          width: 2.w,
                         ),
                         borderRadius: BorderRadius.circular(16.r),
                       ),
@@ -65,7 +65,7 @@ class NextTurnScreen extends ConsumerWidget {
                             ),
                             SizedBox(height: 16.h),
                             Text(
-                              currentPlayer,
+                              "Player ${currentPlayer + 1}",
                               style: style.titleLarge?.copyWith(
                                 color: AppColorScheme.listContainerColor,
                                 fontWeight: FontWeight.w500,

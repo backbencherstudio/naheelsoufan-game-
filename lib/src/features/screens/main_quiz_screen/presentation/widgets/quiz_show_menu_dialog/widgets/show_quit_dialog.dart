@@ -8,6 +8,7 @@ import 'package:naheelsoufan_game/src/features/screens/game_type/riverpod/multip
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/quit_game_button_header.dart';
 import '../../../../../../../core/constant/icons.dart';
 import '../../../../../../../core/routes/route_name.dart';
+import '../../../../../../../data/riverpod/common_disposer.dart';
 import '../../../riverpod/stateProvider.dart';
 
 void onQuitGameTap(BuildContext context) {
@@ -55,12 +56,15 @@ void onQuitGameTap(BuildContext context) {
                           final current = ref.read(playerProvider);
                           return GestureDetector(
                             onTap: () {
+                              Navigator.pop(context);
+                              context.go(RouteName.gameModeScreens);
                               controller.state = current.copyWith(currentPlayer: 0);
                               controller.state = current.copyWith(totalPlayer: 2);
                               controller.state = current.copyWith(stealPlayer: -1);
-                              ref.read(resetVersionProvider.notifier).state++;
-                              Navigator.pop(context);
-                              context.go(RouteName.gameModeScreens);
+                              for (final i in [0, 1, 2, 3]) {
+                                ref.read(checkChoicesProvider(i).notifier).state = -1;
+                              }
+                              ref.read(commonProviderDisposer)();
                             },
                             child: HeaderButton(
                               textStyle: Theme.of(context).textTheme.titleSmall?.copyWith(

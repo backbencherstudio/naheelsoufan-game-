@@ -1,32 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:naheelsoufan_game/src/core/constant/icons.dart';
-import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
-
+import 'package:flutter_svg/svg.dart';
+import '../../../../../core/constant/icons.dart';
+import '../../../../../core/theme/theme_extension/color_scheme.dart';
 import '../../../../../data/riverpod/count_down_state.dart';
 
-class CustomCountdown extends ConsumerWidget {
-  const CustomCountdown({super.key});
+class CustomCountdown extends ConsumerStatefulWidget {
+  final int initTime;
+  final VoidCallback? onPaused;
 
-  String _formatTime(int seconds) {
-    final mins = seconds ~/ 60;
-    final secs = seconds % 60;
-    if (mins > 0) {
-      return '$mins:${secs.toString().padLeft(2, '0')}';
-    }
-    return secs.toString();
-  }
+  const CustomCountdown({
+    super.key,
+    required this.initTime,
+    this.onPaused,
+  });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<CustomCountdown> createState() => _CustomCountdownState();
+}
+
+class _CustomCountdownState extends ConsumerState<CustomCountdown> {
+
+  CountdownModel? _previous;
+
+  @override
+  Widget build(BuildContext context) {
+    final countdown = ref.watch(autoCounterProvider(widget.initTime));
+
+    ref.listen<CountdownModel>(
+      autoCounterProvider(widget.initTime),
+          (previous, next) {
+            if (next.remaining == 0 && previous?.remaining != 0) {
+              widget.onPaused?.call();
+            }
+            _previous = next;
+            },
+    );
+
     final style = Theme.of(context).textTheme;
     final bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
-
-    final countdown = ref.watch(autoCounterProvider(10));
-    final controller = ref.read(autoCounterProvider(10).notifier);
 
     return Container(
       padding: isPortrait
@@ -48,7 +62,7 @@ class CustomCountdown extends ConsumerWidget {
             child: Align(
               alignment: Alignment.center,
               child: Text(
-                _formatTime(countdown.remaining),
+                countdown.remaining.toString(),
                 style: (style.headlineLarge ?? const TextStyle()).copyWith(
                   fontSize: isPortrait ? 32.sp : 14.4.sp,
                   fontWeight: FontWeight.w500,

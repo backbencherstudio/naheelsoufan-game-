@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/// Simple countdown state with remaining seconds and running flag.
+final advanceTurnTriggerProvider = StateProvider<int>((ref) => 0);
+
+
 class CountdownModel {
   final int remaining;
   final bool isRunning;
@@ -14,7 +16,6 @@ class CountdownModel {
   );
 }
 
-/// Notifier that encapsulates countdown logic.
 class AutoCounter extends StateNotifier<CountdownModel> {
   final int initial;
   Timer? _timer;
@@ -25,9 +26,7 @@ class AutoCounter extends StateNotifier<CountdownModel> {
   void _tick() {
     if (state.remaining > 0) {
       state = state.copyWith(remaining: state.remaining - 1);
-      if (state.remaining == 0) {
-        pause();
-      }
+      if (state.remaining == 0) pause();
     } else {
       pause();
     }
@@ -62,13 +61,28 @@ class AutoCounter extends StateNotifier<CountdownModel> {
   }
 }
 
-/// Provider family for different initial durations.
-final autoCounterProvider =
-StateNotifierProvider.family<AutoCounter, CountdownModel, int>(
-        (ref, initialSeconds) {
-      final notifier = AutoCounter(initial: initialSeconds);
-      ref.onDispose(() {
-        notifier.dispose();
-      });
-      return notifier;
-    });
+
+final autoCounterProvider = StateNotifierProvider.family<AutoCounter, CountdownModel, int>(
+      (ref, initialSeconds) {
+    return AutoCounter(initial: initialSeconds);
+  },
+);
+
+class AutoCounterParams {
+  final int initialSeconds;
+  final void Function()? onPause;
+  const AutoCounterParams({
+    required this.initialSeconds,
+    this.onPause,
+  });
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is AutoCounterParams &&
+              runtimeType == other.runtimeType &&
+              initialSeconds == other.initialSeconds;
+
+  @override
+  int get hashCode => initialSeconds.hashCode;
+}

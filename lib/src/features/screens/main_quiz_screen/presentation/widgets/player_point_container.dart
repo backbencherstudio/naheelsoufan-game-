@@ -53,48 +53,48 @@ class PlayerPointContainer extends StatelessWidget {
                         color: AppColorScheme.scrollbarColor,
                       ),
                       child: Consumer(
-                        builder: (_, ref, _) {
-                          final current = ref.read(playerProvider);
-                          final isStealMode = ref.watch(isCorrectQuiz);
-                          final clickState = ref.watch(selectedPlayerIndexProvider);
-                          final checkAns = ref.watch(isRightWrongElse);
-                          return ListView.builder(
-                            controller: scrollController,
-                            scrollDirection: Axis.horizontal,
-                            padding: EdgeInsets.fromLTRB(8.w, 0, 8.w, 33.h),
-                            itemCount: current.totalPlayer,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: EdgeInsets.only(right: 8.w),
-                                child: (!isStealMode) ? (PlayerPointBlock(
-                                  blockCardState: (
-                                      (checkAns == 1 && current.currentPlayer == (index + 1) % current.totalPlayer)
-                                          ? 1
-                                          : (current.currentPlayer == index)
-                                          ? 2
-                                          : -1),
-                                  playerNo: index + 1,
-                                  points: 50,
-                                )) : GestureDetector(
-                                  onTap: (){
-                                    ref.read(selectedPlayerIndexProvider.notifier).state = index;
-                                  },
-                                  child: (PlayerPointBlock(
-                                    blockCardState: ((clickState == index && checkAns == 1)
-                                        ? 1
-                                        : (current.currentPlayer == (index + 1) % current.totalPlayer && current.totalPlayer != index + 1)
-                                        ? 0
-                                        : (clickState == index)
-                                        ? 2
-                                        : 3),
-                                    playerNo: index + 1,
+                          builder: (_, ref, _) {
+                            final current = ref.read(playerProvider);
+                            final isStealMode = ref.watch(isCorrectQuiz);
+                            final clickState = ref.watch(selectedPlayerIndexProvider);
+                            final checkAns = ref.watch(isRightWrongElse);
+                            return ListView.builder(
+                              controller: scrollController,
+                              scrollDirection: Axis.horizontal,
+                              padding: EdgeInsets.fromLTRB(8.w, 0, 8.w, 33.h),
+                              itemCount: current.totalPlayer,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: EdgeInsets.only(right: 8.w),
+                                  child: (!isStealMode) ? (PlayerPointBlock(
+                                    blockCardState: (
+                                        (checkAns == 1 && current.currentPlayer == (index + 1) % current.totalPlayer)
+                                            ? 1
+                                            : (current.currentPlayer == index)
+                                            ? 2
+                                            : -1),
+                                    playerNo: (index + 1),
                                     points: 50,
-                                  )),
-                                ),
-                              );
-                            },
-                          );
-                        }
+                                  )) : GestureDetector(
+                                    onTap: (){
+                                      ref.read(selectedPlayerIndexProvider.notifier).state = index;
+                                    },
+                                    child: (PlayerPointBlock(
+                                      blockCardState: ((clickState == index && checkAns == 1)
+                                          ? 1
+                                          : (current.currentPlayer == (index + 1) % current.totalPlayer && current.totalPlayer != (index + 1) % current.totalPlayer)
+                                          ? 0
+                                          : (clickState == index)
+                                          ? 2
+                                          : 3),
+                                      playerNo: (index + 1),
+                                      points: 50,
+                                    )),
+                                  ),
+                                );
+                              },
+                            );
+                          }
                       ),
                     ),
                   ),

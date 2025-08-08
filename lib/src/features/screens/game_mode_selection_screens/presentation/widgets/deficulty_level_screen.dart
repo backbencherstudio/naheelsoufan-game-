@@ -13,6 +13,7 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/dificulty_level_widgets/custom_green_button.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/difficulty_selection_provider.dart';
+import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/quiz_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/question_answer_screen/next_turn/riverpod/player_name_state_provider.dart';
 
 import '../../../../../data/riverpod/count_down_state.dart';
@@ -49,9 +50,9 @@ class DifficultyLevelScreen extends StatelessWidget {
             SizedBox(height: 24.h),
             Consumer(
               builder: (_,ref,_) {
-                final playerName = ref.watch(playerNameProvider);
+                final playerNum = ref.watch(playerNo);
                 return Text(
-                 playerName ?? 'Player 1' ,
+                  'Player $playerNum',
                   style: style.titleLarge!.copyWith(
                     fontWeight: FontWeight.w400,
                     color: AppColorScheme.primary,
@@ -81,20 +82,10 @@ class DifficultyLevelScreen extends StatelessWidget {
                         },
                       ),
                       SizedBox(height: 20.h),
-                      Consumer(
-                        builder: (_, ref, _) {
-                          final countdown = ref.watch(autoCounterProvider(10));
-                          final controller = ref.read(autoCounterProvider(10).notifier);
-                          final current = ref.read(playerProvider);
-                          return CustomGreenButton(onTap: () {
-                            if (countdown.isRunning) {
-                              controller.pause();
-                            } else {
-                              controller.start();
-                              context.push(RouteName.quizScreen);
-                            }
-                          });
-                        }
+                      CustomGreenButton(
+                        onTap: () {
+                          context.push(RouteName.quizScreen);
+                        },
                       ),
                     ],
                   ),

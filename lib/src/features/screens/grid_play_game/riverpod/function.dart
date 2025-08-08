@@ -25,5 +25,7 @@ final isDifficultyClicked3 = StateProvider.family<bool, int>((ref, id) => false)
 final isDifficultyVanished = StateProvider.autoDispose<bool>((ref) => false);
 final checkSecondDifficultyScreen = StateProvider.autoDispose<bool>((ref) => false);
 
-final isRightWrongElse = StateProvider.autoDispose<int>((ref)=>-1);
+final isRightWrongElse = StateProvider<int>((ref)=>-1);
 final huntModeOn = StateProvider.autoDispose<bool>((ref)=>false);
+
+final showTimeUp = StateProvider.autoDispose<bool>((ref)=>true);
