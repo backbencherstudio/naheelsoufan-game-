@@ -34,12 +34,11 @@ class QuestionRevealed extends ConsumerStatefulWidget {
 }
 
 class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
-
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _setLandscapeMode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(autoCounterProvider(60).notifier).start();
     });
@@ -57,18 +56,8 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
   Widget build(BuildContext context) {
     bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
-    ref.listen<AdvanceNavigation>(advanceNavigationProvider, (prev, next) {
-      if (next == AdvanceNavigation.leaderboard) {
-        context.push(RouteName.gridLeaderboard);
-      } else if (next == AdvanceNavigation.nextTurn) {
-        context.pushReplacement(RouteName.gridDifficultyLevelScreen);
-      }
-      ref
-          .read(advanceNavigationProvider.notifier)
-          .state =
-          AdvanceNavigation.none;
-      ref.read(commonProviderDisposer)();
-    });
+
+    final isFirstPlayerPlayed = ref.watch(checkSecondDifficultyScreen);
 
     ref.watch(advanceTurnControllerProvider);
     return CreateScreen(
@@ -105,7 +94,6 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
                                 child: CustomCountdown(
                                   initTime: 60,
                                   onPaused: () {
-                                    ref.read(advanceTurnTriggerProvider.notifier).state++;
                                     timesUp(context, ref);
                                     WidgetsBinding.instance.addPostFrameCallback((_) {
                                       ref.read(autoCounterProvider(60).notifier).reset();
@@ -189,7 +177,17 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
                   question: "What kind of energy does that sun create?",
                   rightChoice: 3,
                   func: (){
-                    ref.read(advanceTurnFlagProvider.notifier).state = true;
+                    if (isFirstPlayerPlayed) {
+                      Future.delayed(Duration(seconds: 1), (){
+                        if(context.mounted) context.pushReplacement(RouteName.gridLeaderboard);
+                      });
+                      ref.read(checkSecondDifficultyScreen.notifier).state = false;
+                    } else {
+                      Future.delayed(Duration(seconds: 1), (){
+                        if(context.mounted) context.pushReplacement(RouteName.gridDifficultyLevelScreen);
+                        ref.read(checkSecondDifficultyScreen.notifier).state = true;
+                      });
+                    }
                   }
                 ),
               ),
