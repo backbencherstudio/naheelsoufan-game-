@@ -30,8 +30,7 @@ class GameType {
     required String question,
     required String thumbnail,
     required String video,
-  }) =>
-      TrueFalseQuestionWithImageVideo(question: question, videoThumbnailUrl: thumbnail, videoUrl: video,);
+  }) => TrueFalseQuestionWithImageVideo(question: question, videoThumbnailUrl: thumbnail, videoUrl: video,);
 
   /// typed question
   static Widget typedQuestion({required String question}) =>

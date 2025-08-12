@@ -7,6 +7,7 @@ import 'package:naheelsoufan_game/src/core/constant/images.dart';
 import 'package:naheelsoufan_game/src/core/constant/padding.dart';
 import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
+import 'package:naheelsoufan_game/src/data/riverpod/common_disposer.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/dificulty_level_widgets/custom_box.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/dificulty_level_widgets/custom_buttons_normal.dart';
@@ -17,10 +18,10 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/quiz_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/question_answer_screen/next_turn/riverpod/player_name_state_provider.dart';
 
-import '../../../../../data/riverpod/count_down_state.dart';
-import '../../../game_type/riverpod/multiple_choice_provider.dart';
-import '../../../grid_play_game/riverpod/function.dart';
-import '../../../main_quiz_screen/presentation/riverpod/stateProvider.dart';
+import '../../../../data/riverpod/count_down_state.dart';
+import '../../game_type/riverpod/multiple_choice_provider.dart';
+import '../../grid_play_game/riverpod/function.dart';
+import '../../main_quiz_screen/presentation/riverpod/stateProvider.dart';
 
 class DifficultyLevelScreen extends StatelessWidget {
   const DifficultyLevelScreen({super.key});
@@ -51,9 +52,9 @@ class DifficultyLevelScreen extends StatelessWidget {
             SizedBox(height: 24.h),
             Consumer(
               builder: (_,ref,_) {
-                final playerNum = ref.watch(playerNo);
+                final player = ref.watch(playerProvider);
                 return Text(
-                  'Player $playerNum',
+                  'Player ${player.currentPlayer + 1}',
                   style: style.titleLarge!.copyWith(
                     fontWeight: FontWeight.w400,
                     color: AppColorScheme.primary,

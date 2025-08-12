@@ -1,7 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_type/riverpod/multiple_choice_provider.dart';
 import '../../features/screens/grid_play_game/riverpod/function.dart';
-import '../../features/screens/main_quiz_screen/presentation/riverpod/advance_turn_controller.dart';
 import '../../features/screens/main_quiz_screen/presentation/riverpod/stateProvider.dart';
 import '../../features/screens/question_answer_screen/next_turn/riverpod/player_name_state_provider.dart';
 import 'count_down_state.dart';

@@ -22,15 +22,18 @@ final advanceTurnControllerProvider = Provider.autoDispose<void>((ref) {
 
     final currentPlayerTurn = ref.read(playerTurnProvider);
     final current = ref.read(playerProvider);
-    final nextPlayerTurn =
-        (currentPlayerTurn + 1) % current.totalPlayer;
-
+    final nextPlayerTurn = (currentPlayerTurn + 1) % current.totalPlayer;
 
     ref.read(playerTurnProvider.notifier).state = nextPlayerTurn;
     ref.read(playerNo.notifier).state = current.currentPlayer;
 
-    ref.read(isCorrectQuiz.notifier).state = false;
+
     ref.read(huntModeOn.notifier).state = false;
+    for (final i in [0, 1, 2, 3]) {
+      ref.read(checkChoicesProvider(i).notifier).state = -1;
+    }
+    ref.read(isRightWrongElse.notifier).state = -1;
+    ref.read(selectedPlayerIndexProvider.notifier).state = -1;
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(autoCounterProvider(60).notifier).reset();
@@ -39,12 +42,8 @@ final advanceTurnControllerProvider = Provider.autoDispose<void>((ref) {
     if (nextPlayerTurn == 0) {
       ref.read(advanceNavigationProvider.notifier).state =
           AdvanceNavigation.leaderboard;
+      ref.read(playerTurnProvider.notifier).state = 1;
     } else {
-      for (final i in [0, 1, 2, 3]) {
-        ref.read(checkChoicesProvider(i).notifier).state = -1;
-      }
-      ref.read(isRightWrongElse.notifier).state = -1;
-      ref.read(selectedPlayerIndexProvider.notifier).state = -1;
       ref.read(advanceNavigationProvider.notifier).state =
           AdvanceNavigation.nextTurn;
     }
@@ -52,3 +51,7 @@ final advanceTurnControllerProvider = Provider.autoDispose<void>((ref) {
     ref.read(advanceTurnFlagProvider.notifier).state = false;
   });
 });
+
+
+
+//ref.read(isCorrectQuiz.notifier).state = false;
