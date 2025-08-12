@@ -88,7 +88,7 @@ class MultipleChoiceQuestion extends StatelessWidget {
                       });
                       onWrongAnswerTap(context, choices[rightChoiceIndex], ref);
                     } else {
-                      func!();
+                      func!(); //LOGIC ekhane dite hobe
                     }
                     controller.state = current.copyWith(currentPlayer: next); // CB
                   },

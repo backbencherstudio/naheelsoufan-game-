@@ -29,7 +29,7 @@ final advanceTurnControllerProvider = Provider.autoDispose<void>((ref) {
     ref.read(playerTurnProvider.notifier).state = nextPlayerTurn;
     ref.read(playerNo.notifier).state = current.currentPlayer;
 
-    ref.read(isCorrectQuiz.notifier).state = false;
+
     ref.read(huntModeOn.notifier).state = false;
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -39,6 +39,7 @@ final advanceTurnControllerProvider = Provider.autoDispose<void>((ref) {
     if (nextPlayerTurn == 0) {
       ref.read(advanceNavigationProvider.notifier).state =
           AdvanceNavigation.leaderboard;
+      ref.read(playerTurnProvider.notifier).state = 1;
     } else {
       for (final i in [0, 1, 2, 3]) {
         ref.read(checkChoicesProvider(i).notifier).state = -1;
@@ -52,3 +53,7 @@ final advanceTurnControllerProvider = Provider.autoDispose<void>((ref) {
     ref.read(advanceTurnFlagProvider.notifier).state = false;
   });
 });
+
+
+
+//ref.read(isCorrectQuiz.notifier).state = false;

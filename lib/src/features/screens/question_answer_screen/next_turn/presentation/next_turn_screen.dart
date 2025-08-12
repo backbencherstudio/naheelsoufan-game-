@@ -19,7 +19,7 @@ class NextTurnScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
-    final currentPlayer = ref.watch(playerNo);
+    final player = ref.watch(playerProvider);
 
     return Scaffold(
       body: CreateScreen(
@@ -66,7 +66,7 @@ class NextTurnScreen extends ConsumerWidget {
                             ),
                             SizedBox(height: 16.h),
                             Text(
-                              "Player ${currentPlayer + 1}",
+                              "Player ${player.currentPlayer + 1}",
                               style: style.titleLarge?.copyWith(
                                 color: AppColorScheme.listContainerColor,
                                 fontWeight: FontWeight.w500,

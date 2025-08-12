@@ -13,6 +13,7 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/selection_provider.dart';
+import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/riverpod/stateProvider.dart';
 import '../../question_answer_screen/next_turn/riverpod/player_name_state_provider.dart';
 
 class CatagorySelectionScreen extends ConsumerWidget {
@@ -21,7 +22,7 @@ class CatagorySelectionScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
-    final currentPlayerNo = ref.watch(playerNo);
+    final player = ref.watch(playerProvider);
     final selectedState = ref.watch(selectProvider);
 
     final List<String> levels = ["General Knowledge", "Math", "Science","General Knowledge", "Math", "Science","General Knowledge", "Math", "Science",];
@@ -46,7 +47,7 @@ class CatagorySelectionScreen extends ConsumerWidget {
             ),
             SizedBox(height: 8.h),
             Text(
-              "Player $currentPlayerNo",
+              "Player ${player.currentPlayer + 1}",
               style: style.titleLarge!.copyWith(
                 fontWeight: FontWeight.w400,
                 color: AppColorScheme.primary,
