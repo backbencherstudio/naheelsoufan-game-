@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
 import '../../../../../../core/constant/icons.dart';
 import '../home_widgets/custom_icons_Buttons.dart';
 
@@ -44,14 +46,19 @@ class _CustomPopUpMenuState extends State<CustomPopUpMenu> {
                           padding: const EdgeInsets.all(8.0),
                           child: CustomIconsButtons(
                             icon: AppIcons.settings,
-                            onTap: () {},
+                            onTap: () {
+                              context.push(RouteName.settingWhileInGameScreen);
+                              _removePopup();
+                            },
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: CustomIconsButtons(
                             icon: AppIcons.sound,
-                            onTap: () {},
+                            onTap: () {
+
+                            },
                           ),
                         ),
                         Padding(
