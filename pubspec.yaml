@@ -45,6 +45,12 @@ dependencies:
   flutter_expandable_fab: ^2.5.2
   flutter_speed_dial: ^7.0.0
   email_validator: ^3.0.0
+  flutter_launcher_icons: ^0.14.4
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/launch_logo.png"
 
 dev_dependencies:
   flutter_test:

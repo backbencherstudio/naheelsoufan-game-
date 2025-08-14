@@ -16,22 +16,24 @@ class ClickedSettingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return CreateScreen(child: Padding(
       padding: AppPadding.horizontalPadding,
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              InkWell(child: SvgPicture.asset(AppIcons.backSvg),
-              onTap: (){
-                context.pop();
-              },),
-            ],
-          ),
-          SizedBox(height: 95.h,),
-          ClickedSettingBody(),
-          SizedBox(height: 28.5.h,),
-          ClickedSettingBottom()
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                InkWell(child: SvgPicture.asset(AppIcons.backSvg),
+                onTap: (){
+                  context.pop();
+                },),
+              ],
+            ),
+            SizedBox(height: 95.h,),
+            ClickedSettingBody(),
+            SizedBox(height: 28.5.h,),
+            ClickedSettingBottom()
+          ],
+        ),
       ),
     ));
   }

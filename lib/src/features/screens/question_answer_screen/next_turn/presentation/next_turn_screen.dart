@@ -118,6 +118,9 @@ class NextTurnScreen extends ConsumerWidget {
                     onTap: () {
                       ref.read(selectedPlayerIndexProvider.notifier).state++;
                       ref.invalidate(levelSelectionProvider);
+                      ref.invalidate(isCorrectQuiz);
+                      ref.invalidate(isRightWrongElse);
+                      ref.invalidate(huntModeOn);
                      context.push(RouteName.catagorySelectionScreen);
                     },
                     child: Container(

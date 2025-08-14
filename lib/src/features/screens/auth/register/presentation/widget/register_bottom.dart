@@ -35,7 +35,7 @@ class RegisterBottom extends StatelessWidget {
                 ),
               ),
               child: Padding(
-                padding: EdgeInsets.all(16.r),
+                padding: EdgeInsets.all(12.r),
                 child: SvgPicture.asset(AppIcons.apple),
               ),
             ),

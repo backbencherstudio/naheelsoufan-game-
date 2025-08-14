@@ -77,7 +77,9 @@ class SettingWhileInGameScreen extends ConsumerWidget {
                       title: 'Settings',
                       leadingIconPath: AppIcons.setting,
                       trailingIconPath: AppIcons.forwardIcon,
-                      onTap: () {},
+                      onTap: () {
+                        context.pushReplacement(RouteName.clickedSettingScreen);
+                      },
                     ),
                     SizedBox(height: 13.h),
                     buildSettingsTile(
