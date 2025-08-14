@@ -13,7 +13,7 @@ import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentati
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/riverpod/function.dart';
 import '../../../../core/routes/route_name.dart';
 import '../../game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
-import '../../main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/show_quit_dialog.dart';
+import '../../game_type/riverpod/multiple_choice_provider.dart';
 
 class GridDifficultyLevelScreen extends StatefulWidget {
   const GridDifficultyLevelScreen({super.key});
@@ -29,11 +29,11 @@ class _GridDifficultyLevelScreenState extends State<GridDifficultyLevelScreen> {
     _setLandscapeMode(); // Set orientation to landscape
   }
 
-  // @override
-  // void dispose() {
-  //   _setPortraitMode(); // Reset orientation to portrait
-  //   super.dispose();
-  // }
+  @override
+  void dispose(){
+    debugPrint("Ok Ok");
+    super.dispose();
+  }
 
   // Force landscape mode
   void _setLandscapeMode() {
@@ -43,13 +43,6 @@ class _GridDifficultyLevelScreenState extends State<GridDifficultyLevelScreen> {
     ]);
   }
 
-  // Reset to portrait mode
-  void _setPortraitMode() {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
-  }
   @override
   Widget build(BuildContext context) {
     bool isPortrait =
@@ -84,6 +77,10 @@ class _GridDifficultyLevelScreenState extends State<GridDifficultyLevelScreen> {
                           itemBuilder: (BuildContext context, int index) {
                             return Consumer(
                               builder: (_, ref, _) {
+                                ref.invalidate(isRightWrongElse);
+                                for (final id in [1, 2, 3, 4]) {
+                                  ref.invalidate(checkChoicesProvider(id));
+                                }
                                 return CustomGridQuestionCard(
                                   questionId: index.toString(),
                                   questionCategory:

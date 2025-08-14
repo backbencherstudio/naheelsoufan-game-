@@ -10,6 +10,7 @@ import '../../../../common_widegts/create_screen/create_screen.dart';
 import '../../../account_screens/presentation/widgets/my_account_wodgets/header_button.dart';
 import '../../../game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import '../../../game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
+import '../../../game_mode_selection_screens/riverpod/difficulty_selection_provider.dart';
 import '../../../main_quiz_screen/presentation/riverpod/stateProvider.dart';
 import '../riverpod/player_name_state_provider.dart';
 
@@ -116,6 +117,7 @@ class NextTurnScreen extends ConsumerWidget {
                   return GestureDetector(
                     onTap: () {
                       ref.read(selectedPlayerIndexProvider.notifier).state++;
+                      ref.invalidate(levelSelectionProvider);
                      context.push(RouteName.catagorySelectionScreen);
                     },
                     child: Container(

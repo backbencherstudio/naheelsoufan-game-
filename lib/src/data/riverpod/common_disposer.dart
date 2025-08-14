@@ -1,4 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/difficulty_selection_provider.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/selection_provider.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_type/riverpod/multiple_choice_provider.dart';
 import '../../features/screens/grid_play_game/riverpod/function.dart';
 import '../../features/screens/main_quiz_screen/presentation/riverpod/stateProvider.dart';
@@ -22,7 +24,8 @@ final commonProviderDisposer = Provider<void Function()>((ref) {
     ref.invalidate(huntModeOn);
     ref.invalidate(autoCounterProvider(60));
     ref.invalidate(playerProvider);
-
+    ref.invalidate(levelSelectionProvider);
+    ref.invalidate(selectionProvider);
     // Reset player number to 0
     ref.read(playerNo.notifier).state = 0;
 
