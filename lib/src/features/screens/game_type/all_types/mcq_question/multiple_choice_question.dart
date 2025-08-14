@@ -75,15 +75,15 @@ class MultipleChoiceQuestion extends StatelessWidget {
                     if (
                     !(ref.read(isCorrectQuiz.notifier).state) &&
                         rightChoiceIndex != index) {
-                      // for (int i = 0; i < 4; i++) {
-                      //   ref.read(checkChoicesProvider(i).notifier).state = -1;
-                      // }
+                      for (int i = 0; i < 4; i++) {
+                        ref.read(checkChoicesProvider(i).notifier).state = -1;
+                      }
                       ref.read(selectedPlayerIndexProvider.notifier).state = -1;
                       ref.read(isCorrectQuiz.notifier).state = true;
                       ref.read(huntModeOn.notifier).state = true;
-                      for (final id in listID) {
-                        ref.read(checkChoicesProvider(id).notifier).state = -1;
-                      }
+                      // for (final id in listID) {
+                      //   ref.read(checkChoicesProvider(id).notifier).state = -1;
+                      // }
                       WidgetsBinding.instance.addPostFrameCallback((_) {
                         ref.read(autoCounterProvider(60).notifier).reset();
                       });
