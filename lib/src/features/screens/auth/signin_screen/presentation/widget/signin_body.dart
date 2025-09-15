@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import '../../../../../../core/constant/icons.dart';
+import '../../../../../../core/repository/auth/auth_repository_implementation.dart';
 import '../../../../../../core/routes/route_name.dart';
 import '../../../../../common_widegts/elevated_button/elevated_button.dart';
 import '../../../../../common_widegts/snack_bar_message/custom_snack_bar.dart';
@@ -130,14 +131,15 @@ class _RegisterBodyState extends State<SignInBody> {
               ),
               SizedBox(height: 40.h),
               CustomElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState?.validate() ?? false) {
+                onPressed: () async {
+                  final loginSuccess = await AuthRepositoryImplementation().loginService(emailController.text, passController.text);
+                  if ((_formKey.currentState?.validate() ?? false) && loginSuccess) {
                     context.go(RouteName.gameModeScreens);
                   } else {
                     CustomSnackBar.show(context, "Please correct the errors in the form.");
                   }
                 },
-                buttonName: 'Register',
+                buttonName: 'Sign In',
               ),
             ],
           ),

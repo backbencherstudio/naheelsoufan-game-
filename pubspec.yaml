@@ -45,6 +45,8 @@ dependencies:
   flutter_expandable_fab: ^2.5.2
   flutter_speed_dial: ^7.0.0
   email_validator: ^3.0.0
+  http: ^1.5.0
+  connectivity_plus: ^7.0.0
 
 dev_dependencies:
   flutter_test:
