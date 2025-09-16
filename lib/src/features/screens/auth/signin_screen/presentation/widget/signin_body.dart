@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
+import 'package:naheelsoufan_game/src/data/riverpod/user_controller.dart';
 import '../../../../../../core/constant/icons.dart';
 import '../../../../../../core/repository/auth/auth_repository_implementation.dart';
 import '../../../../../../core/routes/route_name.dart';
@@ -69,23 +70,12 @@ class _RegisterBodyState extends State<SignInBody> {
                 children: [Text("Sign In", style: titleStyle)],
               ),
               SizedBox(height: 16.h),
-
-              // dont do custom textformfield
-
-              // CustomLabel(labelText: "Email"),
               Text("Email", style: subTitleStyle),
               SizedBox(height: 4.h),
               CustomTextFormField(
                 hintText: "Enter your email",
                 controller: emailController,
                 textInputAction: TextInputAction.next,
-                // validator: (String? value) {
-                //   String emailValue = value ?? '';
-                //   if (EmailValidator.validate(emailValue) == false) {
-                //     return 'Enter a valid email';
-                //   }
-                //   return null;
-                // },
               ),
               SizedBox(height: 8.h),
               Text("Password", style: subTitleStyle),
@@ -109,12 +99,6 @@ class _RegisterBodyState extends State<SignInBody> {
                       ref.read(isObscure3.notifier).state = !isVisible;
                     },
                     obscureText: !isVisible,
-                    // validator: (String? value) {
-                    //   if ((value?.length ?? 0) <= 6) {
-                    //     return 'Enter a password more than 6 characters';
-                    //   }
-                    //   return null;
-                    // },
                   );
                 },
               ),
@@ -130,16 +114,23 @@ class _RegisterBodyState extends State<SignInBody> {
                 ],
               ),
               SizedBox(height: 40.h),
-              CustomElevatedButton(
-                onPressed: () async {
-                  final loginSuccess = await AuthRepositoryImplementation().loginService(emailController.text, passController.text);
-                  if ((_formKey.currentState?.validate() ?? false) && loginSuccess) {
-                    context.go(RouteName.gameModeScreens);
-                  } else {
-                    CustomSnackBar.show(context, "Please correct the errors in the form.");
-                  }
-                },
-                buttonName: 'Sign In',
+              Consumer(
+                builder: (context, ref, _) {
+                  return CustomElevatedButton(
+                    onPressed: () async {
+                      final loginSuccess = await AuthRepositoryImplementation().loginService(emailController.text, passController.text);
+                      final user = await AuthRepositoryImplementation().fetchUserData();
+                      if ((_formKey.currentState?.validate() ?? false) && loginSuccess) {
+                        ref.read(userProvider.notifier).insertData(user);
+                        debugPrint("\n\n\n${ref.watch(userProvider)}\n\n\n");
+                        context.go(RouteName.gameModeScreens);
+                      } else {
+                        CustomSnackBar.show(context, "Invalid Credentials or please check your connection");
+                      }
+                    },
+                    buttonName: 'Sign In',
+                  );
+                }
               ),
             ],
           ),

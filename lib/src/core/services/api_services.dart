@@ -63,7 +63,7 @@ class ApiServices {
       final isOnline = await hasInternetConnection();
       if (isOnline) {
         response = await http.get(
-          Uri.parse('${ApiEndPoints.baseUrl}/$endPoint'),
+          Uri.parse(endPoint),
           headers: headers,
         );
         return _handleResponse(response);
@@ -86,7 +86,7 @@ class ApiServices {
       final isOnline = await hasInternetConnection();
       if (isOnline) {
         response = await http.put(
-          Uri.parse('${ApiEndPoints.baseUrl}/$endPoint'),
+          Uri.parse(endPoint),
           headers: headers,
           body: jsonEncode(body),
         );
@@ -110,7 +110,7 @@ class ApiServices {
       final isOnline = await hasInternetConnection();
       if (isOnline) {
         response = await http.patch(
-          Uri.parse('${ApiEndPoints.baseUrl}/$endPoint'),
+          Uri.parse(endPoint),
           headers: headers,
           body: jsonEncode(body),
         );
@@ -133,7 +133,7 @@ class ApiServices {
       final isOnline = await hasInternetConnection();
       if (isOnline) {
         response = await http.delete(
-          Uri.parse('${ApiEndPoints.baseUrl}/$endPoint'),
+          Uri.parse(endPoint),
           headers: headers,
         );
         return _handleResponse(response);

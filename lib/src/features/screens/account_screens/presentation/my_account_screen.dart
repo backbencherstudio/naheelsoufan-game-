@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
+import 'package:naheelsoufan_game/src/data/riverpod/user_controller.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/account_screens/presentation/widgets/my_account_wodgets/edit_profile_button.dart';
 import 'package:naheelsoufan_game/src/features/screens/account_screens/presentation/widgets/my_account_wodgets/header_button.dart';
@@ -20,6 +21,7 @@ class MyAccountScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
     final selectedIndex = ref.watch(selectedProfileProvider);
+    final userData = ref.watch(userProvider);
 
     return Scaffold(
       body: CreateScreen(
@@ -78,7 +80,7 @@ class MyAccountScreen extends ConsumerWidget {
                                       ),
                                   SizedBox(height: 16.h),
                                   Text(
-                                    'Waleed',
+                                    userData?.name ?? 'Set your name',
                                     style: style.bodyLarge?.copyWith(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w500,
@@ -86,7 +88,7 @@ class MyAccountScreen extends ConsumerWidget {
                                   ),
                                   SizedBox(height: 4.h),
                                   Text(
-                                    'wkh929@gmail.com',
+                                    userData?.email ?? 'Set your email',
                                     style: style.bodyMedium?.copyWith(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w500,
@@ -115,25 +117,25 @@ class MyAccountScreen extends ConsumerWidget {
                                   SubscriptionStatus(
                                     style: style,
                                     type: 'Type',
-                                    pilot: 'Pilot',
+                                    pilot: 'No subscription',
                                   ),
                                   SizedBox(height: 12.h),
                                   SubscriptionStatus(
                                     style: style,
                                     type: 'Games Remaining',
-                                    pilot: '1',
+                                    pilot: '0',
                                   ),
                                   SizedBox(height: 12.h),
                                   SubscriptionStatus(
                                     style: style,
                                     type: 'Max Players',
-                                    pilot: '1',
+                                    pilot: '0',
                                   ),
                                   SizedBox(height: 12.h),
                                   SubscriptionStatus(
                                     style: style,
                                     type: 'Questions Per Games',
-                                    pilot: '10',
+                                    pilot: '0',
                                   ),
                                 ],
                               ),
