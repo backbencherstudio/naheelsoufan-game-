@@ -119,9 +119,8 @@ class _RegisterBodyState extends State<SignInBody> {
                   return CustomElevatedButton(
                     onPressed: () async {
                       final loginSuccess = await AuthRepositoryImplementation().loginService(emailController.text, passController.text);
-                      final user = await AuthRepositoryImplementation().fetchUserData();
                       if ((_formKey.currentState?.validate() ?? false) && loginSuccess) {
-                        ref.read(userProvider.notifier).insertData(user);
+                        ref.read(userProvider.notifier).insertData();
                         debugPrint("\n\n\n${ref.watch(userProvider)}\n\n\n");
                         context.go(RouteName.gameModeScreens);
                       } else {

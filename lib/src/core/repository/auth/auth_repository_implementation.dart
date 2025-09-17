@@ -26,7 +26,7 @@ class AuthRepositoryImplementation extends AuthRepository{
     return false;
   }
 
-  //login
+  // Login
   @override
   Future<bool> loginService(String email, String password) async {
     try{
@@ -48,6 +48,31 @@ class AuthRepositoryImplementation extends AuthRepository{
     }
     return false;
   }
+
+
+  // Create Game
+  @override
+  Future<bool> createService(String email, String password) async {
+    try{
+      ApiServices apiServices = ApiServices();
+      final response = await apiServices.postData(
+          body: {
+            "email": email,
+            "password": password
+          }, endPoint: ApiEndPoints.loginUrl
+      );
+
+      if(response['success'] == true) {
+        await SharedPreference().setToken(response['authorization']['token']);
+        debugPrint("\n\n\nToken: ${await SharedPreference().getToken()}\n\n\n");
+        return true;
+      }
+    }catch(e){
+      return false;
+    }
+    return false;
+  }
+
 
   //Fetch User Data
   Future<dynamic> fetchUserData() async {
