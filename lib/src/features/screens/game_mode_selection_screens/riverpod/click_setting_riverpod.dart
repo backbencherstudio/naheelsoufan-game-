@@ -5,18 +5,18 @@ final isRated = StateProvider<int> ((ref){
 });
 
 
-class UserModel{
+class SettingUserModel{
   final String userId;
   final String userName;
 
-  UserModel({
+  SettingUserModel({
     required this.userId,
     required this.userName
 });
-  UserModel copyWith({
+  SettingUserModel copyWith({
     String? userId,
     String? userName
 }){
-   return UserModel(userId: userId??this.userId, userName: userName??this.userName);
+   return SettingUserModel(userId: userId??this.userId, userName: userName??this.userName);
   }
 }

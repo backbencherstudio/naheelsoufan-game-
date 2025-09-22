@@ -9,23 +9,28 @@ import 'package:naheelsoufan_game/src/features/screens/auth/signin_screen/presen
 import '../../../../common_widegts/auth_appbar/auth_appbar.dart';
 
 class SignInScreen extends StatelessWidget {
-  const SignInScreen({super.key});
+  SignInScreen({super.key});
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
-    return CreateScreen(
-      child: SingleChildScrollView(
-        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-        child: Padding(
-          padding: AppPadding.horizontalPadding,
-          child: Column(
-            children: [
-              RegisterAppbar(),
-              SizedBox(height: 126.h),
-              SignInBody(),
-              SizedBox(height: 154.h),
-              SignInBottom()
-            ],
+    debugPrint("\n\n\nScaffold Key: $_scaffoldKey\n\n\n");
+    return Scaffold(
+      body: CreateScreen(
+        child: SingleChildScrollView(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          child: Padding(
+            padding: AppPadding.horizontalPadding,
+            child: Column(
+              children: [
+                RegisterAppbar(),
+                SizedBox(height: 126.h),
+                SignInBody(),
+                SizedBox(height: 154.h),
+                SignInBottom()
+              ],
+            ),
           ),
         ),
       ),

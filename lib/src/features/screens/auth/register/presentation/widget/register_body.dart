@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:naheelsoufan_game/src/core/repository/auth/auth_repository_implementation.dart';
+import 'package:naheelsoufan_game/src/core/services/api_services.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import '../../../../../../core/constant/icons.dart';
 import '../../../../../../core/routes/route_name.dart';
@@ -178,8 +180,9 @@ class _RegisterBodyState extends State<RegisterBody> {
               ),
               SizedBox(height: 40.h),
               CustomElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState?.validate() ?? false) {
+                onPressed: () async {
+                  final registerSuccess = await AuthRepositoryImplementation().registerService(nameController.text, emailController.text, passController.text);
+                  if ((_formKey.currentState?.validate() ?? false) && (registerSuccess)) {
                     context.go(RouteName.signInScreen);
                   } else {
                     CustomSnackBar.show(
@@ -187,6 +190,8 @@ class _RegisterBodyState extends State<RegisterBody> {
                       "Please correct the errors in the form.",
                     );
                   }
+                  debugPrint(registerSuccess.toString());
+                  debugPrint("\n\n\n\n${nameController.text}\n\n\n\n${emailController.text}\n\n\n\n${passController.text}\n\n\n\n");
                 },
                 buttonName: 'Register',
               ),

@@ -8,17 +8,18 @@ import 'package:naheelsoufan_game/src/features/screens/account_screens/presentat
 import 'package:naheelsoufan_game/src/features/screens/account_screens/presentation/widgets/my_account_wodgets/header_button.dart';
 import 'package:naheelsoufan_game/src/features/screens/account_screens/riverpod/obsecute_state_notifier.dart';
 import '../../../../core/constant/icons.dart';
+import '../../../../data/riverpod/user_controller.dart';
 import '../../../common_widegts/create_screen/create_screen.dart';
 import '../../game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 
-class EditProfileScreen extends StatefulWidget {
+class EditProfileScreen extends ConsumerStatefulWidget {
   const EditProfileScreen({super.key});
 
   @override
-  State<EditProfileScreen> createState() => _EditProfileScreenState();
+  ConsumerState<EditProfileScreen> createState() => _EditProfileScreenState();
 }
 
-class _EditProfileScreenState extends State<EditProfileScreen> {
+class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   TextEditingController nameController = TextEditingController();
 
   TextEditingController emailController = TextEditingController();
@@ -61,7 +62,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               color: AppColorScheme.deepPuroleBG,
                               border: Border.all(
                                 color: AppColorScheme.listContainerColor,
-                                width: 2,
+                                width: 2.w,
                               ),
                               borderRadius: BorderRadius.circular(16.r),
                             ),
