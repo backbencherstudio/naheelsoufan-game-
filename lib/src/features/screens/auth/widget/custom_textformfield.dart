@@ -49,6 +49,8 @@ class CustomTextFormField extends StatelessWidget {
           textInputAction: textInputAction,
           controller: controller,
           obscureText: obscureText,
+          cursorColor: Color(0xff3D4279),
+          cursorWidth: 2.w,
           style: formFieldTextStyle,
           decoration: InputDecoration(
             errorStyle: errorStyle,
@@ -64,14 +66,14 @@ class CustomTextFormField extends StatelessWidget {
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.r),
               borderSide: BorderSide(
-                color: AppColorScheme.primary, // Normal border color
+                color: AppColorScheme.primary,
                 width: 1.w,
               ),
             ),
             focusedErrorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.r),
               borderSide: BorderSide(
-                color: AppColorScheme.primary, // Normal border color
+                color: AppColorScheme.primary,
                 width: 1.w,
               ),
             ),
@@ -79,14 +81,14 @@ class CustomTextFormField extends StatelessWidget {
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.r),
               borderSide: BorderSide(
-                color: AppColorScheme.primary, // Normal border color
+                color: AppColorScheme.primary,
                 width: 1.w,
               ),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.r),
               borderSide: BorderSide(
-                color: AppColorScheme.primary, // Focused border color
+                color: AppColorScheme.primary,
                 width: 1.w,
               ),
             ),

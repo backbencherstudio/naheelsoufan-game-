@@ -1,59 +1,68 @@
 import 'package:flutter/cupertino.dart';
 import 'package:naheelsoufan_game/src/core/services/api_services.dart';
+import 'package:naheelsoufan_game/src/core/services/token_services.dart';
 import '../../../data/model/auth/user_model.dart';
-import '../../services/api_end_points.dart';
-import '../../services/shared_prefernce_services.dart';
+import '../../../core/services/api_end_points.dart';
 import 'auth_repository.dart';
 
-class AuthRepositoryImplementation extends AuthRepository{
+class AuthService extends AuthRepository {
+  final TokenService _tokenService = TokenService();
 
-  // Register Service
   @override
   Future<bool> registerService(String name, String email, String password) async {
-    try{
-      ApiServices apiServices = ApiServices();
-      final response = await apiServices.postData(
-          body: {
-            "name": name,
-            "email": email,
-            "password": password
-          }, endPoint: ApiEndPoints.registerUrl
-      );
-      if(response['success'] == true) return true;
-    }catch(e){
-      return false;
-    }
-    return false;
-  }
-
-  //login
-  @override
-  Future<bool> loginService(String email, String password) async {
-    try{
-      ApiServices apiServices = ApiServices();
-      final response = await apiServices.postData(
-          body: {
-            "email": email,
-            "password": password
-          }, endPoint: ApiEndPoints.loginUrl
-      );
-
-      if(response['success'] == true) {
-        await SharedPreference().setToken(response['authorization']['token']);
-        debugPrint("\n\n\nToken: ${await SharedPreference().getToken()}\n\n\n");
-        return true;
-      }
-    }catch(e){
-      return false;
-    }
-    return false;
-  }
-
-  //Fetch User Data
-  Future<dynamic> fetchUserData() async {
     try {
       ApiServices apiServices = ApiServices();
-      final token = await SharedPreference().getToken();
+      final response = await apiServices.postData(
+        body: {
+          "name": name,
+          "email": email,
+          "password": password,
+        },
+        endPoint: ApiEndPoints.registerUrl,
+      );
+
+      return response['success'] == true;
+    } catch (e) {
+      debugPrint('Register Error: $e');
+      return false;
+    }
+  }
+
+  @override
+  Future<bool> loginService(String email, String password) async {
+    try {
+      ApiServices apiServices = ApiServices();
+      final response = await apiServices.postData(
+        body: {
+          "email": email,
+          "password": password,
+        },
+        endPoint: ApiEndPoints.loginUrl,
+      );
+
+      if (response['success'] == true) {
+        await _tokenService.setToken(response['authorization']['token']);
+
+        final token = await _tokenService.getToken();
+        if (token == null || token.isEmpty) {
+          debugPrint('Token not found, please login');
+          return false;
+        }
+        print('\n\n token is $token\n\n');
+        return true;
+      }
+    } catch (e) {
+      debugPrint('Login Error: $e');
+      return false;
+    }
+    return false;
+  }
+
+  @override
+  Future<UserModel?> fetchUserData() async {
+    try {
+      ApiServices apiServices = ApiServices();
+      final token = await _tokenService.getToken();
 
       if (token == null || token.isEmpty) {
         debugPrint('Token not found, please login');
@@ -69,12 +78,10 @@ class AuthRepositoryImplementation extends AuthRepository{
         headers: headers,
       );
 
-      debugPrint('User data fetched: $response');
       return UserModel.fromJson(response['data']);
     } catch (e) {
       debugPrint('Error fetching user data: $e');
       return null;
     }
   }
-
 }

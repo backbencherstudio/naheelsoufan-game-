@@ -1,10 +1,9 @@
-
 import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
 import 'package:naheelsoufan_game/src/features/screens/auth/forgot_link/presentation/forgot_link_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/auth/forgot_pass/presentation/forgot_pass_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/auth/register/presentation/register_screen.dart';
-import 'package:naheelsoufan_game/src/features/screens/auth/signin_screen/presentation/signin_screen.dart';
+import 'package:naheelsoufan_game/src/features/screens/auth/sign_in_screen/presentation/sign_in_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/catagory_selection_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/choose_subscription_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/create_room_screen.dart';
