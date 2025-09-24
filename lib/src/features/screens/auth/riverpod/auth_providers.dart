@@ -13,8 +13,7 @@ final authUseCaseProvider = Provider<AuthUseCase>((ref) {
   return AuthUseCase(authRepository);
 });
 
-final authNotifierProvider =
-StateNotifierProvider<AuthNotifier, AsyncValue<bool>>((ref) {
+final authNotifierProvider = StateNotifierProvider<AuthNotifier, AsyncValue<bool>>((ref) {
   final useCase = ref.watch(authUseCaseProvider);
   return AuthNotifier(useCase, ref);
 });
