@@ -19,7 +19,6 @@ class UserNotifier extends StateNotifier<UserModel?> {
     String? type,
     String? gender,
     String? dateOfBirth,
-    String? createdAt,
   }) {
     if (state != null) {
       state = UserModel(
@@ -32,7 +31,6 @@ class UserNotifier extends StateNotifier<UserModel?> {
         type: type ?? state!.type,
         gender: gender ?? state!.gender,
         dateOfBirth: dateOfBirth ?? state!.dateOfBirth,
-        createdAt: createdAt ?? state!.createdAt,
       );
     }
   }

@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../data/riverpod/user_controller.dart';
 import '../../../../domain/usecases/auth_use_cases.dart';
 
 class AuthNotifier extends StateNotifier<AsyncValue<bool>> {
@@ -27,4 +28,21 @@ class AuthNotifier extends StateNotifier<AsyncValue<bool>> {
       state = AsyncValue.error(e, st);
     }
   }
+
+  Future<void> fetchUserDetails() async {
+    state = const AsyncValue.loading();
+    try {
+      final success = await useCase.getUserDetailsCall();
+      if (success) {
+        final user = useCase.authRepository.userModel;
+        if (user != null) {
+          ref.read(userProvider.notifier).insertData(user);
+        }
+      }
+      state = AsyncValue.data(success);
+    } catch (e, st) {
+      state = AsyncValue.error(e, st);
+    }
+  }
+
 }

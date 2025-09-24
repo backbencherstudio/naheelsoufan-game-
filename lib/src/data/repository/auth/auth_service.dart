@@ -58,15 +58,18 @@ class AuthService extends AuthRepository {
     return false;
   }
 
+  UserModel? _userModel;
+  UserModel? get userModel => _userModel;
+
   @override
-  Future<UserModel?> fetchUserData() async {
+  Future<bool> fetchUserData() async {
     try {
       ApiServices apiServices = ApiServices();
       final token = await _tokenService.getToken();
 
       if (token == null || token.isEmpty) {
         debugPrint('Token not found, please login');
-        return null;
+        return false;
       }
 
       final headers = {
@@ -78,10 +81,14 @@ class AuthService extends AuthRepository {
         headers: headers,
       );
 
-      return UserModel.fromJson(response['data']);
+      if (response['success'] == true && response['data'] != null) {
+        _userModel = UserModel.fromJson(response['data']);
+        return true;
+      }
     } catch (e) {
       debugPrint('Error fetching user data: $e');
-      return null;
+      return false;
     }
+    return false;
   }
 }
