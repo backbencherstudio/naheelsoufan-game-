@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:naheelsoufan_game/src/features/screens/auth/register/presentation/widget/custom_textformfield.dart';
+import 'package:naheelsoufan_game/src/features/screens/auth/widget/custom_textformfield.dart';
 
 import '../../widgets/full_screen_image_popup.dart';
 import '../mcq_question/widget/image_part.dart';

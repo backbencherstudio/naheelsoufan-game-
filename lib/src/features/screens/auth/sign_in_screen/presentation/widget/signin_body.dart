@@ -1,27 +1,25 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
-import 'package:naheelsoufan_game/src/data/riverpod/user_controller.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../../../../../core/constant/icons.dart';
-import '../../../../../../core/repository/auth/auth_repository_implementation.dart';
 import '../../../../../../core/routes/route_name.dart';
+import '../../../../../../core/theme/theme_extension/color_scheme.dart';
 import '../../../../../common_widegts/elevated_button/elevated_button.dart';
 import '../../../../../common_widegts/snack_bar_message/custom_snack_bar.dart';
-import '../../../register/presentation/widget/custom_textformfield.dart';
-import '../../riverpod/check.dart';
+import '../../../widget/custom_textformfield.dart';
+import '../../../riverpod/auth_providers.dart';
 
-class SignInBody extends StatefulWidget {
+class SignInBody extends ConsumerStatefulWidget {
   const SignInBody({super.key});
 
   @override
-  State<SignInBody> createState() => _RegisterBodyState();
+  _SignInBodyState createState() => _SignInBodyState();
 }
 
-class _RegisterBodyState extends State<SignInBody> {
+class _SignInBodyState extends ConsumerState<SignInBody> {
   late final TextEditingController emailController;
   late final TextEditingController passController;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -37,7 +35,6 @@ class _RegisterBodyState extends State<SignInBody> {
   void dispose() {
     emailController.dispose();
     passController.dispose();
-    _formKey.currentState?.dispose();
     super.dispose();
   }
 
@@ -45,6 +42,22 @@ class _RegisterBodyState extends State<SignInBody> {
   Widget build(BuildContext context) {
     final titleStyle = Theme.of(context).textTheme.displayLarge;
     final subTitleStyle = Theme.of(context).textTheme.displaySmall;
+
+    ref.listen<AsyncValue>(authNotifierProvider, (previous, next) {
+      next.whenOrNull(
+        data: (user) {
+          if (user != null) {
+            context.go(RouteName.gameModeScreens);
+          }
+        },
+        error: (err, _) {
+          CustomSnackBar.show(context, err.toString());
+        },
+      );
+    });
+
+    final authState = ref.watch(authNotifierProvider);
+
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -65,10 +78,7 @@ class _RegisterBodyState extends State<SignInBody> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [Text("Sign In", style: titleStyle)],
-              ),
+              Center(child: Text("Sign In", style: titleStyle)),
               SizedBox(height: 16.h),
               Text("Email", style: subTitleStyle),
               SizedBox(height: 4.h),
@@ -81,8 +91,9 @@ class _RegisterBodyState extends State<SignInBody> {
               Text("Password", style: subTitleStyle),
               SizedBox(height: 4.h),
               Consumer(
-                builder: (_, ref, _) {
+                builder: (_, ref, __) {
                   final isVisible = ref.watch(isObscure3);
+
                   return CustomTextFormField(
                     hintText: "Enter password",
                     controller: passController,
@@ -90,10 +101,9 @@ class _RegisterBodyState extends State<SignInBody> {
                     suffixIcon: SizedBox(
                       width: 24.sp,
                       height: 24.sp,
-                      child:
-                          (!isVisible
-                              ? SvgPicture.asset(AppIcons.visibilityOff)
-                              : SvgPicture.asset(AppIcons.visibilityOn)),
+                      child: (!isVisible
+                          ? SvgPicture.asset(AppIcons.visibilityOff)
+                          : SvgPicture.asset(AppIcons.visibilityOn)),
                     ),
                     onSuffixTap: () {
                       ref.read(isObscure3.notifier).state = !isVisible;
@@ -106,7 +116,6 @@ class _RegisterBodyState extends State<SignInBody> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  //use gestureDetector (onTap:)
                   InkWell(
                     onTap: () => context.go(RouteName.forgetPasswordScreen),
                     child: Text("Forgot password?", style: subTitleStyle),
@@ -114,23 +123,13 @@ class _RegisterBodyState extends State<SignInBody> {
                 ],
               ),
               SizedBox(height: 40.h),
-              Consumer(
-                builder: (context, ref, _) {
-                  return CustomElevatedButton(
-                    onPressed: () async {
-                      final loginSuccess = await AuthRepositoryImplementation().loginService(emailController.text, passController.text);
-                      final user = await AuthRepositoryImplementation().fetchUserData();
-                      if ((_formKey.currentState?.validate() ?? false) && loginSuccess) {
-                        ref.read(userProvider.notifier).insertData(user);
-                        debugPrint("\n\n\n${ref.watch(userProvider)}\n\n\n");
-                        context.go(RouteName.gameModeScreens);
-                      } else {
-                        CustomSnackBar.show(context, "Invalid Credentials or please check your connection");
-                      }
-                    },
-                    buttonName: 'Sign In',
-                  );
-                }
+              CustomElevatedButton(
+                onPressed: () async {
+                  if (_formKey.currentState?.validate() ?? false) {
+                    await ref.read(authNotifierProvider.notifier).login(emailController.text, passController.text,);
+                  }
+                },
+                buttonName: authState.isLoading ? 'Signing In...' : 'Sign In',
               ),
             ],
           ),

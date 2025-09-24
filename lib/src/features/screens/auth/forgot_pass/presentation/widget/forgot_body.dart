@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../../../core/routes/route_name.dart';
 import '../../../../../common_widegts/elevated_button/elevated_button.dart';
-import '../../../register/presentation/widget/custom_textformfield.dart';
+import '../../../widget/custom_textformfield.dart';
 
 class ForgotBody extends StatefulWidget {
   const ForgotBody({super.key});
