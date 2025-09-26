@@ -28,7 +28,11 @@ class SubscriptionModel {
     games = json['games'];
     questions = json['questions'];
     players = json['players'];
-    price = json['price'];
+    price = (json['price'] != null)
+        ? (json['price'] is int
+        ? (json['price'] as int).toDouble()
+        : (json['price'] as double))
+        : null;
     status = json['status'];
     languageId = json['language_id'];
     createdAt = json['created_at'];

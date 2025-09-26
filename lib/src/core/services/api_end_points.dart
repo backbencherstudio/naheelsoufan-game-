@@ -1,6 +1,6 @@
 class ApiEndPoints{
   // BASE URL
-  static const String baseUrl = "https://ceremony-julian-tampa-ken.trycloudflare.com";
+  static const String baseUrl = "https://magazines-compute-welfare-circles.trycloudflare.com";
 
   //REGISTER
   static const String registerUrl = "$baseUrl/api/auth/register";

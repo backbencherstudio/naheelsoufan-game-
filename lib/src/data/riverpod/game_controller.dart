@@ -4,13 +4,10 @@ import 'package:naheelsoufan_game/src/data/model/game/game_model.dart';
 import '../../core/repository/game/game_repository_implementation.dart';
 import '../model/game/game_category_model.dart';
 import '../model/game/game_difficulty_model.dart';
-import '../model/subcription/subcription_model.dart';
 
-final gameSubscriptionProvider = StateProvider<List<SubscriptionModel?>>((ref) => []);
+final gameDifficultyProvider = StateProvider<List<GameDifficultyModel>?>((ref) => []);
 
-final gameDifficultyProvider = StateProvider<List<GameDifficultyModel?>>((ref) => []);
-
-final gameCategoryProvider = StateProvider<List<GameCategoryModel?>>((ref) => []);
+final gameCategoryProvider = StateProvider<List<GameCategoryModel>?>((ref) => []);
 
 final gameProvider = StateNotifierProvider<GameNotifier, GameModel?>((ref) => GameNotifier());
 

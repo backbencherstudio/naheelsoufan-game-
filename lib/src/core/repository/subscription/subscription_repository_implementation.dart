@@ -28,10 +28,10 @@ class SubscriptionRepositoryImplementation extends SubscriptionRepository{
         headers: headers
       );
 
-      debugPrint('User data fetched: $response');
-      return SubscriptionModel.fromJson(response['data']);
+      debugPrint('User subscription fetched: $response');
+      return List.generate(response['data'].length, (index)=> SubscriptionModel.fromJson(response['data'][index]));
     } catch (e) {
-      debugPrint('Error fetching user data: $e');
+      debugPrint('Error fetching subscription data: $e');
       return null;
     }
   }
