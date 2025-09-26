@@ -49,6 +49,7 @@ class CustomTextFormField extends StatelessWidget {
           textInputAction: textInputAction,
           controller: controller,
           obscureText: obscureText,
+          obscuringCharacter: '*',
           cursorColor: Color(0xff3D4279),
           cursorWidth: 2.w,
           style: formFieldTextStyle,

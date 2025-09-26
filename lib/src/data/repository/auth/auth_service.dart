@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:naheelsoufan_game/src/core/services/api_services.dart';
 import 'package:naheelsoufan_game/src/core/services/token_services.dart';
 import '../../../data/model/auth/user_model.dart';
-import '../../../core/services/api_end_points.dart';
+import '../../../core/constant/api_end_points.dart';
 import 'auth_repository.dart';
 
 class AuthService extends AuthRepository {

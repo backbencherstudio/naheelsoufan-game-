@@ -18,45 +18,49 @@ class LanguageDropDown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer(
-      builder: (_, ref, _) {
-        final dropText = ref.watch(result) ?? "US English";
-        return GestureDetector(
-          key: _menuKey,
-          onTap: () async {
-            final value = await customPopupMenu(
-              context: context,
-              key: _menuKey,
-              list: {"US ENGLISH", "عربي"},
-              height: 150.h,
-              width: width
-            );
-            ref.read(result.notifier).state = value;
-          },
-          child: Container(
-            height: 36.h,
-            width: 148.w,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(8.r)),
-              color: Color(0xFFE0E0FF),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                SvgPicture.asset(AppIcons.languageIcon),
-                Text(
-                  dropText,
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    color: Color(0xff3D4279),
-                    fontWeight: FontWeight.w500,
+    return SizedBox(
+      height: 36.h,
+      width: 148.w,
+      child: Consumer(
+        builder: (_, ref, __) {
+          final dropText = ref.watch(result) ?? "US English";
+          return GestureDetector(
+            key: _menuKey,
+            onTap: () async {
+              final value = await customPopupMenu(
+                context: context,
+                key: _menuKey,
+                list: {"US English", "عربي"},
+                height: 150.h,
+                width: width
+              );
+              ref.read(result.notifier).state = value;
+            },
+            child: Container(
+              height: 36.h,
+              width: 148.w,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(8.r)),
+                color: Color(0xFFE0E0FF),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  SvgPicture.asset(AppIcons.languageIcon),
+                  Text(
+                    dropText,
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      color: Color(0xff3D4279),
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
-                ),
-                SvgPicture.asset(AppIcons.dropdownIcon),
-              ],
+                  SvgPicture.asset(AppIcons.dropdownIcon),
+                ],
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
