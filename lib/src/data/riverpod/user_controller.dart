@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../core/repository/auth/auth_repository_implementation.dart';
 import '../model/auth/user_model.dart';
 
 final userProvider = StateNotifierProvider<UserNotifier, UserModel?>((ref) => UserNotifier());
@@ -8,10 +7,7 @@ class UserNotifier extends StateNotifier<UserModel?> {
   UserNotifier() : super(null);
 
   // Insert new user data
-  void insertData() async{
-    final user = await AuthRepositoryImplementation().fetchUserData();
-    state = user;
-  }
+  void insertData(UserModel user) => state = user;
 
   // Update data (call this with patched user)
   void updateData({
@@ -23,7 +19,6 @@ class UserNotifier extends StateNotifier<UserModel?> {
     String? type,
     String? gender,
     String? dateOfBirth,
-    String? createdAt,
   }) {
     if (state != null) {
       state = UserModel(
@@ -36,7 +31,6 @@ class UserNotifier extends StateNotifier<UserModel?> {
         type: type ?? state!.type,
         gender: gender ?? state!.gender,
         dateOfBirth: dateOfBirth ?? state!.dateOfBirth,
-        createdAt: createdAt ?? state!.createdAt,
       );
     }
   }

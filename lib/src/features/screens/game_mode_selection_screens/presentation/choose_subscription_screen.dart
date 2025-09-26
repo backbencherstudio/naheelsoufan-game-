@@ -33,8 +33,8 @@ class _ChoosePaymentCardState extends ConsumerState<ChoosePaymentCard> {
   }
 
   Future<void> loadSubscriptionData(WidgetRef ref) async {
-    final data = await SubscriptionRepositoryImplementation().fetchSubscriptionData();
-    ref.read(gameSubscriptionProvider.notifier).state = data;
+    // final data = await SubscriptionRepositoryImplementation().fetchSubscriptionData();
+    // ref.read(gameSubscriptionProvider.notifier).state = data;
   }
 
   @override

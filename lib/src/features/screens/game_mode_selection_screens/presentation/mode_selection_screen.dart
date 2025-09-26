@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/constant/images.dart';
 import 'package:naheelsoufan_game/src/core/constant/padding.dart';
-import 'package:naheelsoufan_game/src/core/repository/game/game_repository_implementation.dart';
 import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
@@ -13,21 +12,19 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/freeExpire_provider.dart';
 
-import '../../../../data/riverpod/user_controller.dart';
 import '../../question_answer_screen/setting_while_in_game/widgets/language_drop_down_menu.dart';
 
-class ModeSelectionScreen extends ConsumerWidget {
+class ModeSelectionScreen extends StatelessWidget {
   const ModeSelectionScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> keys = GlobalKey<ScaffoldState>();
-    final menuKey = GlobalKey();
-    final userData = ref.watch(userProvider);
-    final gameMode = ref.watch(checkNormalGridScreen);
+    final _menuKey = GlobalKey();
 
     return CreateScreen(
       keys: keys,
+
       child: Padding(
         padding: AppPadding.horizontalPadding,
         child: Column(
@@ -46,11 +43,7 @@ class ModeSelectionScreen extends ConsumerWidget {
                     }
                   },
                 ),
-          (userData?.avatar_url == null) ? Image.asset(
-            AppImages.profilePic,
-            height: 40.h,
-            width: 40.w,
-          ) : Image.network(userData?.avatar_url ?? "", height: 40.h, width: 40.w,),
+                Image.asset(AppImages.profilePic, height: 40.h, width: 40.w),
                 CustomPopUpMenu()
               ],
             ),
@@ -64,15 +57,13 @@ class ModeSelectionScreen extends ConsumerWidget {
                 return CustomCard(
                   img: AppImages.playoffline,
                   text: 'PLAY OFFLINE',
-                  onTap: () async {
-
-
-                    final gameCreationSuccess =
-                    GameRepositoryImplementation().createService(
-                        gameMode ? "QUICK_GAME" : "GRID_STYLE", "cmee1gu4i0000wsa80neoo1x7");
-                    await gameCreationSuccess ?
-                    context.push(RouteName.addPlayerScreen) :
-                    context.push(RouteName.choosePaymentCard);
+                  onTap: () {
+                    // if (data == true) {
+                    //   ref.read(isOfflineOnProvider.notifier).state = true;
+                    //   context.push(RouteName.choosePaymentCard);
+                    // } else {
+                    context.push(RouteName.addPlayerScreen);
+                    // }
                   },
                 );
               },
@@ -96,7 +87,7 @@ class ModeSelectionScreen extends ConsumerWidget {
               },
             ),
             SizedBox(height: 16.h),
-            LanguageDropDown(menuKey: menuKey),
+            LanguageDropDown(menuKey: _menuKey),
           ],
         ),
       ),

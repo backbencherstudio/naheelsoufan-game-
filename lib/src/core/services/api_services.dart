@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
-import 'api_end_points.dart';
+import '../constant/api_end_points.dart';
 
 class ApiServices {
   // Check Internet

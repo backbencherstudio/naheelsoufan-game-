@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/constant/images.dart';
+import 'package:naheelsoufan_game/src/core/services/token_services.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 
 import '../../../../core/routes/route_name.dart';
@@ -25,7 +26,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   Future<void> _moveToHomeScreen() async {
     await Future.delayed(Duration(seconds: 1));
-    context.push(RouteName.signInScreen);
+    final TokenService _tokenService = TokenService();
+    final token = await _tokenService.getToken();
+    if (token != null) {
+      context.push(RouteName.gameModeScreens);
+    } else {
+      context.push(RouteName.signInScreen);
+    }
   }
 
   @override
