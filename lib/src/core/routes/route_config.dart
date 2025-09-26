@@ -3,6 +3,7 @@ part of 'route_import_part.dart';
 class RouteConfig {
   static final GoRouter goRouter = GoRouter(
     initialLocation: RouteName.splashScreen,
+    observers: [CustomNavigatorObserver()],
     routes: [
       GoRoute(
         path: RouteName.gridLeaderboard,
@@ -103,7 +104,8 @@ class RouteConfig {
             child: SplashScreen(),
           );
         },
-      ), GoRoute(
+      ),
+      GoRoute(
         path: RouteName.registerScreen,
         pageBuilder: (context, state) {
           return buildPageWithTransition(
@@ -125,7 +127,8 @@ class RouteConfig {
             child: PaymentScreen(),
           );
         },
-      ), GoRoute(
+      ),
+      GoRoute(
         path: RouteName.onboardingScreen,
         pageBuilder: (context, state) {
           return buildPageWithTransition(
@@ -254,18 +257,21 @@ class RouteConfig {
             child: SignInScreen(),
           );
         },
+        routes: [
+          GoRoute(
+            path: RouteName.forgetPasswordScreen,
+            pageBuilder: (context, state) {
+              return buildPageWithTransition(
+                context: context,
+                state: state,
+                transitionType: PageTransitionType.slideRightToLeft,
+                child: ForgotPassScreen(),
+              );
+            },
+          ),
+        ],
       ),
-      GoRoute(
-        path: RouteName.forgetPasswordScreen,
-        pageBuilder: (context, state) {
-          return buildPageWithTransition(
-            context: context,
-            state: state,
-            transitionType: PageTransitionType.slideRightToLeft,
-            child: ForgotPassScreen(),
-          );
-        },
-      ),
+
       GoRoute(
         path: RouteName.forgetPasswordLinkSentScreen,
         pageBuilder: (context, state) {
@@ -299,7 +305,7 @@ class RouteConfig {
           );
         },
       ),
-        GoRoute(
+      GoRoute(
         path: RouteName.createRoomScreen,
         pageBuilder: (context, state) {
           return buildPageWithTransition(
@@ -310,7 +316,7 @@ class RouteConfig {
           );
         },
       ),
-       GoRoute(
+      GoRoute(
         path: RouteName.shareRoomScreen,
         pageBuilder: (context, state) {
           return buildPageWithTransition(
@@ -321,7 +327,7 @@ class RouteConfig {
           );
         },
       ),
-     GoRoute(
+      GoRoute(
         path: RouteName.modeSelectionScreen,
         pageBuilder: (context, state) {
           return buildPageWithTransition(
@@ -379,7 +385,7 @@ class RouteConfig {
         },
       ),
 
-  GoRoute(
+      GoRoute(
         path: RouteName.categorySelectionScreen,
 
         pageBuilder: (context, state) {
@@ -393,4 +399,14 @@ class RouteConfig {
       ),
     ],
   );
+}
+
+class CustomNavigatorObserver extends NavigatorObserver {
+  @override
+  void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    super.didPop(route, previousRoute);
+    if (route.settings.name == RouteName.splashScreen) {
+      SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+    }
+  }
 }

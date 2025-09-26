@@ -45,9 +45,12 @@ class _SignInBodyState extends ConsumerState<SignInBody> {
 
     ref.listen<AsyncValue>(authNotifierProvider, (previous, next) {
       next.whenOrNull(
-        data: (user) {
-          if (user != null) {
+        data: (success) {
+          if (success) {
             context.go(RouteName.gameModeScreens);
+            CustomSnackBar.show(context, 'Login Successful');
+          } else {
+            CustomSnackBar.show(context, 'Something Went Wrong!');
           }
         },
         error: (err, _) {
@@ -117,7 +120,7 @@ class _SignInBodyState extends ConsumerState<SignInBody> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   InkWell(
-                    onTap: () => context.go(RouteName.forgetPasswordScreen),
+                    onTap: () => context.go('${RouteName.signInScreen}${RouteName.forgetPasswordScreen}'),
                     child: Text("Forgot password?", style: subTitleStyle),
                   ),
                 ],
