@@ -6,8 +6,10 @@ import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.da
 
 class CustomQuestionTypeTile extends StatelessWidget {
   final bool isSelected;
+  final String? imgUrl;
+  final String title;
   final void Function()? onTap;
-  const CustomQuestionTypeTile({super.key, required this.isSelected, required this.onTap, required String title});
+  const CustomQuestionTypeTile({super.key, required this.isSelected, required this.onTap, required this.title, this.imgUrl});
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +68,7 @@ class CustomQuestionTypeTile extends StatelessWidget {
       
                   child: Column(
                     children: [
-                      SvgPicture.asset(AppIcons.globeIcon),
+                      Image.network(imgUrl ?? "https://plus.unsplash.com/premium_vector-1715426360516-c2260d61993d?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
                       SizedBox(height: 12.h),
                       Text(
                         "25 Question",

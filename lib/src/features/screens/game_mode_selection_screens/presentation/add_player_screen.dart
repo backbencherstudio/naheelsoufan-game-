@@ -17,6 +17,7 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/selection_provider.dart';
 
+import '../../../../data/riverpod/game/category/category_controller.dart';
 import '../../main_quiz_screen/presentation/riverpod/stateProvider.dart';
 import '../riverpod/player_name_provider.dart';
 
@@ -218,8 +219,9 @@ class AddPlayerScreen extends ConsumerWidget {
 
                   GestureDetector(
                     onTap:
-                        () {
+                        () async {
                       controller.state = current.copyWith(totalPlayer: totalPlayers);// CB
+                      await ref.read(categoryProvider.notifier).fetchCategoryDetails();
                       context.push(RouteName.catagorySelectionScreen);
                     },
                     child: Container(

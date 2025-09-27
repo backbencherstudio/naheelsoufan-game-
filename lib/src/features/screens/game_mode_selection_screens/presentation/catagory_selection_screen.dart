@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:naheelsoufan_game/src/core/constant/api_end_points.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/constant/images.dart';
 import 'package:naheelsoufan_game/src/core/constant/padding.dart';
@@ -14,6 +15,7 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/selection_provider.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/riverpod/stateProvider.dart';
+import '../../../../data/riverpod/game/category/category_controller.dart';
 import '../../question_answer_screen/next_turn/riverpod/player_name_state_provider.dart';
 
 class CatagorySelectionScreen extends ConsumerWidget {
@@ -24,8 +26,9 @@ class CatagorySelectionScreen extends ConsumerWidget {
     final style = Theme.of(context).textTheme;
     final player = ref.watch(playerProvider);
     final selectedState = ref.watch(selectProvider);
+    final categories = ref.watch(categoryProvider);
 
-    final List<String> levels = ["General Knowledge", "Math", "Science","General Knowledge", "Math", "Science","General Knowledge", "Math", "Science",];
+    //final List<String> levels = ["General Knowledge", "Math", "Science","General Knowledge", "Math", "Science","General Knowledge", "Math", "Science",];
 
     return CreateScreen(
       child: Padding(
@@ -62,7 +65,7 @@ class CatagorySelectionScreen extends ConsumerWidget {
                   crossAxisSpacing: 30,
                   childAspectRatio: (0.5),
                 ),
-                itemCount: levels.length,
+                itemCount: categories?.pagination.limit,
                 itemBuilder: (context, index) {
                   return Column(
                     children: [
@@ -77,10 +80,10 @@ class CatagorySelectionScreen extends ConsumerWidget {
                             }
                           });
                         },
-                        title: levels[index],
+                        title: categories!.data[index].name, imgUrl: ApiEndPoints.imageUrlPath(categories.data[index].image ?? ""),
                       ),
                       Text(
-                        levels[index],
+                        categories.data[index].name,
                         style: Theme.of(context).textTheme.labelLarge!.copyWith(
                           fontWeight: FontWeight.w400,
                           color: AppColorScheme.primary,
