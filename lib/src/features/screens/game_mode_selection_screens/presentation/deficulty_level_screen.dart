@@ -87,7 +87,7 @@ class DifficultyLevelScreen extends ConsumerWidget {
                       SizedBox(height: 20.h),
                       CustomGreenButton(
                         onTap: () {
-                          context.push(RouteName.quizScreen);
+                          context.pushReplacement(RouteName.quizScreen);
                         },
                       ),
                     ],

@@ -225,7 +225,7 @@ class AddPlayerScreen extends ConsumerWidget {
                   final selectPlayers = SelectPlayersService();
                   final result = await selectPlayers.selectPlayers(context: context, players: playerNames);
                   if (result) {
-                    context.push(
+                    context.pushReplacement(
                       RouteName.catagorySelectionScreen,
                     );
                   }

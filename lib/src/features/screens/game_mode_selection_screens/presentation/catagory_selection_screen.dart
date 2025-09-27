@@ -74,12 +74,10 @@ class CatagorySelectionScreen extends ConsumerWidget {
                         isSelected: selectedState == updatedIndex,
                         onTap: () {
                           ref.read(selectProvider.notifier).state = updatedIndex;
-                          Future.delayed(Duration(milliseconds: 1000), () {
                             if (context.mounted) {
-                              context.push(RouteName.difficultyLevelScreen);
+                              context.pushReplacement(RouteName.difficultyLevelScreen);
                               ref.read(selectProvider.notifier).state = null;
                             }
-                          });
                         },
                         title: categories.data[updatedIndex].name, imgUrl: ApiEndPoints.imageUrlPath(categories.data[updatedIndex].image ?? ""),
                       ),
