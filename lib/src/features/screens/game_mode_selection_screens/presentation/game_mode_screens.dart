@@ -9,6 +9,7 @@ import '../../../../core/constant/icons.dart';
 import '../../../../core/constant/images.dart';
 import '../../../../core/constant/padding.dart';
 import '../../../../core/routes/route_name.dart';
+import '../../../../data/riverpod/difficulty/difficulty_provider.dart';
 import '../../../common_widegts/create_screen/create_screen.dart';
 import '../../auth/riverpod/auth_providers.dart';
 import '../../question_answer_screen/setting_while_in_game/widgets/language_drop_down_menu.dart';
@@ -26,7 +27,10 @@ class _GameModeScreensState extends ConsumerState<GameModeScreens> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(authNotifierProvider.notifier).fetchUserDetails();
+      final difficultiesState = ref.read(difficultiesStateNotifierProvider);
+      if (difficultiesState == null) {
+        ref.read(difficultiesStateNotifierProvider.notifier).fetchDifficulties();
+      }
     });
   }
 
@@ -35,6 +39,7 @@ class _GameModeScreensState extends ConsumerState<GameModeScreens> {
     final GlobalKey<ScaffoldState> keys = GlobalKey<ScaffoldState>();
     final menuKey = GlobalKey();
     final userData = ref.watch(authNotifierProvider);
+    final difficultiesState = ref.watch(difficultiesStateNotifierProvider);
 
     return Scaffold(
       body: CreateScreen(
@@ -80,6 +85,10 @@ class _GameModeScreensState extends ConsumerState<GameModeScreens> {
                   ),
                   SizedBox(height: 40.h),
                   LanguageDropDown(menuKey: menuKey),
+                  // Display fetched difficulties if they exist
+                  difficultiesState == null
+                      ? const Center(child: CircularProgressIndicator())
+                      : Text('Difficulties loaded successfully'), // Modify as needed
                 ],
               ),
             );
@@ -91,3 +100,5 @@ class _GameModeScreensState extends ConsumerState<GameModeScreens> {
     );
   }
 }
+
+
