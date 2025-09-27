@@ -12,7 +12,7 @@ class DifficultiesNotifier extends StateNotifier<DifficultiesModelClass?> {
 
   Future<void> fetchDifficulties() async {
     final difficultyService = DifficultyService();
-    final difficulties = await difficultyService.fetchUserData();
+    final difficulties = await difficultyService.fetchDifficultyData();
     state = difficulties;
   }
 }
