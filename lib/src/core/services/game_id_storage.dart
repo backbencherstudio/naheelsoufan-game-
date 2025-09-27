@@ -1,19 +1,20 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-class GameIdService{
-  // GAME ID
+class GameIdStorage {
+  static const String gameIdKey = 'game_id';
+
   Future<String?> getGameId() async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getString('game_id');
+    return prefs.getString(gameIdKey);
   }
 
-  Future<void> setGameId(String? id) async{
+  Future<void> setGameId(String? gameId) async{
     final prefs = await SharedPreferences.getInstance();
-    prefs.setString('game_id', id ?? "No game_id");
+    prefs.setString(gameIdKey, gameId ?? "No ID");
   }
 
   Future<void> removeGameId() async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.remove('game_id');
+    prefs.remove(gameIdKey);
   }
 }

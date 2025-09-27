@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:naheelsoufan_game/src/data/repository/game/game_mode/select_game_mode_service.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_button.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 
@@ -22,12 +23,12 @@ class GameModeScreens extends ConsumerStatefulWidget {
   @override
   _GameModeScreensState createState() => _GameModeScreensState();
 }
-
 class _GameModeScreensState extends ConsumerState<GameModeScreens> {
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(authNotifierProvider.notifier).fetchUserDetails();
       final difficultiesState = ref.read(difficultiesStateNotifierProvider);
       if (difficultiesState == null) {
         ref.read(categoryProvider.notifier).fetchCategoryDetails();
@@ -69,9 +70,20 @@ class _GameModeScreensState extends ConsumerState<GameModeScreens> {
                   SizedBox(height: 50.h),
                   CustomButton(
                     text: "QUICK GAME",
-                    onTap: () {
-                      ref.read(checkNormalGridScreen.notifier).state = true;
-                      context.push(RouteName.modeSelectionScreen);
+                    onTap: () async {
+                      final selectGameMode = SelectGameModeService();
+                      final result = await selectGameMode.createGame(context: context, gameMode: "QUICK_GAME");
+                      if (result) {
+                        ref.read(checkNormalGridScreen.notifier).state = true;
+                        context.push(RouteName.modeSelectionScreen);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("Congratulations! Your first QUICK GAME game created successfully (FREE)", style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w600))),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("Failed to create game", style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w600))),
+                        );
+                      }
                     },
                   ),
                   SizedBox(height: 16.h),
@@ -87,10 +99,6 @@ class _GameModeScreensState extends ConsumerState<GameModeScreens> {
                   ),
                   SizedBox(height: 40.h),
                   LanguageDropDown(menuKey: menuKey),
-                  // Display fetched difficulties if they exist
-                  difficultiesState == null
-                      ? const Center(child: CircularProgressIndicator())
-                      : Text('Difficulties loaded successfully'), // Modify as needed
                 ],
               ),
             );
