@@ -17,3 +17,4 @@ class CategoryController extends StateNotifier<CategoryModel?>{
   }
 
 }
+
