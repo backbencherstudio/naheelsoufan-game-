@@ -6,6 +6,7 @@ import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.da
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/riverpod/function.dart';
 import '../../../../../core/constant/icons.dart';
 import '../../../../../core/routes/route_name.dart';
+import '../../../../../data/riverpod/game/category/category_controller.dart';
 import '../../../../common_widegts/create_screen/create_screen.dart';
 import '../../../account_screens/presentation/widgets/my_account_wodgets/header_button.dart';
 import '../../../game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
@@ -115,7 +116,7 @@ class NextTurnScreen extends ConsumerWidget {
                 builder: (_,ref,_) {
                   final selectedIndex = ref.watch(selectedPlayerIndexProvider);
                   return GestureDetector(
-                    onTap: () {
+                    onTap: () async {
                       ref.read(selectedPlayerIndexProvider.notifier).state++;
                       ref.invalidate(levelSelectionProvider);
                      context.push(RouteName.catagorySelectionScreen);

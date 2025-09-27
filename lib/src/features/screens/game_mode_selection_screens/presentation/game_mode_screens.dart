@@ -11,6 +11,7 @@ import '../../../../core/constant/images.dart';
 import '../../../../core/constant/padding.dart';
 import '../../../../core/routes/route_name.dart';
 import '../../../../data/riverpod/difficulty/difficulty_provider.dart';
+import '../../../../data/riverpod/game/category/category_controller.dart';
 import '../../../common_widegts/create_screen/create_screen.dart';
 import '../../auth/riverpod/auth_providers.dart';
 import '../../question_answer_screen/setting_while_in_game/widgets/language_drop_down_menu.dart';
@@ -30,6 +31,7 @@ class _GameModeScreensState extends ConsumerState<GameModeScreens> {
       ref.read(authNotifierProvider.notifier).fetchUserDetails();
       final difficultiesState = ref.read(difficultiesStateNotifierProvider);
       if (difficultiesState == null) {
+        ref.read(categoryProvider.notifier).fetchCategoryDetails();
         ref.read(difficultiesStateNotifierProvider.notifier).fetchDifficulties();
       }
     });

@@ -19,17 +19,18 @@ import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presenta
 import 'package:naheelsoufan_game/src/features/screens/question_answer_screen/next_turn/riverpod/player_name_state_provider.dart';
 
 import '../../../../data/riverpod/count_down_state.dart';
+import '../../../../data/riverpod/difficulty/difficulty_provider.dart';
 import '../../game_type/riverpod/multiple_choice_provider.dart';
 import '../../grid_play_game/riverpod/function.dart';
 import '../../main_quiz_screen/presentation/riverpod/stateProvider.dart';
 
-class DifficultyLevelScreen extends StatelessWidget {
+class DifficultyLevelScreen extends ConsumerWidget {
   const DifficultyLevelScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
-    final List<String> levels = ["EASY", "MEDIUM", "HARD"];
+    final levels = ref.watch(difficultiesStateNotifierProvider);
 
     return CreateScreen(
       child: Padding(
@@ -72,14 +73,14 @@ class DifficultyLevelScreen extends StatelessWidget {
                       ListView.builder(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
-                        itemCount: levels.length,
+                        itemCount: levels?.data.length,
                         itemBuilder: (context, index) {
                           return CustomButtonsNormal(
                             isSelected: selectedLevel == index,
                             onTap: () {
                               ref.read(levelSelectionProvider.notifier).state = index;
                             },
-                            title: levels[index],
+                            title: levels!.data[index].name,
                           );
                         },
                       ),
