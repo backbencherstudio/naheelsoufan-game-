@@ -119,7 +119,6 @@ class NextTurnScreen extends ConsumerWidget {
                     onTap: () async {
                       ref.read(selectedPlayerIndexProvider.notifier).state++;
                       ref.invalidate(levelSelectionProvider);
-                      await ref.read(categoryProvider.notifier).fetchCategoryDetails();
                      context.push(RouteName.catagorySelectionScreen);
                     },
                     child: Container(

@@ -16,6 +16,7 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/selection_provider.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/riverpod/stateProvider.dart';
 import '../../../../data/riverpod/game/category/category_controller.dart';
+import '../../../../data/riverpod/game/category/category_pagination_notifer.dart';
 import '../../question_answer_screen/next_turn/riverpod/player_name_state_provider.dart';
 
 class CatagorySelectionScreen extends ConsumerWidget {
@@ -27,8 +28,7 @@ class CatagorySelectionScreen extends ConsumerWidget {
     final player = ref.watch(playerProvider);
     final selectedState = ref.watch(selectProvider);
     final categories = ref.watch(categoryProvider);
-
-    //final List<String> levels = ["General Knowledge", "Math", "Science","General Knowledge", "Math", "Science","General Knowledge", "Math", "Science",];
+    final currentPage = ref.watch(currentPageProvider);
 
     return CreateScreen(
       child: Padding(
@@ -65,14 +65,15 @@ class CatagorySelectionScreen extends ConsumerWidget {
                   crossAxisSpacing: 30,
                   childAspectRatio: (0.5),
                 ),
-                itemCount: categories?.pagination.limit,
+                itemCount: categories!.pagination.hasNextPage ?  10 : categories.data.length,
                 itemBuilder: (context, index) {
+                  final updatedIndex = currentPage * 10 + index;
                   return Column(
                     children: [
                       CustomQuestionTypeTile(
-                        isSelected: selectedState == index,
+                        isSelected: selectedState == updatedIndex,
                         onTap: () {
-                          ref.read(selectProvider.notifier).state = index;
+                          ref.read(selectProvider.notifier).state = updatedIndex;
                           Future.delayed(Duration(milliseconds: 1000), () {
                             if (context.mounted) {
                               context.push(RouteName.difficultyLevelScreen);
@@ -80,10 +81,10 @@ class CatagorySelectionScreen extends ConsumerWidget {
                             }
                           });
                         },
-                        title: categories!.data[index].name, imgUrl: ApiEndPoints.imageUrlPath(categories.data[index].image ?? ""),
+                        title: categories.data[updatedIndex].name, imgUrl: ApiEndPoints.imageUrlPath(categories.data[updatedIndex].image ?? ""),
                       ),
                       Text(
-                        categories.data[index].name,
+                        categories.data[updatedIndex].name,
                         style: Theme.of(context).textTheme.labelLarge!.copyWith(
                           fontWeight: FontWeight.w400,
                           color: AppColorScheme.primary,
@@ -104,11 +105,15 @@ class CatagorySelectionScreen extends ConsumerWidget {
               children: [
                 CustomroundButton(
                   icon: AppIcons.playleft,
-                  onTap: () {},
+                  onTap: () {
+                    categories.pagination.hasPreviousPage ? ref.read(currentPageProvider.notifier).state-- : debugPrint("No previous Page");
+                  },
                   bgIcon: AppIcons.roundIcontop,
                 ),
                 SizedBox(width: 40.w),
-                CustomroundButton(icon: AppIcons.playButtn, onTap: () {}),
+                CustomroundButton(icon: AppIcons.playButtn, onTap: () {
+                  categories.pagination.hasNextPage ? ref.read(currentPageProvider.notifier).state++ : debugPrint("No next Page");
+                }),
               ],
             ),
             SizedBox(height: 20.h),

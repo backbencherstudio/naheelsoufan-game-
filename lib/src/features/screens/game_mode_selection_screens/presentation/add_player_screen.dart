@@ -221,7 +221,6 @@ class AddPlayerScreen extends ConsumerWidget {
                     onTap:
                         () async {
                       controller.state = current.copyWith(totalPlayer: totalPlayers);// CB
-                      await ref.read(categoryProvider.notifier).fetchCategoryDetails();
                       context.push(RouteName.catagorySelectionScreen);
                     },
                     child: Container(
