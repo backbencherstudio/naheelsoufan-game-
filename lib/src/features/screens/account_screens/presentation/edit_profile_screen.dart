@@ -8,7 +8,7 @@ import 'package:naheelsoufan_game/src/features/screens/account_screens/presentat
 import 'package:naheelsoufan_game/src/features/screens/account_screens/presentation/widgets/my_account_wodgets/header_button.dart';
 import 'package:naheelsoufan_game/src/features/screens/account_screens/riverpod/obsecute_state_notifier.dart';
 import '../../../../core/constant/icons.dart';
-import '../../../../data/riverpod/user_controller.dart';
+import '../../../../data/riverpod/user/user_controller.dart';
 import '../../../common_widegts/create_screen/create_screen.dart';
 import '../../game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 

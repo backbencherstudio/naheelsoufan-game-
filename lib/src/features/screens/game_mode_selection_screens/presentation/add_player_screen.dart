@@ -20,34 +20,31 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import '../../main_quiz_screen/presentation/riverpod/stateProvider.dart';
 import '../riverpod/player_name_provider.dart';
 
-class AddPlayerScreen extends StatelessWidget {
+class AddPlayerScreen extends ConsumerWidget {
   const AddPlayerScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
+    final state = ref.watch(selectionProvider);
+    final notifier = ref.read(selectionProvider.notifier);
+    final fixedPlayers = {0: true, 1: true};
+    final dynamicPlayerKeys = [2, 3];
+    final dynamicPlayers = state.selectedTiles;
+    final allPlayers = {...fixedPlayers, ...dynamicPlayers};
+    final keys = allPlayers.keys.toList()..sort();
+    final totalPlayers = allPlayers.length;
+    final isMaxPlayers = totalPlayers >= 4;
+
+    final controller = ref.read(playerProvider.notifier);
+    final current = ref.read(playerProvider);
 
     return CreateScreen(
       child: SingleChildScrollView(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         child: Padding(
           padding: AppPadding.horizontalPadding,
-          child: Consumer(
-            builder: (context, ref, _) {
-              final state = ref.watch(selectionProvider);
-              final notifier = ref.read(selectionProvider.notifier);
-              final fixedPlayers = {0: true, 1: true};
-              final dynamicPlayerKeys = [2, 3];
-              final dynamicPlayers = state.selectedTiles;
-              final allPlayers = {...fixedPlayers, ...dynamicPlayers};
-              final keys = allPlayers.keys.toList()..sort();
-              final totalPlayers = allPlayers.length;
-              final isMaxPlayers = totalPlayers >= 4;
-
-              final controller = ref.read(playerProvider.notifier);
-              final current = ref.read(playerProvider);
-
-              return Column(
+          child: Column(
                 children: [
                   // Top bar
                   Row(
@@ -269,9 +266,7 @@ class AddPlayerScreen extends StatelessWidget {
                     ),
                   ),
                 ],
-              );
-            },
-          ),
+              ),
         ),
       ),
     );

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
+import 'package:naheelsoufan_game/src/data/riverpod/subscription/subscription_controller.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/choose_subscription_widgets/subscription_card.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
@@ -11,11 +13,13 @@ import '../../../../core/constant/icons.dart';
 import '../../../../core/constant/images.dart';
 import '../../../../core/routes/route_name.dart';
 
-class PaymentScreen extends StatelessWidget {
+class PaymentScreen extends ConsumerWidget {
   const PaymentScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final subscriptionData = ref.watch(gameSubscriptionProvider);
+    final currentIndex = ref.watch(selectedSubscriptionIndex);
     final GlobalKey<ScaffoldState> keys = GlobalKey<ScaffoldState>();
     return Scaffold(
       body: CreateScreen(
@@ -64,16 +68,19 @@ class PaymentScreen extends StatelessWidget {
                 },
                 child: PaymentCardWidget(
                   title: 'Games',
-                  subtitle: ": 6 games",
+                  subtitle: '${subscriptionData?[currentIndex].games ?? 0}',
                   title2: 'Max Players',
-                  subtitle2: ': Up to 8 Players',
+                  subtitle2: ': Up to ${subscriptionData?[currentIndex].players ?? 0} Players',
                   description:
-                      'Get your game on with 3 quick rounds of fun with your friends!',
+                  'Get your game on with ${subscriptionData?[currentIndex].questions ?? 0} exiting questions of fun with your friends!',
                   borderColor: AppColorScheme.surface,
                   rocketBackground: AppColorScheme.greenborder,
-                  buttonText: '\$10 per 3 game',
-                  quality: 'Standard',
+                  buttonText: '\$${subscriptionData?[currentIndex].price ?? 0.00} per ${subscriptionData?[currentIndex].games ?? 0} games',
+                  quality: subscriptionData?[currentIndex].type ?? "NULL",
                   color: AppColorScheme.greenborder,
+                  onPressed: (){
+                    // STRIPE
+                  },
                 ),
               ),
 

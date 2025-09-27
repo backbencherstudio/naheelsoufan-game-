@@ -15,6 +15,7 @@ class PaymentCardWidget extends StatelessWidget {
   final Color color;
   final Color rocketBackground;
   final Color borderColor;
+  final VoidCallback onPressed;
 
   const PaymentCardWidget({
     super.key,
@@ -28,6 +29,7 @@ class PaymentCardWidget extends StatelessWidget {
     required this.borderColor,
     required this.title2,
     required this.subtitle2,
+    required this.onPressed
   });
 
   @override
@@ -113,7 +115,7 @@ class PaymentCardWidget extends StatelessWidget {
                   AppCustomButton(
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                     text: buttonText,
-                    onTap: () {},
+                    onTap: onPressed,
                     width: 228.w,
                     gradient: LinearGradient(
                       colors: [

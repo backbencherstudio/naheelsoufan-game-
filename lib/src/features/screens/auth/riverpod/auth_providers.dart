@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../data/repository/auth/auth_repository.dart';
 import '../../../../data/repository/auth/auth_service.dart';
 import '../../../../domain/usecases/auth_use_cases.dart';
-import 'auth_notifier.dart';
+import '../../../../data/riverpod/auth/auth_notifier.dart';
 
 final authRepositoryProvider = Provider<AuthRepository>((ref) {
   return AuthService();
