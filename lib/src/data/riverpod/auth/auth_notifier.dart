@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../data/riverpod/user_controller.dart';
-import '../../../../domain/usecases/auth_use_cases.dart';
+import '../user/user_controller.dart';
+import '../../../domain/usecases/auth_use_cases.dart';
 
 class AuthNotifier extends StateNotifier<AsyncValue<bool>> {
   final AuthUseCase useCase;

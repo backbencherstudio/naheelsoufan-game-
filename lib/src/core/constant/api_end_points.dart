@@ -18,4 +18,7 @@ class ApiEndPoints{
 
   // Subscription
   static const String subscriptionUrl = "$baseUrl/api/subscription/types";
+
+  // Category
+  static const String categoryUrl = "$baseUrl/api/admin/categories";
 }
