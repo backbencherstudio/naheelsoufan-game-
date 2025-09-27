@@ -10,6 +10,9 @@ class ApiEndPoints{
   //CREATE GAME
   static const String createGameUrl = "$baseUrl/api/games";
 
+  // Select PLayers
+  static const String selectPlayersUrl = "$baseUrl/api/game-players/quick-game/add-multiple-players";
+
   // Game Player Data
   static const String gamePlayerDataUrl = "$baseUrl/api/game-players/game";
   static const String gameStartUrl = "$baseUrl/api/game-players/start-game";
