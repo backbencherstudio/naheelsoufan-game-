@@ -55,6 +55,7 @@ class _RegisterBodyState extends ConsumerState<RegisterBody> {
         data: (success) {
           if (success) {
             context.go(RouteName.signInScreen);
+            CustomSnackBar.show(context, "Registration Successful.");
           } else {
             CustomSnackBar.show(context, "Registration failed.");
           }

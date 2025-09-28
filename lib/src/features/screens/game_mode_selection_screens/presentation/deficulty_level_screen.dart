@@ -79,6 +79,8 @@ class DifficultyLevelScreen extends ConsumerWidget {
                             isSelected: selectedLevel == index,
                             onTap: () {
                               ref.read(levelSelectionProvider.notifier).state = index;
+                              debugPrint("Selected level: ${levels.data[index].name}");
+                              debugPrint("Selected level: ${levels.data[index].id}");
                             },
                             title: levels!.data[index].name,
                           );

@@ -38,7 +38,7 @@ class SelectPlayersService {
 
       if (response['success'] == true) {
         print('player select successful: $response');
-        debugPrint('game id ============${response['data']['id']}');
+        
         return true;
       } else {
         print('API call failed: ${response.toString()}');
