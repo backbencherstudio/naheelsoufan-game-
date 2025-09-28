@@ -1,31 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:naheelsoufan_game/src/core/constant/api_end_points.dart';
 import 'package:naheelsoufan_game/src/core/services/game_id_storage.dart';
-import 'package:naheelsoufan_game/src/core/services/language_services.dart';
 import 'package:naheelsoufan_game/src/data/model/player/player_model.dart';
 
 import '../../../../core/services/api_services.dart';
 import '../../../../core/services/token_services.dart';
 
-class SelectPlayersService {
+class SelectCategoriesAndDifficultiesService {
   final ApiServices _apiServices = ApiServices();
   final GameIdStorage _gameIdStorage = GameIdStorage();
   final TokenService _tokenService = TokenService();
 
-  Future<PlayerModel?> selectPlayers({required context, required List<String> players}) async {
+  Future<bool> selectCategoryAndDifficulty(String? catId, String? dogId) async {
     final token = await _tokenService.getToken();
     final gameId = await _gameIdStorage.getGameId();
 
     if (token == null || token.isEmpty) {
       debugPrint('Token not found, please login');
-      return null;
+      return false;
     }
 
     final headers = {'Authorization': 'Bearer $token'};
 
     final body = {
       "game_id": gameId,
-      "player_names": players
+      "category_id": catId,
+      "difficulty_id": dogId
     };
 
     debugPrint('players: $body');
@@ -41,14 +41,14 @@ class SelectPlayersService {
         print('player select successful: $response');
         final playerModel = PlayerModel.fromJson(response);
         debugPrint('player 1 ====== ${playerModel.data.players.first.playerName}');
-        return playerModel;
+        return true;
       } else {
         print('API call failed: ${response.toString()}');
-        return null;
+        return false;
       }
     } catch (e) {
       print('Error during select player call: $e');
-      return null;
+      return false;
     }
   }
 }

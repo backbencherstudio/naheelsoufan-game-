@@ -9,7 +9,13 @@ class CustomQuestionTypeTile extends StatelessWidget {
   final String? imgUrl;
   final String title;
   final void Function()? onTap;
-  const CustomQuestionTypeTile({super.key, required this.isSelected, required this.onTap, required this.title, this.imgUrl});
+  const CustomQuestionTypeTile({
+    super.key,
+    required this.isSelected,
+    required this.onTap,
+    required this.title,
+    this.imgUrl,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +23,6 @@ class CustomQuestionTypeTile extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: SizedBox(
-        
         height: 160.h,
         width: 112.w,
         child: Stack(
@@ -38,37 +43,68 @@ class CustomQuestionTypeTile extends StatelessWidget {
                   ),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12.r),
-                    border: isSelected
-                        ? Border.all(color: AppColorScheme.yellowborder, width: 2.w)
-                        : Border.all(color: AppColorScheme.greenborder, width: 2.w),
-                    gradient: isSelected
-                        ? LinearGradient(
-                            colors: [
-
-                              AppColorScheme.softYellow,
-                              AppColorScheme.midYellow,
-                              AppColorScheme.darkYellow,
-                             
-                            ],
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                          )
-                        : LinearGradient(
-                            colors: [
-                              AppColorScheme.startGradGreen,
-                              AppColorScheme.midGradGreen,
-                              AppColorScheme.hardGradGreen,
-
-
-                            ],
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                          ),
+                    border:
+                        isSelected
+                            ? Border.all(
+                              color: AppColorScheme.yellowborder,
+                              width: 2.w,
+                            )
+                            : Border.all(
+                              color: AppColorScheme.greenborder,
+                              width: 2.w,
+                            ),
+                    gradient:
+                        isSelected
+                            ? LinearGradient(
+                              colors: [
+                                AppColorScheme.softYellow,
+                                AppColorScheme.midYellow,
+                                AppColorScheme.darkYellow,
+                              ],
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                            )
+                            : LinearGradient(
+                              colors: [
+                                AppColorScheme.startGradGreen,
+                                AppColorScheme.midGradGreen,
+                                AppColorScheme.hardGradGreen,
+                              ],
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                            ),
                   ),
-      
+
                   child: Column(
                     children: [
-                      Image.network(imgUrl ?? "https://plus.unsplash.com/premium_vector-1715426360516-c2260d61993d?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+                      Image.network(
+                        imgUrl ?? '',
+                        errorBuilder: (_, __, ___) {
+                          return Container(
+                            height: 60.h,
+                            decoration: BoxDecoration(
+                              color: AppColorScheme.greenborder,
+                              borderRadius: BorderRadius.circular(12.r),
+                            ),
+                            child: Icon(
+                              Icons.error,
+                              color: AppColorScheme.redGrad,
+                            ),
+                          );
+                        },
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return Center(
+                            child: CircularProgressIndicator(
+                              value: loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded /
+                                  loadingProgress.expectedTotalBytes!
+                                  : null,
+                              color: AppColorScheme.greenborder
+                            ),
+                          );
+                        },
+                      ),
                       SizedBox(height: 12.h),
                       Text(
                         "25 Question",
@@ -82,38 +118,39 @@ class CustomQuestionTypeTile extends StatelessWidget {
                 ),
               ),
             ),
-      
+
             Align(
               alignment: Alignment.topCenter,
               child: Container(
                 height: 24.h,
-                width: 100.w ,
+                width: 100.w,
                 padding: const EdgeInsets.all(4.0),
-      
+
                 margin: EdgeInsets.symmetric(horizontal: 4.w),
                 // alignment: Alignment.center,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.r),
-                  gradient: isSelected
-                      ? LinearGradient(
-                          colors: [
-                            Color(0xffF2E792),
-                            Color(0xffF8B133),
-                            Color(0xffDE712B),
-                          ],
-      
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                        )
-                      : LinearGradient(
-                          colors: [
-                            Color(0xffB8F1B9),
-                            Color(0xffB8F1B9),
-                            Color(0xffB8F1B9),
-                          ],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                        ),
+                  gradient:
+                      isSelected
+                          ? LinearGradient(
+                            colors: [
+                              Color(0xffF2E792),
+                              Color(0xffF8B133),
+                              Color(0xffDE712B),
+                            ],
+
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                          )
+                          : LinearGradient(
+                            colors: [
+                              Color(0xffB8F1B9),
+                              Color(0xffB8F1B9),
+                              Color(0xffB8F1B9),
+                            ],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                          ),
                 ),
                 child: Center(
                   child: Text(

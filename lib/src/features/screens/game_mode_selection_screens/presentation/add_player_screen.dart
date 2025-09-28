@@ -8,6 +8,7 @@ import 'package:naheelsoufan_game/src/core/constant/images.dart';
 import 'package:naheelsoufan_game/src/core/constant/padding.dart';
 import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
+import 'package:naheelsoufan_game/src/data/model/player/player_model.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/add_player_widgets/add_player_selection_tile.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/add_player_widgets/type_player_name_dialog.dart';
@@ -223,10 +224,17 @@ class AddPlayerScreen extends ConsumerWidget {
                     return;
                   }
                   final selectPlayers = SelectPlayersService();
-                  final result = await selectPlayers.selectPlayers(context: context, players: playerNames);
-                  if (result) {
+                  final PlayerModel? result = await selectPlayers.selectPlayers(context: context, players: playerNames);
+                  if (result != null) {
                     context.pushReplacement(
                       RouteName.catagorySelectionScreen,
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(result?.message ?? "Players added successfully", style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w600))),
+                    );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(result?.message ?? "Something went wrong", style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w600))),
                     );
                   }
                 },

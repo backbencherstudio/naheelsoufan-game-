@@ -21,7 +21,7 @@ class AuthService extends AuthRepository {
         endPoint: ApiEndPoints.registerUrl,
       );
 
-      return response['success'] == true;
+      return response['response']['success'] == true;
     } catch (e) {
       debugPrint('Register Error: $e');
       return false;
