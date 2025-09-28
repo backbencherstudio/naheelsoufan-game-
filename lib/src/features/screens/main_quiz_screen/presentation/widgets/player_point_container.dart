@@ -21,7 +21,7 @@ class PlayerPointContainer extends StatelessWidget {
         color: AppColorScheme.playerContainerColor,
       ),
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(8.r),
         child: Column(
           children: [
             SizedBox(
@@ -31,7 +31,7 @@ class PlayerPointContainer extends StatelessWidget {
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: Container(
-                      height: 12.0,
+                      height: 12.h,
                       margin: EdgeInsets.symmetric(horizontal: 1.w),
                       decoration: BoxDecoration(
                         color: AppColorScheme.containerColor,
@@ -55,7 +55,9 @@ class PlayerPointContainer extends StatelessWidget {
                       child: Consumer(
                           builder: (_, ref, _) {
                             final current = ref.read(playerProvider);
-                            final isStealMode = ref.watch(isCorrectQuiz);
+                            // CHANGE
+                            final isStealMode = ref.watch(huntModeOn);
+                            // CHANGE
                             final clickState = ref.watch(selectedPlayerIndexProvider);
                             final checkAns = ref.watch(isRightWrongElse);
                             return ListView.builder(
@@ -82,7 +84,9 @@ class PlayerPointContainer extends StatelessWidget {
                                     child: (PlayerPointBlock(
                                       blockCardState: ((clickState == index && checkAns == 1)
                                           ? 1
-                                          : (current.currentPlayer == (index + 1) % current.totalPlayer && current.totalPlayer != (index + 1) % current.totalPlayer)
+                                      //CHANGE
+                                          : (current.currentPlayer == (index) % current.totalPlayer && current.totalPlayer != (index + 1) % current.totalPlayer)
+                                      //CHANGE
                                           ? 0
                                           : (clickState == index)
                                           ? 2

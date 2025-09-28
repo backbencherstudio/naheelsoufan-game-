@@ -53,9 +53,10 @@ class DifficultyLevelScreen extends ConsumerWidget {
             SizedBox(height: 24.h),
             Consumer(
               builder: (_,ref,_) {
-                final player = ref.watch(playerProvider);
+                // final player = ref.watch(playerProvider);
                 return Text(
-                  'Player ${player.currentPlayer + 1}',
+                  // 'Player ${player.currentPlayer + 1}',
+                  "",
                   style: style.titleLarge!.copyWith(
                     fontWeight: FontWeight.w400,
                     color: AppColorScheme.primary,

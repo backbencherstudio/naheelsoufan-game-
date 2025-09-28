@@ -10,7 +10,7 @@ import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presenta
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/player_point_container.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/point.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/show_quit_dialog.dart';
-import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/times_up.dart';
+import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/wrong_answer_dialog.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/row_arrangment/steal_container.dart';
 import '../../../../core/constant/icons.dart';
 import '../../../../core/constant/padding.dart';
@@ -41,20 +41,23 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
 
-      ref.listen<AdvanceNavigation>(advanceNavigationProvider, (prev, next) {
-        if (next == AdvanceNavigation.leaderboard) {
-          context.push(RouteName.leaderboardScreen);
-        } else if (next == AdvanceNavigation.nextTurn) {
-          context.push(RouteName.nextTurnScreen);
-        }
-        ref
-            .read(advanceNavigationProvider.notifier)
-            .state =
-            AdvanceNavigation.none;
-      });
+    ref.listen<AdvanceNavigation>(advanceNavigationProvider, (prev, next) {
+      if (next == AdvanceNavigation.leaderboard) {
+        context.push(RouteName.leaderboardScreen);
+      } else if (next == AdvanceNavigation.nextTurn) {
+        context.push(RouteName.nextTurnScreen);
+      }
+      ref
+          .read(advanceNavigationProvider.notifier)
+          .state =
+          AdvanceNavigation.none;
+    });
 
     ref.watch(advanceTurnControllerProvider);
-
+    final huntMode = ref.watch(huntModeOn);
+    final controller = ref.read(playerProvider.notifier);
+    final current = ref.read(playerProvider);
+    final next = (current.currentPlayer + 1) % current.totalPlayer;
     return CreateScreen(
       child: Padding(
         padding: AppPadding.horizontalPadding,
@@ -75,14 +78,22 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
                   width: 100.h,
                   child: CustomCountdown(
                     initTime: 60,
+                    // CHANGE
                     onPaused: () {
-                      ref.read(advanceTurnTriggerProvider.notifier).state++;
-                      ref.read(huntModeOn.notifier).state = true;
-                      timesUp(context, ref);
+                      //(huntMode) ?
                       WidgetsBinding.instance.addPostFrameCallback((_) {
-                        ref.read(autoCounterProvider(60).notifier).reset();
+                        if (!huntMode) {
+                          onWrongAnswerTap(context, "China", ref);
+                          ref.read(huntModeOn.notifier).state = true;
+                          ref.read(autoCounterProvider(60).notifier).resetAndStart();
+                        }
+                        else {
+                          controller.state = current.copyWith(currentPlayer: next);
+                          ref.read(advanceTurnFlagProvider.notifier).state = true;
+                        }
                       });
                     },
+                    // CHANGE
                   ),
                 ),
                 CustomIconsButtons(
@@ -98,9 +109,11 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
             // point container
             Consumer(
               builder: (_, ref, __) {
-                final checkWrong = ref.watch(isCorrectQuiz);
+                // CHANGE LOGIC
+                //final checkWrong = ref.watch(isCorrectQuiz);
                 final huntMode = ref.watch(huntModeOn);
-                return (checkWrong == true || huntMode == true) ? StealContainer() : PointShow();
+                return (huntMode == true) ? StealContainer() : PointShow();
+                // CHANGE LOGIC
               },
             ),
             SizedBox(height: 16.h),

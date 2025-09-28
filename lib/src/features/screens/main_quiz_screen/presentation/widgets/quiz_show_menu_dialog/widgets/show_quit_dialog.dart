@@ -53,15 +53,15 @@ void onQuitGameTap(BuildContext context) {
                       SizedBox(height: isPortrait ? 40.h: 10.w),
                       Consumer(
                         builder: (_, ref, _) {
-                          final controller = ref.read(playerProvider.notifier);
-                          final current = ref.read(playerProvider);
+                          // final controller = ref.read(playerProvider.notifier);
+                          // final current = ref.read(playerProvider);
                           return GestureDetector(
                             onTap: () {
                               Navigator.pop(context);
                               context.go(RouteName.gameModeScreens);
-                              controller.state = current.copyWith(currentPlayer: 0);
-                              controller.state = current.copyWith(totalPlayer: 2);
-                              controller.state = current.copyWith(stealPlayer: -1);
+                              // controller.state = current.copyWith(currentPlayer: 0);
+                              // controller.state = current.copyWith(totalPlayer: 2);
+                              // controller.state = current.copyWith(stealPlayer: -1);
                               for (final i in [0, 1, 2, 3]) {
                                 ref.read(checkChoicesProvider(i).notifier).state = -1;
                               }

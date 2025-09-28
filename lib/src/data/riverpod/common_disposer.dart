@@ -21,8 +21,6 @@ final commonProviderDisposer = Provider<void Function()>((ref) {
     ref.invalidate(isRightWrongElse);
     ref.invalidate(isCorrectQuiz);
     ref.invalidate(selectedPlayerIndexProvider);
-    ref.invalidate(huntModeOn);
-    ref.invalidate(autoCounterProvider(60));
     ref.invalidate(playerProvider);
     ref.invalidate(levelSelectionProvider);
     ref.invalidate(selectionProvider);
@@ -33,6 +31,6 @@ final commonProviderDisposer = Provider<void Function()>((ref) {
     ref.read(playerTurnProvider.notifier).state = 0;
 
     // Optional: reset any other player-related state
-    ref.read(selectedPlayerIndexProvider.notifier).state = -1;
+    // ref.read(selectedPlayerIndexProvider.notifier).state = -1;
   };
 });
