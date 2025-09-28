@@ -1,7 +1,10 @@
 class ApiEndPoints{
   // BASE URL
   static const String baseUrl = "https://cognitively-undecaying-azalee.ngrok-free.dev";
-  static String imageUrlPath(String imgUrl) => "$baseUrl/public/storage/category/$imgUrl";
+
+  // IMG BASE
+  static String imageBaseUrl = "https://nirob.signalsmind.com/s3/public/storage/category";
+  static String imageUrlPath(String imgUrl) => "$imageBaseUrl/$imgUrl";
 
   static const String registerUrl = "$baseUrl/api/auth/register";
   static const String loginUrl = "$baseUrl/api/auth/login";
