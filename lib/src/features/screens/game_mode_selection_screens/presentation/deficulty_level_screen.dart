@@ -7,7 +7,7 @@ import 'package:naheelsoufan_game/src/core/constant/images.dart';
 import 'package:naheelsoufan_game/src/core/constant/padding.dart';
 import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
-import 'package:naheelsoufan_game/src/data/riverpod/common_disposer.dart';
+import 'package:naheelsoufan_game/src/data/repository/game/game_mode/select_category_and_difficulty_service.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/dificulty_level_widgets/custom_box.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/dificulty_level_widgets/custom_buttons_normal.dart';
@@ -15,14 +15,8 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/difficulty_selection_provider.dart';
-import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/quiz_screen.dart';
-import 'package:naheelsoufan_game/src/features/screens/question_answer_screen/next_turn/riverpod/player_name_state_provider.dart';
-
-import '../../../../data/riverpod/count_down_state.dart';
 import '../../../../data/riverpod/difficulty/difficulty_provider.dart';
-import '../../game_type/riverpod/multiple_choice_provider.dart';
-import '../../grid_play_game/riverpod/function.dart';
-import '../../main_quiz_screen/presentation/riverpod/stateProvider.dart';
+import '../../../../data/riverpod/game/start_game/start_game_provider.dart';
 
 class DifficultyLevelScreen extends ConsumerWidget {
   const DifficultyLevelScreen({super.key});
@@ -31,6 +25,8 @@ class DifficultyLevelScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
     final levels = ref.watch(difficultiesStateNotifierProvider);
+    final cateId = ref.watch(categoryId);
+    final diffId = ref.watch(difficultyId);
 
     return CreateScreen(
       child: Padding(
@@ -80,6 +76,7 @@ class DifficultyLevelScreen extends ConsumerWidget {
                             isSelected: selectedLevel == index,
                             onTap: () {
                               ref.read(levelSelectionProvider.notifier).state = index;
+                              ref.read(difficultyId.notifier).state = levels.data[index].id;
                               debugPrint("Selected level: ${levels.data[index].name}");
                               debugPrint("Selected level: ${levels.data[index].id}");
                             },
@@ -89,7 +86,9 @@ class DifficultyLevelScreen extends ConsumerWidget {
                       ),
                       SizedBox(height: 20.h),
                       CustomGreenButton(
-                        onTap: () {
+                        onTap: () async { // todo start the game
+                          final categoryAndDifficultyService = SelectCategoriesAndDifficultiesService();
+                          final res = await categoryAndDifficultyService.selectCategoryAndDifficulty(cateId, diffId);
                           context.pushReplacement(RouteName.quizScreen);
                         },
                       ),
