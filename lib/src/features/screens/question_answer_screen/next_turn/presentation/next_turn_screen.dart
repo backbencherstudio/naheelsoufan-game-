@@ -114,10 +114,10 @@ class NextTurnScreen extends ConsumerWidget {
               Spacer(),
               Consumer(
                 builder: (_,ref,_) {
-                  final selectedIndex = ref.watch(selectedPlayerIndexProvider);
+                  // final selectedIndex = ref.watch(selectedPlayerIndexProvider);
                   return GestureDetector(
                     onTap: () async {
-                      ref.read(selectedPlayerIndexProvider.notifier).state++;
+                      // ref.read(selectedPlayerIndexProvider.notifier).state++;
                       ref.invalidate(levelSelectionProvider);
                      context.push(RouteName.catagorySelectionScreen);
                     },

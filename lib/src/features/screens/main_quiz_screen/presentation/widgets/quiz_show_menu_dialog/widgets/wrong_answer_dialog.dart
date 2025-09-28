@@ -167,19 +167,21 @@ void onWrongAnswerTap(BuildContext context, String rightAns, ref) {
                     for (int i = 0; i < 4; i++) {
                       ref.read(checkChoicesProvider(i).notifier).state = -1;
                     }
+                    ref.read(autoCounterProvider(60).notifier).start();
                   },
                   child: ClipOval(child: SvgPicture.asset(AppIcons.cancelSvg)),
                 ),
               ),
 
               Positioned(
-                top: 0,
-                child: CustomWrongCountdown(onCompleted: (){
-                  context.pop();
-                  for (int i = 0; i < 4; i++) {
-                    ref.read(checkChoicesProvider(i).notifier).state = -1;
-                  }
-                })
+                  top: 0,
+                  child: CustomWrongCountdown(onCompleted: (){
+                    context.pop();
+                    for (int i = 0; i < 4; i++) {
+                      ref.read(checkChoicesProvider(i).notifier).state = -1;
+                    }
+                    ref.read(autoCounterProvider(60).notifier).start();
+                  })
               ),
             ],
           ),

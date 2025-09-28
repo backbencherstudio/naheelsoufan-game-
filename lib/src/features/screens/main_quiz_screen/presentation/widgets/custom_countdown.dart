@@ -26,16 +26,17 @@ class _CustomCountdownState extends ConsumerState<CustomCountdown> {
 
   @override
   Widget build(BuildContext context) {
+
     final countdown = ref.watch(autoCounterProvider(widget.initTime));
 
     ref.listen<CountdownModel>(
       autoCounterProvider(widget.initTime),
           (previous, next) {
-            if (next.remaining == 0 && previous?.remaining != 0) {
-              widget.onPaused?.call();
-            }
-            _previous = next;
-            },
+        if (next.remaining == 0 && previous?.remaining != 0) {
+          widget.onPaused?.call();
+        }
+        _previous = next;
+      },
     );
 
     final style = Theme.of(context).textTheme;

@@ -25,7 +25,7 @@ class CatagorySelectionScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
-    final player = ref.watch(playerProvider);
+    // final player = ref.watch(playerProvider);
     final selectedState = ref.watch(selectProvider);
     final categories = ref.watch(categoryProvider);
     final currentPage = ref.watch(currentPageProvider);
@@ -49,13 +49,13 @@ class CatagorySelectionScreen extends ConsumerWidget {
               ],
             ),
             SizedBox(height: 8.h),
-            Text(
-              "Player ${player.currentPlayer + 1}",
-              style: style.titleLarge!.copyWith(
-                fontWeight: FontWeight.w400,
-                color: AppColorScheme.primary,
-              ),
-            ),
+            // Text(
+            //   "Player ${player.currentPlayer + 1}",
+            //   style: style.titleLarge!.copyWith(
+            //     fontWeight: FontWeight.w400,
+            //     color: AppColorScheme.primary,
+            //   ),
+            // ),
             SizedBox(height: 36.h),
 
             Expanded(

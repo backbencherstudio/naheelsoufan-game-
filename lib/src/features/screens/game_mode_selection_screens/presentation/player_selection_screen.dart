@@ -20,13 +20,13 @@ class PlayerSelectionScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = ref.read(playerProvider.notifier);
+    // final controller = ref.read(playerProvider.notifier);
     final state = ref.watch(selectionProvider);
     final fixedPlayers = {0: true, 1: true};
     final dynamicPlayers = state.selectedTiles;
     final allPlayers = {...fixedPlayers, ...dynamicPlayers};
     final totalPlayers = allPlayers.length;
-    final current = ref.read(playerProvider);
+    // final current = ref.read(playerProvider);
     final style = Theme.of(context).textTheme;
     final isSelected = ref.watch(selectionProvider);
     final areAllSelected = ref
@@ -126,7 +126,7 @@ class PlayerSelectionScreen extends ConsumerWidget {
 
             GestureDetector(
               onTap: () {
-                controller.state = current.copyWith(totalPlayer: totalPlayers);
+                // controller.state = current.copyWith(totalPlayer: totalPlayers);
                 context.pushReplacement(RouteName.categorySelectionScreen);
               },
               child: Container(
