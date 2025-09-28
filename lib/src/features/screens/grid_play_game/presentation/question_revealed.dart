@@ -94,7 +94,7 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
                                 child: CustomCountdown(
                                   initTime: 60,
                                   onPaused: () {
-                                    timesUp(context, ref);
+                                    (huntCheck) ? ref.read(advanceTurnFlagProvider.notifier).state = true: ref.read(huntModeOn.notifier).state = true;
                                     WidgetsBinding.instance.addPostFrameCallback((_) {
                                       ref.read(autoCounterProvider(60).notifier).reset();
                                     });
@@ -117,8 +117,7 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
                           child: CustomCountdown(
                             initTime: 60,
                             onPaused: () {
-                              ref.read(advanceTurnTriggerProvider.notifier).state++;
-                              timesUp(context, ref);
+                              (huntCheck) ? ref.read(advanceTurnFlagProvider.notifier).state = true: ref.read(huntModeOn.notifier).state = true;
                               WidgetsBinding.instance.addPostFrameCallback((_) {
                                 ref.read(autoCounterProvider(60).notifier).reset();
                               });

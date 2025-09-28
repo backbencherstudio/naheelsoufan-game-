@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../../account_screens/presentation/widgets/my_account_wodgets/header_button.dart';
 
 class StealContainer extends StatelessWidget {

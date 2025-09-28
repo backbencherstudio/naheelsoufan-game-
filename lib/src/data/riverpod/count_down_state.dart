@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final advanceTurnTriggerProvider = StateProvider<int>((ref) => 0);
+//final advanceTurnTriggerProvider = StateProvider<int>((ref) => 0);
 
 
 class CountdownModel {
@@ -52,6 +52,12 @@ class AutoCounter extends StateNotifier<CountdownModel> {
   void reset() {
     _timer?.cancel();
     state = CountdownModel(remaining: initial, isRunning: false);
+  }
+
+  void resetAndStart() {
+    _timer?.cancel();
+    state = CountdownModel(remaining: initial, isRunning: true);
+    _timer = Timer.periodic(const Duration(seconds: 1), (_) => _tick());
   }
 
   @override

@@ -27,8 +27,11 @@ final advanceTurnControllerProvider = Provider.autoDispose<void>((ref) {
     ref.read(playerTurnProvider.notifier).state = nextPlayerTurn;
     ref.read(playerNo.notifier).state = current.currentPlayer;
 
+    // NEED TO UNDERSTAND
+     ref.read(huntModeOn.notifier).state = false;
+     ref.read(autoCounterProvider(60).notifier).reset();
+    // NEED TO UNDERSTAND
 
-    ref.read(huntModeOn.notifier).state = false;
     for (final i in [0, 1, 2, 3]) {
       ref.read(checkChoicesProvider(i).notifier).state = -1;
     }

@@ -1,8 +1,8 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
-import 'package:naheelsoufan_game/src/data/riverpod/common_disposer.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_type/riverpod/multiple_choice_provider.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/riverpod/function.dart';
 import '../../../../../data/riverpod/count_down_state.dart';
@@ -28,7 +28,6 @@ class MultipleChoiceQuestion extends StatelessWidget {
     TextTheme textTheme = Theme.of(context).textTheme;
     bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
-    List<int>listID = [1, 2, 3, 4];
     return Column(
       children: [
         Text(
@@ -53,16 +52,18 @@ class MultipleChoiceQuestion extends StatelessWidget {
           itemBuilder: (context, index) {
             return Consumer(
               builder: (_, ref, _) {
+
                 final checkChoice = ref.watch(checkChoicesProvider(index));
                 final rightChoiceIndex = rightIndex ?? 0;
                 final controller = ref.read(playerProvider.notifier);
                 final current = ref.read(playerProvider);
                 final next = (current.currentPlayer + 1) % current.totalPlayer;
+                final huntMode = ref.watch(huntModeOn);
                 return InkWell(
+                  // CHANGE
                   onTap: () {
-                    (index == rightChoiceIndex)
-                        ? ref.read(isRightWrongElse.notifier).state = 1
-                        : ref.read(isRightWrongElse.notifier).state = 0;
+                    (index == rightChoiceIndex) ? ref.read(isRightWrongElse.notifier).state = 1 : ref.read(isRightWrongElse.notifier).state = 0;
+
                     for (int i = 0; i < choices.length; i++) {
                       if (i == index) {
                         ref.read(checkChoicesProvider(i).notifier).state =
@@ -72,27 +73,34 @@ class MultipleChoiceQuestion extends StatelessWidget {
                         ref.read(checkChoicesProvider(i).notifier).state = -1;
                       }
                     }
-                    if (
-                    !(ref.read(isCorrectQuiz.notifier).state) &&
-                        rightChoiceIndex != index) {
+
+                    if (ref.read(isRightWrongElse.notifier).state == 0) {
                       for (int i = 0; i < 4; i++) {
                         ref.read(checkChoicesProvider(i).notifier).state = -1;
                       }
                       ref.read(selectedPlayerIndexProvider.notifier).state = -1;
                       ref.read(isCorrectQuiz.notifier).state = true;
-                      ref.read(huntModeOn.notifier).state = true;
-                      // for (final id in listID) {
-                      //   ref.read(checkChoicesProvider(id).notifier).state = -1;
-                      // }
+                      ref.read(huntModeOn.notifier).state = !huntMode;
+
+                      log("\n\n\nWRONG!!!\n\n\n");
+                      if(huntMode == true){
+                        func!();
+                        controller.state = current.copyWith(currentPlayer: next);
+                      } else {
+                        ref.read(autoCounterProvider(60).notifier).reset();
+                        onWrongAnswerTap(context, choices[rightChoiceIndex], ref);
+                      }
+
                       WidgetsBinding.instance.addPostFrameCallback((_) {
                         ref.read(autoCounterProvider(60).notifier).reset();
                       });
-                      onWrongAnswerTap(context, choices[rightChoiceIndex], ref);
                     } else {
                       func!(); //LOGIC ekhane dite hobe
+                      controller.state = current.copyWith(currentPlayer: next); // CB
                     }
-                    controller.state = current.copyWith(currentPlayer: next); // CB
+                    log("is wrong = $huntMode");
                   },
+                  // CHANGE
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(

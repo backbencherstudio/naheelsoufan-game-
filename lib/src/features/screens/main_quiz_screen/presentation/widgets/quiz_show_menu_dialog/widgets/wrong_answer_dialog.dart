@@ -167,6 +167,7 @@ void onWrongAnswerTap(BuildContext context, String rightAns, ref) {
                     for (int i = 0; i < 4; i++) {
                       ref.read(checkChoicesProvider(i).notifier).state = -1;
                     }
+                    ref.read(autoCounterProvider(60).notifier).start();
                   },
                   child: ClipOval(child: SvgPicture.asset(AppIcons.cancelSvg)),
                 ),
@@ -179,6 +180,7 @@ void onWrongAnswerTap(BuildContext context, String rightAns, ref) {
                   for (int i = 0; i < 4; i++) {
                     ref.read(checkChoicesProvider(i).notifier).state = -1;
                   }
+                  ref.read(autoCounterProvider(60).notifier).start();
                 })
               ),
             ],

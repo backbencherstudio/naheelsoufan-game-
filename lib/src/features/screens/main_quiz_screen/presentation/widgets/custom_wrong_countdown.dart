@@ -4,13 +4,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import '../../../../../core/constant/icons.dart';
-import '../riverpod/count_down_logic.dart';
-final countdownProvider = StateNotifierProvider.family<CountdownNotifier, int, int>(
-      (ref, start) => CountdownNotifier(start),
+import '../../../../../data/riverpod/count_down_state.dart';
+
+final wrongCounterProvider = StateNotifierProvider.family<AutoCounter, CountdownModel, int>(
+      (ref, initialSeconds) {
+    return AutoCounter(initial: initialSeconds);
+  },
 );
-class CustomWrongCountdown extends ConsumerWidget {
+
+class CustomWrongCountdown extends ConsumerStatefulWidget {
   final int startFrom;
   final VoidCallback onCompleted;
+
   const CustomWrongCountdown({
     super.key,
     this.startFrom = 5,
@@ -18,15 +23,39 @@ class CustomWrongCountdown extends ConsumerWidget {
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    bool isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
-    final time = ref.watch(countdownProvider(startFrom));
+  ConsumerState<CustomWrongCountdown> createState() => _CustomWrongCountdownState();
+}
 
-    ref.listen<int>(countdownProvider(startFrom), (prev, next) {
-      if (next == 0 && prev != 0) {
-        onCompleted();
-      }
+class _CustomWrongCountdownState extends ConsumerState<CustomWrongCountdown> {
+  CountdownModel? _previousCountdown;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Reset and start the countdown timer once when widget initializes
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final notifier = ref.read(wrongCounterProvider(widget.startFrom).notifier);
+      notifier.resetAndStart();
     });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    bool isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+
+    final countdown = ref.watch(wrongCounterProvider(widget.startFrom));
+
+    // Listen for countdown zero to trigger onCompleted callback
+    ref.listen<CountdownModel>(
+      wrongCounterProvider(widget.startFrom),
+          (previous, next) {
+        if (previous != null && previous.remaining != 0 && next.remaining == 0) {
+          widget.onCompleted();
+        }
+        _previousCountdown = next;
+      },
+    );
 
     return GestureDetector(
       onTap: () {
@@ -44,9 +73,10 @@ class CustomWrongCountdown extends ConsumerWidget {
           ),
           Padding(
             padding: EdgeInsets.all(isPortrait ? 2.r : 4.4.r),
-            child: Text("$time",
+            child: Text(
+              "${countdown.remaining}",
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                color: AppColorScheme.errorColor
+                color: AppColorScheme.errorColor,
               ),
             ),
           ),
