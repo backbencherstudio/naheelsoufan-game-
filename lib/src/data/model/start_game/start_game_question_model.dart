@@ -45,6 +45,7 @@ class Question {
   final int timeLimit;
   final String? fileUrl;
   final List<Answer> answers;
+  final QuestionType questionType;
 
   Question({
     required this.id,
@@ -53,6 +54,7 @@ class Question {
     required this.timeLimit,
     this.fileUrl,
     required this.answers,
+    required this.questionType,
   });
 
   factory Question.fromJson(Map<String, dynamic> json) {
@@ -63,6 +65,24 @@ class Question {
       timeLimit: json['time_limit'],
       fileUrl: json['file_url'],
       answers: List<Answer>.from(json['answers'].map((x) => Answer.fromJson(x))),
+      questionType: QuestionType.fromJson(json['question_type']),
+    );
+  }
+}
+
+class QuestionType {
+  final String id;
+  final String name;
+
+  QuestionType({
+    required this.id,
+    required this.name,
+  });
+
+  factory QuestionType.fromJson(Map<String, dynamic> json) {
+    return QuestionType(
+      id: json['id'],
+      name: json['name'],
     );
   }
 }
