@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/riverpod/stateProvider.dart';
 import '../../../../../data/riverpod/count_down_state.dart';
+import '../../../../../data/riverpod/game/start_game/start_game_provider.dart';
 import '../../../game_type/riverpod/multiple_choice_provider.dart';
 import '../../../grid_play_game/riverpod/function.dart';
 import '../../../question_answer_screen/next_turn/riverpod/player_name_state_provider.dart';
@@ -14,6 +15,7 @@ final advanceNavigationProvider =
 StateProvider<AdvanceNavigation>((ref) => AdvanceNavigation.none);
 
 final advanceTurnControllerProvider = Provider.autoDispose<void>((ref) {
+  final response = ref.watch(questionResponseProvider);
   ref.listen<bool>(advanceTurnFlagProvider, (previous, next) async {
     if (previous == next) return;
     if (next != true) return;
@@ -29,7 +31,7 @@ final advanceTurnControllerProvider = Provider.autoDispose<void>((ref) {
 
     // NEED TO UNDERSTAND
     ref.read(huntModeOn.notifier).state = false;
-    ref.read(autoCounterProvider(60).notifier).reset();
+    ref.read(autoCounterProvider(response?.data?.question.timeLimit ?? 60).notifier).reset();
     // NEED TO UNDERSTAND
 
     for (final i in [0, 1, 2, 3]) {
@@ -39,7 +41,7 @@ final advanceTurnControllerProvider = Provider.autoDispose<void>((ref) {
     ref.read(selectedPlayerIndexProvider.notifier).state = -1;
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(autoCounterProvider(60).notifier).reset();
+      ref.read(autoCounterProvider(response?.data?.question.timeLimit ?? 60).notifier).reset();
     });
 
     if (nextPlayerTurn == 0) {

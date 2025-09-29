@@ -27,7 +27,3 @@ final playerProvider = StateProvider<PlayerManage>((ref)=>PlayerManage(
     stealPlayer: -1
 ));
 
-final isCorrectQuiz = StateProvider<bool>((ref) {
-  return false;
-});
-

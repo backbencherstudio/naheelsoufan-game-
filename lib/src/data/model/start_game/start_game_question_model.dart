@@ -1,19 +1,19 @@
-class GameQuestionResponse {
+class GameQuestionResponseModel {
   final bool success;
   final String message;
-  final GameData data;
+  final GameData? data;
 
-  GameQuestionResponse({
+  GameQuestionResponseModel({
     required this.success,
     required this.message,
-    required this.data,
+    this.data,
   });
 
-  factory GameQuestionResponse.fromJson(Map<String, dynamic> json) {
-    return GameQuestionResponse(
+  factory GameQuestionResponseModel.fromJson(Map<String, dynamic> json) {
+    return GameQuestionResponseModel(
       success: json['success'],
       message: json['message'],
-      data: GameData.fromJson(json['data']),
+      data: json['data'] != null ? GameData.fromJson(json['data']) : null,
     );
   }
 }
@@ -46,6 +46,7 @@ class Question {
   final String? fileUrl;
   final List<Answer> answers;
   final QuestionType questionType;
+  final CorrectAnswer correctAnswer;
 
   Question({
     required this.id,
@@ -55,6 +56,7 @@ class Question {
     this.fileUrl,
     required this.answers,
     required this.questionType,
+    required this.correctAnswer
   });
 
   factory Question.fromJson(Map<String, dynamic> json) {
@@ -66,6 +68,7 @@ class Question {
       fileUrl: json['file_url'],
       answers: List<Answer>.from(json['answers'].map((x) => Answer.fromJson(x))),
       questionType: QuestionType.fromJson(json['question_type']),
+      correctAnswer: CorrectAnswer.fromJson(json['correct_answer']),
     );
   }
 }
@@ -83,6 +86,23 @@ class QuestionType {
     return QuestionType(
       id: json['id'],
       name: json['name'],
+    );
+  }
+}
+
+class CorrectAnswer {
+  final String id;
+  final String text;
+
+  CorrectAnswer({
+    required this.id,
+    required this.text,
+  });
+
+  factory CorrectAnswer.fromJson(Map<String, dynamic> json) {
+    return CorrectAnswer(
+      id: json['id'],
+      text: json['text'],
     );
   }
 }

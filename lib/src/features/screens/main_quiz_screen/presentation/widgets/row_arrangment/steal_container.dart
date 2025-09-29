@@ -15,7 +15,7 @@ class StealContainer extends StatelessWidget {
       ),
       borderColor: Color(0xffFFB4AB),
       borderRadius: BorderRadius.circular(12.r),
-      borderWidth: 4,
+      borderWidth: 4.w,
       textStyle: Theme.of(
         context,
       ).textTheme.titleSmall?.copyWith(color: Color(0xffFFDAD6)),

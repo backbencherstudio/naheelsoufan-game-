@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:naheelsoufan_game/src/data/riverpod/common_disposer.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentation/widget/platoon_hunter_card.dart';
@@ -14,6 +13,7 @@ import '../../../../core/constant/icons.dart';
 import '../../../../core/constant/padding.dart';
 import '../../../../core/routes/route_name.dart';
 import '../../../../data/riverpod/count_down_state.dart';
+import '../../../../data/riverpod/game/start_game/start_game_provider.dart';
 import '../../account_screens/presentation/widgets/my_account_wodgets/header_button.dart';
 import '../../game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import '../../game_type/game_type.dart';
@@ -34,10 +34,6 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
   void initState() {
     super.initState();
     _setLandscapeMode();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(autoCounterProvider(60).notifier).start();
-    });
   }
 
   // Force landscape mode
@@ -54,6 +50,7 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
         MediaQuery.of(context).orientation == Orientation.portrait;
 
     final isFirstPlayerPlayed = ref.watch(checkSecondDifficultyScreen);
+    final response = ref.watch(questionResponseProvider);
 
     ref.watch(advanceTurnControllerProvider);
     return CreateScreen(
@@ -92,7 +89,7 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
                                     onPaused: () {
                                       (huntCheck) ? ref.read(advanceTurnFlagProvider.notifier).state = true: ref.read(huntModeOn.notifier).state = true;
                                       WidgetsBinding.instance.addPostFrameCallback((_) {
-                                        ref.read(autoCounterProvider(60).notifier).reset();
+                                        ref.read(autoCounterProvider(response?.data?.question.timeLimit ?? 60).notifier).reset();
                                       });
                                     },
                                   ),
@@ -115,7 +112,7 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
                               onPaused: () {
                                 (huntCheck) ? ref.read(advanceTurnFlagProvider.notifier).state = true: ref.read(huntModeOn.notifier).state = true;
                                 WidgetsBinding.instance.addPostFrameCallback((_) {
-                                  ref.read(autoCounterProvider(60).notifier).reset();
+                                  ref.read(autoCounterProvider(response?.data?.question.timeLimit ?? 60).notifier).reset();
                                 });
                               },
                             ),
@@ -171,20 +168,6 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
                     ],
                     question: "What kind of energy does that sun create?",
                     rightChoice: 3,
-                    func: (){
-                      if (isFirstPlayerPlayed) {
-                        Future.delayed(Duration(seconds: 1), (){
-                          if(context.mounted) context.pushReplacement(RouteName.gridLeaderboard);
-                        });
-                        ref.read(checkSecondDifficultyScreen.notifier).state = false;
-                      } else {
-                        Future.delayed(Duration(seconds: 1), (){
-                          if(context.mounted) context.pushReplacement(RouteName.gridDifficultyLevelScreen);
-                          ref.read(checkSecondDifficultyScreen.notifier).state = true;
-                        });
-                      }
-                      ref.read(commonProviderDisposer);
-                    }
                 ),
               ),
               SizedBox(height: isPortrait ? 100.h : 15.w),

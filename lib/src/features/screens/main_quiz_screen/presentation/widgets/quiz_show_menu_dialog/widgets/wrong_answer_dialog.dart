@@ -10,6 +10,7 @@ import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presenta
 import '../../../../../../../core/constant/icons.dart';
 import '../../../../../../../core/routes/route_name.dart';
 import '../../../../../../../data/riverpod/count_down_state.dart';
+import '../../../../../../../data/riverpod/game/start_game/start_game_provider.dart';
 import '../../../../../game_type/riverpod/multiple_choice_provider.dart';
 import '../../../../../grid_play_game/riverpod/function.dart';
 import '../../../riverpod/advance_turn_controller.dart';
@@ -17,6 +18,7 @@ import '../../../riverpod/stateProvider.dart';
 
 void onWrongAnswerTap(BuildContext context, String rightAns, ref) {
   bool isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+  final response = ref.watch(questionResponseProvider);
   showDialog(
     context: context,
     builder: (_) {
@@ -167,7 +169,7 @@ void onWrongAnswerTap(BuildContext context, String rightAns, ref) {
                     for (int i = 0; i < 4; i++) {
                       ref.read(checkChoicesProvider(i).notifier).state = -1;
                     }
-                    ref.read(autoCounterProvider(60).notifier).start();
+                    ref.read(autoCounterProvider(response?.data?.question.timeLimit ?? 60).notifier).start();
                   },
                   child: ClipOval(child: SvgPicture.asset(AppIcons.cancelSvg)),
                 ),
@@ -180,7 +182,7 @@ void onWrongAnswerTap(BuildContext context, String rightAns, ref) {
                     for (int i = 0; i < 4; i++) {
                       ref.read(checkChoicesProvider(i).notifier).state = -1;
                     }
-                    ref.read(autoCounterProvider(60).notifier).start();
+                    ref.read(autoCounterProvider(response?.data?.question.timeLimit ?? 60).notifier).start();
                   })
               ),
             ],

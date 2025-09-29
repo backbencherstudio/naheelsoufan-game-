@@ -15,6 +15,7 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/difficulty_selection_provider.dart';
+import '../../../../data/riverpod/count_down_state.dart';
 import '../../../../data/riverpod/difficulty/difficulty_provider.dart';
 import '../../../../data/riverpod/game/start_game/start_game_provider.dart';
 
@@ -27,6 +28,7 @@ class DifficultyLevelScreen extends ConsumerWidget {
     final levels = ref.watch(difficultiesStateNotifierProvider);
     final cateId = ref.watch(categoryId);
     final diffId = ref.watch(difficultyId);
+    final response = ref.watch(questionResponseProvider);
 
     return CreateScreen(
       child: Padding(
@@ -89,7 +91,25 @@ class DifficultyLevelScreen extends ConsumerWidget {
                         onTap: () async { // todo start the game
                           final categoryAndDifficultyService = SelectCategoriesAndDifficultiesService();
                           final res = await categoryAndDifficultyService.selectCategoryAndDifficulty(cateId, diffId);
-                          context.pushReplacement(RouteName.quizScreen);
+                          if(res?.success == false || res == null) {
+                            debugPrint("Error: ${res?.message}");
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text("No question found in this category/difficulty"),
+                                duration: Duration(seconds: 1),
+                              ),
+                            );
+                          }
+                          else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text("Success to start the game"),
+                                duration: Duration(seconds: 1),
+                              ),
+                            );
+                            ref.read(questionResponseProvider.notifier).state = res;
+                            context.pushReplacement(RouteName.quizScreen);
+                          }
                         },
                       ),
                     ],

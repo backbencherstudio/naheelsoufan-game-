@@ -6,78 +6,110 @@ import 'all_types/true_false_question/true_false_question.dart';
 import 'all_types/typed_question/typed_question.dart';
 
 class GameType {
-  /// normal multiple choice question
+  /// normal multiple choice question & True false
   static Widget multipleChoiceQuestion({
     required List<String> choices,
     required String question,
     int? rightChoice,
-    Function? func
-  }) => MultipleChoiceQuestion(choices: choices, question: question, rightIndex: rightChoice, func: func,);
+  }) => MultipleChoiceQuestion(
+    choices: choices,
+    question: question,
+    rightIndex: rightChoice,
+  );
 
-  /// true or false question
-  static Widget trueFalseQuestion({required String question}) =>
-      TrueFalseQuestionWithImageVideo(question: question);
-
-  /// true or false question with image
-  static Widget trueFalseQuestionWithImage({
-    required String question,
-    required String image,
-  }) =>
-      TrueFalseQuestionWithImageVideo(question: question, imageUrl: image,);
-
-  /// true or false question with video
-  static Widget trueFalseQuestionWithVideo({
-    required String question,
-    required String thumbnail,
-    required String video,
-  }) => TrueFalseQuestionWithImageVideo(question: question, videoThumbnailUrl: thumbnail, videoUrl: video,);
-
-  /// typed question
-  static Widget typedQuestion({required String question}) =>
-      TypedQuestionWithImageVideo(question: question);
-
-  /// typed question with image
-  static Widget typedQuestionWithImage({
-    required String question,
-    required String image,
-  }) => TypedQuestionWithImageVideo(question: question, imageUrl: image,);
-
-  ///typed question with video
-  static Widget typedQuestionWithVideo({
-    required String question,
-    required String thumbnail,
-    required String video,
-  }) => TypedQuestionWithImageVideo(question: question, videoUrl: video, videoThumbnailUrl: thumbnail,);
-
-  /// image mcq question
-  static Widget imageMcqQuestion({
-    required List<String> choicesImageURL,
-    required String question,
-  }) => ImageMcqQuestion(choicesImageURL: choicesImageURL, question: question);
-
-  /// mcq question with video
+  /// mcq question with video & True False with Image
   static Widget mcqQuestionWithVideo({
     required List<String> choices,
     required String question,
     required String videoUrl,
     required String videoThumbnailUrl,
+    int? rightChoice,
   }) => McqQuestionWithImageVideo(
     choices: choices,
     question: question,
     videoUrl: videoUrl,
     videoThumbnailUrl: videoThumbnailUrl,
+    rightIndex: rightChoice,
   );
 
-  /// mcq question with image
+  /// mcq question with video & True False with Image
+  static Widget mcqQuestionWithAudio({
+    required List<String> choices,
+    required String question,
+    required String audioUrl,
+    int? rightChoice,
+  }) => McqQuestionWithImageVideo(
+    choices: choices,
+    question: question,
+    audioUrl: audioUrl,
+    rightIndex: rightChoice,
+  );
+
+  /// mcq question with image  & True False with Image
   static Widget mcqQuestionWithImage({
     required List<String> choices,
     required String question,
     required String imageUrl,
+    int? rightChoice,
   }) => McqQuestionWithImageVideo(
     choices: choices,
     question: question,
     imageUrl: imageUrl,
+    rightIndex: rightChoice,
   );
+
+  /// image mcq answer question (PORE KORTE HOBE)
+  static Widget imageMcqQuestion({
+    required List<String> choicesImageURL,
+    required String question,
+  }) => ImageMcqQuestion(choicesImageURL: choicesImageURL, question: question);
+
+  // /// true or false question
+  // static Widget trueFalseQuestion({required String question}) =>
+  //     TrueFalseQuestionWithImageVideo(question: question);
+  //
+  // /// true or false question with image
+  // static Widget trueFalseQuestionWithImage({
+  //   required String question,
+  //   required String image,
+  // }) =>
+  //     TrueFalseQuestionWithImageVideo(question: question, imageUrl: image,);
+  //
+  // /// true or false question with video
+  // static Widget trueFalseQuestionWithVideo({
+  //   required String question,
+  //   required String thumbnail,
+  //   required String video,
+  // }) => TrueFalseQuestionWithImageVideo(question: question, videoThumbnailUrl: thumbnail, videoUrl: video,);
+
+  /// typed question
+  static Widget typedQuestion({required String question, required String answer}) =>
+      TypedQuestionWithImageVideo(
+          question: question,
+          rightAnswer: answer,
+      );
+
+  /// typed question with image
+  static Widget typedQuestionWithImage({
+    required String question,
+    required String image,
+    required String answer
+  }) => TypedQuestionWithImageVideo(question: question, imageUrl: image, rightAnswer: answer,);
+
+  ///typed question with audio
+  static Widget typedQuestionWithAudio({
+    required String question,
+    required String audio,
+    required String answer
+  }) => TypedQuestionWithImageVideo(question: question, audioUrl: audio, rightAnswer: answer,);
+
+  ///typed question with video
+  static Widget typedQuestionWithVideo({
+    required String question,
+      required String thumbnail,
+    required String video,
+    required String answer
+  }) => TypedQuestionWithImageVideo(question: question, videoUrl: video, videoThumbnailUrl: thumbnail, rightAnswer: answer,);
 
   ///chinmoy
 

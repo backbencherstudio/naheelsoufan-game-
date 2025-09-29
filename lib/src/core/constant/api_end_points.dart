@@ -4,7 +4,12 @@ class ApiEndPoints{
 
   // IMG BASE
   static String imageBaseUrl = "https://nirob.signalsmind.com/s3/public/storage/category";
+
+  // QUE BASE
+  static const String questionBaseUrl = "https://nirob.signalsmind.com/s3/public/storage/question";
+
   static String imageUrlPath(String imgUrl) => "$imageBaseUrl/$imgUrl";
+  static String fileUrlPath(String imgUrl) => "$questionBaseUrl/$imgUrl";
 
   static const String registerUrl = "$baseUrl/api/auth/register";
   static const String loginUrl = "$baseUrl/api/auth/login";

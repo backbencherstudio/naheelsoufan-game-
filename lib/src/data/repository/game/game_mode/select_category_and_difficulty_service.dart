@@ -12,7 +12,7 @@ class SelectCategoriesAndDifficultiesService {
   final GameIdStorage _gameIdStorage = GameIdStorage();
   final TokenService _tokenService = TokenService();
 
-  Future<GameQuestionResponse?> selectCategoryAndDifficulty(String? catId, String? dogId) async {
+  Future<GameQuestionResponseModel?> selectCategoryAndDifficulty(String? catId, String? dogId) async {
     final token = await _tokenService.getToken();
     final gameId = await _gameIdStorage.getGameId();
 
@@ -38,16 +38,11 @@ class SelectCategoriesAndDifficultiesService {
         headers: headers,
       );
 
-      if (response['success'] == true) {
         print('player select successful: $response');
-        final gameModel = GameQuestionResponse.fromJson(response);
-        debugPrint('Game ====== ${gameModel.data.question.id}');
-        debugPrint('Game ques type ====== ${gameModel.data.question.questionType.name}');
+        final gameModel = GameQuestionResponseModel.fromJson(response);
+        debugPrint('Game ====== ${gameModel.data?.question.id}');
+        debugPrint('Game ques type ====== ${gameModel.data?.question.questionType.name}');
         return gameModel;
-      } else {
-        print('API call failed: ${response.toString()}');
-        return null;
-      }
     } catch (e) {
       print('Error during select player call: $e');
       return null;
