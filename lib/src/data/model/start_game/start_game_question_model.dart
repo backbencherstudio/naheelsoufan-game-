@@ -46,6 +46,7 @@ class Question {
   final String? fileUrl;
   final List<Answer> answers;
   final QuestionType questionType;
+  final CorrectAnswer correctAnswer;
 
   Question({
     required this.id,
@@ -54,7 +55,8 @@ class Question {
     required this.timeLimit,
     this.fileUrl,
     required this.answers,
-    required this.questionType
+    required this.questionType,
+    required this.correctAnswer
   });
 
   factory Question.fromJson(Map<String, dynamic> json) {
@@ -66,6 +68,7 @@ class Question {
       fileUrl: json['file_url'],
       answers: List<Answer>.from(json['answers'].map((x) => Answer.fromJson(x))),
       questionType: QuestionType.fromJson(json['question_type']),
+      correctAnswer: CorrectAnswer.fromJson(json['correct_answer']),
     );
   }
 }
@@ -83,6 +86,23 @@ class QuestionType {
     return QuestionType(
       id: json['id'],
       name: json['name'],
+    );
+  }
+}
+
+class CorrectAnswer {
+  final String id;
+  final String text;
+
+  CorrectAnswer({
+    required this.id,
+    required this.text,
+  });
+
+  factory CorrectAnswer.fromJson(Map<String, dynamic> json) {
+    return CorrectAnswer(
+      id: json['id'],
+      text: json['text'],
     );
   }
 }
