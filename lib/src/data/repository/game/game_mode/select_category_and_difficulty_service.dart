@@ -42,6 +42,7 @@ class SelectCategoriesAndDifficultiesService {
         print('player select successful: $response');
         final gameModel = GameQuestionResponse.fromJson(response);
         debugPrint('Game ====== ${gameModel.data.question.id}');
+        debugPrint('Game ques type ====== ${gameModel.data.question.questionType.name}');
         return gameModel;
       } else {
         print('API call failed: ${response.toString()}');
