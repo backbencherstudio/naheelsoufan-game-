@@ -12,7 +12,50 @@ class GameType {
     required String question,
     int? rightChoice,
     Function? func
-  }) => MultipleChoiceQuestion(choices: choices, question: question, rightIndex: rightChoice, func: func,);
+  }) => MultipleChoiceQuestion(
+    choices: choices,
+    question: question,
+    rightIndex: rightChoice,
+    func: func,
+  );
+
+  /// mcq question with video
+  static Widget mcqQuestionWithVideo({
+    required List<String> choices,
+    required String question,
+    required String videoUrl,
+    required String videoThumbnailUrl,
+    int? rightChoice,
+    Function? function
+  }) => McqQuestionWithImageVideo(
+    choices: choices,
+    question: question,
+    videoUrl: videoUrl,
+    videoThumbnailUrl: videoThumbnailUrl,
+    rightIndex: rightChoice,
+    func: function,
+  );
+
+  /// mcq question with image
+  static Widget mcqQuestionWithImage({
+    required List<String> choices,
+    required String question,
+    required String imageUrl,
+    int? rightChoice,
+    Function? function
+  }) => McqQuestionWithImageVideo(
+    choices: choices,
+    question: question,
+    imageUrl: imageUrl,
+    rightIndex: rightChoice,
+    func: function,
+  );
+
+  /// image mcq answer question (PORE KORTE HOBE)
+  static Widget imageMcqQuestion({
+    required List<String> choicesImageURL,
+    required String question,
+  }) => ImageMcqQuestion(choicesImageURL: choicesImageURL, question: question);
 
   /// true or false question
   static Widget trueFalseQuestion({required String question}) =>
@@ -48,36 +91,6 @@ class GameType {
     required String thumbnail,
     required String video,
   }) => TypedQuestionWithImageVideo(question: question, videoUrl: video, videoThumbnailUrl: thumbnail,);
-
-  /// image mcq question
-  static Widget imageMcqQuestion({
-    required List<String> choicesImageURL,
-    required String question,
-  }) => ImageMcqQuestion(choicesImageURL: choicesImageURL, question: question);
-
-  /// mcq question with video
-  static Widget mcqQuestionWithVideo({
-    required List<String> choices,
-    required String question,
-    required String videoUrl,
-    required String videoThumbnailUrl,
-  }) => McqQuestionWithImageVideo(
-    choices: choices,
-    question: question,
-    videoUrl: videoUrl,
-    videoThumbnailUrl: videoThumbnailUrl,
-  );
-
-  /// mcq question with image
-  static Widget mcqQuestionWithImage({
-    required List<String> choices,
-    required String question,
-    required String imageUrl,
-  }) => McqQuestionWithImageVideo(
-    choices: choices,
-    question: question,
-    imageUrl: imageUrl,
-  );
 
   ///chinmoy
 

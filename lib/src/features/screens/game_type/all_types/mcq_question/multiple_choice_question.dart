@@ -59,6 +59,7 @@ class MultipleChoiceQuestion extends StatelessWidget {
                 final current = ref.read(playerProvider);
                 final next = (current.currentPlayer + 1) % current.totalPlayer;
                 final huntMode = ref.watch(huntModeOn);
+
                 return InkWell(
                   // CHANGE
                   onTap: () {
