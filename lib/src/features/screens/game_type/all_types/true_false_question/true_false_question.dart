@@ -12,13 +12,15 @@ class TrueFalseQuestionWithImageVideo extends ConsumerWidget {
   final String? imageUrl;
   final String? videoUrl;
   final String? videoThumbnailUrl;
+  final int? rightIndex;
 
   const TrueFalseQuestionWithImageVideo({
     super.key,
     required this.question,
     this.imageUrl,
     this.videoUrl,
-    this.videoThumbnailUrl
+    this.videoThumbnailUrl,
+    this.rightIndex
   });
 
   @override

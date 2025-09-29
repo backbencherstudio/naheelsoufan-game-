@@ -38,6 +38,11 @@ class GameData {
   }
 }
 
+//"question_type": {
+//                 "id": "cmfzckp1s0007wsosztwnnxfx",
+//                 "name": "Options"
+//             },
+
 class Question {
   final String id;
   final String text;
@@ -45,6 +50,7 @@ class Question {
   final int timeLimit;
   final String? fileUrl;
   final List<Answer> answers;
+  final Map<String, dynamic> questionType;
 
   Question({
     required this.id,
@@ -53,6 +59,7 @@ class Question {
     required this.timeLimit,
     this.fileUrl,
     required this.answers,
+    required this.questionType
   });
 
   factory Question.fromJson(Map<String, dynamic> json) {
@@ -63,6 +70,7 @@ class Question {
       timeLimit: json['time_limit'],
       fileUrl: json['file_url'],
       answers: List<Answer>.from(json['answers'].map((x) => Answer.fromJson(x))),
+      questionType: json['question_type'],
     );
   }
 }
