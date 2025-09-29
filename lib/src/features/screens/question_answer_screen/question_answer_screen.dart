@@ -21,14 +21,16 @@ class QuestionAnswerScreen extends StatelessWidget {
               SizedBox(height: 20),
               Divider(),
               SizedBox(height: 20),
-              GameType.trueFalseQuestion(
+              GameType.multipleChoiceQuestion(
                 question: "The Great Wall of China is visible from space.",
+                choices: ["False", "True"],
+                rightChoice: 0
               ),
               SizedBox(height: 20),
               Divider(),
               SizedBox(height: 20),
               GameType.typedQuestion(
-                question: "What is the capital of France?",
+                question: "What is the capital of France?", answer: 'Hello',
               ),
               SizedBox(height: 20),
               Divider(),
@@ -48,6 +50,7 @@ class QuestionAnswerScreen extends StatelessWidget {
                 question: 'Which country has the highest population?',
                 image:
                     'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQmViWnNipQWJjIDBvO6MPCd2qFAigro8hJi8W_NUfLyWoib9KBOzMz1f7M6EQA5kEZtafls60NR4ROKM2c4eFIAigEIxBm_SzoZ8axgvA',
+                answer: 'BD',
               ),
 
               SizedBox(height: 20),
@@ -77,17 +80,20 @@ class QuestionAnswerScreen extends StatelessWidget {
               SizedBox(height: 20),
               Divider(),
               SizedBox(height: 20),
-              GameType.trueFalseQuestionWithImage(
+              GameType.mcqQuestionWithImage(
                   question: "What is in the image?",
-                  image: 'https://www.worldanimalprotection.org/cdn-cgi/image/width=1920,format=auto/globalassets/images/elephants/1033551-elephant.jpg'
+                  choices: ["True", "False"],
+                  imageUrl: 'https://www.worldanimalprotection.org/cdn-cgi/image/width=1920,format=auto/globalassets/images/elephants/1033551-elephant.jpg',
+                rightChoice: 1
               ),
               SizedBox(height: 20),
               Divider(),
               SizedBox(height: 20),
-              GameType.trueFalseQuestionWithVideo(
+              GameType.mcqQuestionWithVideo(
                   question: "What is in the video?",
-                  thumbnail: 'https://cdn.britannica.com/94/494-050-A674AD3A/Fallow-deer-dama-dama.jpg',
-                  video: 'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4'
+                  choices: ["True", "False"],
+                  videoUrl: 'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+                  videoThumbnailUrl: 'https://cdn.britannica.com/94/494-050-A674AD3A/Fallow-deer-dama-dama.jpg'
               ),
               SizedBox(height: 20),
               Divider(),
@@ -95,6 +101,7 @@ class QuestionAnswerScreen extends StatelessWidget {
               GameType.typedQuestionWithImage(
                   question: "What is in the image?",
                   image: 'https://cdn.britannica.com/94/494-050-A674AD3A/Fallow-deer-dama-dama.jpg',
+                answer: 'Hello',
               ),
               SizedBox(height: 20),
               Divider(),
@@ -102,7 +109,8 @@ class QuestionAnswerScreen extends StatelessWidget {
               GameType.typedQuestionWithVideo(
                   question: "What is in the video?",
                   thumbnail: 'https://cdn.britannica.com/94/494-050-A674AD3A/Fallow-deer-dama-dama.jpg',
-                  video: 'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4'
+                  video: 'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+                  answer: 'Hello'
               ),
             ],
           ),

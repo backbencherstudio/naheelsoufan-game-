@@ -6,13 +6,13 @@ import 'package:naheelsoufan_game/src/features/screens/game_type/all_types/mcq_q
 import '../../../../../core/theme/theme_extension/color_scheme.dart';
 import '../../../../../data/riverpod/count_down_state.dart';
 import '../../../grid_play_game/riverpod/function.dart';
+import '../../../main_quiz_screen/presentation/riverpod/advance_turn_controller.dart';
 import '../../../main_quiz_screen/presentation/riverpod/stateProvider.dart';
 import '../../../main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/wrong_answer_dialog.dart';
 import '../../riverpod/multiple_choice_provider.dart';
 import 'widget/image_part.dart';
 
 class McqQuestionWithImageVideo extends StatelessWidget {
-  final Function? func;
   final List<String> choices;
   final String question;
   final String? imageUrl;
@@ -27,7 +27,6 @@ class McqQuestionWithImageVideo extends StatelessWidget {
     this.videoUrl,
     this.videoThumbnailUrl,
     this.rightIndex,
-    this.func,
   });
 
   @override
@@ -87,12 +86,11 @@ class McqQuestionWithImageVideo extends StatelessWidget {
                         ref.read(checkChoicesProvider(i).notifier).state = -1;
                       }
                       ref.read(selectedPlayerIndexProvider.notifier).state = -1;
-                      ref.read(isCorrectQuiz.notifier).state = true;
                       ref.read(huntModeOn.notifier).state = !huntMode;
 
                       log("\n\n\nWRONG!!!\n\n\n");
                       if(huntMode == true){
-                        func!();
+                        ref.read(advanceTurnFlagProvider.notifier).state = true;
                         controller.state = current.copyWith(currentPlayer: next);
                       } else {
                         ref.read(autoCounterProvider(60).notifier).reset();
@@ -103,7 +101,7 @@ class McqQuestionWithImageVideo extends StatelessWidget {
                         ref.read(autoCounterProvider(60).notifier).reset();
                       });
                     } else {
-                      func!(); //LOGIC ekhane dite hobe
+                      ref.read(advanceTurnFlagProvider.notifier).state = true;
                       controller.state = current.copyWith(currentPlayer: next); // CB
                     }
                     log("is wrong = $huntMode");
@@ -115,22 +113,14 @@ class McqQuestionWithImageVideo extends StatelessWidget {
                       ),
                       gradient: LinearGradient(
                         colors:
-                        (ref
-                            .read(
-                          checkChoicesProvider(index).notifier,
-                        )
-                            .state ==
+                        (checkChoice ==
                             1)
                             ? [
                           AppColorScheme.startGradGreen,
                           AppColorScheme.midGradGreen,
                           AppColorScheme.hardGradGreen,
                         ]
-                            : (ref
-                            .read(
-                          checkChoicesProvider(index).notifier,
-                        )
-                            .state ==
+                            : (checkChoice ==
                             0)
                             ? [
                           AppColorScheme.errorColor,
@@ -155,22 +145,10 @@ class McqQuestionWithImageVideo extends StatelessWidget {
                       border: Border(
                         bottom: BorderSide(
                           color:
-                          (ref
-                              .read(
-                            checkChoicesProvider(
-                              index,
-                            ).notifier,
-                          )
-                              .state ==
+                          (checkChoice ==
                               1)
                               ? AppColorScheme.rightOptionBorderColor
-                              : (ref
-                              .read(
-                            checkChoicesProvider(
-                              index,
-                            ).notifier,
-                          )
-                              .state ==
+                              : (checkChoice ==
                               0)
                               ? AppColorScheme.optionBg
                               : AppColorScheme.labelTextColor,

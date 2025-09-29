@@ -38,11 +38,6 @@ class GameData {
   }
 }
 
-//"question_type": {
-//                 "id": "cmfzckp1s0007wsosztwnnxfx",
-//                 "name": "Options"
-//             },
-
 class Question {
   final String id;
   final String text;

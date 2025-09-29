@@ -121,9 +121,6 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
               rightChoice: 1,
               choices: ["India", "China", "Bangladesh", "Indonesia"],
               question: "Which country has the highest population?",
-              func: () {
-                ref.read(advanceTurnFlagProvider.notifier).state = true;
-              },
             ),
             SizedBox(height: 90.h),
             PlayerPointContainer(),

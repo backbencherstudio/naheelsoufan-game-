@@ -19,7 +19,6 @@ final commonProviderDisposer = Provider<void Function()>((ref) {
     ref.invalidate(isSomethingClicked);
     ref.invalidate(isSelectedClicked);
     ref.invalidate(isRightWrongElse);
-    ref.invalidate(isCorrectQuiz);
     ref.invalidate(selectedPlayerIndexProvider);
     ref.invalidate(playerProvider);
     ref.invalidate(levelSelectionProvider);

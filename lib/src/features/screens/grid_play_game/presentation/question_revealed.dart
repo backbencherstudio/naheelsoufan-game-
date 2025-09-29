@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:naheelsoufan_game/src/data/riverpod/common_disposer.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentation/widget/platoon_hunter_card.dart';
@@ -171,20 +170,6 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
                     ],
                     question: "What kind of energy does that sun create?",
                     rightChoice: 3,
-                    func: (){
-                      if (isFirstPlayerPlayed) {
-                        Future.delayed(Duration(seconds: 1), (){
-                          if(context.mounted) context.pushReplacement(RouteName.gridLeaderboard);
-                        });
-                        ref.read(checkSecondDifficultyScreen.notifier).state = false;
-                      } else {
-                        Future.delayed(Duration(seconds: 1), (){
-                          if(context.mounted) context.pushReplacement(RouteName.gridDifficultyLevelScreen);
-                          ref.read(checkSecondDifficultyScreen.notifier).state = true;
-                        });
-                      }
-                      ref.read(commonProviderDisposer);
-                    }
                 ),
               ),
               SizedBox(height: isPortrait ? 100.h : 15.w),
