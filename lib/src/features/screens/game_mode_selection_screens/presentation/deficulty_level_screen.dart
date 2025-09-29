@@ -89,7 +89,25 @@ class DifficultyLevelScreen extends ConsumerWidget {
                         onTap: () async { // todo start the game
                           final categoryAndDifficultyService = SelectCategoriesAndDifficultiesService();
                           final res = await categoryAndDifficultyService.selectCategoryAndDifficulty(cateId, diffId);
-                          context.pushReplacement(RouteName.quizScreen);
+                          if(res?.success == false || res == null) {
+                            debugPrint("Error: ${res?.message}");
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text("No question found in this category/difficulty"),
+                                duration: Duration(seconds: 1),
+                              ),
+                            );
+                          }
+                          else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text("Success to start the game"),
+                                duration: Duration(seconds: 1),
+                              ),
+                            );
+                            ref.read(questionResponseProvider.notifier).state = res;
+                            context.pushReplacement(RouteName.quizScreen);
+                          }
                         },
                       ),
                     ],

@@ -1,19 +1,19 @@
-class GameQuestionResponse {
+class GameQuestionResponseModel {
   final bool success;
   final String message;
-  final GameData data;
+  final GameData? data;
 
-  GameQuestionResponse({
+  GameQuestionResponseModel({
     required this.success,
     required this.message,
-    required this.data,
+    this.data,
   });
 
-  factory GameQuestionResponse.fromJson(Map<String, dynamic> json) {
-    return GameQuestionResponse(
+  factory GameQuestionResponseModel.fromJson(Map<String, dynamic> json) {
+    return GameQuestionResponseModel(
       success: json['success'],
       message: json['message'],
-      data: GameData.fromJson(json['data']),
+      data: json['data'] != null ? GameData.fromJson(json['data']) : null,
     );
   }
 }

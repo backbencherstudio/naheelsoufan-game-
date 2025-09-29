@@ -16,6 +16,7 @@ import '../../../../core/constant/icons.dart';
 import '../../../../core/constant/padding.dart';
 import '../../../../core/routes/route_name.dart';
 import '../../../../data/riverpod/count_down_state.dart';
+import '../../../../data/riverpod/game/start_game/start_game_provider.dart';
 import '../../../common_widegts/create_screen/create_screen.dart';
 import '../../game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import '../../game_type/game_type.dart';
@@ -40,6 +41,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
   @override
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
+    final response = ref.watch(questionResponseProvider);
 
     ref.listen<AdvanceNavigation>(advanceNavigationProvider, (prev, next) {
       if (next == AdvanceNavigation.leaderboard) {
@@ -118,9 +120,10 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
             ),
             SizedBox(height: 16.h),
             GameType.multipleChoiceQuestion(
-              rightChoice: 1,
-              choices: ["India", "China", "Bangladesh", "Indonesia"],
-              question: "Which country has the highest population?",
+              //response?.data.question.correctAnswer.id
+              rightChoice: response?.data?.question.answers.indexWhere((e)=> e.id == response.data?.question.correctAnswer.id),
+              choices: response?.data?.question.answers.map((e) => e.text).toList() ?? [],
+              question: response?.data?.question.text ?? "No Question found",
             ),
             SizedBox(height: 90.h),
             PlayerPointContainer(),
