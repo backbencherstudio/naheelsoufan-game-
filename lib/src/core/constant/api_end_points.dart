@@ -28,4 +28,7 @@ class ApiEndPoints{
 
   // Category
   static const String categoryUrl = "$baseUrl/api/admin/categories";
+
+  // start game
+  static const String startGameUrl = "$baseUrl/api/game-players/quick-game/select-category-and-start";
 }
