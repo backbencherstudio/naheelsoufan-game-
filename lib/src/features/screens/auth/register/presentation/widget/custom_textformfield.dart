@@ -12,6 +12,7 @@ class CustomTextFormField extends StatelessWidget {
   final FormFieldValidator<String>? validator;
   final TextStyle? errorStyle;
   final TextInputAction? textInputAction;
+  final Function(String)? onSubmitted;
 
   const CustomTextFormField({
     super.key,
@@ -24,6 +25,7 @@ class CustomTextFormField extends StatelessWidget {
     this.validator,
     this.errorStyle,
     this.textInputAction,
+    this.onSubmitted,
   });
 
   @override
@@ -45,10 +47,14 @@ class CustomTextFormField extends StatelessWidget {
           ),
         ),
         TextFormField(
+          onFieldSubmitted: onSubmitted,
           validator: validator ?? (value) => null,
           textInputAction: textInputAction,
           controller: controller,
           obscureText: obscureText,
+          obscuringCharacter: '*',
+          cursorColor: Color(0xff3D4279),
+          cursorWidth: 2.w,
           style: formFieldTextStyle,
           decoration: InputDecoration(
             errorStyle: errorStyle,
@@ -58,20 +64,20 @@ class CustomTextFormField extends StatelessWidget {
             hintText: hintText,
             hintStyle: formFieldHintTextStyle,
             suffixIcon:
-                suffixIcon != null
-                    ? IconButton(onPressed: onSuffixTap, icon: suffixIcon!)
-                    : null,
+            suffixIcon != null
+                ? IconButton(onPressed: onSuffixTap, icon: suffixIcon!)
+                : null,
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.r),
               borderSide: BorderSide(
-                color: AppColorScheme.primary, // Normal border color
+                color: AppColorScheme.primary,
                 width: 1.w,
               ),
             ),
             focusedErrorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.r),
               borderSide: BorderSide(
-                color: AppColorScheme.primary, // Normal border color
+                color: AppColorScheme.primary,
                 width: 1.w,
               ),
             ),
@@ -79,14 +85,14 @@ class CustomTextFormField extends StatelessWidget {
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.r),
               borderSide: BorderSide(
-                color: AppColorScheme.primary, // Normal border color
+                color: AppColorScheme.primary,
                 width: 1.w,
               ),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.r),
               borderSide: BorderSide(
-                color: AppColorScheme.primary, // Focused border color
+                color: AppColorScheme.primary,
                 width: 1.w,
               ),
             ),

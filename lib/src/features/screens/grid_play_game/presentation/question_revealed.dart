@@ -175,20 +175,20 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
                   ],
                   question: "What kind of energy does that sun create?",
                   rightChoice: 3,
-                  func: (){
-                    if (isFirstPlayerPlayed) {
-                      Future.delayed(Duration(seconds: 1), (){
-                        if(context.mounted) context.pushReplacement(RouteName.gridLeaderboard);
-                      });
-                      ref.read(checkSecondDifficultyScreen.notifier).state = false;
-                    } else {
-                      Future.delayed(Duration(seconds: 1), (){
-                        if(context.mounted) context.pushReplacement(RouteName.gridDifficultyLevelScreen);
-                        ref.read(checkSecondDifficultyScreen.notifier).state = true;
-                      });
-                    }
-                    ref.read(commonProviderDisposer);
-                  }
+                  // func: (){
+                  //   if (isFirstPlayerPlayed) {
+                  //     Future.delayed(Duration(seconds: 1), (){
+                  //       if(context.mounted) context.pushReplacement(RouteName.gridLeaderboard);
+                  //     });
+                  //     ref.read(checkSecondDifficultyScreen.notifier).state = false;
+                  //   } else {
+                  //     Future.delayed(Duration(seconds: 1), (){
+                  //       if(context.mounted) context.pushReplacement(RouteName.gridDifficultyLevelScreen);
+                  //       ref.read(checkSecondDifficultyScreen.notifier).state = true;
+                  //     });
+                  //   }
+                  //   ref.read(commonProviderDisposer);
+                  // }
                 ),
               ),
               SizedBox(height: isPortrait ? 100.h : 15.w),

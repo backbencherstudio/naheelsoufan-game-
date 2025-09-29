@@ -117,14 +117,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
               },
             ),
             SizedBox(height: 16.h),
-            GameType.multipleChoiceQuestion(
-              rightChoice: 1,
-              choices: ["India", "China", "Bangladesh", "Indonesia"],
-              question: "Which country has the highest population?",
-              func: () {
-                ref.read(advanceTurnFlagProvider.notifier).state = true;
-              },
-            ),
+            GameType.multipleChoiceQuestion(question: "Who is Rawnak Vai?", choices: ["True", "False"]),
             SizedBox(height: 90.h),
             PlayerPointContainer(),
             SizedBox(height: 30.h),
