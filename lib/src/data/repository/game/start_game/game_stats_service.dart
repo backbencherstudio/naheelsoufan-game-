@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:naheelsoufan_game/src/core/constant/api_end_points.dart';
 import 'package:naheelsoufan_game/src/core/services/api_services.dart';
 import 'package:naheelsoufan_game/src/core/services/game_id_storage.dart';
+import 'package:naheelsoufan_game/src/data/model/start_game/game_result_model.dart';
 import 'package:naheelsoufan_game/src/data/model/start_game/game_stats_model.dart';
 
 import '../../../../core/services/token_services.dart';
@@ -11,7 +12,7 @@ class GetGameStatsService {
   final GameIdStorage _gameIdStorage = GameIdStorage();
   final TokenService _tokenService = TokenService();
 
-  Future<GameStatsModel?> getGameStats() async {
+  Future<GameResultModel?> getGameStats() async {
     final token = await _tokenService.getToken();
     final gameId = await _gameIdStorage.getGameId();
 
@@ -30,8 +31,8 @@ class GetGameStatsService {
 
       if (response['success'] == true) {
         print('player select successful: $response');
-        final gameStatsModel = GameStatsModel.fromJson(response);
-        debugPrint('Game ID in STats ====== ${gameStatsModel.data.id}');
+        final gameStatsModel = GameResultModel.fromJson(response);
+        debugPrint('Game ID in STats ====== ${gameStatsModel.data.finalRankings.first.user.name}');
         return gameStatsModel;
       } else {
         print('Game ID in STats API call failed: ${response.toString()}');
