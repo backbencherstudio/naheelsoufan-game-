@@ -6,13 +6,13 @@ import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.da
 import '../../../../../core/constant/icons.dart';
 
 class PlayerPointBlock extends StatelessWidget {
-  final int playerNo;
+  final String playerName;
   final int points;
   final int? blockCardState;
 
   const PlayerPointBlock({
     super.key,
-    required this.playerNo,
+    required this.playerName,
     required this.points,
     this.blockCardState,
   });
@@ -86,7 +86,7 @@ class PlayerPointBlock extends StatelessWidget {
               ),
               SizedBox(height: 4.h),
               Text(
-                "Player $playerNo",
+                playerName,
                 style: style.bodyLarge!.copyWith(
                     fontWeight: FontWeight.w500,
                     color:

@@ -62,6 +62,7 @@ class PlayerPointContainer extends StatelessWidget {
                             final clickState = ref.watch(selectedPlayerIndexProvider);
                             final checkAns = ref.watch(isRightWrongElse);
                             final response = ref.watch(questionResponseProvider);
+                            final playerList = ref.watch(playerListProvider);
 
                             return ListView.builder(
                               controller: scrollController,
@@ -73,12 +74,12 @@ class PlayerPointContainer extends StatelessWidget {
                                   padding: EdgeInsets.only(right: 8.w),
                                   child: (!isStealMode) ? (PlayerPointBlock(
                                     blockCardState: (
-                                        (checkAns == 1 && current.currentPlayer == (index + 1) % current.totalPlayer)
+                                        (checkAns == 1 && current.currentPlayer == (index) % current.totalPlayer)
                                             ? 1
                                             : (current.currentPlayer == index)
                                             ? 2
                                             : -1),
-                                    playerNo: (index + 1),
+                                    playerName: playerList?.data.players[index].playerName ?? "Player ${index + 1}",
                                     points: response?.data?.question.points ?? 0,
 
                                   )) : GestureDetector(
@@ -95,7 +96,7 @@ class PlayerPointContainer extends StatelessWidget {
                                           : (clickState == index)
                                           ? 2
                                           : 3),
-                                      playerNo: (index + 1),
+                                      playerName: playerList?.data.players[index].playerName ?? "Player ${index + 1}",
                                       points: response?.data?.question.points ?? 0,
                                     )),
                                   ),

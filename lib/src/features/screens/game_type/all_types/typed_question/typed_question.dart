@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naheelsoufan_game/src/features/screens/auth/widget/custom_textformfield.dart';
+import '../../../../../data/repository/game/start_game/answer_question_service.dart';
 import '../../../../../data/riverpod/count_down_state.dart';
 import '../../../../../data/riverpod/game/start_game/start_game_provider.dart';
 import '../../../grid_play_game/riverpod/function.dart';
@@ -32,11 +33,12 @@ class TypedQuestionWithImageVideo extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<TypedQuestionWithImageVideo> createState() => _TypedQuestionWithImageVideoState();
+  ConsumerState<TypedQuestionWithImageVideo> createState() =>
+      _TypedQuestionWithImageVideoState();
 }
 
-class _TypedQuestionWithImageVideoState extends ConsumerState<TypedQuestionWithImageVideo> {
-
+class _TypedQuestionWithImageVideoState
+    extends ConsumerState<TypedQuestionWithImageVideo> {
   late TextEditingController _answerController;
 
   @override
@@ -60,6 +62,8 @@ class _TypedQuestionWithImageVideoState extends ConsumerState<TypedQuestionWithI
     final next = (current.currentPlayer + 1) % current.totalPlayer;
     final huntMode = ref.watch(huntModeOn);
     final response = ref.watch(questionResponseProvider);
+    final selectedPointBlock = ref.watch(selectedPlayerIndexProvider);
+    final playerList = ref.watch(playerListProvider);
     return Column(
       children: [
         Text(
@@ -67,18 +71,20 @@ class _TypedQuestionWithImageVideoState extends ConsumerState<TypedQuestionWithI
           style: textTheme.titleLarge,
           textAlign: TextAlign.center,
         ),
+
         ///Image part
         if (widget.imageUrl != null) ImagePart(imageUrl: widget.imageUrl),
 
         ///video part
-        if (widget.videoUrl != null) VideoPart(thumbnailUrl: widget.videoThumbnailUrl, videoUrl: widget.videoUrl!),
+        if (widget.videoUrl != null)
+          VideoPart(
+            thumbnailUrl: widget.videoThumbnailUrl,
+            videoUrl: widget.videoUrl!,
+          ),
 
         ///audio part
-        if (widget.audioUrl != null)
-          AudioPart(
-            audioUrl: widget.audioUrl!,
-          ),
-        SizedBox(height: 17.h,),
+        if (widget.audioUrl != null) AudioPart(audioUrl: widget.audioUrl!),
+        SizedBox(height: 17.h),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -87,26 +93,94 @@ class _TypedQuestionWithImageVideoState extends ConsumerState<TypedQuestionWithI
             CustomTextFormField(
               hintText: "Type your answer here",
               controller: _answerController,
-              onSubmitted: (value) {
+              onSubmitted: (value) async {
                 if (value.toLowerCase() == rightAnswer.toLowerCase()) {
+                  // final result = await AnswerQuestionService().answer(response?.data?.question.id, response?.data?.question.answers[0].id, response?.data?.currentPlayer.id);
+                  //
+                  // log("Selected Answer ID: ${response?.data?.question.answers[0].id}");
+                  // log("Selected Answer: ${response?.data?.question.answers[0].text}");
+                  // log("Result: $result");
+
+                  (!huntMode)
+                      ? await AnswerQuestionService().answer(
+                        response?.data?.question.id,
+                        response?.data?.question.answers[0].id,
+                        response?.data?.currentPlayer.id,
+                      )
+                      : (selectedPointBlock == -1)
+                      ? log("Please Select a Player")
+                      : await AnswerQuestionService().answer(
+                        response?.data?.question.id,
+                        response?.data?.question.answers[0].id,
+                        playerList?.data.players[selectedPointBlock].id,
+                      );
+                  // Hunt Mode ??????
+
+                  log(
+                    "Selected Answer ID: ${response?.data?.question.answers[0].id}",
+                  );
+                  log(
+                    "Selected Answer: ${response?.data?.question.answers[0].text}",
+                  );
+
                   ref.read(advanceTurnFlagProvider.notifier).state = true;
-                  controller.state = current.copyWith(currentPlayer: next); // CB
-                }
-                else{
+                  controller.state = current.copyWith(
+                    currentPlayer: next,
+                  ); // CB
+                } else {
+                  (!huntMode)
+                      ? await AnswerQuestionService().answer(
+                        response?.data?.question.id,
+                        "null",
+                        response?.data?.currentPlayer.id,
+                      )
+                      : null;
+                  // Hunt Mode ??????
+
+                  log("Selected Answer ID: Invalid");
+                  log("Selected Answer: Invalid");
+
                   ref.read(selectedPlayerIndexProvider.notifier).state = -1;
-                  ref.read(huntModeOn.notifier).state = !huntMode;
+                  ref.read(huntModeOn.notifier).state = true;
 
                   log("\n\n\nWRONG!!!\n\n\n");
-                  if(huntMode == true){
-                    ref.read(advanceTurnFlagProvider.notifier).state = true;
-                    controller.state = current.copyWith(currentPlayer: next);
+                  if (huntMode == true) {
+                    if (selectedPointBlock == -1) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Please Select a Player")),
+                      );
+                    } else {
+                      ref.read(huntModeOn.notifier).state = false;
+                      final result = await AnswerQuestionService().answer(
+                        response?.data?.question.id,
+                        "null",
+                        playerList?.data.players[selectedPointBlock].id,
+                      );
+
+                      log("Hunt Result: $result");
+
+                      ref.read(advanceTurnFlagProvider.notifier).state = true;
+                      controller.state = current.copyWith(currentPlayer: next);
+                    }
                   } else {
-                    ref.read(autoCounterProvider(response?.data?.question.timeLimit ?? 60).notifier).reset();
+                    ref
+                        .read(
+                          autoCounterProvider(
+                            response?.data?.question.timeLimit ?? 60,
+                          ).notifier,
+                        )
+                        .reset();
                     onWrongAnswerTap(context, rightAnswer, ref);
                   }
 
                   WidgetsBinding.instance.addPostFrameCallback((_) {
-                    ref.read(autoCounterProvider(response?.data?.question.timeLimit ?? 60).notifier).reset();
+                    ref
+                        .read(
+                          autoCounterProvider(
+                            response?.data?.question.timeLimit ?? 60,
+                          ).notifier,
+                        )
+                        .reset();
                   });
                 }
               },

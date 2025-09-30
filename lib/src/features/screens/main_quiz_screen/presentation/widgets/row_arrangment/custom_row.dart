@@ -7,6 +7,7 @@ import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presenta
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/custom_boxes_widgets/custom_yellowBox.dart';
 
 class CustomRow extends StatelessWidget {
+
   const CustomRow({super.key});
 
   @override
@@ -30,7 +31,7 @@ class CustomRow extends StatelessWidget {
             Text("Name"),
             SizedBox(height: 9.h,),
             CustomSmallBox(
-              title: 'Player Name',
+              title: "",
               icon: AppImages.trophy,
               width: isPortrait ? 221.w : 486.2.h,
               isIconOpen: true,
@@ -43,7 +44,7 @@ class CustomRow extends StatelessWidget {
 
             Text("Score"),
             SizedBox(height: 9.h,),
-            CustomSmallBox(title: '750', icon: "", isIconOpen: false),
+            CustomSmallBox(title: "", icon: "", isIconOpen: false),
           ],
         ),
         SizedBox(width: isPortrait ? 8.w : 17.6.h),
@@ -68,7 +69,7 @@ class CustomRow extends StatelessWidget {
         SizedBox(width: 8.w),
         Column(
           children: [
-            Text("Steal"),
+            Text("Skip"),
             SizedBox(height: 9.h,),
             CustomYellowbox(title: '01', icon: '', isIconOpen: false),
           ],

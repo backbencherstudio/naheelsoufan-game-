@@ -1,19 +1,18 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
-import 'package:naheelsoufan_game/src/features/screens/grid_play_game/riverpod/function.dart';
 import '../../../../../core/constant/icons.dart';
 import '../../../../../core/routes/route_name.dart';
-import '../../../../../data/riverpod/game/category/category_controller.dart';
+import '../../../../../data/riverpod/game/start_game/start_game_provider.dart';
 import '../../../../common_widegts/create_screen/create_screen.dart';
 import '../../../account_screens/presentation/widgets/my_account_wodgets/header_button.dart';
 import '../../../game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import '../../../game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
 import '../../../game_mode_selection_screens/riverpod/difficulty_selection_provider.dart';
 import '../../../main_quiz_screen/presentation/riverpod/stateProvider.dart';
-import '../riverpod/player_name_state_provider.dart';
 
 class NextTurnScreen extends ConsumerWidget {
   const NextTurnScreen({super.key});
@@ -22,6 +21,9 @@ class NextTurnScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
     final player = ref.watch(playerProvider);
+    final playerList = ref.watch(playerListProvider);
+
+    log(playerList.toString());
 
     return Scaffold(
       body: CreateScreen(
@@ -68,7 +70,7 @@ class NextTurnScreen extends ConsumerWidget {
                             ),
                             SizedBox(height: 16.h),
                             Text(
-                              "Player ${player.currentPlayer + 1}",
+                              playerList?.data.players[player.currentPlayer].playerName ?? "Player ${player.currentPlayer + 1}",
                               style: style.titleLarge?.copyWith(
                                 color: AppColorScheme.listContainerColor,
                                 fontWeight: FontWeight.w500,
