@@ -6,6 +6,7 @@ import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.da
 import 'package:naheelsoufan_game/src/features/screens/game_type/riverpod/multiple_choice_provider.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/riverpod/function.dart';
 import '../../../../../data/riverpod/count_down_state.dart';
+import '../../../../../data/riverpod/game/start_game/start_game_provider.dart';
 import '../../../main_quiz_screen/presentation/riverpod/advance_turn_controller.dart';
 import '../../../main_quiz_screen/presentation/riverpod/stateProvider.dart';
 import '../../../main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/wrong_answer_dialog.dart';
@@ -58,6 +59,7 @@ class MultipleChoiceQuestion extends StatelessWidget {
                 final current = ref.read(playerProvider);
                 final next = (current.currentPlayer + 1) % current.totalPlayer;
                 final huntMode = ref.watch(huntModeOn);
+                final response = ref.watch(questionResponseProvider);
 
                 return InkWell(
                   // CHANGE
@@ -86,12 +88,12 @@ class MultipleChoiceQuestion extends StatelessWidget {
                         ref.read(advanceTurnFlagProvider.notifier).state = true;
                         controller.state = current.copyWith(currentPlayer: next);
                       } else {
-                        ref.read(autoCounterProvider(60).notifier).reset();
+                        ref.read(autoCounterProvider(response?.data?.question.timeLimit ?? 60).notifier).reset();
                         onWrongAnswerTap(context, choices[rightChoiceIndex], ref);
                       }
 
                       WidgetsBinding.instance.addPostFrameCallback((_) {
-                        ref.read(autoCounterProvider(60).notifier).reset();
+                        ref.read(autoCounterProvider(response?.data?.question.timeLimit ?? 60).notifier).reset();
                       });
                     } else {
                       ref.read(advanceTurnFlagProvider.notifier).state = true;

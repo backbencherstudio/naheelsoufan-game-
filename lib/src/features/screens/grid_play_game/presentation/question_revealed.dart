@@ -13,6 +13,7 @@ import '../../../../core/constant/icons.dart';
 import '../../../../core/constant/padding.dart';
 import '../../../../core/routes/route_name.dart';
 import '../../../../data/riverpod/count_down_state.dart';
+import '../../../../data/riverpod/game/start_game/start_game_provider.dart';
 import '../../account_screens/presentation/widgets/my_account_wodgets/header_button.dart';
 import '../../game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import '../../game_type/game_type.dart';
@@ -33,10 +34,6 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
   void initState() {
     super.initState();
     _setLandscapeMode();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(autoCounterProvider(60).notifier).start();
-    });
   }
 
   // Force landscape mode
@@ -53,6 +50,7 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
         MediaQuery.of(context).orientation == Orientation.portrait;
 
     final isFirstPlayerPlayed = ref.watch(checkSecondDifficultyScreen);
+    final response = ref.watch(questionResponseProvider);
 
     ref.watch(advanceTurnControllerProvider);
     return CreateScreen(
@@ -91,7 +89,7 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
                                     onPaused: () {
                                       (huntCheck) ? ref.read(advanceTurnFlagProvider.notifier).state = true: ref.read(huntModeOn.notifier).state = true;
                                       WidgetsBinding.instance.addPostFrameCallback((_) {
-                                        ref.read(autoCounterProvider(60).notifier).reset();
+                                        ref.read(autoCounterProvider(response?.data?.question.timeLimit ?? 60).notifier).reset();
                                       });
                                     },
                                   ),
@@ -114,7 +112,7 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
                               onPaused: () {
                                 (huntCheck) ? ref.read(advanceTurnFlagProvider.notifier).state = true: ref.read(huntModeOn.notifier).state = true;
                                 WidgetsBinding.instance.addPostFrameCallback((_) {
-                                  ref.read(autoCounterProvider(60).notifier).reset();
+                                  ref.read(autoCounterProvider(response?.data?.question.timeLimit ?? 60).notifier).reset();
                                 });
                               },
                             ),

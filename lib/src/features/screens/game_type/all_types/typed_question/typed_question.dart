@@ -2,14 +2,14 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:naheelsoufan_game/src/features/screens/auth/widget/custom_textformfield.dart';
 import '../../../../../data/riverpod/count_down_state.dart';
+import '../../../../../data/riverpod/game/start_game/start_game_provider.dart';
 import '../../../grid_play_game/riverpod/function.dart';
 import '../../../main_quiz_screen/presentation/riverpod/advance_turn_controller.dart';
 import '../../../main_quiz_screen/presentation/riverpod/stateProvider.dart';
 import '../../../main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/wrong_answer_dialog.dart';
-import '../../widgets/full_screen_image_popup.dart';
+import '../mcq_question/widget/audio_part.dart';
 import '../mcq_question/widget/image_part.dart';
 import '../mcq_question/widget/video_part.dart';
 
@@ -18,6 +18,7 @@ class TypedQuestionWithImageVideo extends ConsumerStatefulWidget {
   final String? imageUrl;
   final String? videoUrl;
   final String? videoThumbnailUrl;
+  final String? audioUrl;
   final String? rightAnswer;
 
   const TypedQuestionWithImageVideo({
@@ -26,6 +27,7 @@ class TypedQuestionWithImageVideo extends ConsumerStatefulWidget {
     this.imageUrl,
     this.videoUrl,
     this.videoThumbnailUrl,
+    this.audioUrl,
     this.rightAnswer,
   });
 
@@ -57,6 +59,7 @@ class _TypedQuestionWithImageVideoState extends ConsumerState<TypedQuestionWithI
     final current = ref.read(playerProvider);
     final next = (current.currentPlayer + 1) % current.totalPlayer;
     final huntMode = ref.watch(huntModeOn);
+    final response = ref.watch(questionResponseProvider);
     return Column(
       children: [
         Text(
@@ -69,6 +72,12 @@ class _TypedQuestionWithImageVideoState extends ConsumerState<TypedQuestionWithI
 
         ///video part
         if (widget.videoUrl != null) VideoPart(thumbnailUrl: widget.videoThumbnailUrl, videoUrl: widget.videoUrl!),
+
+        ///audio part
+        if (widget.audioUrl != null)
+          AudioPart(
+            audioUrl: widget.audioUrl!,
+          ),
         SizedBox(height: 17.h,),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,12 +101,12 @@ class _TypedQuestionWithImageVideoState extends ConsumerState<TypedQuestionWithI
                     ref.read(advanceTurnFlagProvider.notifier).state = true;
                     controller.state = current.copyWith(currentPlayer: next);
                   } else {
-                    ref.read(autoCounterProvider(60).notifier).reset();
+                    ref.read(autoCounterProvider(response?.data?.question.timeLimit ?? 60).notifier).reset();
                     onWrongAnswerTap(context, rightAnswer, ref);
                   }
 
                   WidgetsBinding.instance.addPostFrameCallback((_) {
-                    ref.read(autoCounterProvider(60).notifier).reset();
+                    ref.read(autoCounterProvider(response?.data?.question.timeLimit ?? 60).notifier).reset();
                   });
                 }
               },

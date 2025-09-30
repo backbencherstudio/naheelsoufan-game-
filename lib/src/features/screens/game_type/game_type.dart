@@ -32,6 +32,19 @@ class GameType {
     rightIndex: rightChoice,
   );
 
+  /// mcq question with video & True False with Image
+  static Widget mcqQuestionWithAudio({
+    required List<String> choices,
+    required String question,
+    required String audioUrl,
+    int? rightChoice,
+  }) => McqQuestionWithImageVideo(
+    choices: choices,
+    question: question,
+    audioUrl: audioUrl,
+    rightIndex: rightChoice,
+  );
+
   /// mcq question with image  & True False with Image
   static Widget mcqQuestionWithImage({
     required List<String> choices,
@@ -83,10 +96,17 @@ class GameType {
     required String answer
   }) => TypedQuestionWithImageVideo(question: question, imageUrl: image, rightAnswer: answer,);
 
+  ///typed question with audio
+  static Widget typedQuestionWithAudio({
+    required String question,
+    required String audio,
+    required String answer
+  }) => TypedQuestionWithImageVideo(question: question, audioUrl: audio, rightAnswer: answer,);
+
   ///typed question with video
   static Widget typedQuestionWithVideo({
     required String question,
-    required String thumbnail,
+      required String thumbnail,
     required String video,
     required String answer
   }) => TypedQuestionWithImageVideo(question: question, videoUrl: video, videoThumbnailUrl: thumbnail, rightAnswer: answer,);

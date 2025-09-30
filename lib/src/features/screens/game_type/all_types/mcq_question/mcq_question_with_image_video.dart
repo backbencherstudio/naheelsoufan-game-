@@ -2,9 +2,11 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_type/all_types/mcq_question/widget/audio_part.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_type/all_types/mcq_question/widget/video_part.dart';
 import '../../../../../core/theme/theme_extension/color_scheme.dart';
 import '../../../../../data/riverpod/count_down_state.dart';
+import '../../../../../data/riverpod/game/start_game/start_game_provider.dart';
 import '../../../grid_play_game/riverpod/function.dart';
 import '../../../main_quiz_screen/presentation/riverpod/advance_turn_controller.dart';
 import '../../../main_quiz_screen/presentation/riverpod/stateProvider.dart';
@@ -18,6 +20,7 @@ class McqQuestionWithImageVideo extends StatelessWidget {
   final String? imageUrl;
   final String? videoUrl;
   final String? videoThumbnailUrl;
+  final String? audioUrl;
   final int? rightIndex;
   const McqQuestionWithImageVideo({
     super.key,
@@ -27,6 +30,7 @@ class McqQuestionWithImageVideo extends StatelessWidget {
     this.videoUrl,
     this.videoThumbnailUrl,
     this.rightIndex,
+    this.audioUrl
   });
 
   @override
@@ -49,6 +53,12 @@ class McqQuestionWithImageVideo extends StatelessWidget {
         ///video part
         if (videoUrl != null) VideoPart(thumbnailUrl: videoThumbnailUrl, videoUrl: videoUrl!),
 
+        ///audio part
+        if (audioUrl != null)
+          AudioPart(
+            audioUrl: audioUrl!,
+          ),
+
         GridView.builder(
           itemCount: choices.length,
           shrinkWrap: true,
@@ -68,6 +78,7 @@ class McqQuestionWithImageVideo extends StatelessWidget {
                 final huntMode = ref.watch(huntModeOn);
                 final checkChoice = ref.watch(checkChoicesProvider(index));
                 final rightChoiceIndex = rightIndex ?? 0;
+                final response = ref.watch(questionResponseProvider);
                 return InkWell(
                   onTap: () {
                     (index == rightChoiceIndex) ? ref.read(isRightWrongElse.notifier).state = 1 : ref.read(isRightWrongElse.notifier).state = 0;
@@ -93,12 +104,12 @@ class McqQuestionWithImageVideo extends StatelessWidget {
                         ref.read(advanceTurnFlagProvider.notifier).state = true;
                         controller.state = current.copyWith(currentPlayer: next);
                       } else {
-                        ref.read(autoCounterProvider(60).notifier).reset();
+                        ref.read(autoCounterProvider(response?.data?.question.timeLimit ?? 60).notifier).reset();
                         onWrongAnswerTap(context, choices[rightChoiceIndex], ref);
                       }
 
                       WidgetsBinding.instance.addPostFrameCallback((_) {
-                        ref.read(autoCounterProvider(60).notifier).reset();
+                        ref.read(autoCounterProvider(response?.data?.question.timeLimit ?? 60).notifier).reset();
                       });
                     } else {
                       ref.read(advanceTurnFlagProvider.notifier).state = true;

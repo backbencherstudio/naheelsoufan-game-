@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 
-class PointShow extends StatelessWidget {
+import '../../../../../data/riverpod/game/start_game/start_game_provider.dart';
+
+class PointShow extends ConsumerWidget {
   const PointShow({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final response = ref.watch(questionResponseProvider);
         final style = Theme.of(context).textTheme;
         bool isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
     return Container(
@@ -18,7 +22,7 @@ class PointShow extends StatelessWidget {
                ),
        
 
-      child: Center(child: Text("100 Points",
+      child: Center(child: Text("${response?.data?.question.points ?? 0} Points",
        style: style.bodyLarge!.copyWith(
                   fontWeight: FontWeight.w500,
                   color: AppColorScheme.deepPuroleBG,

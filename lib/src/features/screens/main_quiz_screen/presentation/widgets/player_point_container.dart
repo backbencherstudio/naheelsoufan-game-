@@ -5,6 +5,7 @@ import 'package:naheelsoufan_game/src/features/screens/grid_play_game/riverpod/f
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/player_pointBlock.dart';
 import 'package:vs_scrollbar/vs_scrollbar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../../data/riverpod/game/start_game/start_game_provider.dart';
 import '../riverpod/stateProvider.dart';
 
 class PlayerPointContainer extends StatelessWidget {
@@ -60,6 +61,8 @@ class PlayerPointContainer extends StatelessWidget {
                             // CHANGE
                             final clickState = ref.watch(selectedPlayerIndexProvider);
                             final checkAns = ref.watch(isRightWrongElse);
+                            final response = ref.watch(questionResponseProvider);
+
                             return ListView.builder(
                               controller: scrollController,
                               scrollDirection: Axis.horizontal,
@@ -76,7 +79,8 @@ class PlayerPointContainer extends StatelessWidget {
                                             ? 2
                                             : -1),
                                     playerNo: (index + 1),
-                                    points: 50,
+                                    points: response?.data?.question.points ?? 0,
+
                                   )) : GestureDetector(
                                     onTap: (){
                                       ref.read(selectedPlayerIndexProvider.notifier).state = index;
@@ -92,7 +96,7 @@ class PlayerPointContainer extends StatelessWidget {
                                           ? 2
                                           : 3),
                                       playerNo: (index + 1),
-                                      points: 50,
+                                      points: response?.data?.question.points ?? 0,
                                     )),
                                   ),
                                 );
