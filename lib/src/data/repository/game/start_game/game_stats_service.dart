@@ -42,6 +42,5 @@ class GetGameStatsService {
       print('Error during select player call: $e');
       return null;
     }
-
   }
 }
