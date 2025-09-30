@@ -12,7 +12,21 @@ import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presenta
 import 'package:vs_scrollbar/vs_scrollbar.dart';
 
 class Leaderbox extends StatelessWidget {
-  const Leaderbox({super.key});
+  final List<Object?>? scores;
+  final List<Object?>? correctAnswers;
+  final List<Object?>? wrongAnswers;
+  final List<Object?>? skippedAnswers;
+  final List<Object?>? playerNames;
+
+
+  const Leaderbox({
+    super.key,
+    this.scores,
+    this.correctAnswers,
+    this.wrongAnswers,
+    this.skippedAnswers,
+    this.playerNames
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -137,23 +151,23 @@ class Leaderbox extends StatelessWidget {
                                   SizedBox(height: isPortrait ? 10.h : 4.5.w),
                                   Customrowtwo(
                                     id: '02',
-                                    name: 'Player Name',
-                                    scores: '650',
+                                    name: playerNames?[1].toString() ?? "No Player Found",
+                                    scores: scores?[1].toString() ?? "No Score Found",
                                     icons: AppImages.award,
                                   ),
                                   if (isPortrait) ...[
                                     SizedBox(height: isPortrait ? 10.h : 4.5.w),
                                     Customrowtwo(
                                       id: '03',
-                                      name: 'Player Name',
-                                      scores: '750',
+                                      name: playerNames?[2].toString() ?? "No Player Found",
+                                      scores: playerNames?[2].toString() ?? "No Player Found",
                                       icons: AppImages.madel,
                                     ),
                                     SizedBox(height: isPortrait ? 10.h : 4.5.w),
                                     CustomRowthree(
                                       id: '04',
-                                      name: 'Player Name',
-                                      scores: '556',
+                                      name: playerNames?[3].toString() ?? "No Player Found",
+                                      scores: playerNames?[3].toString() ?? "No Player Found",
                                     ),
                                   ],
                                 ],
