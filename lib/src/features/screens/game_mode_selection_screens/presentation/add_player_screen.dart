@@ -9,6 +9,7 @@ import 'package:naheelsoufan_game/src/core/constant/padding.dart';
 import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import 'package:naheelsoufan_game/src/data/model/player/player_model.dart';
+import 'package:naheelsoufan_game/src/data/riverpod/game/start_game/start_game_provider.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/add_player_widgets/add_player_selection_tile.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/add_player_widgets/type_player_name_dialog.dart';
@@ -226,6 +227,7 @@ class AddPlayerScreen extends ConsumerWidget {
                   final selectPlayers = SelectPlayersService();
                   final PlayerModel? result = await selectPlayers.selectPlayers(context: context, players: playerNames);
                   if (result != null) {
+                    ref.read(playerListProvider.notifier).state = result;
                     context.pushReplacement(
                       RouteName.catagorySelectionScreen,
                     );

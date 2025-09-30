@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_type/all_types/mcq_question/widget/audio_part.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_type/all_types/mcq_question/widget/video_part.dart';
 import '../../../../../core/theme/theme_extension/color_scheme.dart';
+import '../../../../../data/repository/game/start_game/answer_question_service.dart';
 import '../../../../../data/riverpod/count_down_state.dart';
 import '../../../../../data/riverpod/game/start_game/start_game_provider.dart';
 import '../../../grid_play_game/riverpod/function.dart';
@@ -30,7 +31,7 @@ class McqQuestionWithImageVideo extends StatelessWidget {
     this.videoUrl,
     this.videoThumbnailUrl,
     this.rightIndex,
-    this.audioUrl
+    this.audioUrl,
   });
 
   @override
@@ -51,13 +52,11 @@ class McqQuestionWithImageVideo extends StatelessWidget {
         if (imageUrl != null) ImagePart(imageUrl: imageUrl),
 
         ///video part
-        if (videoUrl != null) VideoPart(thumbnailUrl: videoThumbnailUrl, videoUrl: videoUrl!),
+        if (videoUrl != null)
+          VideoPart(thumbnailUrl: videoThumbnailUrl, videoUrl: videoUrl!),
 
         ///audio part
-        if (audioUrl != null)
-          AudioPart(
-            audioUrl: audioUrl!,
-          ),
+        if (audioUrl != null) AudioPart(audioUrl: audioUrl!),
 
         GridView.builder(
           itemCount: choices.length,
@@ -79,43 +78,95 @@ class McqQuestionWithImageVideo extends StatelessWidget {
                 final checkChoice = ref.watch(checkChoicesProvider(index));
                 final rightChoiceIndex = rightIndex ?? 0;
                 final response = ref.watch(questionResponseProvider);
+                final selectedPointBlock = ref.watch(
+                  selectedPlayerIndexProvider,
+                );
+                final playerList = ref.watch(playerListProvider);
+
                 return InkWell(
-                  onTap: () {
-                    (index == rightChoiceIndex) ? ref.read(isRightWrongElse.notifier).state = 1 : ref.read(isRightWrongElse.notifier).state = 0;
+                  onTap: () async {
+                    (index == rightChoiceIndex)
+                        ? ref.read(isRightWrongElse.notifier).state = 1
+                        : ref.read(isRightWrongElse.notifier).state = 0;
 
                     for (int i = 0; i < choices.length; i++) {
                       if (i == index) {
                         ref.read(checkChoicesProvider(i).notifier).state =
-                        (i == rightChoiceIndex) ? 1 : 0;
+                            (i == rightChoiceIndex) ? 1 : 0;
                       } else {
                         ref.read(checkChoicesProvider(i).notifier).state = -1;
                       }
                     }
+
+                    (!huntMode)
+                        ? await AnswerQuestionService().answer(
+                          response?.data?.question.id,
+                          response?.data?.question.answers[index].id,
+                          response?.data?.currentPlayer.id,
+                        )
+                        : null;
 
                     if (ref.read(isRightWrongElse.notifier).state == 0) {
                       for (int i = 0; i < 4; i++) {
                         ref.read(checkChoicesProvider(i).notifier).state = -1;
                       }
                       ref.read(selectedPlayerIndexProvider.notifier).state = -1;
-                      ref.read(huntModeOn.notifier).state = !huntMode;
+                      ref.read(huntModeOn.notifier).state = true;
 
                       log("\n\n\nWRONG!!!\n\n\n");
-                      if(huntMode == true){
-                        ref.read(advanceTurnFlagProvider.notifier).state = true;
-                        controller.state = current.copyWith(currentPlayer: next);
+                      if (huntMode == true) {
+                        if (selectedPointBlock == -1) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("Please Select a Player"),
+                            ),
+                          );
+                        } else {
+                          ref.read(huntModeOn.notifier).state = false;
+                          final result = await AnswerQuestionService().answer(
+                            response?.data?.question.id,
+                            response?.data?.question.answers[index].id,
+                            playerList?.data.players[selectedPointBlock].id,
+                          );
+
+                          log("Hunt Result: $result");
+
+                          ref.read(advanceTurnFlagProvider.notifier).state =
+                              true;
+                          controller.state = current.copyWith(
+                            currentPlayer: next,
+                          );
+                        }
                       } else {
-                        ref.read(autoCounterProvider(response?.data?.question.timeLimit ?? 60).notifier).reset();
-                        onWrongAnswerTap(context, choices[rightChoiceIndex], ref);
+                        ref
+                            .read(
+                              autoCounterProvider(
+                                response?.data?.question.timeLimit ?? 60,
+                              ).notifier,
+                            )
+                            .reset();
+                        onWrongAnswerTap(
+                          context,
+                          choices[rightChoiceIndex],
+                          ref,
+                        );
                       }
 
                       WidgetsBinding.instance.addPostFrameCallback((_) {
-                        ref.read(autoCounterProvider(response?.data?.question.timeLimit ?? 60).notifier).reset();
+                        ref
+                            .read(
+                              autoCounterProvider(
+                                response?.data?.question.timeLimit ?? 60,
+                              ).notifier,
+                            )
+                            .reset();
                       });
                     } else {
                       ref.read(advanceTurnFlagProvider.notifier).state = true;
-                      controller.state = current.copyWith(currentPlayer: next); // CB
+                      controller.state = current.copyWith(
+                        currentPlayer: next,
+                      ); // CB
                     }
-                    log("is wrong = $huntMode");
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -124,25 +175,23 @@ class McqQuestionWithImageVideo extends StatelessWidget {
                       ),
                       gradient: LinearGradient(
                         colors:
-                        (checkChoice ==
-                            1)
-                            ? [
-                          AppColorScheme.startGradGreen,
-                          AppColorScheme.midGradGreen,
-                          AppColorScheme.hardGradGreen,
-                        ]
-                            : (checkChoice ==
-                            0)
-                            ? [
-                          AppColorScheme.errorColor,
-                          AppColorScheme.errorColor,
-                          AppColorScheme.errorColor,
-                        ]
-                            : [
-                          AppColorScheme.optionBg,
-                          AppColorScheme.optionBg,
-                          AppColorScheme.optionBg,
-                        ],
+                            (checkChoice == 1)
+                                ? [
+                                  AppColorScheme.startGradGreen,
+                                  AppColorScheme.midGradGreen,
+                                  AppColorScheme.hardGradGreen,
+                                ]
+                                : (checkChoice == 0)
+                                ? [
+                                  AppColorScheme.errorColor,
+                                  AppColorScheme.errorColor,
+                                  AppColorScheme.errorColor,
+                                ]
+                                : [
+                                  AppColorScheme.optionBg,
+                                  AppColorScheme.optionBg,
+                                  AppColorScheme.optionBg,
+                                ],
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                       ),
@@ -156,13 +205,11 @@ class McqQuestionWithImageVideo extends StatelessWidget {
                       border: Border(
                         bottom: BorderSide(
                           color:
-                          (checkChoice ==
-                              1)
-                              ? AppColorScheme.rightOptionBorderColor
-                              : (checkChoice ==
-                              0)
-                              ? AppColorScheme.optionBg
-                              : AppColorScheme.labelTextColor,
+                              (checkChoice == 1)
+                                  ? AppColorScheme.rightOptionBorderColor
+                                  : (checkChoice == 0)
+                                  ? AppColorScheme.optionBg
+                                  : AppColorScheme.labelTextColor,
                           width: isPortrait ? 4.r : 8.8.r,
                         ),
                       ),
