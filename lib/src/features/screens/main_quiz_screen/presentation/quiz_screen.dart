@@ -117,7 +117,12 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
               },
             ),
             SizedBox(height: 16.h),
-            GameType.multipleChoiceQuestion(question: "Who is Rawnak Vai?", choices: ["True", "False"]),
+            GameType.imageMcqQuestion(choicesImageURL: [
+              'https://cdn.britannica.com/94/494-050-A674AD3A/Fallow-deer-dama-dama.jpg',
+              'https://www.worldanimalprotection.org/cdn-cgi/image/width=1920,format=auto/globalassets/images/elephants/1033551-elephant.jpg',
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOG5TM1EovYcHRS_Uoi7lufuMrQ3slzfmoLg&s',
+              'https://cdn.britannica.com/94/494-050-A674AD3A/Fallow-deer-dama-dama.jpg',
+            ], question: 'Which one is Horse? Select correct one from image below?', rightIndex: 2),
             SizedBox(height: 90.h),
             PlayerPointContainer(),
             SizedBox(height: 30.h),

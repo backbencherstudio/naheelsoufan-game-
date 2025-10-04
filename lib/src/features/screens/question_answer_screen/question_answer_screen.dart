@@ -64,7 +64,7 @@ class QuestionAnswerScreen extends StatelessWidget {
                   'https://cdn.britannica.com/94/494-050-A674AD3A/Fallow-deer-dama-dama.jpg',
                 ],
                 question:
-                'Which one is Horse? Select correct one from image below?',
+                'Which one is Horse? Select correct one from image below?', rightIndex: 2,
               ),
 
               SizedBox(height: 20),

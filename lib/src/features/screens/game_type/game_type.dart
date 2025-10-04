@@ -11,7 +11,7 @@ class GameType {
     required List<String> choices,
     required String question,
     int? rightChoice,
-  }) => MultipleChoiceQuestion(
+  }) => McqQuestionWithImageVideo(
     choices: choices,
     question: question,
     rightIndex: rightChoice,
@@ -49,7 +49,8 @@ class GameType {
   static Widget imageMcqQuestion({
     required List<String> choicesImageURL,
     required String question,
-  }) => ImageMcqQuestion(choicesImageURL: choicesImageURL, question: question);
+    required int rightIndex,
+  }) => ImageMcqQuestion(choicesImageURL: choicesImageURL, question: question, rightIndex: rightIndex,);
 
   // /// true or false question
   // static Widget trueFalseQuestion({required String question}) =>
