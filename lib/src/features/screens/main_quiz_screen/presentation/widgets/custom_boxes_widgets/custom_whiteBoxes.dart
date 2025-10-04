@@ -7,12 +7,13 @@ class CustomWhiteboxes extends StatelessWidget {
   final String? icon;
   final bool isIconOpen;
   final double? width;
+  final Color? color;
   const CustomWhiteboxes({
     super.key,
     required this.title,
     this.icon,
     this.width,
-    required this.isIconOpen,
+    required this.isIconOpen, this.color,
   });
 
   @override
@@ -39,17 +40,13 @@ class CustomWhiteboxes extends StatelessWidget {
 
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 12.h),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-
-          children: [
-            Text(
-              title,
-              style: style.bodyLarge!.copyWith(
-                color: AppColorScheme.labelTextColor,
-              ),
+        child: Center(
+          child: Text(
+            title,
+            style: style.bodyLarge!.copyWith(
+              color: AppColorScheme.labelTextColor,
             ),
-          ],
+          ),
         ),
       ),
     );

@@ -80,4 +80,11 @@ class AppColorScheme {
     brightness: Brightness.light,
     errorContainer: error,
   );
+
+
+
+  ///
+  static const Color whiteBg = Color(0xffE0E0FF);
+  static const Color yellowBg = Color(0xffE0E0FF);
+  static const Color greenBg = Color(0xffE0E0FF);
 }

@@ -9,12 +9,15 @@ class Customrowtwo extends StatelessWidget {
   final String name;
   final String id;
   final String scores;
-  final String icons;
+  final String? icons;
+  final String right;
+  final String wrong;
+  final String skip;
   const Customrowtwo({super.key,
     required this.id,
     required this.name,
     required this.scores,
-    required this.icons,
+    this.icons, required this.right, required this.wrong, required this.skip,
   });
 
   @override
@@ -23,22 +26,28 @@ class Customrowtwo extends StatelessWidget {
         MediaQuery.of(context).orientation == Orientation.portrait;
     return Row(
       children: [
-        CustomYellowborderbox(title: id, icon: '', isIconOpen: false),
-        SizedBox(width: isPortrait ? 8.w : 30.h),
-        CustomYellowborderbox(
-          title: 'Player Name',
-          icon: icons,
-          isIconOpen: true,
-          width: isPortrait ? 216.w : 485.h,
+        CustomYellowborderbox(title: id, isIconOpen: false, icon:'' ,),
+
+        SizedBox(width: isPortrait ? 8.w : 17.6.h),
+        SizedBox(
+          width: 350.w,
+          child: CustomYellowborderbox(
+            title: name,
+            icon: icons ?? '',
+            isIconOpen: true,
+            width: isPortrait ? 221.w :486.2.h,
+          ),
         ),
-        SizedBox(width: isPortrait ? 8.w : 35.h),
-        CustomYellowborderbox(title: '750', icon: "", isIconOpen: false),
-        SizedBox(width: isPortrait ? 8.w : 30.h),
-        Customgreenbox(title: '01', icon: '', isIconOpen: false),
-        SizedBox(width: isPortrait ? 8.w : 50.h),
-        CustomRedbox(title: '01', icon: '', isIconOpen: false),
-        SizedBox(width: isPortrait ? 8.w : 45.h),
-        CustomYellowbox(title: '01', icon: '', isIconOpen: false,)
+        SizedBox(width: isPortrait ? 8.w : 17.6.h),
+        SizedBox(width: 100.w, child: CustomYellowborderbox(title: scores, icon: "", isIconOpen: false)),
+        SizedBox(width: isPortrait ? 8.w : 17.6.h),
+
+        SizedBox(width: isPortrait ? 8.w : 17.6.h),
+        Customgreenbox(title: right, icon: '', isIconOpen: false),
+        SizedBox(width: isPortrait ? 8.w : 17.6.h),
+        CustomRedbox(title: wrong, icon: '', isIconOpen: false),
+        SizedBox(width: isPortrait ? 8.w : 17.6.h),
+        CustomYellowbox(title: skip, icon: '', isIconOpen: false,)
       ],
     );
   }

@@ -180,7 +180,7 @@ class LeaderboardEntry {
 }
 
 class GameStatistics {
-  final Winner winner;
+  final Winner? winner;  // Nullable because JSON might have null here
   final TopPerformer topPerformer;
   final int averageScore;
   final int totalQuestionsPerPlayer;
@@ -196,7 +196,7 @@ class GameStatistics {
 
   factory GameStatistics.fromJson(Map<String, dynamic> json) {
     return GameStatistics(
-      winner: Winner.fromJson(json['winner']),
+      winner: json['winner'] != null ? Winner.fromJson(json['winner']) : null,
       topPerformer: TopPerformer.fromJson(json['top_performer']),
       averageScore: json['average_score'],
       totalQuestionsPerPlayer: json['total_questions_per_player'],
@@ -348,7 +348,7 @@ class User {
       id: json['id'],
       name: json['name'],
       email: json['email'],
-      avatar: json['avatar'],
+      avatar: json['avatar'], // can be null
     );
   }
 }

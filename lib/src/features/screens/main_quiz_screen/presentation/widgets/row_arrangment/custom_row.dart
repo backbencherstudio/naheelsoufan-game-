@@ -8,7 +8,14 @@ import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presenta
 
 class CustomRow extends StatelessWidget {
 
-  const CustomRow({super.key});
+  const CustomRow({super.key, required this.name, required this.id, required this.scores, required this.right, required this.wrong, required this.skip});
+
+  final String name;
+  final String id;
+  final String scores;
+  final String right;
+  final String wrong;
+  final String skip;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +28,7 @@ class CustomRow extends StatelessWidget {
 
             Text("Rank"),
             SizedBox(height: 9.h,),
-            CustomSmallBox(title: '01', icon: '', isIconOpen: false),
+            CustomSmallBox(title: id, icon: '', isIconOpen: false),
           ],
         ),
 
@@ -30,11 +37,14 @@ class CustomRow extends StatelessWidget {
           children: [
             Text("Name"),
             SizedBox(height: 9.h,),
-            CustomSmallBox(
-              title: "",
-              icon: AppImages.trophy,
-              width: isPortrait ? 221.w : 486.2.h,
-              isIconOpen: true,
+            SizedBox(
+              width: 350.w,
+              child: CustomSmallBox(
+                title: name,
+                icon: AppImages.trophy,
+                width: isPortrait ? 221.w : 486.2.h,
+                isIconOpen: true,
+              ),
             ),
           ],
         ),
@@ -44,7 +54,7 @@ class CustomRow extends StatelessWidget {
 
             Text("Score"),
             SizedBox(height: 9.h,),
-            CustomSmallBox(title: "", icon: "", isIconOpen: false),
+            SizedBox(width: 100.w, child: CustomSmallBox(title: scores, icon: "", isIconOpen: false)),
           ],
         ),
         SizedBox(width: isPortrait ? 8.w : 17.6.h),
@@ -55,7 +65,7 @@ class CustomRow extends StatelessWidget {
 
             Text("Right"),
             SizedBox(height: 9.h,),
-            Customgreenbox(title: '01', icon: '', isIconOpen: false),
+            Customgreenbox(title: right, icon: '', isIconOpen: false),
           ],
         ),
         SizedBox(width: 8.w),
@@ -63,7 +73,7 @@ class CustomRow extends StatelessWidget {
           children: [
             Text("Wrong"),
             SizedBox(height: 9.h,),
-            CustomRedbox(title: '01', icon: '', isIconOpen: false),
+            CustomRedbox(title: wrong, icon: '', isIconOpen: false),
           ],
         ),
         SizedBox(width: 8.w),
@@ -71,7 +81,7 @@ class CustomRow extends StatelessWidget {
           children: [
             Text("Skip"),
             SizedBox(height: 9.h,),
-            CustomYellowbox(title: '01', icon: '', isIconOpen: false),
+            CustomYellowbox(title: skip, icon: '', isIconOpen: false),
           ],
         ),
       ],
