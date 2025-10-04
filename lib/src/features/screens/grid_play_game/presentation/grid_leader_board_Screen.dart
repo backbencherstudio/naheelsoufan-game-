@@ -140,13 +140,23 @@ class _GridLeaderBoardScreenState extends State<GridLeaderBoardScreen> {
                                   child: Column(
                                   children: [
                                     SizedBox(height: isPortrait ? 20.h : 5.w),
-                                    CustomRow(),
+                                    CustomRow(
+                                      id: '01',
+                                      name: 'playerRankings[3].playerId',
+                                      scores:' playerRankings[3].score.toString()',
+                                      right: 'playerRankings[3].correctAnswers.toString()',
+                                      wrong: 'playerRankings[3].wrongAnswers.toString()',
+                                      skip: 'playerRankings[3].skippedAnswers.toString()',
+                                    ),
                                     SizedBox(height: isPortrait ? 10.h : 4.w),
                                     Customrowtwo(
                                       id: '02',
                                       name: 'Player Name',
                                       scores: '650',
                                       icons: AppImages.award,
+                                      right: "100",
+                                      wrong: '100',
+                                      skip: '100',
                                     ),
                                   ]),
                                 ),

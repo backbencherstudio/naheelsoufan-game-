@@ -38,18 +38,17 @@ class _LeaderboardScreenState extends ConsumerState<LeaderboardScreen> {
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
     final gameStats = ref.watch(GameStatsProvider);
-    final gamePlayers = gameStats?.data.gamePlayers ?? [];
-    final playerList = ref.watch(playerListProvider);
-    final players = playerList?.data.players ?? [];
+    final gamePlayers = gameStats?.data.finalRankings ?? [];
+    // final playerList = ref.watch(playerListProvider);
+    // final players = playerList?.data.players ?? [];
 
 
     // Step 1: Combine stats and names into a single list
     final combined = List.generate(gamePlayers.length, (index) {
       final stats = gamePlayers[index];
-      final name = players[index].playerName;
       return {
-        'name': name,
-        'score': stats.score,
+        'name': stats.user.name,
+        'score': stats.playerId,
         'correct': stats.correctAnswers,
         'wrong': stats.wrongAnswers,
         'skipped': stats.skippedAnswers,
@@ -57,14 +56,14 @@ class _LeaderboardScreenState extends ConsumerState<LeaderboardScreen> {
     });
 
 // Step 2: Sort by score descending
-    combined.sort((a, b) => (b['score'] as int).compareTo(a['score'] as int));
+//     combined.sort((a, b) => (b['score'] as int).compareTo(a['score'] as int));
 
-// Step 3: Extract each list
-    final sortedPlayerNames = combined.map((p) => p['name']).toList();
-    final sortedScores = combined.map((p) => p['score']).toList();
-    final sortedCorrectAnswers = combined.map((p) => p['correct']).toList();
-    final sortedWrongAnswers = combined.map((p) => p['wrong']).toList();
-    final sortedSkippedAnswers = combined.map((p) => p['skipped']).toList();
+// // Step 3: Extract each list
+//     final sortedPlayerNames = combined.map((p) => p['name']).toList();
+//     final sortedScores = combined.map((p) => p['score']).toList();
+//     final sortedCorrectAnswers = combined.map((p) => p['correct']).toList();
+//     final sortedWrongAnswers = combined.map((p) => p['wrong']).toList();
+//     final sortedSkippedAnswers = combined.map((p) => p['skipped']).toList();
 
     return CreateScreen(
       child: Padding(
@@ -87,7 +86,7 @@ class _LeaderboardScreenState extends ConsumerState<LeaderboardScreen> {
                 ),
 
                 Text(
-                  "Congratulation\n${sortedPlayerNames[0]}",
+                  "Congratulation\n${gameStats?.data.gameStatistics.winner?.user.name ?? ''}",
                   textAlign: TextAlign.center,
                   style: style.headlineLarge!.copyWith(
                     fontWeight: FontWeight.w500,
@@ -99,11 +98,7 @@ class _LeaderboardScreenState extends ConsumerState<LeaderboardScreen> {
 
             SizedBox(height: 20.h),
             Leaderbox(
-              scores: sortedScores,
-              correctAnswers: sortedCorrectAnswers,
-              wrongAnswers: sortedWrongAnswers,
-              skippedAnswers: sortedSkippedAnswers,
-              playerNames: sortedPlayerNames,
+              playerRankings: gamePlayers,
             ),
             SizedBox(height: 40.h),
             Row(

@@ -11,21 +11,14 @@ import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presenta
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/row_arrangment/customrowTwo.dart';
 import 'package:vs_scrollbar/vs_scrollbar.dart';
 
+import '../../../../../../data/model/start_game/game_result_model.dart';
+
 class Leaderbox extends StatelessWidget {
-  final List<Object?>? scores;
-  final List<Object?>? correctAnswers;
-  final List<Object?>? wrongAnswers;
-  final List<Object?>? skippedAnswers;
-  final List<Object?>? playerNames;
+  final List<PlayerRanking> playerRankings;
 
 
   const Leaderbox({
-    super.key,
-    this.scores,
-    this.correctAnswers,
-    this.wrongAnswers,
-    this.skippedAnswers,
-    this.playerNames
+    super.key, required this.playerRankings,
   });
 
   @override
@@ -147,27 +140,43 @@ class Leaderbox extends StatelessWidget {
                                         : CrossAxisAlignment.center,
                                 children: [
                                   SizedBox(height: isPortrait ? 20.h : 9.w),
-                                  CustomRow(),
+                                  CustomRow(
+                                    id: '01',
+                                    name: playerRankings[0].playerId,
+                                    scores: playerRankings[0].score.toString(),
+                                    right: playerRankings[0].correctAnswers.toString(),
+                                    wrong: playerRankings[0].wrongAnswers.toString(),
+                                    skip: playerRankings[0].skippedAnswers.toString(),
+                                  ),
                                   SizedBox(height: isPortrait ? 10.h : 4.5.w),
                                   Customrowtwo(
                                     id: '02',
-                                    name: playerNames?[1].toString() ?? "No Player Found",
-                                    scores: scores?[1].toString() ?? "No Score Found",
+                                    name: playerRankings[1].playerId,
+                                    scores: playerRankings[1].score.toString(),
                                     icons: AppImages.award,
+                                    right: playerRankings[1].correctAnswers.toString(),
+                                    wrong: playerRankings[1].wrongAnswers.toString(),
+                                    skip: playerRankings[1].skippedAnswers.toString(),
                                   ),
                                   if (isPortrait) ...[
                                     SizedBox(height: isPortrait ? 10.h : 4.5.w),
                                     Customrowtwo(
                                       id: '03',
-                                      name: playerNames?[2].toString() ?? "No Player Found",
-                                      scores: playerNames?[2].toString() ?? "No Player Found",
+                                      name: playerRankings[2].playerId,
+                                      scores: playerRankings[2].score.toString(),
                                       icons: AppImages.madel,
+                                      right: playerRankings[2].correctAnswers.toString(),
+                                      wrong: playerRankings[2].wrongAnswers.toString(),
+                                      skip: playerRankings[2].skippedAnswers.toString(),
                                     ),
                                     SizedBox(height: isPortrait ? 10.h : 4.5.w),
                                     CustomRowthree(
                                       id: '04',
-                                      name: playerNames?[3].toString() ?? "No Player Found",
-                                      scores: playerNames?[3].toString() ?? "No Player Found",
+                                      name: playerRankings[3].playerId,
+                                      scores: playerRankings[3].score.toString(),
+                                      right: playerRankings[3].correctAnswers.toString(),
+                                      wrong: playerRankings[3].wrongAnswers.toString(),
+                                      skip: playerRankings[3].skippedAnswers.toString(),
                                     ),
                                   ],
                                 ],

@@ -41,5 +41,5 @@ class ApiEndPoints{
   static const String answer = "$baseUrl/api/game-players/competitive-quick-game/answer";
 
 
-  static String getGameStatsUrl(String gameId) => "$baseUrl/api/games/$gameId/stats";
+  static String getGameStatsUrl(String gameId) => "$baseUrl/api/game-players/results/$gameId";
 }
