@@ -98,39 +98,36 @@ class McqQuestionWithImageVideo extends StatelessWidget {
                       }
                     }
 
-                    (!huntMode)
-                        ? await AnswerQuestionService().answer(
+                    (!huntMode) ? await AnswerQuestionService().answer(
                           response?.data?.question.id,
                           response?.data?.question.answers[index].id,
                           response?.data?.currentPlayer.id,
-                        )
-                        : null;
+                        ) : null;
 
                     if (ref.read(isRightWrongElse.notifier).state == 0) {
                       for (int i = 0; i < 4; i++) {
                         ref.read(checkChoicesProvider(i).notifier).state = -1;
                       }
                       ref.read(selectedPlayerIndexProvider.notifier).state = -1;
-                      ref.read(huntModeOn.notifier).state = true;
-
                       log("\n\n\nWRONG!!!\n\n\n");
                       if (huntMode == true) {
-                        if (selectedPointBlock == -1) {
+                        if (selectedPointBlock == -1 ||
+                            selectedPointBlock == current.currentPlayer) {
+                          log("Please Select a Player");
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text("Please Select a Player"),
-                            ),
+                            const SnackBar(content: Text("Please Select a Player")),
                           );
                         } else {
-                          ref.read(huntModeOn.notifier).state = false;
+                          log(
+                            "Selected Player ID: ${playerList?.data.players[selectedPointBlock].id}",
+                          );
                           final result = await AnswerQuestionService().answer(
                             response?.data?.question.id,
                             response?.data?.question.answers[index].id,
                             playerList?.data.players[selectedPointBlock].id,
                           );
-
-                          log("Hunt Result: $result");
-
+                          //log("Hunt Result: $result");
+                          ref.read(huntModeOn.notifier).state = false;
                           ref.read(advanceTurnFlagProvider.notifier).state =
                               true;
                           controller.state = current.copyWith(
@@ -150,6 +147,7 @@ class McqQuestionWithImageVideo extends StatelessWidget {
                           choices[rightChoiceIndex],
                           ref,
                         );
+                        ref.read(huntModeOn.notifier).state = true;
                       }
 
                       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -162,6 +160,33 @@ class McqQuestionWithImageVideo extends StatelessWidget {
                             .reset();
                       });
                     } else {
+
+                      log("\n\n\nRIGHT!!!\n\n\n");
+                      if (huntMode == true) {
+                        if (selectedPointBlock == -1 || selectedPointBlock == current.currentPlayer) {
+                          log("Please Select a Player");
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text("Please Select a Player")),
+                          );
+                        } else {
+                          log(
+                            "Selected Player ID: ${playerList?.data.players[selectedPointBlock].id}",
+                          );
+                          final result = await AnswerQuestionService().answer(
+                            response?.data?.question.id,
+                            response?.data?.question.answers[index].id,
+                            playerList?.data.players[current.currentPlayer].id,
+                          );
+
+                          ref.read(huntModeOn.notifier).state = false;
+                          ref.read(advanceTurnFlagProvider.notifier).state =
+                          true;
+                          controller.state = current.copyWith(
+                            currentPlayer: next,
+                          );
+                        }
+                      }
+
                       ref.read(advanceTurnFlagProvider.notifier).state = true;
                       controller.state = current.copyWith(
                         currentPlayer: next,

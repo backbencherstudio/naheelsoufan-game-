@@ -91,7 +91,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
                       //(huntMode) ?
                       WidgetsBinding.instance.addPostFrameCallback((_) {
                         if (!huntMode) {
-                          onWrongAnswerTap(context, "China", ref);
+                          onWrongAnswerTap(context, response?.data?.question.correctAnswer.text ?? "", ref);
                           ref.read(huntModeOn.notifier).state = true;
                           ref.read(autoCounterProvider(response?.data?.question.timeLimit ?? 60).notifier).reset();
                         }

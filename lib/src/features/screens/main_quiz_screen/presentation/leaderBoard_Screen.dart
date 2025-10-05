@@ -5,13 +5,11 @@ import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/constant/padding.dart';
 import 'package:naheelsoufan_game/src/data/repository/game/start_game/game_stats_service.dart';
-import 'package:naheelsoufan_game/src/data/riverpod/game/start_game/start_game_provider.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/catagory_selection_widgets/customRound_button.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/leaderBoard_widgets/leaderBox.dart';
-
 import '../../../../core/routes/route_name.dart';
 import '../../../../data/riverpod/common_disposer.dart';
 import '../../../../data/riverpod/game/end_game/game_stat_provider.dart';
@@ -29,7 +27,7 @@ class _LeaderboardScreenState extends ConsumerState<LeaderboardScreen> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final res = await GetGameStatsService().getGameStats();
-      ref.read(GameStatsProvider.notifier).state = res;
+      ref.read(gameStatsProvider.notifier).state = res;
     });
     super.initState();
   }
@@ -37,33 +35,8 @@ class _LeaderboardScreenState extends ConsumerState<LeaderboardScreen> {
   @override
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
-    final gameStats = ref.watch(GameStatsProvider);
+    final gameStats = ref.watch(gameStatsProvider);
     final gamePlayers = gameStats?.data.finalRankings ?? [];
-    // final playerList = ref.watch(playerListProvider);
-    // final players = playerList?.data.players ?? [];
-
-
-    // Step 1: Combine stats and names into a single list
-    final combined = List.generate(gamePlayers.length, (index) {
-      final stats = gamePlayers[index];
-      return {
-        'name': stats.user.name,
-        'score': stats.playerId,
-        'correct': stats.correctAnswers,
-        'wrong': stats.wrongAnswers,
-        'skipped': stats.skippedAnswers,
-      };
-    });
-
-// Step 2: Sort by score descending
-//     combined.sort((a, b) => (b['score'] as int).compareTo(a['score'] as int));
-
-// // Step 3: Extract each list
-//     final sortedPlayerNames = combined.map((p) => p['name']).toList();
-//     final sortedScores = combined.map((p) => p['score']).toList();
-//     final sortedCorrectAnswers = combined.map((p) => p['correct']).toList();
-//     final sortedWrongAnswers = combined.map((p) => p['wrong']).toList();
-//     final sortedSkippedAnswers = combined.map((p) => p['skipped']).toList();
 
     return CreateScreen(
       child: Padding(
@@ -86,7 +59,7 @@ class _LeaderboardScreenState extends ConsumerState<LeaderboardScreen> {
                 ),
 
                 Text(
-                  "Congratulation\n${gameStats?.data.gameStatistics.winner?.user.name ?? ''}",
+                  "Congratulation\n${gameStats?.data.finalRankings[0].playerName ?? ''}",
                   textAlign: TextAlign.center,
                   style: style.headlineLarge!.copyWith(
                     fontWeight: FontWeight.w500,

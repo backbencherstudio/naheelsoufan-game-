@@ -1,51 +1,39 @@
-class GameResultModel {
+class GameResult {
   final bool success;
   final String message;
   final GameData data;
 
-  GameResultModel({
+  GameResult({
     required this.success,
     required this.message,
     required this.data,
   });
 
-  factory GameResultModel.fromJson(Map<String, dynamic> json) {
-    return GameResultModel(
-      success: json['success'],
-      message: json['message'],
-      data: GameData.fromJson(json['data']),
-    );
-  }
+  factory GameResult.fromJson(Map<String, dynamic> json) => GameResult(
+    success: json['success'],
+    message: json['message'],
+    data: GameData.fromJson(json['data']),
+  );
 }
 
 class GameData {
   final GameInfo gameInfo;
-  final List<PlayerRanking> finalRankings;
-  final List<LeaderboardEntry> leaderboard;
-  final GameStatistics gameStatistics;
+  final List<FinalRanking> finalRankings;
   final Podium podium;
 
   GameData({
     required this.gameInfo,
     required this.finalRankings,
-    required this.leaderboard,
-    required this.gameStatistics,
     required this.podium,
   });
 
-  factory GameData.fromJson(Map<String, dynamic> json) {
-    return GameData(
-      gameInfo: GameInfo.fromJson(json['game_info']),
-      finalRankings: (json['final_rankings'] as List)
-          .map((e) => PlayerRanking.fromJson(e))
-          .toList(),
-      leaderboard: (json['leaderboard'] as List)
-          .map((e) => LeaderboardEntry.fromJson(e))
-          .toList(),
-      gameStatistics: GameStatistics.fromJson(json['game_statistics']),
-      podium: Podium.fromJson(json['podium']),
-    );
-  }
+  factory GameData.fromJson(Map<String, dynamic> json) => GameData(
+    gameInfo: GameInfo.fromJson(json['game_info']),
+    finalRankings: (json['final_rankings'] as List)
+        .map((e) => FinalRanking.fromJson(e))
+        .toList(),
+    podium: Podium.fromJson(json['podium']),
+  );
 }
 
 class GameInfo {
@@ -55,6 +43,7 @@ class GameInfo {
   final Language language;
   final int totalPlayers;
   final int maxPlayers;
+  final User hostUser;
 
   GameInfo({
     required this.id,
@@ -63,18 +52,18 @@ class GameInfo {
     required this.language,
     required this.totalPlayers,
     required this.maxPlayers,
+    required this.hostUser,
   });
 
-  factory GameInfo.fromJson(Map<String, dynamic> json) {
-    return GameInfo(
-      id: json['id'],
-      mode: json['mode'],
-      status: json['status'],
-      language: Language.fromJson(json['language']),
-      totalPlayers: json['total_players'],
-      maxPlayers: json['max_players'],
-    );
-  }
+  factory GameInfo.fromJson(Map<String, dynamic> json) => GameInfo(
+    id: json['id'],
+    mode: json['mode'],
+    status: json['status'],
+    language: Language.fromJson(json['language']),
+    totalPlayers: json['total_players'],
+    maxPlayers: json['max_players'],
+    hostUser: User.fromJson(json['host_user']),
+  );
 }
 
 class Language {
@@ -88,19 +77,38 @@ class Language {
     required this.code,
   });
 
-  factory Language.fromJson(Map<String, dynamic> json) {
-    return Language(
-      id: json['id'],
-      name: json['name'],
-      code: json['code'],
-    );
-  }
+  factory Language.fromJson(Map<String, dynamic> json) => Language(
+    id: json['id'],
+    name: json['name'],
+    code: json['code'],
+  );
 }
 
-class PlayerRanking {
+class User {
+  final String id;
+  final String name;
+  final String email;
+  final String? avatar;
+
+  User({
+    required this.id,
+    required this.name,
+    required this.email,
+    this.avatar,
+  });
+
+  factory User.fromJson(Map<String, dynamic> json) => User(
+    id: json['id'],
+    name: json['name'],
+    email: json['email'],
+    avatar: json['avatar'],
+  );
+}
+
+class FinalRanking {
   final int position;
   final String playerId;
-  final User user;
+  final String playerName;
   final int score;
   final int correctAnswers;
   final int wrongAnswers;
@@ -110,10 +118,10 @@ class PlayerRanking {
   final int playerOrder;
   final String createdAt;
 
-  PlayerRanking({
+  FinalRanking({
     required this.position,
     required this.playerId,
-    required this.user,
+    required this.playerName,
     required this.score,
     required this.correctAnswers,
     required this.wrongAnswers,
@@ -124,131 +132,25 @@ class PlayerRanking {
     required this.createdAt,
   });
 
-  factory PlayerRanking.fromJson(Map<String, dynamic> json) {
-    return PlayerRanking(
-      position: json['position'],
-      playerId: json['player_id'],
-      user: User.fromJson(json['user']),
-      score: json['score'],
-      correctAnswers: json['correct_answers'],
-      wrongAnswers: json['wrong_answers'],
-      skippedAnswers: json['skipped_answers'],
-      totalQuestions: json['total_questions'],
-      accuracy: json['accuracy'],
-      playerOrder: json['player_order'],
-      createdAt: json['created_at'],
-    );
-  }
-}
-
-class LeaderboardEntry {
-  final int leaderboardPosition;
-  final User user;
-  final int score;
-  final int correct;
-  final int wrong;
-  final int skipped;
-  final int gamesPlayed;
-  final String mode;
-  final String createdAt;
-
-  LeaderboardEntry({
-    required this.leaderboardPosition,
-    required this.user,
-    required this.score,
-    required this.correct,
-    required this.wrong,
-    required this.skipped,
-    required this.gamesPlayed,
-    required this.mode,
-    required this.createdAt,
-  });
-
-  factory LeaderboardEntry.fromJson(Map<String, dynamic> json) {
-    return LeaderboardEntry(
-      leaderboardPosition: json['leaderboard_position'],
-      user: User.fromJson(json['user']),
-      score: json['score'],
-      correct: json['correct'],
-      wrong: json['wrong'],
-      skipped: json['skipped'],
-      gamesPlayed: json['games_played'],
-      mode: json['mode'],
-      createdAt: json['created_at'],
-    );
-  }
-}
-
-class GameStatistics {
-  final Winner? winner;  // Nullable because JSON might have null here
-  final TopPerformer topPerformer;
-  final int averageScore;
-  final int totalQuestionsPerPlayer;
-  final String completionRate;
-
-  GameStatistics({
-    required this.winner,
-    required this.topPerformer,
-    required this.averageScore,
-    required this.totalQuestionsPerPlayer,
-    required this.completionRate,
-  });
-
-  factory GameStatistics.fromJson(Map<String, dynamic> json) {
-    return GameStatistics(
-      winner: json['winner'] != null ? Winner.fromJson(json['winner']) : null,
-      topPerformer: TopPerformer.fromJson(json['top_performer']),
-      averageScore: json['average_score'],
-      totalQuestionsPerPlayer: json['total_questions_per_player'],
-      completionRate: json['completion_rate'],
-    );
-  }
-}
-
-class Winner {
-  final User user;
-  final int score;
-  final String accuracy;
-
-  Winner({
-    required this.user,
-    required this.score,
-    required this.accuracy,
-  });
-
-  factory Winner.fromJson(Map<String, dynamic> json) {
-    return Winner(
-      user: User.fromJson(json['user']),
-      score: json['score'],
-      accuracy: json['accuracy'],
-    );
-  }
-}
-
-class TopPerformer {
-  final User user;
-  final int score;
-  final int correctAnswers;
-
-  TopPerformer({
-    required this.user,
-    required this.score,
-    required this.correctAnswers,
-  });
-
-  factory TopPerformer.fromJson(Map<String, dynamic> json) {
-    return TopPerformer(
-      user: User.fromJson(json['user']),
-      score: json['score'],
-      correctAnswers: json['correct_answers'],
-    );
-  }
+  factory FinalRanking.fromJson(Map<String, dynamic> json) => FinalRanking(
+    position: json['position'],
+    playerId: json['player_id'],
+    playerName: json['player_name'],
+    score: json['score'],
+    correctAnswers: json['correct_answers'],
+    wrongAnswers: json['wrong_answers'],
+    skippedAnswers: json['skipped_answers'],
+    totalQuestions: json['total_questions'],
+    accuracy: json['accuracy'],
+    playerOrder: json['player_order'],
+    createdAt: json['created_at'],
+  );
 }
 
 class Podium {
-  final PodiumPlayer? firstPlace;
-  final PodiumPlayer? secondPlace;
-  final PodiumPlayer? thirdPlace;
+  final PodiumPlayer firstPlace;
+  final PodiumPlayer secondPlace;
+  final PodiumPlayer thirdPlace;
 
   Podium({
     required this.firstPlace,
@@ -256,19 +158,11 @@ class Podium {
     required this.thirdPlace,
   });
 
-  factory Podium.fromJson(Map<String, dynamic> json) {
-    return Podium(
-      firstPlace: json['first_place'] != null
-          ? PodiumPlayer.fromJson(json['first_place'])
-          : null,
-      secondPlace: json['second_place'] != null
-          ? PodiumPlayer.fromJson(json['second_place'])
-          : null,
-      thirdPlace: json['third_place'] != null
-          ? PodiumPlayer.fromJson(json['third_place'])
-          : null,
-    );
-  }
+  factory Podium.fromJson(Map<String, dynamic> json) => Podium(
+    firstPlace: PodiumPlayer.fromJson(json['first_place']),
+    secondPlace: PodiumPlayer.fromJson(json['second_place']),
+    thirdPlace: PodiumPlayer.fromJson(json['third_place']),
+  );
 }
 
 class PodiumPlayer {
@@ -277,7 +171,7 @@ class PodiumPlayer {
   final String updatedAt;
   final String playerName;
   final String gameId;
-  final String roomId;
+  final String? roomId;
   final String status;
   final int score;
   final int correctAnswers;
@@ -295,7 +189,7 @@ class PodiumPlayer {
     required this.updatedAt,
     required this.playerName,
     required this.gameId,
-    required this.roomId,
+    this.roomId,
     required this.status,
     required this.score,
     required this.correctAnswers,
@@ -308,47 +202,22 @@ class PodiumPlayer {
     required this.user,
   });
 
-  factory PodiumPlayer.fromJson(Map<String, dynamic> json) {
-    return PodiumPlayer(
-      id: json['id'],
-      createdAt: json['created_at'],
-      updatedAt: json['updated_at'],
-      playerName: json['player_name'],
-      gameId: json['game_id'],
-      roomId: json['room_id'],
-      status: json['status'],
-      score: json['score'],
-      correctAnswers: json['correct_answers'],
-      wrongAnswers: json['wrong_answers'],
-      skippedAnswers: json['skipped_answers'],
-      playerOrder: json['player_order'],
-      finalRank: json['final_rank'],
-      userId: json['user_id'],
-      isGuest: json['is_guest'],
-      user: User.fromJson(json['user']),
-    );
-  }
-}
-
-class User {
-  final String id;
-  final String name;
-  final String email;
-  final String? avatar;
-
-  User({
-    required this.id,
-    required this.name,
-    required this.email,
-    this.avatar,
-  });
-
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
-      id: json['id'],
-      name: json['name'],
-      email: json['email'],
-      avatar: json['avatar'], // can be null
-    );
-  }
+  factory PodiumPlayer.fromJson(Map<String, dynamic> json) => PodiumPlayer(
+    id: json['id'],
+    createdAt: json['created_at'],
+    updatedAt: json['updated_at'],
+    playerName: json['player_name'],
+    gameId: json['game_id'],
+    roomId: json['room_id'],
+    status: json['status'],
+    score: json['score'],
+    correctAnswers: json['correct_answers'],
+    wrongAnswers: json['wrong_answers'],
+    skippedAnswers: json['skipped_answers'],
+    playerOrder: json['player_order'],
+    finalRank: json['final_rank'],
+    userId: json['user_id'],
+    isGuest: json['is_guest'],
+    user: User.fromJson(json['user']),
+  );
 }

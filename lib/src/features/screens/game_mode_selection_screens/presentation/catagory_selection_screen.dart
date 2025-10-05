@@ -47,24 +47,17 @@ class CatagorySelectionScreen extends ConsumerWidget {
                 CustomPopUpMenu(),
               ],
             ),
-            SizedBox(height: 8.h),
-            // Text(
-            //   "Player ${player.currentPlayer + 1}",
-            //   style: style.titleLarge!.copyWith(
-            //     fontWeight: FontWeight.w400,
-            //     color: AppColorScheme.primary,
-            //   ),
-            // ),
+
             SizedBox(height: 36.h),
 
             Expanded(
-              child: GridView.builder(
+              child: (categories?.data.length == null) ? Center(child: Text("No Data Found", style: style.displayLarge,),) : GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                   crossAxisSpacing: 30,
                   childAspectRatio: (0.5),
                 ),
-                itemCount: categories!.pagination.hasNextPage ?  10 : categories.data.length,
+                itemCount: (categories?.pagination.hasNextPage ?? false) ?  10 : (categories?.data.length != null) ? categories!.data.length : 0,
                 itemBuilder: (context, index) {
                   final updatedIndex = currentPage * 10 + index;
                   return Column(
@@ -74,16 +67,16 @@ class CatagorySelectionScreen extends ConsumerWidget {
                         onTap: () {
                           ref.read(selectProvider.notifier).state = updatedIndex;
                             if (context.mounted) {
-                              ref.read(categoryId.notifier).state = categories.data[updatedIndex].id;
-                              debugPrint("Category ID: ${categories.data[updatedIndex].id}");
+                              ref.read(categoryId.notifier).state = categories?.data[updatedIndex].id;
+                              debugPrint("Category ID: ${categories?.data[updatedIndex].id}");
                               context.pushReplacement(RouteName.difficultyLevelScreen);
                               ref.read(selectProvider.notifier).state = null;
                             }
                         },
-                        title: categories.data[updatedIndex].name, imgUrl: ApiEndPoints.imageUrlPath(categories.data[updatedIndex].image ?? ""),
+                        title: categories?.data[updatedIndex].name ?? "", imgUrl: ApiEndPoints.convertToS3Url(categories?.data[updatedIndex].image ?? ""),
                       ),
                       Text(
-                        categories.data[updatedIndex].name,
+                        categories?.data[updatedIndex].name ?? "",
                         style: Theme.of(context).textTheme.labelLarge!.copyWith(
                           fontWeight: FontWeight.w400,
                           color: AppColorScheme.primary,
@@ -105,13 +98,13 @@ class CatagorySelectionScreen extends ConsumerWidget {
                 CustomroundButton(
                   icon: AppIcons.playleft,
                   onTap: () {
-                    categories.pagination.hasPreviousPage ? ref.read(currentPageProvider.notifier).state-- : debugPrint("No previous Page");
+                    (categories?.pagination.hasPreviousPage ?? false) ? ref.read(currentPageProvider.notifier).state-- : debugPrint("No previous Page");
                   },
                   bgIcon: AppIcons.roundIcontop,
                 ),
                 SizedBox(width: 40.w),
                 CustomroundButton(icon: AppIcons.playButtn, onTap: () {
-                  categories.pagination.hasNextPage ? ref.read(currentPageProvider.notifier).state++ : debugPrint("No next Page");
+                  (categories?.pagination.hasNextPage ?? false) ? ref.read(currentPageProvider.notifier).state++ : debugPrint("No next Page");
                 }),
               ],
             ),

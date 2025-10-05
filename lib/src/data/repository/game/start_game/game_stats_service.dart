@@ -12,7 +12,7 @@ class GetGameStatsService {
   final GameIdStorage _gameIdStorage = GameIdStorage();
   final TokenService _tokenService = TokenService();
 
-  Future<GameResultModel?> getGameStats() async {
+  Future<GameResult?> getGameStats() async {
     final token = await _tokenService.getToken();
     final gameId = await _gameIdStorage.getGameId();
     //
@@ -34,8 +34,8 @@ class GetGameStatsService {
 
       if (response['success'] == true) {
         print('player select successful: $response');
-        final gameStatsModel = GameResultModel.fromJson(response);
-        debugPrint('Game ID in STats ====== ${gameStatsModel.data.finalRankings.first.user.name}');
+        final gameStatsModel = GameResult.fromJson(response);
+        debugPrint('Game ID in STats ====== ${gameStatsModel.data.finalRankings.first.playerName}');
         return gameStatsModel;
       } else {
         print('Game ID in STats API call failed: ${response.toString()}');

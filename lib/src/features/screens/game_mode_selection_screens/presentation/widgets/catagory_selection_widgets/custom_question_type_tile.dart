@@ -19,6 +19,7 @@ class CustomQuestionTypeTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint(imgUrl.toString());
     final style = Theme.of(context).textTheme;
     return GestureDetector(
       onTap: onTap,

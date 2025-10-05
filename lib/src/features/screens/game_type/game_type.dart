@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_type/all_types/mcq_question/mcq_question_with_image_video.dart';
 import 'all_types/mcq_question/image_mcq_question.dart';
-import 'all_types/mcq_question/multiple_choice_question.dart';
-import 'all_types/true_false_question/true_false_question.dart';
 import 'all_types/typed_question/typed_question.dart';
 
 class GameType {
@@ -11,7 +9,7 @@ class GameType {
     required List<String> choices,
     required String question,
     int? rightChoice,
-  }) => MultipleChoiceQuestion(
+  }) => McqQuestionWithImageVideo(
     choices: choices,
     question: question,
     rightIndex: rightChoice,
@@ -62,7 +60,12 @@ class GameType {
   static Widget imageMcqQuestion({
     required List<String> choicesImageURL,
     required String question,
-  }) => ImageMcqQuestion(choicesImageURL: choicesImageURL, question: question);
+    int? rightChoice,
+  }) => ImageMcqQuestion(
+    choicesImageURL: choicesImageURL,
+    question: question,
+    rightIndex: rightChoice,
+  );
 
   // /// true or false question
   // static Widget trueFalseQuestion({required String question}) =>

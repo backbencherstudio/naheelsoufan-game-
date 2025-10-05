@@ -3,13 +3,20 @@ class ApiEndPoints{
   static const String baseUrl = "https://cognitively-undecaying-azalee.ngrok-free.dev";
 
   // IMG BASE
-  static String imageBaseUrl = "https://nirob.signalsmind.com/s3/public/storage/category";
+  static String imageBaseUrl = "https://nirob.signalsmind.com/s3";
 
   // QUE BASE
   static const String questionBaseUrl = "https://nirob.signalsmind.com/s3/public/storage/question";
 
-  static String imageUrlPath(String imgUrl) => "$imageBaseUrl/$imgUrl";
-  static String fileUrlPath(String imgUrl) => "$questionBaseUrl/$imgUrl";
+  static String convertToS3Url(String localUrl) {
+    final pathStart = localUrl.indexOf('/public/storage/');
+    if (pathStart == -1) return localUrl;
+
+    final storagePath = localUrl.substring(pathStart);
+    return '$imageBaseUrl$storagePath';
+  }
+
+  static String fileUrlPath(String? imgUrl) => "$questionBaseUrl/$imgUrl";
 
   static const String registerUrl = "$baseUrl/api/auth/register";
   static const String loginUrl = "$baseUrl/api/auth/login";
@@ -26,7 +33,6 @@ class ApiEndPoints{
   static const String gamePlayerDataUrl = "$baseUrl/api/game-players/game";
   static const String gameStartUrl = "$baseUrl/api/game-players/start-game";
   static const String gameEndUrl = "$baseUrl/api/game-players/end-game";
-  static const String gameCategoryUrl = "$baseUrl/api/game-players/categories";
 
   // Subscription
   static const String subscriptionUrl = "$baseUrl/api/subscription/types";

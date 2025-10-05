@@ -95,74 +95,71 @@ class _TypedQuestionWithImageVideoState
               controller: _answerController,
               onSubmitted: (value) async {
                 if (value.toLowerCase() == rightAnswer.toLowerCase()) {
-                  // final result = await AnswerQuestionService().answer(response?.data?.question.id, response?.data?.question.answers[0].id, response?.data?.currentPlayer.id);
-                  //
-                  // log("Selected Answer ID: ${response?.data?.question.answers[0].id}");
-                  // log("Selected Answer: ${response?.data?.question.answers[0].text}");
-                  // log("Result: $result");
+                  log("RIGHT!!!");
 
-                  (!huntMode)
-                      ? await AnswerQuestionService().answer(
-                        response?.data?.question.id,
-                        response?.data?.question.answers[0].id,
-                        response?.data?.currentPlayer.id,
-                      )
-                      : (selectedPointBlock == -1)
-                      ? log("Please Select a Player")
-                      : await AnswerQuestionService().answer(
+                  if(huntMode){
+                    if (selectedPointBlock == -1 ||
+                        selectedPointBlock == current.currentPlayer) {
+                      log("Please Select a Player");
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Please Select a Player")),
+                      );
+                    } else {
+                      log(
+                        "Selected Player ID: ${playerList?.data.players[selectedPointBlock].id}",
+                      );
+                      await AnswerQuestionService().answer(
                         response?.data?.question.id,
                         response?.data?.question.answers[0].id,
                         playerList?.data.players[selectedPointBlock].id,
                       );
+                    }
+                  }
                   // Hunt Mode ??????
 
-                  log(
-                    "Selected Answer ID: ${response?.data?.question.answers[0].id}",
-                  );
-                  log(
-                    "Selected Answer: ${response?.data?.question.answers[0].text}",
-                  );
+                  else {
+                    await AnswerQuestionService().answer(
+                      response?.data?.question.id,
+                      response?.data?.question.answers[0].id,
+                      playerList?.data.players[current.currentPlayer].id,
+                    );
+                  }
 
                   ref.read(advanceTurnFlagProvider.notifier).state = true;
                   controller.state = current.copyWith(
                     currentPlayer: next,
                   ); // CB
                 } else {
-                  (!huntMode)
-                      ? await AnswerQuestionService().answer(
-                        response?.data?.question.id,
-                        "null",
-                        response?.data?.currentPlayer.id,
-                      )
-                      : null;
-                  // Hunt Mode ??????
 
                   log("Selected Answer ID: Invalid");
                   log("Selected Answer: Invalid");
 
                   ref.read(selectedPlayerIndexProvider.notifier).state = -1;
-                  ref.read(huntModeOn.notifier).state = true;
 
                   log("\n\n\nWRONG!!!\n\n\n");
                   if (huntMode == true) {
-                    if (selectedPointBlock == -1) {
+                    if (selectedPointBlock == -1 ||
+                        selectedPointBlock == current.currentPlayer) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text("Please Select a Player")),
                       );
                     } else {
                       ref.read(huntModeOn.notifier).state = false;
-                      final result = await AnswerQuestionService().answer(
+                      await AnswerQuestionService().answer(
                         response?.data?.question.id,
-                        "null",
+                        "invalid",
                         playerList?.data.players[selectedPointBlock].id,
                       );
-
-                      log("Hunt Result: $result");
 
                       ref.read(advanceTurnFlagProvider.notifier).state = true;
                       controller.state = current.copyWith(currentPlayer: next);
                     }
                   } else {
+                    await AnswerQuestionService().answer(
+                      response?.data?.question.id,
+                      "Invalid",
+                      playerList?.data.players[current.currentPlayer].id,
+                    );
                     ref
                         .read(
                           autoCounterProvider(
@@ -171,6 +168,7 @@ class _TypedQuestionWithImageVideoState
                         )
                         .reset();
                     onWrongAnswerTap(context, rightAnswer, ref);
+                    ref.read(huntModeOn.notifier).state = true;
                   }
 
                   WidgetsBinding.instance.addPostFrameCallback((_) {
