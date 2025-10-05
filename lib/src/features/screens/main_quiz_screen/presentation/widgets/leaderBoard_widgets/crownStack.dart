@@ -4,8 +4,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/constant/images.dart';
 
-class Crownstack extends StatelessWidget {
-  const Crownstack({super.key});
+class CrownStack extends StatelessWidget {
+  final String? iconUrl;
+  const CrownStack({
+    super.key,
+    this.iconUrl
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +25,10 @@ class Crownstack extends StatelessWidget {
         children: [
           Positioned(
             bottom: 0,
-            child: SvgPicture.asset(AppIcons.profileIcons,
             height: isPortrait ? 40.h : 18.w,
             width: isPortrait ? 40.w : 88.h,
-            
-            )),
+            child: iconUrl == null ? SvgPicture.asset(AppIcons.profileIcons) : Image.asset(iconUrl!),
+            ),
           Positioned(
             right: 0,
             top: isPortrait ? 5.h : 2.25.w,

@@ -4,9 +4,18 @@ import 'package:flutter_svg/svg.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 
-class CustomPlacebox extends StatelessWidget {
+class CustomPlaceBox extends StatelessWidget {
   final int place;
-  const CustomPlacebox({super.key, required this.place});
+  final String name;
+  final int scores;
+  final String? iconUrl;
+  const CustomPlaceBox({
+    super.key,
+    required this.place,
+    required this.name,
+    required this.scores,
+    this.iconUrl
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +24,9 @@ class CustomPlacebox extends StatelessWidget {
         MediaQuery.of(context).orientation == Orientation.portrait;
     return Column(
       children: [
-        SvgPicture.asset(AppIcons.profileIcons),
+        (iconUrl == null) ? SvgPicture.asset(AppIcons.profileIcons) : Image.asset(iconUrl!),
         SizedBox(height: isPortrait ? 4.h : 1.6.w),
-        Text("Player Name", style: style.bodyLarge),
+        Text(name, style: style.bodyLarge),
         SizedBox(height: isPortrait ? 8.h : 3.2.w),
         Container(
            padding:place==2? EdgeInsets.all(isPortrait ? 8.r : 17.6.r): EdgeInsets.symmetric(horizontal:isPortrait ? 8.w : 17.6.h, vertical: isPortrait ? 4.h : 1.6.w, ),
@@ -71,7 +80,7 @@ class CustomPlacebox extends StatelessWidget {
               ],
 
               Text(
-                "650 point",
+                scores.toString(),
                 style: style.bodyLarge!.copyWith(
                   fontSize: isPortrait ? 12.sp : 4.8.w,
                   color: AppColorScheme.scondaryTextColor,

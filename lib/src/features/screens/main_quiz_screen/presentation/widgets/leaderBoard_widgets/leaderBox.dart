@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:naheelsoufan_game/src/core/constant/images.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
-import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/leaderBoard_widgets/Custom_placeBox.dart';
-import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/leaderBoard_widgets/customFisrtPlace.dart'
-    show Customfisrtplace;
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/leaderBoard_widgets/custom_box.dart';
-import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/row_arrangment/custom_row.dart';
-import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/row_arrangment/custom_rowThree.dart';
-import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/row_arrangment/customrowTwo.dart';
+import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/leaderBoard_widgets/custom_first_place.dart';
+import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/leaderBoard_widgets/custom_row.dart';
 import 'package:vs_scrollbar/vs_scrollbar.dart';
+import 'custom_place_box.dart';
 
 class Leaderbox extends StatelessWidget {
   const Leaderbox({super.key});
@@ -66,11 +62,25 @@ class Leaderbox extends StatelessWidget {
                               : MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        isPortrait ? CustomPlacebox(place: 2) : SizedBox(),
-                        Customfisrtplace(),
                         isPortrait
-                            ? CustomPlacebox(place: 3)
-                            : CustomPlacebox(place: 2),
+                            ? CustomPlaceBox(
+                              place: 2,
+                              name: 'Chini2',
+                              scores: 100,
+                            )
+                            : SizedBox(),
+                        CustomFirstPlace(name: "Chini", scores: 300),
+                        isPortrait
+                            ? CustomPlaceBox(
+                              place: 3,
+                              name: 'Chini3',
+                              scores: 50,
+                            )
+                            : CustomPlaceBox(
+                              place: 2,
+                              name: 'Chini2',
+                              scores: 100,
+                            ),
                       ],
                     ),
                   ),
@@ -131,32 +141,19 @@ class Leaderbox extends StatelessWidget {
                                     isPortrait
                                         ? CrossAxisAlignment.start
                                         : CrossAxisAlignment.center,
-                                children: [
-                                  SizedBox(height: isPortrait ? 20.h : 9.w),
-                                  CustomRow(),
-                                  SizedBox(height: isPortrait ? 10.h : 4.5.w),
-                                  Customrowtwo(
-                                    id: '02',
-                                    name: 'Player Name',
-                                    scores: '650',
-                                    icons: AppImages.award,
-                                  ),
-                                  if (isPortrait) ...[
-                                    SizedBox(height: isPortrait ? 10.h : 4.5.w),
-                                    Customrowtwo(
-                                      id: '03',
-                                      name: 'Player Name',
-                                      scores: '750',
-                                      icons: AppImages.madel,
+                                children: List.generate(4, (index) {
+                                  return Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 9.h),
+                                    child: CustomRow(
+                                      name: "CHINI",
+                                      scores: 150,
+                                      right: 2,
+                                      wrong: 1,
+                                      skip: 5,
+                                      index: index + 1,
                                     ),
-                                    SizedBox(height: isPortrait ? 10.h : 4.5.w),
-                                    CustomRowthree(
-                                      id: '04',
-                                      name: 'Player Name',
-                                      scores: '556',
-                                    ),
-                                  ],
-                                ],
+                                  );
+                                }),
                               ),
                             ),
                           ),

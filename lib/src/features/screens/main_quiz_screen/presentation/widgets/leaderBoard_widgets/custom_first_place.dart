@@ -3,8 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/leaderBoard_widgets/crownStack.dart';
 
-class Customfisrtplace extends StatelessWidget {
-  const Customfisrtplace({super.key});
+class CustomFirstPlace extends StatelessWidget {
+  final String name;
+  final int scores;
+  const CustomFirstPlace({
+    super.key,
+    required this.name,
+    required this.scores
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -13,9 +19,9 @@ class Customfisrtplace extends StatelessWidget {
         MediaQuery.of(context).orientation == Orientation.portrait;
     return Column(
       children: [
-        Crownstack(),
+        CrownStack(),
         SizedBox(height: isPortrait ? 4.h : 1.8.w),
-        Text("Player Name", style: style.bodyLarge),
+        Text(name, style: style.bodyLarge),
         SizedBox(height: isPortrait ? 8.h : 3.6.w),
         Container(
           padding: EdgeInsets.all(isPortrait ? 2.r : 4.4.r),
@@ -57,7 +63,7 @@ class Customfisrtplace extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "750 point",
+                  scores.toString(),
                   style: style.bodyLarge!.copyWith(
                     fontSize: isPortrait ? 12.sp : 5.4.sp,
                     color: AppColorScheme.onSecondary,

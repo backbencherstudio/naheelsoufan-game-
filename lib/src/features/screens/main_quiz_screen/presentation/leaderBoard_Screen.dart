@@ -40,7 +40,7 @@ class LeaderboardScreen extends StatelessWidget {
                 ),
 
                 Text(
-                  "Congratulation\n“Player Name”",
+                  "Congratulation\n“CHINI”",
                   textAlign: TextAlign.center,
                   style: style.headlineLarge!.copyWith(
                     fontWeight: FontWeight.w500,
@@ -62,7 +62,10 @@ class LeaderboardScreen extends StatelessWidget {
                   bgIcon: AppIcons.roundIcontop,
                 ),
                 SizedBox(width: 40.w),
-                CustomroundButton(icon: AppIcons.playButtn, onTap: () {}),
+                CustomroundButton(
+                    icon: AppIcons.playButtn,
+                    onTap: () {}
+                ),
               ],
             ),
           ],

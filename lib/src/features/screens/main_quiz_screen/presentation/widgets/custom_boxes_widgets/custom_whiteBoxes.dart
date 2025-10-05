@@ -27,14 +27,8 @@ class CustomWhiteboxes extends StatelessWidget {
         color: Color(0xffE0E0FF),
         borderRadius: BorderRadius.circular(8.r),
         border: Border(
-          bottom: BorderSide(
-   color: AppColorScheme.labelTextColor, width: 4.w
-          ),
-       
-          
-          
-          
-          ),
+          bottom: BorderSide(color: AppColorScheme.labelTextColor, width: 4.w),
+        ),
       ),
 
       child: Container(
