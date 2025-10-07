@@ -29,6 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isNotTab = MediaQuery.of(context).size.shortestSide < 600;
     return Scaffold(
       body: CreateScreen(
         child: SafeArea(
@@ -45,13 +46,11 @@ class _SplashScreenState extends State<SplashScreen> {
                     children: [
                       SvgPicture.asset(
                         AppIcons.blueLogoBg,
-                        height: 150.h,
-                        width: 150.w,
+                        height: isNotTab ? 150.h : 300.h,
                       ),
                       SvgPicture.asset(
                         AppIcons.manIcon,
-                        height: 96.h,
-                        width: 70.w,
+                        height: isNotTab ? 96.h : 200.h,
                       ),
                     ],
                   ),

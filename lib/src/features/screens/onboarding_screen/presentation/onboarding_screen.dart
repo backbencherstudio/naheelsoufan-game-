@@ -38,6 +38,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
+    final isNotTab = MediaQuery.of(context).size.shortestSide < 600;
     return Scaffold(
       body: CreateScreen(
         child: Padding(
@@ -47,7 +48,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 298.h),
-              Image.asset(AppImages.logo),
+              Image.asset(AppImages.logo, height: isNotTab ? null : 100.h,),
               SizedBox(height: 20.h),
               Text(
                 'Trivia Game',
@@ -64,7 +65,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   color: AppColorScheme.newText,
                 ),
               ),
-              Image.asset(AppImages.developedBy),
+              Image.asset(AppImages.developedBy, height: isNotTab ? null : 100.h,),
             ],
           ),
         ),

@@ -42,6 +42,7 @@ class _SignInBodyState extends ConsumerState<SignInBody> {
   Widget build(BuildContext context) {
     final titleStyle = Theme.of(context).textTheme.displayLarge;
     final subTitleStyle = Theme.of(context).textTheme.displaySmall;
+    final isNotTab = MediaQuery.of(context).size.shortestSide < 600;
 
     ref.listen<AsyncValue>(authNotifierProvider, (previous, next) {
       next.whenOrNull(
@@ -103,15 +104,15 @@ class _SignInBodyState extends ConsumerState<SignInBody> {
                     textInputAction: TextInputAction.done,
                     suffixIcon: SizedBox(
                       width: 24.sp,
-                      height: 24.sp,
-                      child: (!isVisible
+                      height: isNotTab ? 24.sp : 20.sp,
+                      child: (isVisible
                           ? SvgPicture.asset(AppIcons.visibilityOff)
                           : SvgPicture.asset(AppIcons.visibilityOn)),
                     ),
                     onSuffixTap: () {
                       ref.read(isObscure3.notifier).state = !isVisible;
                     },
-                    obscureText: !isVisible,
+                    obscureText: isVisible,
                   );
                 },
               ),

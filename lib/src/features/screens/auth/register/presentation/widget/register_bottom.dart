@@ -13,6 +13,7 @@ class RegisterBottom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final linkTextStyle = Theme.of(context).textTheme.bodyLarge;
+    final isNotTab = MediaQuery.of(context).size.shortestSide < 600;
     return Column(
       children: [
         Row(
@@ -24,7 +25,7 @@ class RegisterBottom extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              height: 72.h,
+              height: isNotTab ? 72.h : 100.h,
               width: 72.w,
               decoration: BoxDecoration(
                 color: AppColorScheme.primary,
@@ -41,7 +42,7 @@ class RegisterBottom extends StatelessWidget {
             ),
             SizedBox(width: 21.w),
             Container(
-              height: 72.h,
+              height: isNotTab ? 72.h : 100.h,
               width: 72.w,
               decoration: BoxDecoration(
                 color: AppColorScheme.primary,

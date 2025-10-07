@@ -118,7 +118,7 @@ class _RegisterBodyState extends ConsumerState<RegisterBody> {
                     suffixIcon: InkWell(
                       onTap: () => ref.read(isObscure1.notifier).state = !isVisible,
                       child: SvgPicture.asset(
-                        isVisible ? AppIcons.visibilityOn : AppIcons.visibilityOff,
+                        isVisible ? AppIcons.visibilityOn : AppIcons.visibilityOff, height: 20.sp, width: 24.sp,
                       ),
                     ),
                   );
@@ -143,7 +143,7 @@ class _RegisterBodyState extends ConsumerState<RegisterBody> {
                     suffixIcon: InkWell(
                       onTap: () => ref.read(isObscure2.notifier).state = !isVisible,
                       child: SvgPicture.asset(
-                        isVisible ? AppIcons.visibilityOn : AppIcons.visibilityOff,
+                        isVisible ? AppIcons.visibilityOn : AppIcons.visibilityOff, height: 20.sp, width: 24.sp,
                       ),
                     ),
                   );

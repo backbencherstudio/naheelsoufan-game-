@@ -15,11 +15,12 @@ class CustomElevatedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final buttonTextStyle = Theme.of(context).textTheme.titleSmall;
+    final isNotTab = MediaQuery.of(context).size.shortestSide < 600;
     return GestureDetector(
       onTap: onPressed,
       child: Container(
         width: double.infinity,
-        height: 58.h,
+        height: isNotTab ? 58.h : 100.h,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.r),
           border: Border.all(width: 2.w, color: AppColorScheme.midGradGreen.withValues(alpha: 0.2), ),

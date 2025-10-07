@@ -28,13 +28,14 @@ class _RegisterAppbarState extends State<RegisterAppbar> {
   @override
   Widget build(BuildContext context) {
     final dropDownStyle = Theme.of(context).textTheme.displayMedium?.copyWith(color: AppColorScheme.secondary);
+    final isNotTab = MediaQuery.of(context).size.shortestSide < 600;
     return Row(
       children: [
         SizedBox(
-          height: 52.h,
+          height: isNotTab ? 52.h : 100.h,
           child: Image.asset(AppImages.logo),
         ),
-        SizedBox(width: 95.w),
+        SizedBox(width: isNotTab ? 95.w : 50.w),
         Consumer(
           builder: (_, ref, _) {
             final result = ref.watch(isSelectedVal) ?? "US English";
