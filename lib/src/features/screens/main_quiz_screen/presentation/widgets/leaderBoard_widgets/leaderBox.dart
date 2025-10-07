@@ -1,28 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:naheelsoufan_game/src/core/constant/images.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
-import 'package:naheelsoufan_game/src/data/model/start_game/game_result_model.dart';
-import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/leaderBoard_widgets/Custom_placeBox.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/leaderBoard_widgets/custom_box.dart';
-import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/row_arrangment/custom_row.dart';
-import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/row_arrangment/custom_rowThree.dart';
-import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/row_arrangment/customrowTwo.dart';
+import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/leaderBoard_widgets/custom_first_place.dart';
+import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/leaderBoard_widgets/custom_row.dart';
 import 'package:vs_scrollbar/vs_scrollbar.dart';
+import '../../../../../../data/riverpod/game/end_game/game_stat_provider.dart';
+import 'custom_place_box.dart';
 
-import 'customFisrtPlace.dart';
-
-class Leaderbox extends StatelessWidget {
-  final List<FinalRanking> playerRankings;
-
-
-  const Leaderbox({
-    super.key, required this.playerRankings,
-  });
+class Leaderbox extends ConsumerWidget {
+  const Leaderbox({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final ScrollController scrollController = ScrollController();
+    final gameStats = ref.watch(gameStatsProvider);
+    final players = gameStats?.data.finalRankings ?? [];
+    final playerLength = players.length;
 
     bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
@@ -72,11 +67,33 @@ class Leaderbox extends StatelessWidget {
                               : MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        isPortrait ? CustomPlacebox(place: 2) : SizedBox(),
-                        Customfisrtplace(),
                         isPortrait
-                            ? CustomPlacebox(place: 3)
-                            : CustomPlacebox(place: 2),
+                            ? (playerLength > 1
+                            ? CustomPlaceBox(
+                          place: 2,
+                          name: players[1].playerName,
+                          scores: players[1].score,
+                        )
+                            : SizedBox())
+                            : SizedBox(),
+                        (playerLength > 0
+                            ? CustomFirstPlace(name: players[0].playerName, scores: players[0].score)
+                            : SizedBox()),
+                        isPortrait
+                            ? (playerLength > 2
+                            ? CustomPlaceBox(
+                          place: 3,
+                          name: players[2].playerName,
+                          scores: players[2].score,
+                        )
+                            : SizedBox())
+                            : (playerLength > 1
+                            ? CustomPlaceBox(
+                          place: 2,
+                          name: players[1].playerName,
+                          scores: players[1].score,
+                        )
+                            : SizedBox()),
                       ],
                     ),
                   ),
@@ -137,48 +154,19 @@ class Leaderbox extends StatelessWidget {
                                     isPortrait
                                         ? CrossAxisAlignment.start
                                         : CrossAxisAlignment.center,
-                                children: [
-                                  SizedBox(height: isPortrait ? 20.h : 9.w),
-                                  CustomRow(
-                                    id: '01',
-                                    name: playerRankings[0].playerId,
-                                    scores: playerRankings[0].score.toString(),
-                                    right: playerRankings[0].correctAnswers.toString(),
-                                    wrong: playerRankings[0].wrongAnswers.toString(),
-                                    skip: playerRankings[0].skippedAnswers.toString(),
-                                  ),
-                                  SizedBox(height: isPortrait ? 10.h : 4.5.w),
-                                  Customrowtwo(
-                                    id: '02',
-                                    name: playerRankings[1].playerId,
-                                    scores: playerRankings[1].score.toString(),
-                                    icons: AppImages.award,
-                                    right: playerRankings[1].correctAnswers.toString(),
-                                    wrong: playerRankings[1].wrongAnswers.toString(),
-                                    skip: playerRankings[1].skippedAnswers.toString(),
-                                  ),
-                                  if (isPortrait) ...[
-                                    SizedBox(height: isPortrait ? 10.h : 4.5.w),
-                                    Customrowtwo(
-                                      id: '03',
-                                      name: playerRankings[2].playerId,
-                                      scores: playerRankings[2].score.toString(),
-                                      icons: AppImages.madel,
-                                      right: playerRankings[2].correctAnswers.toString(),
-                                      wrong: playerRankings[2].wrongAnswers.toString(),
-                                      skip: playerRankings[2].skippedAnswers.toString(),
+                                children: List.generate(playerLength, (index) {
+                                  return Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 9.h),
+                                    child: CustomRow(
+                                      name: players[index].playerName,
+                                      scores: players[index].score,
+                                      right: players[index].correctAnswers,
+                                      wrong: players[index].wrongAnswers,
+                                      skip: players[index].skippedAnswers,
+                                      index: index + 1,
                                     ),
-                                    SizedBox(height: isPortrait ? 10.h : 4.5.w),
-                                    CustomRowthree(
-                                      id: '04',
-                                      name: playerRankings[3].playerId,
-                                      scores: playerRankings[3].score.toString(),
-                                      right: playerRankings[3].correctAnswers.toString(),
-                                      wrong: playerRankings[3].wrongAnswers.toString(),
-                                      skip: playerRankings[3].skippedAnswers.toString(),
-                                    ),
-                                  ],
-                                ],
+                                  );
+                                }),
                               ),
                             ),
                           ),

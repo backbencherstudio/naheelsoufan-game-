@@ -80,7 +80,7 @@ class _RegisterBodyState extends ConsumerState<RegisterBody> {
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 28.h),
         child: Form(
-          autovalidateMode: AutovalidateMode.onUserInteraction,
+          autovalidateMode: AutovalidateMode.onUnfocus,
           key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

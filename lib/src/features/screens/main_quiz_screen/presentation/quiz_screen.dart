@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/constant/api_end_points.dart';
+import 'package:naheelsoufan_game/src/data/repository/game/start_game/answer_question_service.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/riverpod/function.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/riverpod/advance_turn_controller.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/riverpod/stateProvider.dart';
@@ -89,13 +90,17 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
                     // CHANGE
                     onPaused: () {
                       //(huntMode) ?
-                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                      WidgetsBinding.instance.addPostFrameCallback((_) async {
                         if (!huntMode) {
+                          /// Skip Here
+                          await AnswerQuestionService().skipAnswer(response?.data?.question.id, response?.data?.currentPlayer.id);
+
                           onWrongAnswerTap(context, response?.data?.question.correctAnswer.text ?? "", ref);
                           ref.read(huntModeOn.notifier).state = true;
                           ref.read(autoCounterProvider(response?.data?.question.timeLimit ?? 60).notifier).reset();
                         }
                         else {
+                          await AnswerQuestionService().skipAnswer(response?.data?.question.id, null);
                           controller.state = current.copyWith(currentPlayer: next);
                           ref.read(advanceTurnFlagProvider.notifier).state = true;
                         }

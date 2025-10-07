@@ -81,6 +81,7 @@ class ImageMcqQuestion extends StatelessWidget {
                           response?.data?.question.id,
                           response?.data?.question.answers[index].id,
                           response?.data?.currentPlayer.id,
+                          null
                         )
                         : null;
 
@@ -108,6 +109,7 @@ class ImageMcqQuestion extends StatelessWidget {
                             response?.data?.question.id,
                             response?.data?.question.answers[index].id,
                             playerList?.data.players[selectedPointBlock].id,
+                            null
                           );
                           //log("Hunt Result: $result");
 
@@ -157,6 +159,7 @@ class ImageMcqQuestion extends StatelessWidget {
                             response?.data?.question.id,
                             response?.data?.question.answers[index].id,
                             playerList?.data.players[selectedPointBlock].id,
+                            null
                           );
 
                           ref.read(huntModeOn.notifier).state = false;

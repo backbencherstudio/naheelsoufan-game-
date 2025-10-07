@@ -15,21 +15,17 @@ class GetGameStatsService {
   Future<GameResult?> getGameStats() async {
     final token = await _tokenService.getToken();
     final gameId = await _gameIdStorage.getGameId();
-    //
-    // if (token == null || token.isEmpty) {
-    //   debugPrint('Token not found, please login');
-    //   return null;
-    // }
-    //
-    // final headers = {'Authorization': 'Bearer $token'};
-
     final body = {
       "game_id": gameId
     };
 
     try {
-      final response = await _apiServices.getData(
-        endPoint: ApiEndPoints.getGameStatsUrl(gameId ?? ''),
+      final response = await _apiServices.postData(
+        endPoint: ApiEndPoints.gameStatsUrl(),
+        body: body,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
       );
 
       if (response['success'] == true) {

@@ -44,10 +44,11 @@ final advanceTurnControllerProvider = Provider.autoDispose<void>((ref) {
       ref.read(autoCounterProvider(response?.data?.question.timeLimit ?? 60).notifier).reset();
     });
 
+    debugPrint("Next Turn Player Index: ${current.currentPlayer}");
     if (nextPlayerTurn == 0) {
       ref.read(advanceNavigationProvider.notifier).state =
           AdvanceNavigation.leaderboard;
-      ref.read(playerTurnProvider.notifier).state = 1;
+      ref.read(playerTurnProvider.notifier).state = 0;
     } else {
       ref.read(advanceNavigationProvider.notifier).state =
           AdvanceNavigation.nextTurn;

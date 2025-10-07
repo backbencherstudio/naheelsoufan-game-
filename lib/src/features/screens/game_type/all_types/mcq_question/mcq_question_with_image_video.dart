@@ -102,13 +102,14 @@ class McqQuestionWithImageVideo extends StatelessWidget {
                           response?.data?.question.id,
                           response?.data?.question.answers[index].id,
                           response?.data?.currentPlayer.id,
+                          null
                         ) : null;
 
                     if (ref.read(isRightWrongElse.notifier).state == 0) {
                       for (int i = 0; i < 4; i++) {
                         ref.read(checkChoicesProvider(i).notifier).state = -1;
                       }
-                      ref.read(selectedPlayerIndexProvider.notifier).state = -1;
+
                       log("\n\n\nWRONG!!!\n\n\n");
                       if (huntMode == true) {
                         if (selectedPointBlock == -1 ||
@@ -125,8 +126,10 @@ class McqQuestionWithImageVideo extends StatelessWidget {
                             response?.data?.question.id,
                             response?.data?.question.answers[index].id,
                             playerList?.data.players[selectedPointBlock].id,
+                            null
                           );
                           //log("Hunt Result: $result");
+                          ref.read(selectedPlayerIndexProvider.notifier).state = -1;
                           ref.read(huntModeOn.notifier).state = false;
                           ref.read(advanceTurnFlagProvider.notifier).state =
                               true;
@@ -175,7 +178,8 @@ class McqQuestionWithImageVideo extends StatelessWidget {
                           final result = await AnswerQuestionService().answer(
                             response?.data?.question.id,
                             response?.data?.question.answers[index].id,
-                            playerList?.data.players[current.currentPlayer].id,
+                            playerList?.data.players[selectedPointBlock].id,
+                            null
                           );
 
                           ref.read(huntModeOn.notifier).state = false;

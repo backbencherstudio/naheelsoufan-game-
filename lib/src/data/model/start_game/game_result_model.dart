@@ -148,20 +148,26 @@ class FinalRanking {
 }
 
 class Podium {
-  final PodiumPlayer firstPlace;
-  final PodiumPlayer secondPlace;
-  final PodiumPlayer thirdPlace;
+  final PodiumPlayer? firstPlace;
+  final PodiumPlayer? secondPlace;
+  final PodiumPlayer? thirdPlace;
 
   Podium({
-    required this.firstPlace,
-    required this.secondPlace,
-    required this.thirdPlace,
+    this.firstPlace,
+    this.secondPlace,
+    this.thirdPlace,
   });
 
   factory Podium.fromJson(Map<String, dynamic> json) => Podium(
-    firstPlace: PodiumPlayer.fromJson(json['first_place']),
-    secondPlace: PodiumPlayer.fromJson(json['second_place']),
-    thirdPlace: PodiumPlayer.fromJson(json['third_place']),
+    firstPlace: json['first_place'] != null
+        ? PodiumPlayer.fromJson(json['first_place'])
+        : null,
+    secondPlace: json['second_place'] != null
+        ? PodiumPlayer.fromJson(json['second_place'])
+        : null,
+    thirdPlace: json['third_place'] != null
+        ? PodiumPlayer.fromJson(json['third_place'])
+        : null,
   );
 }
 

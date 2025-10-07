@@ -45,7 +45,8 @@ class ApiEndPoints{
 
   // answer
   static const String answer = "$baseUrl/api/game-players/competitive-quick-game/answer";
+  static const String skipAnswer = "$baseUrl/api/game-players/timeout-skiped";
 
 
-  static String getGameStatsUrl(String gameId) => "$baseUrl/api/game-players/results/$gameId";
+  static String gameStatsUrl() => "$baseUrl/api/game-players/end-game";
 }

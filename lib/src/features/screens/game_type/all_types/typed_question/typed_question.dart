@@ -112,6 +112,7 @@ class _TypedQuestionWithImageVideoState
                         response?.data?.question.id,
                         response?.data?.question.answers[0].id,
                         playerList?.data.players[selectedPointBlock].id,
+                        response?.data?.question.answers[0].text
                       );
                     }
                   }
@@ -122,6 +123,7 @@ class _TypedQuestionWithImageVideoState
                       response?.data?.question.id,
                       response?.data?.question.answers[0].id,
                       playerList?.data.players[current.currentPlayer].id,
+                        response?.data?.question.answers[0].text
                     );
                   }
 
@@ -134,10 +136,8 @@ class _TypedQuestionWithImageVideoState
                   log("Selected Answer ID: Invalid");
                   log("Selected Answer: Invalid");
 
-                  ref.read(selectedPlayerIndexProvider.notifier).state = -1;
-
                   log("\n\n\nWRONG!!!\n\n\n");
-                  if (huntMode == true) {
+                  if (huntMode) {
                     if (selectedPointBlock == -1 ||
                         selectedPointBlock == current.currentPlayer) {
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -149,7 +149,10 @@ class _TypedQuestionWithImageVideoState
                         response?.data?.question.id,
                         "invalid",
                         playerList?.data.players[selectedPointBlock].id,
+                        "invalid"
                       );
+
+                      ref.read(selectedPlayerIndexProvider.notifier).state = -1;
 
                       ref.read(advanceTurnFlagProvider.notifier).state = true;
                       controller.state = current.copyWith(currentPlayer: next);
@@ -159,6 +162,7 @@ class _TypedQuestionWithImageVideoState
                       response?.data?.question.id,
                       "Invalid",
                       playerList?.data.players[current.currentPlayer].id,
+                      "Invalid",
                     );
                     ref
                         .read(

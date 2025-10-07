@@ -36,7 +36,7 @@ class _LeaderboardScreenState extends ConsumerState<LeaderboardScreen> {
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
     final gameStats = ref.watch(gameStatsProvider);
-    final gamePlayers = gameStats?.data.finalRankings ?? [];
+    final championName = gameStats?.data.finalRankings[0].playerName ?? [];
 
     return CreateScreen(
       child: Padding(
@@ -47,19 +47,19 @@ class _LeaderboardScreenState extends ConsumerState<LeaderboardScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Consumer(
-                  builder: (_, ref, _) {
-                    return CustomIconsButtons(
-                      icon: AppIcons.backIcons,
-                      onTap: () {
-                        context.go(RouteName.gameModeScreens);
-                        ref.read(commonProviderDisposer)();
-                      },
-                    );
-                  }
+                    builder: (_, ref, _) {
+                      return CustomIconsButtons(
+                        icon: AppIcons.backIcons,
+                        onTap: () {
+                          context.go(RouteName.gameModeScreens);
+                          ref.read(commonProviderDisposer)();
+                        },
+                      );
+                    }
                 ),
 
                 Text(
-                  "Congratulation\n${gameStats?.data.finalRankings[0].playerName ?? ''}",
+                  "Congratulation\n“$championName”",
                   textAlign: TextAlign.center,
                   style: style.headlineLarge!.copyWith(
                     fontWeight: FontWeight.w500,
@@ -70,9 +70,7 @@ class _LeaderboardScreenState extends ConsumerState<LeaderboardScreen> {
             ),
 
             SizedBox(height: 20.h),
-            Leaderbox(
-              playerRankings: gamePlayers,
-            ),
+            Leaderbox(),
             SizedBox(height: 40.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -83,7 +81,10 @@ class _LeaderboardScreenState extends ConsumerState<LeaderboardScreen> {
                   bgIcon: AppIcons.roundIcontop,
                 ),
                 SizedBox(width: 40.w),
-                CustomroundButton(icon: AppIcons.playButtn, onTap: () {}),
+                CustomroundButton(
+                    icon: AppIcons.playButtn,
+                    onTap: () {}
+                ),
               ],
             ),
           ],
