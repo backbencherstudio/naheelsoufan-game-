@@ -21,46 +21,49 @@ class FreeGameScreen extends StatelessWidget {
     return CreateScreen(
       child: Padding(
         padding: AppPadding.horizontalPadding,
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CustomIconsButtons(
-                  icon: AppIcons.backIcons,
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                ),
-                Image.asset(AppImages.profilePic, height: 40.h, width: 40.w),
-                CustomIconsButtons(icon: AppIcons.settings, onTap: () {
-                  context.push(RouteName.clickedSettingScreen);
-                }),
-              ],
-            ),
-
-            SizedBox(height: 40.h),
-            FreeGametile(),
-            SizedBox(height: 121.h),
-            Consumer(
-              builder: (_, ref, _) {
-                final checkScreen = ref.watch(checkNormalGridScreen);
-                return FreeGameCard(
-                  onTap: () {
-                    //choosePaymentCard
-                    ref.read(isFreeModeOnProvider.notifier).state = true;
-                    ref.read(checkGridSubscription.notifier).state = true;
-                    (ref.read(checkNormalGridScreen.notifier).state)
-                        ? context.push(RouteName.createRoomScreen)
-                        : context.push(RouteName.enterTeamNameScreen);
-                  },
-                );
-              },
-            ),
-            Spacer(),
-            SeePlansContainer(),
-            SizedBox(height: 40.h),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustomIconsButtons(
+                    icon: AppIcons.backIcons,
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  Image.asset(AppImages.profilePic, height: 40.h, width: 40.w),
+                  CustomIconsButtons(icon: AppIcons.settings, onTap: () {
+                    context.push(RouteName.clickedSettingScreen);
+                  }),
+                ],
+              ),
+          
+              SizedBox(height: 40.h),
+              FreeGametile(),
+              SizedBox(height: 121.h),
+              Consumer(
+                builder: (_, ref, _) {
+                  final checkScreen = ref.watch(checkNormalGridScreen);
+                  return FreeGameCard(
+                    onTap: () {
+                      //choosePaymentCard
+                      ref.read(isFreeModeOnProvider.notifier).state = true;
+                      ref.read(checkGridSubscription.notifier).state = true;
+                      (ref.read(checkNormalGridScreen.notifier).state)
+                          ? context.push(RouteName.createRoomScreen)
+                          : context.push(RouteName.enterTeamNameScreen);
+                    },
+                  );
+                },
+              ),
+              SizedBox(height: 121.h),
+              //Spacer(),
+              SeePlansContainer(),
+              SizedBox(height: 40.h),
+            ],
+          ),
         ),
       ),
     );
