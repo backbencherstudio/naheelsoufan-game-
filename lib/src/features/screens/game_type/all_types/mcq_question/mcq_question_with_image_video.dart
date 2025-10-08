@@ -62,11 +62,11 @@ class McqQuestionWithImageVideo extends StatelessWidget {
           itemCount: choices.length,
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 200,
-            mainAxisSpacing: 10,
-            crossAxisSpacing: 10,
-            childAspectRatio: 3, // Wider buttons
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2, // fixed number of columns
+            mainAxisSpacing: 10.w,
+            crossAxisSpacing: 10.w,
+            childAspectRatio: 6,
           ),
           itemBuilder: (context, index) {
             return Consumer(

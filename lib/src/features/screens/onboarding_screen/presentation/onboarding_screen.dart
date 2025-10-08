@@ -7,6 +7,7 @@ import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/crea
 
 import '../../../../core/routes/route_name.dart';
 import '../../../../core/theme/theme_extension/color_scheme.dart';
+import '../../../../core/utils/utils.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -38,7 +39,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
-    final isNotTab = MediaQuery.of(context).size.shortestSide < 600;
+    final isNotTab = Utils.isTablet(context);
     return Scaffold(
       body: CreateScreen(
         child: Padding(

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 
+import '../../../core/utils/utils.dart';
+
 class CustomElevatedButton extends StatelessWidget {
   final VoidCallback onPressed;
   final String buttonName;
@@ -15,7 +17,7 @@ class CustomElevatedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final buttonTextStyle = Theme.of(context).textTheme.titleSmall;
-    final isNotTab = MediaQuery.of(context).size.shortestSide < 600;
+    final isNotTab = Utils.isTablet(context);
     return GestureDetector(
       onTap: onPressed,
       child: Container(

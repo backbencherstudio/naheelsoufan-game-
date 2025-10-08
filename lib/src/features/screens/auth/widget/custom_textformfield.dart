@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 
+import '../../../../core/utils/utils.dart';
+
 class CustomTextFormField extends StatelessWidget {
   final String hintText;
   final TextEditingController? controller;
@@ -10,7 +12,6 @@ class CustomTextFormField extends StatelessWidget {
   final Widget? suffixIcon;
   final VoidCallback? onSuffixTap;
   final FormFieldValidator<String>? validator;
-  final TextStyle? errorStyle;
   final TextInputAction? textInputAction;
   final Function(String)? onSubmitted;
 
@@ -23,7 +24,6 @@ class CustomTextFormField extends StatelessWidget {
     this.suffixIcon,
     this.onSuffixTap,
     this.validator,
-    this.errorStyle,
     this.textInputAction,
     this.onSubmitted,
   });
@@ -36,7 +36,10 @@ class CustomTextFormField extends StatelessWidget {
     final formFieldHintTextStyle = Theme.of(
       context,
     ).textTheme.displaySmall?.copyWith(color: AppColorScheme.primaryTextColor);
-    final isNotTab = MediaQuery.of(context).size.shortestSide < 600;
+    final errorStyle = Theme.of(
+      context,
+    ).textTheme.labelSmall?.copyWith(color: AppColorScheme.redGrad);
+    final isNotTab = Utils.isTablet(context);
     return Container(
       height: isNotTab ? 51.h : 100.h,
       padding: EdgeInsets.only(bottom: 1.h),

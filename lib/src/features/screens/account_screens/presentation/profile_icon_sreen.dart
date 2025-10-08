@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import 'package:naheelsoufan_game/src/features/screens/account_screens/presentation/widgets/edit_profile_widgets/edit_profile_icon.dart';
 import 'package:naheelsoufan_game/src/features/screens/account_screens/presentation/widgets/my_account_wodgets/header_button.dart';
 import '../../../../core/constant/icons.dart';
+import '../../../../core/utils/utils.dart';
 import '../../../common_widegts/create_screen/create_screen.dart';
 import '../../game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import '../riverpod/profile_state_notifier.dart';
@@ -16,7 +18,7 @@ class ProfileIconScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedIndex = ref.watch(selectedProfileProvider);
     final style = Theme.of(context).textTheme;
-
+    final isNotTab = Utils.isTablet(context);
     return Scaffold(
       body: CreateScreen(
         child: SafeArea(
@@ -58,7 +60,18 @@ class ProfileIconScreen extends ConsumerWidget {
                             ),
                             child: Column(
                               children: [
-                                EditProfileIcon(),
+                                SizedBox(height: isNotTab ? null : 20.h,),
+                                selectedIndex != null
+                                    ? Image.asset(
+                                  AppIcons.profileImages[selectedIndex],
+                                  height: 80.h,
+                                  width: 80.w,
+                                )
+                                    : Image.asset(
+                                  AppIcons.profile01,
+                                  height: 80.h,
+                                  width: 80.w,
+                                ),
                                 SizedBox(height: 12.h),
                                 Divider(color: AppColorScheme.primaryTextColor),
                                 SizedBox(height: 40.h),
@@ -113,12 +126,18 @@ class ProfileIconScreen extends ConsumerWidget {
                                 ),
 
                                 SizedBox(height: 40.h),
-                                HeaderButton(
-                                  textTitle: 'Update',
-                                  padding: EdgeInsets.all(8.r),
-                                  width: double.infinity,
-                                  height: 58.h,
-                                  borderColor: AppColorScheme.hardGradGreen,
+                                InkWell(
+                                  onTap: () {
+                                    /// UPDATE LOGIC
+                                    context.pop();
+                                  },
+                                  child: HeaderButton(
+                                    textTitle: 'Update',
+                                    padding: EdgeInsets.all(8.r),
+                                    width: double.infinity,
+                                    height: isNotTab ? 58.h : 100.h,
+                                    borderColor: AppColorScheme.hardGradGreen,
+                                  ),
                                 ),
                               ],
                             ),

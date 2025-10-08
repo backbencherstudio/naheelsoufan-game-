@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../../../core/constant/icons.dart';
 import '../../../../../core/theme/theme_extension/color_scheme.dart';
+import '../../../../../core/utils/utils.dart';
 import '../../../../../data/riverpod/count_down_state.dart';
 
 class CustomCountdown extends ConsumerStatefulWidget {
@@ -42,6 +43,7 @@ class _CustomCountdownState extends ConsumerState<CustomCountdown> {
     final style = Theme.of(context).textTheme;
     final bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
+    final isNotTab = Utils.isTablet(context);
 
     return Container(
       padding: isPortrait
@@ -55,9 +57,12 @@ class _CustomCountdownState extends ConsumerState<CustomCountdown> {
       ),
       child: Stack(
         children: [
-          SvgPicture.asset(
-            isPortrait ? AppIcons.stopWatch : AppIcons.landScapeStopWatch,
-            fit: BoxFit.contain,
+          SizedBox(
+            height: isNotTab ? null : 200.h,
+            child: SvgPicture.asset(
+              isNotTab ? (isPortrait ? AppIcons.stopWatch : AppIcons.landScapeStopWatch) : AppIcons.stopWatch,
+              fit: BoxFit.cover,
+            ),
           ),
           Positioned.fill(
             child: Align(

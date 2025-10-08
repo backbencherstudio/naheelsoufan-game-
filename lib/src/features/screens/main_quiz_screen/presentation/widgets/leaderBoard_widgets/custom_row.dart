@@ -63,7 +63,7 @@ class CustomRow extends StatelessWidget {
             ? CustomWhiteboxes(
               title: name,
               icon: "",
-              isIconOpen: true,
+              isIconOpen: false,
               width: isPortrait ? 221.w : 486.2.h,
             )
             : CustomYellowborderbox(

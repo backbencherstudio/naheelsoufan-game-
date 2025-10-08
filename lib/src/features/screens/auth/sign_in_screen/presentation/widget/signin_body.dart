@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../../core/constant/icons.dart';
 import '../../../../../../core/routes/route_name.dart';
 import '../../../../../../core/theme/theme_extension/color_scheme.dart';
+import '../../../../../../core/utils/utils.dart';
 import '../../../../../common_widegts/elevated_button/elevated_button.dart';
 import '../../../../../common_widegts/snack_bar_message/custom_snack_bar.dart';
 import '../../../widget/custom_textformfield.dart';
@@ -42,7 +43,7 @@ class _SignInBodyState extends ConsumerState<SignInBody> {
   Widget build(BuildContext context) {
     final titleStyle = Theme.of(context).textTheme.displayLarge;
     final subTitleStyle = Theme.of(context).textTheme.displaySmall;
-    final isNotTab = MediaQuery.of(context).size.shortestSide < 600;
+    final isNotTab = Utils.isTablet(context);
 
     ref.listen<AsyncValue>(authNotifierProvider, (previous, next) {
       next.whenOrNull(
@@ -105,14 +106,14 @@ class _SignInBodyState extends ConsumerState<SignInBody> {
                     suffixIcon: SizedBox(
                       width: 24.sp,
                       height: isNotTab ? 24.sp : 20.sp,
-                      child: (isVisible
+                      child: (!isVisible
                           ? SvgPicture.asset(AppIcons.visibilityOff)
                           : SvgPicture.asset(AppIcons.visibilityOn)),
                     ),
                     onSuffixTap: () {
                       ref.read(isObscure3.notifier).state = !isVisible;
                     },
-                    obscureText: isVisible,
+                    obscureText: !isVisible,
                   );
                 },
               ),

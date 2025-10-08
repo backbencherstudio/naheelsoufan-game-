@@ -14,10 +14,12 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/common_widegts/music_off_on_whole_screen/riverpod/musicVisible_provider.dart';
 
 import '../../../../../../core/services/token_services.dart';
+import '../../../../../../core/utils/utils.dart';
 import '../../../../../common_widegts/music_off_on_whole_screen/music_volume_widgets.dart';
 import '../../../../question_answer_screen/setting_while_in_game/widgets/language_drop_down_menu.dart';
 
 Drawer appDrawer({required BuildContext context}) {
+  final isNotTab = Utils.isTablet(context);
   final menuKey = GlobalKey();
   final List<Map<String, dynamic>> map = [
     {
@@ -28,7 +30,7 @@ Drawer appDrawer({required BuildContext context}) {
     {
       "icon": AppIcons.setting,
       "title": "Setting",
-      "routeName": RouteName.settingWhileInGameScreen,
+      "routeName": RouteName.settingTtsScreen,
     },
     {
       "icon": AppIcons.personShield,
@@ -38,93 +40,94 @@ Drawer appDrawer({required BuildContext context}) {
     {
       "icon": AppIcons.tvQuestion,
       "title": "How to play",
-      "routeName": RouteName.choosePaymentCard,
     },
     {
       "icon": AppIcons.youtubeIcon,
       "title": "How to play video",
-      "routeName": RouteName.choosePaymentCard,
     },
   ];
   final style = Theme.of(context).textTheme;
 
   return Drawer(
+    width: isNotTab ? null : 300.w,
     backgroundColor: AppColorScheme.deepPuroleBG,
     child: SafeArea(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                LanguageDropDown(menuKey: menuKey,width: 15,),
-                Spacer(),
-                CustomIconsButtons(
-                  icon: AppIcons.crossIcon,
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  bgIcon: AppIcons.redBGsqare,
-                ),
-              ],
-            ),
-            SizedBox(height: 24.h),
-            MusicOffOnWholePage(),
-
-            SizedBox(height: 40.h),
-            ListView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: map.length,
-              itemBuilder: (BuildContext context, int index) {
-                final data = map[index];
-                return Padding(
-                  padding: EdgeInsets.only(bottom: 13.h),
-                  child: CustomListTile(
-                    title: data['title'],
-                    icon: data["icon"],
-
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  LanguageDropDown(menuKey: menuKey,width: 15.w),
+                  Spacer(),
+                  CustomIconsButtons(
+                    icon: AppIcons.crossIcon,
                     onTap: () {
-                      context.push(data["routeName"]);
+                      Navigator.pop(context);
                     },
+                    bgIcon: AppIcons.redBGsqare,
                   ),
-                );
-              },
-            ),
-            SizedBox(height: 40.h),
-            CustomLogoutButton(onTap: () async {
-              final TokenService _tokenService = TokenService();
-              await _tokenService.removeToken();
-              context.push(RouteName.signInScreen);
-            }),
-            SizedBox(height: 40.h),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Terms of Use",
-                  style: style.bodyLarge!.copyWith(
-                    color: AppColorScheme.newText,
+                ],
+              ),
+              SizedBox(height: 24.h),
+              MusicOffOnWholePage(),
+          
+              SizedBox(height: 40.h),
+              ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: map.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final data = map[index];
+                  return Padding(
+                    padding: EdgeInsets.only(bottom: 13.h),
+                    child: CustomListTile(
+                      title: data['title'],
+                      icon: data["icon"],
+          
+                      onTap: () {
+                        (data["routeName"] == null) ? null : context.push(data["routeName"]);
+                      },
+                    ),
+                  );
+                },
+              ),
+              SizedBox(height: 40.h),
+              CustomLogoutButton(onTap: () async {
+                final TokenService _tokenService = TokenService();
+                await _tokenService.removeToken();
+                context.push(RouteName.signInScreen);
+              }),
+              SizedBox(height: 40.h),
+          
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Terms of Use",
+                    style: style.bodyLarge!.copyWith(
+                      color: AppColorScheme.newText,
+                    ),
                   ),
-                ),
-                SizedBox(width: 8.w),
-                SvgPicture.asset(AppIcons.tinydot),
-                SizedBox(width: 8.w),
-                Text(
-                  "Privacy Policy",
-                  style: style.bodyLarge!.copyWith(
-                    color: AppColorScheme.newText,
+                  SizedBox(width: 8.w),
+                  SvgPicture.asset(AppIcons.tinydot),
+                  SizedBox(width: 8.w),
+                  Text(
+                    "Privacy Policy",
+                    style: style.bodyLarge!.copyWith(
+                      color: AppColorScheme.newText,
+                    ),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(height: 16.h),
-            Text(
-              "Question & Answers",
-              style: style.bodyLarge!.copyWith(color: AppColorScheme.newText),
-            ),
-          ],
+                ],
+              ),
+              SizedBox(height: 16.h),
+              Text(
+                "Question & Answers",
+                style: style.bodyLarge!.copyWith(color: AppColorScheme.newText),
+              ),
+            ],
+          ),
         ),
       ),
     ),

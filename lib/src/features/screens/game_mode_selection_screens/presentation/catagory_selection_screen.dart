@@ -14,6 +14,7 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/selection_provider.dart';
+import '../../../../core/utils/utils.dart';
 import '../../../../data/riverpod/game/category/category_controller.dart';
 import '../../../../data/riverpod/game/category/category_pagination_notifer.dart';
 import '../../../../data/riverpod/game/start_game/start_game_provider.dart';
@@ -24,7 +25,6 @@ class CatagorySelectionScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
-    // final player = ref.watch(playerProvider);
     final selectedState = ref.watch(selectProvider);
     final categories = ref.watch(categoryProvider);
     final currentPage = ref.watch(currentPageProvider);
@@ -74,6 +74,7 @@ class CatagorySelectionScreen extends ConsumerWidget {
                             }
                         },
                         title: categories?.data[updatedIndex].name ?? "", imgUrl: ApiEndPoints.convertToS3Url(categories?.data[updatedIndex].image ?? ""),
+                        questionNumber: categories?.data.length,
                       ),
                       Text(
                         categories?.data[updatedIndex].name ?? "",

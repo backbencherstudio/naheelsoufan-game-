@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../../../core/constant/icons.dart';
 import '../../../../../../core/routes/route_name.dart';
+import '../../../../../../core/utils/utils.dart';
 import '../../../riverpod/profile_state_notifier.dart';
 
 class EditProfileIcon extends ConsumerWidget {
@@ -13,7 +14,7 @@ class EditProfileIcon extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedIndex = ref.watch(selectedProfileProvider);
-
+    final isNotTab = Utils.isTablet(context);
     return SizedBox(
       height: 80.h,
       width: 80.w,
@@ -25,18 +26,16 @@ class EditProfileIcon extends ConsumerWidget {
             AppIcons.profileImages[selectedIndex],
             height: 80.h,
             width: 80.w,
-            fit: BoxFit.cover,
           )
               : Image.asset(
             AppIcons.profile01,
             height: 80.h,
             width: 80.w,
-            fit: BoxFit.cover,
           ),
 
           Positioned(
-            top: -12.h,
-            right: -8.w,
+            top: isNotTab ? -12.h : null,
+            right: isNotTab ? -8.w : 20.w,
             child: Container(
               padding: EdgeInsets.all(4.r),
               decoration: BoxDecoration(

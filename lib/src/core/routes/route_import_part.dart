@@ -23,11 +23,10 @@ import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentati
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/quiz_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/question_answer_screen/question_answer_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/deficulty_level_screen.dart';
-import '../../features/screens/game_mode_selection_screens/presentation/clicked_setting_screen.dart';
+import '../../features/screens/question_answer_screen/setting_while_in_game/widgets/clicked_setting_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/leaderBoard_Screen.dart';
 import '../../features/screens/account_screens/presentation/edit_profile_screen.dart';
 import '../../features/screens/account_screens/presentation/my_account_screen.dart';
-import '../../features/screens/account_screens/presentation/my_account_with_cancel_subscription.dart';
 import '../../features/screens/account_screens/presentation/profile_icon_sreen.dart';
 import '../../features/screens/game_mode_selection_screens/presentation/add_player_screen.dart';
 import '../../features/screens/onboarding_screen/presentation/onboarding_screen.dart';

@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import '../../../../core/routes/route_name.dart';
+import '../../../../core/utils/utils.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -29,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isNotTab = MediaQuery.of(context).size.shortestSide < 600;
+    final isNotTab = Utils.isTablet(context);
     return Scaffold(
       body: CreateScreen(
         child: SafeArea(

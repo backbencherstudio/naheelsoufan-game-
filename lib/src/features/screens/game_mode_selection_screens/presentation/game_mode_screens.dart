@@ -42,7 +42,6 @@ class _GameModeScreensState extends ConsumerState<GameModeScreens> {
     final GlobalKey<ScaffoldState> keys = GlobalKey<ScaffoldState>();
     final menuKey = GlobalKey();
     final userData = ref.watch(authNotifierProvider);
-    final difficultiesState = ref.watch(difficultiesStateNotifierProvider);
 
     return Scaffold(
       body: CreateScreen(

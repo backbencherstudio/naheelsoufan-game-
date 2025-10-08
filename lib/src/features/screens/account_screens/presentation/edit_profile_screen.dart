@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import 'package:naheelsoufan_game/src/features/screens/account_screens/presentation/widgets/edit_profile_widgets/edit_profile_icon.dart';
 import 'package:naheelsoufan_game/src/features/screens/account_screens/presentation/widgets/edit_profile_widgets/info_input_box.dart';
 import 'package:naheelsoufan_game/src/features/screens/account_screens/presentation/widgets/my_account_wodgets/header_button.dart';
 import 'package:naheelsoufan_game/src/features/screens/account_screens/riverpod/obsecute_state_notifier.dart';
 import '../../../../core/constant/icons.dart';
+import '../../../../core/utils/utils.dart';
 import '../../../../data/riverpod/user/user_controller.dart';
 import '../../../common_widegts/create_screen/create_screen.dart';
 import '../../game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
@@ -33,24 +35,25 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
+    final isNotTab = Utils.isTablet(context);
     return Scaffold(
       body: CreateScreen(
         child: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CustomIconsButtons(
-                  icon: AppIcons.backIcons,
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                ),
-                SizedBox(height: 10.h),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomIconsButtons(
+                    icon: AppIcons.backIcons,
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  SizedBox(height: 10.h),
 
-                Expanded(
-                  child: Stack(
+                  Stack(
                     children: [
                       SizedBox(
                         child: Align(
@@ -66,200 +69,207 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                               ),
                               borderRadius: BorderRadius.circular(16.r),
                             ),
-                            child: SingleChildScrollView(
-                              child: Padding(
-                                padding: EdgeInsets.fromLTRB(
-                                  28.w,
-                                  40.h,
-                                  28.w,
-                                  28.h,
-                                ),
-                                child: Column(
-                                  children: [
-                                    EditProfileIcon(),
-                                    SizedBox(height: 16.h),
-                                    InfoInputBox(
-                                      controller: nameController,
-                                      style: style,
-                                      labelName: 'Name',
-                                      hintText: 'Waleed',
-                                      suffixIcon: SvgPicture.asset(
-                                        AppIcons.selectedFilledBle,
-                                        width: 24.0,
-                                        height: 24.0,
-                                      ),
-                                      validator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return 'Please enter your name';
-                                        }
-                                        return null;
-                                      },
+                            child: Padding(
+                              padding: EdgeInsets.fromLTRB(
+                                28.w,
+                                40.h,
+                                28.w,
+                                28.h,
+                              ),
+                              child: Column(
+                                children: [
+                                  SizedBox(height: isNotTab ? null : 20.h,),
+                                  EditProfileIcon(),
+                                  SizedBox(height: 16.h),
+                                  InfoInputBox(
+                                    controller: nameController,
+                                    style: style,
+                                    labelName: 'Name',
+                                    hintText: 'Walid',
+                                    suffixIcon: SvgPicture.asset(
+                                      AppIcons.selectedFilledBle,
+                                      width: 24.0,
+                                      height: 24.0,
                                     ),
-                                    SizedBox(height: 16.h),
-                                    InfoInputBox(
-                                      controller: emailController,
-                                      style: style,
-                                      labelName: 'Email',
-                                      hintText: 'waleed929@gmail.com',
-                                      suffixIcon: SvgPicture.asset(
-                                        AppIcons.selectedFilledBle,
-                                        width: 24.0,
-                                        height: 24.0,
-                                      ),
-                                      validator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return 'Please enter your email';
-                                        }
-                                        String pattern =
-                                            r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b';
-                                        RegExp regExp = RegExp(pattern);
-                                        if (!regExp.hasMatch(value)) {
-                                          return 'Please enter a valid email';
-                                        }
-                                        return null;
-                                      },
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Please enter your name';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                  SizedBox(height: 16.h),
+                                  InfoInputBox(
+                                    controller: emailController,
+                                    style: style,
+                                    labelName: 'Email',
+                                    hintText: 'waleed929@gmail.com',
+                                    suffixIcon: SvgPicture.asset(
+                                      AppIcons.selectedFilledBle,
+                                      width: 24.0,
+                                      height: 24.0,
                                     ),
-                                    SizedBox(height: 24.h),
-                                    Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        'Change Password',
-                                        style: style.bodyLarge?.copyWith(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w500,
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Please enter your email';
+                                      }
+                                      String pattern =
+                                          r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b';
+                                      RegExp regExp = RegExp(pattern);
+                                      if (!regExp.hasMatch(value)) {
+                                        return 'Please enter a valid email';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                  SizedBox(height: 24.h),
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      'Change Password',
+                                      style: style.bodyLarge?.copyWith(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(height: 16.h),
+                                  Consumer(
+                                    builder: (_, ref, _) {
+                                      final isVisible = ref.watch(isVisible1);
+                                      return InfoInputBox(
+                                        controller: currentPasswordController,
+                                        style: style,
+                                        labelName: 'Current Password',
+                                        suffixIcon: SizedBox(
+                                          width: isNotTab ? 24.sp : 12.sp,
+                                          height: isNotTab ? 24.sp : 12.sp,
+                                          child:
+                                              (!isVisible
+                                                  ? SvgPicture.asset(
+                                                    AppIcons.visibilityOff,
+                                                  )
+                                                  : SvgPicture.asset(
+                                                    AppIcons.visibilityOn,
+                                                  )),
                                         ),
-                                      ),
-                                    ),
-                                    SizedBox(height: 16.h),
-                                    Consumer(
-                                      builder: (_, ref, _) {
-                                        final isVisible = ref.watch(isVisible1);
-                                        return InfoInputBox(
-                                          controller: currentPasswordController,
-                                          style: style,
-                                          labelName: 'Current Password',
-                                          suffixIcon: SizedBox(
-                                            width: 24.sp,
-                                            height: 24.sp,
-                                            child:
-                                                (!isVisible
-                                                    ? SvgPicture.asset(
-                                                      AppIcons.visibilityOff,
-                                                    )
-                                                    : SvgPicture.asset(
-                                                      AppIcons.visibilityOn,
-                                                    )),
-                                          ),
-                                          onSuffixTap: () {
-                                            ref
-                                                .read(isVisible1.notifier)
-                                                .state = !isVisible;
-                                          },
-                                          obscureText: !isVisible,
-                                          validator: (value) {
-                                            if (value == null ||
-                                                value.isEmpty) {
-                                              return 'Please enter your current password';
-                                            }
-                                            if (value.length < 6) {
-                                              return 'Password must be at least 6 characters long';
-                                            }
-                                            return null;
-                                          },
-                                        );
-                                      },
-                                    ),
-                                    SizedBox(height: 16.h),
-                                    Consumer(
-                                      builder: (_, ref, _) {
-                                        final isVisible = ref.watch(isVisible2);
-                                        return InfoInputBox(
-                                          style: style,
-                                          labelName: 'New Password',
-                                          suffixIcon: SizedBox(
-                                            width: 24.sp,
-                                            height: 24.sp,
-                                            child:
-                                                (!isVisible
-                                                    ? SvgPicture.asset(
-                                                      AppIcons.visibilityOff,
-                                                    )
-                                                    : SvgPicture.asset(
-                                                      AppIcons.visibilityOn,
-                                                    )),
-                                          ),
-                                          onSuffixTap: () {
-                                            ref
-                                                .read(isVisible2.notifier)
-                                                .state = !isVisible;
-                                          },
-                                          obscureText: !isVisible,
-                                          controller: newPasswordController,
-                                          validator: (value) {
-                                            if (value == null ||
-                                                value.isEmpty) {
-                                              return 'Please enter your new password';
-                                            }
-                                            if (value.length < 6) {
-                                              return 'Password must be at least 6 characters long';
-                                            }
-                                            return null;
-                                          },
-                                        );
-                                      },
-                                    ),
-                                    SizedBox(height: 16.h),
-                                    Consumer(
-                                      builder: (_, ref, _) {
-                                        final isVisible = ref.watch(isVisible3);
-                                        return InfoInputBox(
-                                          style: style,
-                                          labelName: 'Confirm Password',
-                                          suffixIcon: SizedBox(
-                                            width: 24.sp,
-                                            height: 24.sp,
-                                            child:
-                                                (!isVisible
-                                                    ? SvgPicture.asset(
-                                                      AppIcons.visibilityOff,
-                                                    )
-                                                    : SvgPicture.asset(
-                                                      AppIcons.visibilityOn,
-                                                    )),
-                                          ),
-                                          onSuffixTap: () {
-                                            ref
-                                                .read(isVisible3.notifier)
-                                                .state = !isVisible;
-                                          },
-                                          obscureText: !isVisible,
-                                          controller: confirmPasswordController,
-                                          validator: (value) {
-                                            if (value == null ||
-                                                value.isEmpty) {
-                                              return 'Please confirm your password';
-                                            }
-                                            String? newPassword =
-                                                'New Password';
-                                            if (value != newPassword) {
-                                              return 'Passwords do not match';
-                                            }
-                                            return null;
-                                          },
-                                        );
-                                      },
-                                    ),
-                                    SizedBox(height: 40.h),
-                                    HeaderButton(
+                                        onSuffixTap: () {
+                                          ref
+                                              .read(isVisible1.notifier)
+                                              .state = !isVisible;
+                                        },
+                                        obscureText: !isVisible,
+                                        validator: (value) {
+                                          if (value == null ||
+                                              value.isEmpty) {
+                                            return 'Please enter your current password';
+                                          }
+                                          if (value.length < 6) {
+                                            return 'Password must be at least 6 characters long';
+                                          }
+                                          return null;
+                                        },
+                                      );
+                                    },
+                                  ),
+                                  SizedBox(height: 16.h),
+                                  Consumer(
+                                    builder: (_, ref, _) {
+                                      final isVisible = ref.watch(isVisible2);
+                                      return InfoInputBox(
+                                        style: style,
+                                        labelName: 'New Password',
+                                        suffixIcon: SizedBox(
+                                          width: isNotTab ? 24.sp : 12.sp,
+                                          height: isNotTab ? 24.sp : 12.sp,
+                                          child:
+                                              (
+                                                  !isVisible
+                                                  ? SvgPicture.asset(
+                                                    AppIcons.visibilityOff,
+                                                  )
+                                                  : SvgPicture.asset(
+                                                    AppIcons.visibilityOn,
+                                                  )
+                                              ),
+                                        ),
+                                        onSuffixTap: () {
+                                          ref
+                                              .read(isVisible2.notifier)
+                                              .state = !isVisible;
+                                        },
+                                        obscureText: !isVisible,
+                                        controller: newPasswordController,
+                                        validator: (value) {
+                                          if (value == null ||
+                                              value.isEmpty) {
+                                            return 'Please enter your new password';
+                                          }
+                                          if (value.length < 8) {
+                                            return 'Password must be at least 8 characters long';
+                                          }
+                                          return null;
+                                        },
+                                      );
+                                    },
+                                  ),
+                                  SizedBox(height: 16.h),
+                                  Consumer(
+                                    builder: (_, ref, _) {
+                                      final isVisible = ref.watch(isVisible3);
+                                      return InfoInputBox(
+                                        style: style,
+                                        labelName: 'Confirm Password',
+                                        suffixIcon: SizedBox(
+                                          width: isNotTab ? 24.sp : 12.sp,
+                                          height: isNotTab ? 24.sp : 12.sp,
+                                          child:
+                                              (!isVisible
+                                                  ? SvgPicture.asset(
+                                                    AppIcons.visibilityOff,
+                                                  )
+                                                  : SvgPicture.asset(
+                                                    AppIcons.visibilityOn,
+                                                  )),
+                                        ),
+                                        onSuffixTap: () {
+                                          ref
+                                              .read(isVisible3.notifier)
+                                              .state = !isVisible;
+                                        },
+                                        obscureText: !isVisible,
+                                        controller: confirmPasswordController,
+                                        validator: (value) {
+                                          if (value == null ||
+                                              value.isEmpty) {
+                                            return 'Please confirm your password';
+                                          }
+                                          String? newPassword =
+                                              'New Password';
+                                          if (value != newPassword) {
+                                            return 'Passwords do not match';
+                                          }
+                                          return null;
+                                        },
+                                      );
+                                    },
+                                  ),
+                                  SizedBox(height: 40.h),
+                                  InkWell(
+                                    onTap: (){
+                                      /// UPDATE LOGIC
+                                      context.pop();
+                                    },
+                                    child: HeaderButton(
                                       textTitle: 'Update',
                                       padding: EdgeInsets.all(8.r),
                                       width: double.infinity,
-                                      height: 58.h,
+                                      height: isNotTab ? 58.h : 100.h,
                                       borderColor:
                                           AppColorScheme.startGradGreen,
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
@@ -298,8 +308,8 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                       ),
                     ],
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

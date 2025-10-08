@@ -14,14 +14,16 @@ class ForgotPassScreen extends StatelessWidget {
     return CreateScreen(
       child: Padding(
         padding: AppPadding.horizontalPadding,
-        child: Column(
-          children: [
-            RegisterAppbar(),
-            SizedBox(height: 156.h),
-            ForgotBody(),
-            SizedBox(height: 185.5.h),
-            ForgotBottom()
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              RegisterAppbar(),
+              SizedBox(height: 156.h),
+              ForgotBody(),
+              SizedBox(height: 185.5.h),
+              ForgotBottom()
+            ],
+          ),
         ),
       ),
     );

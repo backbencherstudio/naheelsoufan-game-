@@ -1,5 +1,6 @@
 
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 
 class Utils {
@@ -15,5 +16,9 @@ class Utils {
       return '${DateFormat('H').format(startTime)}-${DateFormat('H').format(endTime)}';
     }
     return '--';
+  }
+
+  static bool isTablet(BuildContext context) {
+    return MediaQuery.of(context).size.shortestSide < 600;
   }
 }

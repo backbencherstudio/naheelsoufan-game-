@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../../../core/constant/icons.dart';
+import '../../../../../core/utils/utils.dart';
 import '../riverpod/chceking.dart';
 import 'custom_menu.dart';
 
@@ -18,8 +19,9 @@ class LanguageDropDown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isNotTab = Utils.isTablet(context);
     return SizedBox(
-      height: 36.h,
+      height: isNotTab ? 36.h : 50.h,
       width: 148.w,
       child: Consumer(
         builder: (_, ref, __) {

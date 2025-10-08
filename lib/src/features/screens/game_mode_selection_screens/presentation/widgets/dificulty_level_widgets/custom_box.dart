@@ -5,14 +5,17 @@ import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.da
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/catagory_selection_widgets/customRound_button.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/dificulty_level_widgets/custom_tap_button.dart';
 
+import '../../../../../../core/utils/utils.dart';
+
 class CustomBox extends StatelessWidget {
   final Widget child;
   const CustomBox({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
+    final isNotTab = Utils.isTablet(context);
     return SizedBox(
-      height: 500.h,
+      height: isNotTab ? 500.h : 800.h,
       child: Stack(
         children: [
           Positioned(
@@ -55,7 +58,7 @@ class CustomBox extends StatelessWidget {
             child: Row(
               children: [
                 Expanded(child: SizedBox()),
-                Expanded(child: SizedBox()),
+                if(isNotTab)...[Expanded(child: SizedBox())],
                 CustomTapButton(),
                 Spacer(),
                 CustomroundButton(icon: AppIcons.crossIcon,bgIcon: AppIcons.redBg, onTap: () {

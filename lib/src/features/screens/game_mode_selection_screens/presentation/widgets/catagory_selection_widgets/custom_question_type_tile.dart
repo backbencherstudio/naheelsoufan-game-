@@ -4,10 +4,13 @@ import 'package:flutter_svg/svg.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 
+import '../../../../../../core/utils/utils.dart';
+
 class CustomQuestionTypeTile extends StatelessWidget {
   final bool isSelected;
   final String? imgUrl;
   final String title;
+  final int? questionNumber;
   final void Function()? onTap;
   const CustomQuestionTypeTile({
     super.key,
@@ -15,16 +18,18 @@ class CustomQuestionTypeTile extends StatelessWidget {
     required this.onTap,
     required this.title,
     this.imgUrl,
+    this.questionNumber,
   });
 
   @override
   Widget build(BuildContext context) {
     debugPrint(imgUrl.toString());
     final style = Theme.of(context).textTheme;
+    final isNotTab = Utils.isTablet(context);
     return GestureDetector(
       onTap: onTap,
       child: SizedBox(
-        height: 160.h,
+        height: isNotTab ? 160.h : 300.h,
         width: 112.w,
         child: Stack(
           fit: StackFit.expand,
@@ -78,37 +83,41 @@ class CustomQuestionTypeTile extends StatelessWidget {
 
                   child: Column(
                     children: [
-                      Image.network(
-                        imgUrl ?? '',
-                        errorBuilder: (_, __, ___) {
-                          return Container(
-                            height: 60.h,
-                            decoration: BoxDecoration(
-                              color: AppColorScheme.greenborder,
-                              borderRadius: BorderRadius.circular(12.r),
-                            ),
-                            child: Icon(
-                              Icons.error,
-                              color: AppColorScheme.redGrad,
-                            ),
-                          );
-                        },
-                        loadingBuilder: (context, child, loadingProgress) {
-                          if (loadingProgress == null) return child;
-                          return Center(
-                            child: CircularProgressIndicator(
-                              value: loadingProgress.expectedTotalBytes != null
-                                  ? loadingProgress.cumulativeBytesLoaded /
-                                  loadingProgress.expectedTotalBytes!
-                                  : null,
-                              color: AppColorScheme.greenborder
-                            ),
-                          );
-                        },
+                      SizedBox(
+                        height: isNotTab ? 126.h : 180.h,
+                        child: Image.network(
+                          imgUrl ?? '',
+                          errorBuilder: (_, __, ___) {
+                            return Container(
+                              height: 60.h,
+                              decoration: BoxDecoration(
+                                color: AppColorScheme.greenborder,
+                                borderRadius: BorderRadius.circular(12.r),
+                              ),
+                              child: Icon(
+                                Icons.error,
+                                color: AppColorScheme.redGrad,
+                              ),
+                            );
+                          },
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) return child;
+                            return Center(
+                              child: CircularProgressIndicator(
+                                value: loadingProgress.expectedTotalBytes != null
+                                    ? loadingProgress.cumulativeBytesLoaded /
+                                    loadingProgress.expectedTotalBytes!
+                                    : null,
+                                color: AppColorScheme.greenborder
+                              ),
+                            );
+                          },
+                          fit: BoxFit.cover,
+                        ),
                       ),
                       SizedBox(height: 12.h),
                       Text(
-                        "25 Question",
+                        "${questionNumber ?? 0} Questions",
                         style: style.labelLarge!.copyWith(
                           fontWeight: FontWeight.w400,
                           color: AppColorScheme.greenTextColor,
@@ -123,9 +132,9 @@ class CustomQuestionTypeTile extends StatelessWidget {
             Align(
               alignment: Alignment.topCenter,
               child: Container(
-                height: 24.h,
+                height: isNotTab ? 24.h : 50.h,
                 width: 100.w,
-                padding: const EdgeInsets.all(4.0),
+                padding: EdgeInsets.all(4.r),
 
                 margin: EdgeInsets.symmetric(horizontal: 4.w),
                 // alignment: Alignment.center,

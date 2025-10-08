@@ -41,53 +41,57 @@ class _LeaderboardScreenState extends ConsumerState<LeaderboardScreen> {
     return CreateScreen(
       child: Padding(
         padding: AppPadding.horizontalPadding,
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Consumer(
-                    builder: (_, ref, _) {
-                      return CustomIconsButtons(
-                        icon: AppIcons.backIcons,
-                        onTap: () {
-                          context.go(RouteName.gameModeScreens);
-                          ref.read(commonProviderDisposer)();
-                        },
-                      );
-                    }
-                ),
-
-                Text(
-                  "Congratulation\n“$championName”",
-                  textAlign: TextAlign.center,
-                  style: style.headlineLarge!.copyWith(
-                    fontWeight: FontWeight.w500,
+        child: (gameStats == null) ?
+        Center(child:Text("No Data Found!")) :
+        SingleChildScrollView(
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Consumer(
+                      builder: (_, ref, _) {
+                        return CustomIconsButtons(
+                          icon: AppIcons.backIcons,
+                          onTap: () {
+                            context.go(RouteName.gameModeScreens);
+                            ref.read(commonProviderDisposer)();
+                          },
+                        );
+                      }
                   ),
-                ),
-                CustomPopUpMenu(),
-              ],
-            ),
 
-            SizedBox(height: 20.h),
-            Leaderbox(),
-            SizedBox(height: 40.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CustomroundButton(
-                  icon: AppIcons.reload,
-                  onTap: () {},
-                  bgIcon: AppIcons.roundIcontop,
-                ),
-                SizedBox(width: 40.w),
-                CustomroundButton(
-                    icon: AppIcons.playButtn,
-                    onTap: () {}
-                ),
-              ],
-            ),
-          ],
+                  Text(
+                    "Congratulation\n“$championName”",
+                    textAlign: TextAlign.center,
+                    style: style.headlineLarge!.copyWith(
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  CustomPopUpMenu(),
+                ],
+              ),
+
+              SizedBox(height: 20.h),
+              Leaderbox(),
+              SizedBox(height: 40.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CustomroundButton(
+                    icon: AppIcons.reload,
+                    onTap: () {},
+                    bgIcon: AppIcons.roundIcontop,
+                  ),
+                  SizedBox(width: 40.w),
+                  CustomroundButton(
+                      icon: AppIcons.playButtn,
+                      onTap: () {}
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -235,17 +235,6 @@ class RouteConfig {
           );
         },
       ),
-      GoRoute(
-        path: RouteName.myAccountWithCancelSubscription,
-        pageBuilder: (context, state) {
-          return buildPageWithTransition(
-            context: context,
-            state: state,
-            transitionType: PageTransitionType.slideRightToLeft,
-            child: MyAccountWithCancelSubscription(),
-          );
-        },
-      ),
 
       GoRoute(
         path: RouteName.signInScreen,
@@ -394,6 +383,19 @@ class RouteConfig {
             state: state,
             transitionType: PageTransitionType.slideRightToLeft,
             child: CatagorySelectionScreen(),
+          );
+        },
+      ),
+
+      GoRoute(
+        path: RouteName.settingTtsScreen,
+
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: ClickedSettingScreen(),
           );
         },
       ),

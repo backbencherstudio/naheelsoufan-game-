@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../../../../core/theme/theme_extension/color_scheme.dart';
+
 class InfoInputBox extends StatelessWidget {
   const InfoInputBox({
     super.key,
@@ -29,6 +31,9 @@ class InfoInputBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final errorStyle = Theme.of(
+      context,
+    ).textTheme.labelSmall?.copyWith(color: AppColorScheme.redGrad);
     return Form(
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Column(
@@ -50,6 +55,7 @@ class InfoInputBox extends StatelessWidget {
                   obscureText: obscureText,
                   controller: controller,
                   decoration: InputDecoration(
+                    errorStyle: errorStyle,
                     contentPadding: EdgeInsets.only(top: 8.h),
                     hintText: hintText,
                     hintStyle: style.bodyLarge?.copyWith(

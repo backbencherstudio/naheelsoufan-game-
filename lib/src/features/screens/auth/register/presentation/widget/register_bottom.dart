@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import '../../../../../../core/constant/icons.dart';
 import '../../../../../../core/routes/route_name.dart';
+import '../../../../../../core/utils/utils.dart';
 
 class RegisterBottom extends StatelessWidget {
   const RegisterBottom({super.key});
@@ -13,7 +14,7 @@ class RegisterBottom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final linkTextStyle = Theme.of(context).textTheme.bodyLarge;
-    final isNotTab = MediaQuery.of(context).size.shortestSide < 600;
+    final isNotTab = Utils.isTablet(context);
     return Column(
       children: [
         Row(
@@ -56,9 +57,9 @@ class RegisterBottom extends StatelessWidget {
                 ),
               ),
               child: Padding(
-                padding: EdgeInsets.all(16.sp),
+                padding: EdgeInsets.all(16.r),
                 child: SvgPicture.asset(AppIcons.google),
-              ),
+              )
             ),
           ],
         ),

@@ -21,14 +21,16 @@ class ForgotLinkScreen extends StatelessWidget {
       child: CreateScreen(
         child: Padding(
           padding: AppPadding.horizontalPadding,
-          child: Column(
-            children: [
-              RegisterAppbar(),
-              SizedBox(height: 213.5.h),
-              ForgotLinkBody(),
-              SizedBox(height: 241.5.h),
-              ForgotBottom()
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                RegisterAppbar(),
+                SizedBox(height: 213.5.h),
+                ForgotLinkBody(),
+                SizedBox(height: 241.5.h),
+                ForgotBottom()
+              ],
+            ),
           ),
         ),
       ),

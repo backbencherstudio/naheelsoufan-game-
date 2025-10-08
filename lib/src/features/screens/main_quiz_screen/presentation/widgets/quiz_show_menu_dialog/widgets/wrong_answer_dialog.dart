@@ -9,6 +9,7 @@ import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presenta
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/primary_button.dart';
 import '../../../../../../../core/constant/icons.dart';
 import '../../../../../../../core/routes/route_name.dart';
+import '../../../../../../../core/utils/utils.dart';
 import '../../../../../../../data/riverpod/count_down_state.dart';
 import '../../../../../../../data/riverpod/game/start_game/start_game_provider.dart';
 import '../../../../../game_type/riverpod/multiple_choice_provider.dart';
@@ -19,6 +20,8 @@ import '../../../riverpod/stateProvider.dart';
 void onWrongAnswerTap(BuildContext context, String rightAns, ref) {
   bool isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
   final response = ref.watch(questionResponseProvider);
+  final isNotTab = Utils.isTablet(context);
+
   showDialog(
     context: context,
     builder: (_) {

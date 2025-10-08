@@ -5,6 +5,7 @@ import 'package:naheelsoufan_game/src/features/screens/grid_play_game/riverpod/f
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/player_pointBlock.dart';
 import 'package:vs_scrollbar/vs_scrollbar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../../core/utils/utils.dart';
 import '../../../../../data/riverpod/game/start_game/start_game_provider.dart';
 import '../riverpod/stateProvider.dart';
 
@@ -14,9 +15,10 @@ class PlayerPointContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScrollController scrollController = ScrollController();
+    final isNotTab = Utils.isTablet(context);
 
     return Container(
-      height: 169.h,
+      height: isNotTab ? 169.h : 300.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16.r),
         color: AppColorScheme.playerContainerColor,
@@ -26,7 +28,7 @@ class PlayerPointContainer extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              height: 145.h,
+              height: isNotTab ? 145.h : 250.h,
               child: Stack(
                 children: [
                   Align(

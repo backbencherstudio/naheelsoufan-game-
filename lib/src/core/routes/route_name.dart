@@ -61,4 +61,8 @@ class RouteName {
 
   static const String gridLeaderboard = "/GridLeaderBoard";
   static const String gridDifficultyLevelScreen2 = "/GridDifficultyLevelScreen2";
+
+
+  static const String settingTtsScreen = "/SettingTtsScreen";
+
 }

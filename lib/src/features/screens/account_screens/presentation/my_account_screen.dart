@@ -29,19 +29,19 @@ class MyAccountScreen extends ConsumerWidget {
         child: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CustomIconsButtons(
-                  icon: AppIcons.backIcons,
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                ),
-                SizedBox(height: 40.h),
-
-                Expanded(
-                  child: Stack(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomIconsButtons(
+                    icon: AppIcons.backIcons,
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  SizedBox(height: 40.h),
+              
+                  Stack(
                     children: [
                       SizedBox(
                         child: Align(
@@ -75,9 +75,8 @@ class MyAccountScreen extends ConsumerWidget {
                                       )
                                       : Image.asset(
                                         AppIcons.profile01,
-                                        height: 80.h,
-                                        width: 80.w,
-                                        fit: BoxFit.cover,
+                                    height: 80.h,
+                                    width: 80.w,
                                       ),
                                   SizedBox(height: 16.h),
                                   Text(
@@ -177,11 +176,11 @@ class MyAccountScreen extends ConsumerWidget {
                       ),
                     ],
                   ),
-                ),
-                SizedBox(height: 36.h),
-                MusicOffOnWholePage(),
-                SizedBox(height: 40.h),
-              ],
+                  SizedBox(height: 36.h),
+                  MusicOffOnWholePage(),
+                  SizedBox(height: 40.h),
+                ],
+              ),
             ),
           ),
         ),
