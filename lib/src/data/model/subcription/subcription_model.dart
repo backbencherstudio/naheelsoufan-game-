@@ -1,56 +1,66 @@
 class SubscriptionModel {
-  String? id;
-  String? type;
-  int? games;
-  int? questions;
-  int? players;
-  double? price;
-  String? status;
-  String? languageId;
-  String? createdAt;
-  String? updatedAt;
+  final bool success;
+  final String message;
+  final List<SubscriptionType> data;
 
-  SubscriptionModel(
-      {this.id,
-        this.type,
-        this.games,
-        this.questions,
-        this.players,
-        this.price,
-        this.status,
-        this.languageId,
-        this.createdAt,
-        this.updatedAt});
+  SubscriptionModel({
+    required this.success,
+    required this.message,
+    required this.data,
+  });
 
-  SubscriptionModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    type = json['type'];
-    games = json['games'];
-    questions = json['questions'];
-    players = json['players'];
-    price = (json['price'] != null)
-        ? (json['price'] is int
-        ? (json['price'] as int).toDouble()
-        : (json['price'] as double))
-        : null;
-    status = json['status'];
-    languageId = json['language_id'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
+  factory SubscriptionModel.fromJson(Map<String, dynamic> json) {
+    return SubscriptionModel(
+      success: json['success'] ?? false,
+      message: json['message'] ?? '',
+      data: (json['data'] as List<dynamic>?)
+          ?.map((e) => SubscriptionType.fromJson(e))
+          .toList() ??
+          [],
+    );
   }
+}
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['type'] = this.type;
-    data['games'] = this.games;
-    data['questions'] = this.questions;
-    data['players'] = this.players;
-    data['price'] = this.price;
-    data['status'] = this.status;
-    data['language_id'] = this.languageId;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    return data;
+/// Subscription type model
+class SubscriptionType {
+  final String id;
+  final String type;
+  final int games;
+  final int questions;
+  final int players;
+  final double price;
+  final String status;
+  final String languageId;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+
+  SubscriptionType({
+    required this.id,
+    required this.type,
+    required this.games,
+    required this.questions,
+    required this.players,
+    required this.price,
+    required this.status,
+    required this.languageId,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory SubscriptionType.fromJson(Map<String, dynamic> json) {
+    return SubscriptionType(
+      id: json['id'] ?? '',
+      type: json['type'] ?? '',
+      games: json['games'] ?? 0,
+      questions: json['questions'] ?? 0,
+      players: json['players'] ?? 0,
+      price: (json['price'] is int)
+          ? (json['price'] as int).toDouble()
+          : (json['price'] ?? 0.0),
+      status: json['status'] ?? '',
+      languageId: json['language_id'] ?? '',
+      createdAt: DateTime.tryParse(json['created_at'] ?? '') ?? DateTime.now(),
+      updatedAt: DateTime.tryParse(json['updated_at'] ?? '') ?? DateTime.now(),
+    );
   }
 }

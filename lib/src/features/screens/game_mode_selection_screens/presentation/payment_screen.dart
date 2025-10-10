@@ -68,15 +68,15 @@ class PaymentScreen extends ConsumerWidget {
                 },
                 child: PaymentCardWidget(
                   title: 'Games',
-                  subtitle: '${subscriptionData?[currentIndex].games ?? 0}',
+                  subtitle: '${subscriptionData?.data[currentIndex].games ?? 0}',
                   title2: 'Max Players',
-                  subtitle2: ': Up to ${subscriptionData?[currentIndex].players ?? 0} Players',
+                  subtitle2: ': Up to ${subscriptionData?.data[currentIndex].players ?? 0} Players',
                   description:
-                  'Get your game on with ${subscriptionData?[currentIndex].questions ?? 0} exiting questions of fun with your friends!',
+                  'Get your game on with ${subscriptionData?.data[currentIndex].questions ?? 0} exiting questions of fun with your friends!',
                   borderColor: AppColorScheme.surface,
                   rocketBackground: AppColorScheme.greenborder,
-                  buttonText: '\$${subscriptionData?[currentIndex].price ?? 0.00} per ${subscriptionData?[currentIndex].games ?? 0} games',
-                  quality: subscriptionData?[currentIndex].type ?? "NULL",
+                  buttonText: '\$${subscriptionData?.data[currentIndex].price ?? 0.00} per ${subscriptionData?.data[currentIndex].games ?? 0} games',
+                  quality: subscriptionData?.data[currentIndex].type ?? "NULL",
                   color: AppColorScheme.greenborder,
                   onPressed: (){
                     // STRIPE

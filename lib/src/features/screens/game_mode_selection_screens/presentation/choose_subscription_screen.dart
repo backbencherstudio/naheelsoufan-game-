@@ -11,33 +11,31 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
 import '../../../../core/constant/icons.dart';
 import '../../../../core/constant/images.dart';
+import '../../../../data/repository/subscription/subscription_service.dart';
 import '../../../../data/riverpod/subscription/subscription_controller.dart';
 
-class ChoosePaymentCard extends ConsumerStatefulWidget {
-  const ChoosePaymentCard({super.key});
+class ChooseSubscriptionScreen extends ConsumerStatefulWidget {
+  const ChooseSubscriptionScreen({super.key});
 
   @override
-  ConsumerState<ChoosePaymentCard> createState() => _ChoosePaymentCardState();
+  ConsumerState<ChooseSubscriptionScreen> createState() => _ChoosePaymentCardState();
 }
 
-class _ChoosePaymentCardState extends ConsumerState<ChoosePaymentCard> {
+class _ChoosePaymentCardState extends ConsumerState<ChooseSubscriptionScreen> {
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    loadSubscriptionData(ref);
-  }
-
-  Future<void> loadSubscriptionData(WidgetRef ref) async {
-    // final data = await SubscriptionRepositoryImplementation().fetchSubscriptionData();
-    // ref.read(gameSubscriptionProvider.notifier).state = data;
+    Future.microtask(() async =>ref.read(gameSubscriptionProvider.notifier).state = await SubscriptionService().fetchSubscriptionData());
   }
 
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> keys = GlobalKey<ScaffoldState>();
     final subscriptionData = ref.watch(gameSubscriptionProvider);
+    final subscriptionResponse = ref.watch(gameSubscriptionProvider);
+
     return Scaffold(
       body: CreateScreen(
         key: keys,
@@ -62,21 +60,21 @@ class _ChoosePaymentCardState extends ConsumerState<ChoosePaymentCard> {
               Center(child: PayToPlay()),
               Expanded(
                 child: ListView.builder(
-                  itemCount: subscriptionData?.length ?? 0,
+                  itemCount: subscriptionResponse?.data.length,
                     itemBuilder: (context, index){
                   return Padding(
                     padding: EdgeInsets.symmetric(vertical: 6.h),
                     child: PaymentCardWidget(
                       title: 'Games',
-                      subtitle: '${subscriptionData?[index].games ?? 0}',
+                      subtitle: '${subscriptionResponse?.data[index].games ?? 0}',
                       title2: 'Max Players',
-                      subtitle2: ': Up to ${subscriptionData?[index].players ?? 0} Players',
+                      subtitle2: ': Up to ${subscriptionResponse?.data[index].players ?? 0} Players',
                       description:
-                      'Get your game on with ${subscriptionData?[index].questions ?? 0} exiting questions of fun with your friends!',
+                      'Get your game on with ${subscriptionResponse?.data[index].questions ?? 0} exiting questions of fun with your friends!',
                       borderColor: AppColorScheme.secondary,
                       rocketBackground: AppColorScheme.borderColor,
-                      buttonText: '\$${subscriptionData?[index].price ?? 0.00} per ${subscriptionData?[index].games ?? 0} games',
-                      quality: subscriptionData?[index].type ?? "NULL",
+                      buttonText: '\$${subscriptionResponse?.data[index].price ?? 0.00} per ${subscriptionResponse?.data[index].games ?? 0} games',
+                      quality: subscriptionResponse?.data[index].type ?? "NULL",
                       color: AppColorScheme.borderColor,
                       onPressed: (){
                         ref.read(selectedSubscriptionIndex.notifier).state = index;
@@ -86,37 +84,6 @@ class _ChoosePaymentCardState extends ConsumerState<ChoosePaymentCard> {
                   );
                 })
               ),
-              // GestureDetector(
-              //   onTap: () {
-              //     context.push(RouteName.paymentScreen);
-              //   },
-              //   child: Container(
-              //     padding: EdgeInsets.symmetric(
-              //       horizontal: 66.w,
-              //       vertical: 16.h,
-              //     ),
-              //     margin: EdgeInsets.symmetric(horizontal: 64.w),
-              //     decoration: BoxDecoration(
-              //       color: AppColorScheme.customGreenBT,
-              //       borderRadius: BorderRadius.circular(8.r),
-              //       border: Border(
-              //         bottom: BorderSide(
-              //           color: AppColorScheme.greenborder,
-              //           width: 2.w,
-              //         ),
-              //       ),
-              //     ),
-              //     child: Center(
-              //       child: Text(
-              //         'NEXT',
-              //         style: Theme.of(context).textTheme.titleSmall?.copyWith(
-              //           color: Colors.white,
-              //           fontWeight: FontWeight.w500,
-              //         ),
-              //       ),
-              //     ),
-              //   ),
-              // ),
             ],
           ),
         ),

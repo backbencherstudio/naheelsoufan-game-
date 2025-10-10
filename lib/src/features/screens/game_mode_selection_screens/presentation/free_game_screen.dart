@@ -60,7 +60,10 @@ class FreeGameScreen extends StatelessWidget {
               ),
               SizedBox(height: 121.h),
               //Spacer(),
-              SeePlansContainer(),
+              InkWell(
+                  child: SeePlansContainer(),
+                  onTap: ()=> context.push(RouteName.chooseSubscriptionScreen),
+              ),
               SizedBox(height: 40.h),
             ],
           ),

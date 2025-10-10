@@ -177,13 +177,13 @@ class RouteConfig {
       ),
 
       GoRoute(
-        path: RouteName.choosePaymentCard,
+        path: RouteName.chooseSubscriptionScreen,
         pageBuilder: (context, state) {
           return buildPageWithTransition(
             context: context,
             state: state,
             transitionType: PageTransitionType.slideRightToLeft,
-            child: ChoosePaymentCard(),
+            child: ChooseSubscriptionScreen(),
           );
         },
       ),

@@ -79,7 +79,7 @@ class ModeSelectionScreen extends StatelessWidget {
                     secondaryImg: AppImages.primaryUpsidedown,
                     onTap: () {
                       if (data == true) {
-                        context.push(RouteName.choosePaymentCard);
+                        context.push(RouteName.chooseSubscriptionScreen);
                       } else {
                         context.push(RouteName.freeGameScreen);
                       }

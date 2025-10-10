@@ -70,29 +70,27 @@ class _GameModeScreensState extends ConsumerState<GameModeScreens> {
                   CustomButton(
                     text: "QUICK GAME",
                     onTap: () async {
-                      final selectGameMode = SelectGameModeService();
-                      final result = await selectGameMode.createGame(context: context, gameMode: "QUICK_GAME");
-                      if (result) {
-                        ref.read(checkNormalGridScreen.notifier).state = true;
-                        context.push(RouteName.modeSelectionScreen);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("Congratulations! Your first QUICK GAME game created successfully (FREE)", style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w600))),
-                        );
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("Failed to create game", style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w600))),
-                        );
-                      }
+                      context.push(RouteName.freeGameScreen);
+                      // final selectGameMode = SelectGameModeService();
+                      // final result = await selectGameMode.createGame(context: context, gameMode: "QUICK_GAME");
+                      // if (result) {
+                      //   ref.read(checkNormalGridScreen.notifier).state = true;
+                      //   context.push(RouteName.modeSelectionScreen);
+                      //   ScaffoldMessenger.of(context).showSnackBar(
+                      //     SnackBar(content: Text("Congratulations! Your first QUICK GAME game created successfully (FREE)", style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w600))),
+                      //   );
+                      // } else {
+                      //   ScaffoldMessenger.of(context).showSnackBar(
+                      //     SnackBar(content: Text("Failed to create game", style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w600))),
+                      //   );
+                      // }
                     },
                   ),
                   SizedBox(height: 16.h),
                   CustomButton(
                     text: "GRID STYLE",
                     onTap: () {
-                      ref.read(checkNormalGridScreen.notifier).state = false;
-                      (ref.read(checkGridSubscription.notifier).state)
-                          ? context.push(RouteName.choosePaymentCard)
-                          : context.push(RouteName.freeGameScreen);
+                      context.push(RouteName.freeGameScreen);
                     },
                     img: AppImages.primaryUpsidedown,
                   ),

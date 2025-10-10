@@ -17,6 +17,7 @@ class AuthService extends AuthRepository {
           "name": name,
           "email": email,
           "password": password,
+          "type": "host"
         },
         endPoint: ApiEndPoints.registerUrl,
       );
