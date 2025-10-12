@@ -37,27 +37,15 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
   @override
   void initState() {
     super.initState();
-    _setLandscapeMode();
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(autoCounterProvider(60).notifier).start();
     });
-  }
-
-  // Force landscape mode
-  void _setLandscapeMode() {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-    ]);
   }
 
   @override
   Widget build(BuildContext context) {
     bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
-
-    final isFirstPlayerPlayed = ref.watch(checkSecondDifficultyScreen);
 
     ref.watch(advanceTurnControllerProvider);
     return CreateScreen(

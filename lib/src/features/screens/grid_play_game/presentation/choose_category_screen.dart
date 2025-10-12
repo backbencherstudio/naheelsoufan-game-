@@ -15,15 +15,36 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/selection_provider.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentation/widget/grid_choose_category_question_tile.dart';
+import 'package:naheelsoufan_game/src/features/screens/grid_play_game/riverpod/page_navigation_notifier.dart';
 
 import '../riverpod/function.dart';
 
-class ChooseCategoryScreen extends StatelessWidget {
+class ChooseCategoryScreen extends ConsumerStatefulWidget {
   const ChooseCategoryScreen({super.key});
+
+  @override
+  ConsumerState<ChooseCategoryScreen> createState() =>
+      _ChooseCategoryScreenState();
+}
+
+class _ChooseCategoryScreenState extends ConsumerState<ChooseCategoryScreen> {
+  late PageController _pageController;
+  @override
+  void initState() {
+    _pageController = PageController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
+    final checkButton = ref.watch(isSomethingClicked);
     return CreateScreen(
       child: Padding(
         padding: AppPadding.horizontalPadding,
@@ -52,78 +73,97 @@ class ChooseCategoryScreen extends StatelessWidget {
             ),
             SizedBox(height: 36.h),
 
-            Consumer(
-              builder: (_, ref, _) {
-                final pageController = ref.watch(pageControllerProvider);
-                return Expanded(
-                  child: PageView.builder(
-                    controller: pageController,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: 2,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (BuildContext context, int pageIndex) {
-                      return Consumer(
-                        builder: (_, ref, _) {
-                          final pageIndex = ref.watch(pageIndexProvider);
-                          return GridView.builder(
-                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3,
-                              crossAxisSpacing: 30,
-                              childAspectRatio: (0.5),
-                            ),
-                            itemCount: pageIndex == 0 ? 9 : 6,
-                            itemBuilder: (context, index) {
-                              return Column(
-                                children: [
-                                  GridChooseCategoryQuestionTile(
-                                      onTap: () {
-                                        ref.read(isSelectedClicked(index).notifier).state = !(ref.read(isSelectedClicked(index).notifier).state);
-                                        ref.read(isSomethingClicked.notifier).state = true;
-                                      }, index: index,
-
-                                  ),
-                                  Text(
-                                    "General\nKnowledge",
-                                    style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                                        fontWeight: FontWeight.w400,
-                                        color: AppColorScheme.primary
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        }
+            Expanded(
+              child: PageView.builder(
+                controller: _pageController,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: 3,
+                onPageChanged:
+                    (index) =>
+                        ref.read(pageIndexProvider.notifier).setPage(index),
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (BuildContext context, int pageIndex) {
+                  return GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      crossAxisSpacing: 30,
+                      childAspectRatio: (0.5),
+                    ),
+                    itemCount: 9,
+                    itemBuilder: (context, index) {
+                      final selectedItem = ref.watch(
+                        isSelectedClicked(pageIndex * 9 + index),
                       );
-                    }
-                  ),
-                );
-              },
+                      return Column(
+                        children: [
+                          GridChooseCategoryQuestionTile(
+                            onTap: () {
+                              debugPrint("index: ${pageIndex * 9 + index}");
+                              ref
+                                  .read(
+                                    isSelectedClicked(
+                                      pageIndex * 9 + index,
+                                    ).notifier,
+                                  )
+                                  .state = !selectedItem;
+                              ref.read(isSomethingClicked.notifier).state =
+                                  true;
+                            },
+                            index: pageIndex * 9 + index,
+                          ),
+                          Text(
+                            "General\nKnowledge",
+                            style: Theme.of(
+                              context,
+                            ).textTheme.labelLarge!.copyWith(
+                              fontWeight: FontWeight.w400,
+                              color: AppColorScheme.primary,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+              ),
             ),
             SizedBox(height: 20.h),
-            Consumer(
-              builder: (_, ref, _) {
-                final checkButton = ref.watch(isSomethingClicked);
-                final pageController = ref.watch(pageControllerProvider);
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CustomroundButton(
-                      icon: AppIcons.playleft,
-                      onTap:()=>ref
-                          .read(pageIndexProvider.notifier).previousPage(pageController),
-                      bgIcon: AppIcons.roundIcontop,
-                    ),
-                    if(!ref.read(isSomethingClicked.notifier).state) ...[SizedBox(width: 40.w)] else ...[SizedBox(width: 26.w,),SpecialElevatedButton003(onTap: (){
-                      context.pushReplacement(RouteName.gridDifficultyLevelScreen);
-                    }, buttonName: "NEXT"),SizedBox(width: 26.w,)] ,
-                    CustomroundButton(icon: AppIcons.playButtn, onTap:()=>ref
-                        .read(pageIndexProvider.notifier).nextPage(pageController, 2)
-                    ),
-                  ],
-                );
-              }
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CustomroundButton(
+                  icon: AppIcons.playleft,
+                  onTap: () {
+                    ref
+                        .read(pageIndexProvider.notifier)
+                        .previousPage(_pageController);
+                  },
+                  bgIcon: AppIcons.roundIcontop,
+                ),
+                if (!ref.read(isSomethingClicked.notifier).state) ...[
+                  SizedBox(width: 40.w),
+                ] else ...[
+                  SizedBox(width: 26.w),
+                  SpecialElevatedButton003(
+                    onTap: () {
+                      context.pushReplacement(
+                        RouteName.gridDifficultyLevelScreen,
+                      );
+                    },
+                    buttonName: "NEXT",
+                  ),
+                  SizedBox(width: 26.w),
+                ],
+                CustomroundButton(
+                  icon: AppIcons.playButtn,
+                  onTap: () {
+                    ref
+                        .read(pageIndexProvider.notifier)
+                        .nextPage(_pageController, 3);
+                  },
+                ),
+              ],
             ),
             SizedBox(height: 20.h),
           ],

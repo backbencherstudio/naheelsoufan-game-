@@ -23,25 +23,6 @@ class GridDifficultyLevelScreen extends StatefulWidget {
 }
 
 class _GridDifficultyLevelScreenState extends State<GridDifficultyLevelScreen> {
-  @override
-  void initState() {
-    super.initState();
-    _setLandscapeMode(); // Set orientation to landscape
-  }
-
-  @override
-  void dispose(){
-    debugPrint("Ok Ok");
-    super.dispose();
-  }
-
-  // Force landscape mode
-  void _setLandscapeMode() {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-    ]);
-  }
 
   @override
   Widget build(BuildContext context) {

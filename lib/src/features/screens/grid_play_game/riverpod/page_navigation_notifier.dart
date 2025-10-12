@@ -3,6 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'function.dart';
 
+final pageIndexProvider =
+StateNotifierProvider<PageNavigationNotifier, int>((ref) {
+  return PageNavigationNotifier(ref);
+});
+
 class PageNavigationNotifier extends StateNotifier<int> {
   PageNavigationNotifier(this.ref) : super(0); // default to page 0
 
@@ -32,5 +37,9 @@ class PageNavigationNotifier extends StateNotifier<int> {
     // Optional toggle state (like isBanishButton)
     final toggle = ref.read(isBanishButtonProvider.notifier);
     toggle.state = !toggle.state;
+  }
+
+  void setPage(int index) {
+    state = index;
   }
 }

@@ -5,15 +5,6 @@ import 'package:naheelsoufan_game/src/features/screens/grid_play_game/riverpod/p
 final isQuestionClicked = StateProvider.family<bool, int>((ref, questionID) {
   return false;
 });
-
-
-final pageIndexProvider =
-StateNotifierProvider<PageNavigationNotifier, int>((ref) {
-  return PageNavigationNotifier(ref);
-});
-final pageControllerProvider = Provider<PageController>((ref) {
-  return PageController();
-});
 final isBanishButtonProvider = StateProvider<bool>((ref) => false);
 final isSelectedClicked = StateProvider.family<bool, int>((ref, questionID)=>false);
 final isSomethingClicked = StateProvider<bool>((ref)=>false);

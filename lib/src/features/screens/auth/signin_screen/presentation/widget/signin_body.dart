@@ -43,6 +43,7 @@ class _RegisterBodyState extends State<SignInBody> {
   Widget build(BuildContext context) {
     final titleStyle = Theme.of(context).textTheme.displayLarge;
     final subTitleStyle = Theme.of(context).textTheme.displaySmall;
+    final isNotTab = MediaQuery.of(context).size.shortestSide < 600;
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -86,7 +87,7 @@ class _RegisterBodyState extends State<SignInBody> {
                 //   return null;
                 // },
               ),
-              SizedBox(height: 8.h),
+              SizedBox(height: isNotTab ? 8.h : 16.h),
               Text("Password", style: subTitleStyle),
               SizedBox(height: 4.h),
               Consumer(
@@ -97,8 +98,7 @@ class _RegisterBodyState extends State<SignInBody> {
                     controller: passController,
                     textInputAction: TextInputAction.done,
                     suffixIcon: SizedBox(
-                      width: 24.sp,
-                      height: 24.sp,
+                      width: isNotTab ? 24.sp : 12.sp,
                       child:
                           (!isVisible
                               ? SvgPicture.asset(AppIcons.visibilityOff)

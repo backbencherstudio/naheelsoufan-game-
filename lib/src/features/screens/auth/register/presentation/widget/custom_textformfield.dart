@@ -36,10 +36,11 @@ class CustomTextFormField extends StatelessWidget {
     final formFieldHintTextStyle = Theme.of(
       context,
     ).textTheme.displaySmall?.copyWith(color: AppColorScheme.primaryTextColor);
+    final isNotTab = MediaQuery.of(context).size.shortestSide < 600;
     return Stack(
       children: [
         Container(
-          height: 51.h,
+          height: isNotTab ? 51.h : 100.h,
           width: double.infinity,
           decoration: BoxDecoration(
             color: AppColorScheme.onPrimary,
