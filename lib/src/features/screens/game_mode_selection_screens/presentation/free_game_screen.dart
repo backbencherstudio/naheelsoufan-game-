@@ -12,12 +12,23 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/freeExpire_provider.dart';
 import '../../../../core/constant/icons.dart';
 import '../../../../core/constant/images.dart';
+import '../../../../data/repository/game/game_mode/select_game_mode_service.dart';
+import '../riverpod/mode_controller.dart';
 
-class FreeGameScreen extends StatelessWidget {
+class FreeGameScreen extends ConsumerWidget {
   const FreeGameScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    late bool result;
+    final mode = ref.watch(modeProvider);
+    final modeName =
+        (mode == 1)
+            ? "QUICK_OFFLINE"
+            : (mode == 2)
+            ? "QUICK_ONLINE"
+            : "GRID_STYLE";
+    final maxPlayer = (mode == 3) ? 2 : 4;
     return CreateScreen(
       child: Padding(
         padding: AppPadding.horizontalPadding,
@@ -34,35 +45,69 @@ class FreeGameScreen extends StatelessWidget {
                     },
                   ),
                   Image.asset(AppImages.profilePic, height: 40.h, width: 40.w),
-                  CustomIconsButtons(icon: AppIcons.settings, onTap: () {
-                    context.push(RouteName.clickedSettingScreen);
-                  }),
+                  CustomIconsButtons(
+                    icon: AppIcons.settings,
+                    onTap: () {
+                      context.push(RouteName.clickedSettingScreen);
+                    },
+                  ),
                 ],
               ),
-          
               SizedBox(height: 40.h),
-              FreeGametile(),
+              FreeGameTile(),
               SizedBox(height: 121.h),
-              Consumer(
-                builder: (_, ref, _) {
-                  final checkScreen = ref.watch(checkNormalGridScreen);
-                  return FreeGameCard(
-                    onTap: () {
-                      //choosePaymentCard
-                      ref.read(isFreeModeOnProvider.notifier).state = true;
-                      ref.read(checkGridSubscription.notifier).state = true;
-                      (ref.read(checkNormalGridScreen.notifier).state)
-                          ? context.push(RouteName.createRoomScreen)
-                          : context.push(RouteName.enterTeamNameScreen);
-                    },
-                  );
+              FreeGameCard(
+                maxPlayer: maxPlayer,
+                mode: modeName,
+                gameNumber: 1,
+                onTap: () async {
+                  if(mode != 2){
+                    final selectGameMode = SelectGameModeService();
+                    result = await selectGameMode.createGame(
+                      context: context,
+                      gameMode: modeName,
+                    );
+                  } else {
+                    /// QUICK ONLINE API CALL
+                    result = false;
+                  }
+                  if (result) {
+                    ref.read(checkNormalGridScreen.notifier).state = true;
+
+                    context.go((mode == 1) ? RouteName.addPlayerScreen : (mode == 2) ? RouteName.createRoomScreen : RouteName.enterTeamNameScreen);
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          "Congratulations! Your first $modeName game created successfully (FREE)",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          "Failed to create $modeName game",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    );
+                  }
                 },
               ),
               SizedBox(height: 121.h),
-              //Spacer(),
               InkWell(
-                  child: SeePlansContainer(),
-                  onTap: ()=> context.push(RouteName.chooseSubscriptionScreen),
+                child: SeePlansContainer(),
+                onTap: () => context.push(RouteName.chooseSubscriptionScreen),
               ),
               SizedBox(height: 40.h),
             ],

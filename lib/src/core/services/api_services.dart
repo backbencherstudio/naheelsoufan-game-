@@ -31,22 +31,18 @@ class ApiServices {
     Map<String, String>? headers,
   }) async {
     final http.Response response;
-
-    final defaultHeaders = {
-      'Content-Type': 'application/json',
-    };
-
-    final combinedHeaders = {
-      ...defaultHeaders,
-      if (headers != null) ...headers,
-    };
-
+    log("Token: $headers \n\n");
+    log("Body: $body \n\n");
     try {
         response = await http.post(
           Uri.parse(endPoint),
-          headers: combinedHeaders,
+          headers: headers?? {
+            'Content-Type': 'application/json',
+          },
           body: jsonEncode(body),
         );
+        log("api response: ${response.body} \n\n");
+
         return _handleResponse(response);
     } catch (e) {
       throw Exception("Failed to send data: $e");
@@ -66,6 +62,7 @@ class ApiServices {
           Uri.parse(endPoint),
           headers: headers,
         );
+
         return _handleResponse(response);
       } else {
         throw Exception('Device is Offline, Please connect to internet.');

@@ -12,7 +12,9 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/freeExpire_provider.dart';
 
+import '../../../../data/riverpod/player_game/player_game_controller.dart';
 import '../../question_answer_screen/setting_while_in_game/widgets/language_drop_down_menu.dart';
+import '../riverpod/mode_controller.dart';
 
 class ModeSelectionScreen extends StatelessWidget {
   const ModeSelectionScreen({super.key});
@@ -53,18 +55,15 @@ class ModeSelectionScreen extends StatelessWidget {
               SizedBox(height: 26.h),
               Consumer(
                 builder: (context, ref, _) {
-                  final data = ref.watch(isFreeModeOnProvider);
-                  final isOffline = ref.watch(isOfflineOnProvider);
+                  final userGameData = ref.watch(playerGameProvider);
                   return CustomCard(
                     img: AppImages.playoffline,
                     text: 'PLAY OFFLINE',
                     onTap: () {
-                      // if (data == true) {
-                      //   ref.read(isOfflineOnProvider.notifier).state = true;
-                      //   context.push(RouteName.choosePaymentCard);
-                      // } else {
-                      context.push(RouteName.addPlayerScreen);
-                      // }
+                      ref.read(modeProvider.notifier).state = 1;
+                      (userGameData?.data.summary.quickGamesCreated == 0) ?
+                      context.push(RouteName.freeGameScreen) :
+                      context.push(RouteName.chooseSubscriptionScreen);
                     },
                   );
                 },
@@ -72,17 +71,16 @@ class ModeSelectionScreen extends StatelessWidget {
               SizedBox(height: 20.h),
               Consumer(
                 builder: (context, ref, _) {
-                  final data = ref.watch(isFreeModeOnProvider);
+                  final userGameData = ref.watch(playerGameProvider);
                   return CustomCard(
                     img: AppImages.card,
                     text: 'CREATE ROOM',
                     secondaryImg: AppImages.primaryUpsidedown,
                     onTap: () {
-                      if (data == true) {
-                        context.push(RouteName.chooseSubscriptionScreen);
-                      } else {
-                        context.push(RouteName.freeGameScreen);
-                      }
+                      ref.read(modeProvider.notifier).state = 2;
+                      (userGameData?.data.summary.quickGamesCreated == 0) ?
+                      context.push(RouteName.freeGameScreen) :
+                      context.push(RouteName.chooseSubscriptionScreen);
                     },
                   );
                 },

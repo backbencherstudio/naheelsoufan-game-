@@ -7,7 +7,11 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 
 class FreeGameCard extends StatelessWidget {
   final void Function()? onTap;
-  const FreeGameCard({super.key, required this.onTap});
+  final String mode;
+  final int maxPlayer;
+  final int gameNumber;
+
+  const FreeGameCard({super.key, required this.onTap, required this.mode, required this.maxPlayer, required this.gameNumber});
 
   @override
   Widget build(BuildContext context) {
@@ -48,11 +52,11 @@ class FreeGameCard extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 28.h),
-                    RowText(title: 'Mode ', description: 'Grid Play'),
-                    RowText(title: 'Games ', description: '1 Games'),
+                    RowText(title: 'Mode ', description: mode),
+                    RowText(title: 'Games ', description: '$gameNumber Game(s)'),
                     RowText(
                       title: 'Max Players ',
-                      description: 'Up to 4 Players',
+                      description: 'Up to $maxPlayer Players',
                     ),
                   ],
                 ),

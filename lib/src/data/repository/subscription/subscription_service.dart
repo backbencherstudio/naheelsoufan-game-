@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:naheelsoufan_game/src/data/model/subcription/payment_intent_model.dart';
 import '../../../core/constant/api_end_points.dart';
 import '../../../core/services/api_services.dart';
 import '../../../core/services/token_services.dart';
@@ -31,6 +32,42 @@ class SubscriptionService {
       }
     } catch (e) {
       debugPrint('Error fetching Subscription data: $e');
+      return null;
+    }
+    return null;
+  }
+
+  Future<PaymentIntentResponse?> fetchPaymentIntentData(String subscriptionId) async {
+    try {
+      final token = await _tokenService.getToken();
+
+      if (token == null || token.isEmpty) {
+        debugPrint('Token not found, please login');
+      }
+
+      final headers = {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json',
+      };
+
+      final body = {
+        "subscription_type_id": "cmg218zgs003wws38wz8vv978"
+      };
+
+      debugPrint(subscriptionId);
+
+      final response = await _apiServices.postData(
+          endPoint: ApiEndPoints.paymentIntentUrl,
+          headers: headers,
+          body: body
+      );
+
+      if (response['success'] == true) {
+        debugPrint('payment Intent Created Successfully');
+        return PaymentIntentResponse.fromJson(response);
+      }
+    } catch (e) {
+      debugPrint('Error Creating Payment Intent: $e');
       return null;
     }
     return null;

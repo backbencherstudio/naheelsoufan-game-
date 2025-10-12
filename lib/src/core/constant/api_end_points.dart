@@ -1,6 +1,6 @@
 class ApiEndPoints{
   // BASE URL
-  static const String baseUrl = "https://cognitively-undecaying-azalee.ngrok-free.dev";
+  static const String baseUrl = "https://caroll-perihelial-nonnecessitously.ngrok-free.dev";
 
   // IMG BASE
   static String imageBaseUrl = "https://nirob.signalsmind.com/s3";
@@ -42,11 +42,15 @@ class ApiEndPoints{
 
   // start game
   static const String startGameUrl = "$baseUrl/api/game-players/quick-game/select-category-and-start";
-
   // answer
   static const String answer = "$baseUrl/api/game-players/competitive-quick-game/answer";
   static const String skipAnswer = "$baseUrl/api/game-players/timeout-skiped";
+  //  end game
+  static String gameStatsUrl = "$baseUrl/api/game-players/end-game";
 
+  // user game stats
+  static String playerGameStats = "$baseUrl/api/games/player/games";
 
-  static String gameStatsUrl() => "$baseUrl/api/game-players/end-game";
+  //payment intent
+  static String paymentIntentUrl = "$baseUrl/api/subscription/purchase";
 }

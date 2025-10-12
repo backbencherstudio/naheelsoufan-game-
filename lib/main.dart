@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:naheelsoufan_game/src/core/routes/route_import_part.dart';
+import 'package:naheelsoufan_game/src/core/services/stripe_services.dart';
 import 'package:naheelsoufan_game/src/core/theme/app_theme.dart';
 
 
@@ -13,6 +15,8 @@ Future<void> main() async {
   await ScreenUtil.ensureScreenSize();// Add this line.
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
+  ///STRIPE
+  Stripe.publishableKey = StripeServices.publishableKey;
   /// Run the app
   runApp(const ProviderScope(child: MyApp()));
   /// Set the system UI overlay style

@@ -16,7 +16,7 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/selection_provider.dart';
-import '../../../../data/repository/game/game_mode/select_player_service.dart';
+import '../../../../data/repository/player/select_player_service.dart';
 import '../../main_quiz_screen/presentation/riverpod/stateProvider.dart';
 import '../riverpod/player_name_provider.dart';
 

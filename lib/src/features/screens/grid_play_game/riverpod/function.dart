@@ -6,14 +6,6 @@ final isQuestionClicked = StateProvider.family<bool, int>((ref, questionID) {
   return false;
 });
 
-
-final pageIndexProvider =
-StateNotifierProvider<PageNavigationNotifier, int>((ref) {
-  return PageNavigationNotifier(ref);
-});
-final pageControllerProvider = Provider<PageController>((ref) {
-  return PageController();
-});
 final isBanishButtonProvider = StateProvider<bool>((ref) => false);
 final isSelectedClicked = StateProvider.family<bool, int>((ref, questionID)=>false);
 final isSomethingClicked = StateProvider<bool>((ref)=>false);

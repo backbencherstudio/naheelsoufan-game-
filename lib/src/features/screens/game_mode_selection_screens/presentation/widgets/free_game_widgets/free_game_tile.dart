@@ -7,8 +7,8 @@ import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.da
 
 import '../../../../../../core/utils/utils.dart';
 
-class FreeGametile extends StatelessWidget {
-  const FreeGametile({super.key});
+class FreeGameTile extends StatelessWidget {
+  const FreeGameTile({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
+import 'package:naheelsoufan_game/src/data/riverpod/loading.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/choose_subscription_widgets/pay_to_play.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/choose_subscription_widgets/subscription_card.dart';
@@ -27,15 +28,18 @@ class _ChoosePaymentCardState extends ConsumerState<ChooseSubscriptionScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Future.microtask(() async =>ref.read(gameSubscriptionProvider.notifier).state = await SubscriptionService().fetchSubscriptionData());
+    Future.microtask(() async {
+      ref.read(isLoading.notifier).state = true;
+      ref.read(gameSubscriptionProvider.notifier).state = await SubscriptionService().fetchSubscriptionData();
+      ref.read(isLoading.notifier).state = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> keys = GlobalKey<ScaffoldState>();
-    final subscriptionData = ref.watch(gameSubscriptionProvider);
     final subscriptionResponse = ref.watch(gameSubscriptionProvider);
-
+    final loading = ref.watch(isLoading);
     return Scaffold(
       body: CreateScreen(
         key: keys,
@@ -58,7 +62,8 @@ class _ChoosePaymentCardState extends ConsumerState<ChooseSubscriptionScreen> {
               ),
               SizedBox(height: 40.h),
               Center(child: PayToPlay()),
-              Expanded(
+              SizedBox(height: 40.h),
+              loading ? const CircularProgressIndicator() : (subscriptionResponse?.data == null) ? Text("No Subscription Found") : Expanded(
                 child: ListView.builder(
                   itemCount: subscriptionResponse?.data.length,
                     itemBuilder: (context, index){

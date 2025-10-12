@@ -8,6 +8,7 @@ import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/freeExpire_provider.dart';
 import '../../../../../../core/constant/icons.dart';
 import '../../../../../../core/constant/images.dart';
+import '../../../../../../core/utils/utils.dart';
 import '../choose_subscription_widgets/app_custom_buttons.dart';
 
 
@@ -15,12 +16,13 @@ void onPaymentButton(BuildContext context) {
   showDialog(
     context: context,
     builder: (_) {
+      final isNotTab = Utils.isTablet(context);
       return Dialog(
         backgroundColor: Colors.transparent,
         elevation: 0,
         child: SingleChildScrollView(
           child: Container(
-            height: 438.h,
+            height: isNotTab ? 438.h : 600.h,
             width: 361.w,
             decoration: BoxDecoration(
               border: Border.all(color: Color(0xff2E1126), width: 2),

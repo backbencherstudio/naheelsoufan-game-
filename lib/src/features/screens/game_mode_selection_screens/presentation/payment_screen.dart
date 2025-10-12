@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:naheelsoufan_game/src/core/services/stripe_services.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import 'package:naheelsoufan_game/src/data/riverpod/subscription/subscription_controller.dart';
+import 'package:naheelsoufan_game/src/data/riverpod/user/user_controller.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/choose_subscription_widgets/subscription_card.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
-import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/payment_share_dialog_widgets/show_dialog.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
 import '../../../../core/constant/icons.dart';
 import '../../../../core/constant/images.dart';
 import '../../../../core/routes/route_name.dart';
+import '../../../../data/repository/subscription/subscription_service.dart';
 
 class PaymentScreen extends ConsumerWidget {
   const PaymentScreen({super.key});
@@ -21,6 +23,8 @@ class PaymentScreen extends ConsumerWidget {
     final subscriptionData = ref.watch(gameSubscriptionProvider);
     final currentIndex = ref.watch(selectedSubscriptionIndex);
     final GlobalKey<ScaffoldState> keys = GlobalKey<ScaffoldState>();
+    final paymentIntentData = ref.watch(paymentIntentProvider);
+    final userData = ref.watch(userProvider);
     return Scaffold(
       body: CreateScreen(
         key: keys,
@@ -86,8 +90,17 @@ class PaymentScreen extends ConsumerWidget {
 
               Spacer(),
               GestureDetector(
-                onTap: () {
-                  onPaymentButton(context);
+                onTap: () async {
+                  ref.read(paymentIntentProvider.notifier).state = await SubscriptionService().fetchPaymentIntentData(
+                      subscriptionData?.data[currentIndex].id ?? ""
+                  );
+                  if(paymentIntentData?.success != true) {
+                    debugPrint("Payment Failed: ${paymentIntentData?.message}");
+                    return;
+                  }
+                  StripeServices.makePayment(paymentIntentData?.data.clientSecret ?? "Not Found", userData?.name ?? "Anonymous");
+                  //AFTER SUCCESSFUL PAYMENT
+                  // onPaymentButton(context);
                 },
                 child: Container(
                   width: 115.w,

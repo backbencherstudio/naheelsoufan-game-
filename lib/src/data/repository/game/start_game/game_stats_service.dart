@@ -21,7 +21,7 @@ class GetGameStatsService {
 
     try {
       final response = await _apiServices.postData(
-        endPoint: ApiEndPoints.gameStatsUrl(),
+        endPoint: ApiEndPoints.gameStatsUrl,
         body: body,
         headers: {
           'Authorization': 'Bearer $token',

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:naheelsoufan_game/src/core/constant/api_end_points.dart';
 import 'package:naheelsoufan_game/src/data/repository/game/game_mode/select_game_mode_service.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_button.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
@@ -10,12 +11,15 @@ import '../../../../core/constant/icons.dart';
 import '../../../../core/constant/images.dart';
 import '../../../../core/constant/padding.dart';
 import '../../../../core/routes/route_name.dart';
+import '../../../../core/services/api_services.dart';
 import '../../../../data/riverpod/difficulty/difficulty_provider.dart';
 import '../../../../data/riverpod/game/category/category_controller.dart';
+import '../../../../data/riverpod/player_game/player_game_controller.dart';
 import '../../../common_widegts/create_screen/create_screen.dart';
 import '../../auth/riverpod/auth_providers.dart';
 import '../../question_answer_screen/setting_while_in_game/widgets/language_drop_down_menu.dart';
 import '../riverpod/freeExpire_provider.dart';
+import '../riverpod/mode_controller.dart';
 
 class GameModeScreens extends ConsumerStatefulWidget {
   const GameModeScreens({super.key});
@@ -34,6 +38,7 @@ class _GameModeScreensState extends ConsumerState<GameModeScreens> {
         ref.read(categoryProvider.notifier).fetchCategoryDetails();
         ref.read(difficultiesStateNotifierProvider.notifier).fetchDifficulties();
       }
+      ref.read(playerGameProvider.notifier).fetchGames();
     });
   }
 
@@ -42,6 +47,7 @@ class _GameModeScreensState extends ConsumerState<GameModeScreens> {
     final GlobalKey<ScaffoldState> keys = GlobalKey<ScaffoldState>();
     final menuKey = GlobalKey();
     final userData = ref.watch(authNotifierProvider);
+    final userGameData = ref.watch(playerGameProvider);
 
     return Scaffold(
       body: CreateScreen(
@@ -70,27 +76,17 @@ class _GameModeScreensState extends ConsumerState<GameModeScreens> {
                   CustomButton(
                     text: "QUICK GAME",
                     onTap: () async {
-                      context.push(RouteName.freeGameScreen);
-                      // final selectGameMode = SelectGameModeService();
-                      // final result = await selectGameMode.createGame(context: context, gameMode: "QUICK_GAME");
-                      // if (result) {
-                      //   ref.read(checkNormalGridScreen.notifier).state = true;
-                      //   context.push(RouteName.modeSelectionScreen);
-                      //   ScaffoldMessenger.of(context).showSnackBar(
-                      //     SnackBar(content: Text("Congratulations! Your first QUICK GAME game created successfully (FREE)", style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w600))),
-                      //   );
-                      // } else {
-                      //   ScaffoldMessenger.of(context).showSnackBar(
-                      //     SnackBar(content: Text("Failed to create game", style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w600))),
-                      //   );
-                      // }
+                      context.push(RouteName.modeSelectionScreen);
                     },
                   ),
                   SizedBox(height: 16.h),
                   CustomButton(
                     text: "GRID STYLE",
                     onTap: () {
-                      context.push(RouteName.freeGameScreen);
+                      ref.read(modeProvider.notifier).state = 3;
+                      (userGameData?.data.summary.gridStyleGamesCreated == 0) ?
+                      context.push(RouteName.freeGameScreen) :
+                      context.push(RouteName.chooseSubscriptionScreen);
                     },
                     img: AppImages.primaryUpsidedown,
                   ),
