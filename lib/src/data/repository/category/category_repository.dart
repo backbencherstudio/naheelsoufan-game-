@@ -40,4 +40,31 @@ class CategoryRepository extends BaseCategoryRepository{
     }
     return false;
   }
+
+  Future<CategoryModel?> fetchCategoryPageData(int pageNo) async {
+    try {
+      ApiServices apiServices = ApiServices();
+      final token = await _tokenService.getToken();
+      if (token == null || token.isEmpty) {
+        debugPrint('Token not found, please login');
+        return null;
+      }
+
+      final headers = {'Authorization': 'Bearer $token'};
+
+      final response = await apiServices.getData(
+          endPoint: "${ApiEndPoints.categoryUrl}?page=$pageNo",
+          headers: headers
+      );
+
+      if (response['success'] == true && response != null) {
+        debugPrint('Category data fetched successfully');
+        return CategoryModel.fromJson(response);
+      }
+    } catch (e) {
+      debugPrint('Error fetching user data: $e');
+      return null;
+    }
+    return null;
+  }
 }

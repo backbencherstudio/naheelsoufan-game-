@@ -69,7 +69,7 @@ class PaymentScreen extends ConsumerWidget {
               ),
               SizedBox(height: 20.h),
               GestureDetector(
-                onTap: () {
+                onTap: () async {
                   context.push(RouteName.myAccountScreen);
                 },
                 child: PaymentCardWidget(

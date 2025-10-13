@@ -24,9 +24,9 @@ class FreeGameScreen extends ConsumerWidget {
     final mode = ref.watch(modeProvider);
     final modeName =
         (mode == 1)
-            ? "QUICK_OFFLINE"
+            ? "QUICK_GAME"
             : (mode == 2)
-            ? "QUICK_ONLINE"
+            ? "QUICK_GAME_ONLINE"
             : "GRID_STYLE";
     debugPrint("\n\nMode: $mode\n\n");
     final maxPlayer = (mode == 3) ? 2 : 4;
@@ -66,7 +66,7 @@ class FreeGameScreen extends ConsumerWidget {
                     final selectGameMode = SelectGameModeService();
                     result = await selectGameMode.createGame(
                       context: context,
-                      gameMode: modeName,
+                      gameMode: mode,
                     );
                   } else {
                     /// QUICK ONLINE API CALL

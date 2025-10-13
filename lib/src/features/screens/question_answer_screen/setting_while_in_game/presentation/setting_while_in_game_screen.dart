@@ -6,6 +6,8 @@ import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import '../../../../../core/constant/icons.dart';
 import '../../../../../core/routes/route_name.dart';
+import '../../../../../data/repository/subscription/subscription_service.dart';
+import '../../../../../data/riverpod/subscription/subscription_controller.dart';
 import '../../../../common_widegts/music_off_on_whole_screen/music_volume_widgets.dart';
 import '../widgets/centered_button.dart';
 import '../widgets/language_drop_down_menu.dart';
@@ -57,7 +59,7 @@ class SettingWhileInGameScreen extends ConsumerWidget {
                         title: 'My Account',
                         leadingIconPath: AppIcons.personSetting,
                         trailingIconPath: AppIcons.forwardIcon,
-                        onTap: () {
+                        onTap: () async {
                           context.push(RouteName.myAccountScreen);
                         },
                       ),

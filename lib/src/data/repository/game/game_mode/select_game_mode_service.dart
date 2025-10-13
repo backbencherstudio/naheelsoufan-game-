@@ -12,22 +12,23 @@ class SelectGameModeService {
   final GameIdStorage _gameIdStorage = GameIdStorage();
   final TokenService _tokenService = TokenService();
 
-  Future<bool> createGame({required context, required String gameMode}) async {
+  Future<bool> createGame({required context, required int gameMode}) async {
+    final modeName = (gameMode == 3) ? "GRID_STYLE" : "QUICK_GAME";
     final token = await _tokenService.getToken();
 
     if (token == null || token.isEmpty) {
       debugPrint('Token not found, please login');
       return false;
     }
-
+    /// NEED REFACTOR AFTER LOCALIZATION
     final languageId = await _languageIdService.getToken();
-
-    final headers = {'Authorization': 'Bearer $token'};
+    /// NEED REFACTOR AFTER LOCALIZATION
+    final headers = {'Authorization': 'Bearer $token', 'Content-Type': 'application/json'};
 
     try {
       final response = await _apiServices.postData(
-        endPoint: ApiEndPoints.createGameUrl,
-        body: {"language_id": languageId ?? '', "mode": gameMode},
+        endPoint: (gameMode == 2) ? ApiEndPoints.createOnlineGameUrl : ApiEndPoints.createGameUrl,
+        body: {"language_id": languageId, "mode": modeName},
         headers: headers,
       );
 

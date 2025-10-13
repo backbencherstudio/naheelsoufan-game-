@@ -55,6 +55,7 @@ class ApiServices {
     Map<String, String>? headers,
   }) async {
     http.Response response;
+    log("Token: $headers \n\n");
     try {
       final isOnline = await hasInternetConnection();
       if (isOnline) {
@@ -62,7 +63,7 @@ class ApiServices {
           Uri.parse(endPoint),
           headers: headers,
         );
-
+        log("api response: ${response.body} \n\n");
         return _handleResponse(response);
       } else {
         throw Exception('Device is Offline, Please connect to internet.');

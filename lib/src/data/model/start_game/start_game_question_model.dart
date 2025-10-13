@@ -147,7 +147,7 @@ class CurrentPlayer {
   }
 }
 
-class GameInfo {
+class GameInfo { // Chnage
   final int currentQuestionNumber;
 
   GameInfo({

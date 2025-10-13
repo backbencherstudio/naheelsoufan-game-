@@ -3,17 +3,17 @@ class ApiEndPoints{
   static const String baseUrl = "https://caroll-perihelial-nonnecessitously.ngrok-free.dev";
 
   // IMG BASE
-  static String imageBaseUrl = "https://nirob.signalsmind.com/s3";
+  //static String imageBaseUrl = "https://nirob.signalsmind.com/s3";
 
   // QUE BASE
   static const String questionBaseUrl = "https://nirob.signalsmind.com/s3/public/storage/question";
 
   static String convertToS3Url(String localUrl) {
-    final pathStart = localUrl.indexOf('/public/storage/');
+    final pathStart = localUrl.indexOf('https://firebasestorage.googleapis.com/');
     if (pathStart == -1) return localUrl;
 
     final storagePath = localUrl.substring(pathStart);
-    return '$imageBaseUrl$storagePath';
+    return storagePath;
   }
 
   static String fileUrlPath(String? imgUrl) => "$questionBaseUrl/$imgUrl";
@@ -25,6 +25,7 @@ class ApiEndPoints{
 
   //CREATE GAME
   static const String createGameUrl = "$baseUrl/api/games";
+  static const String createOnlineGameUrl = "$baseUrl/api/multiplayer-game/create";
 
   // Select PLayers
   static const String selectPlayersUrl = "$baseUrl/api/game-players/quick-game/add-multiple-players";
@@ -36,6 +37,8 @@ class ApiEndPoints{
 
   // Subscription
   static const String subscriptionUrl = "$baseUrl/api/subscription/types";
+  // user subscription
+  static const String userSubscriptionUrl = "$baseUrl/api/subscription/status";
 
   // Category
   static const String categoryUrl = "$baseUrl/api/admin/categories";

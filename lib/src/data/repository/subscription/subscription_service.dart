@@ -5,6 +5,7 @@ import '../../../core/constant/api_end_points.dart';
 import '../../../core/services/api_services.dart';
 import '../../../core/services/token_services.dart';
 import '../../model/subcription/subcription_model.dart';
+import '../../model/subcription/user_subscription_model.dart';
 
 class SubscriptionService {
   final ApiServices _apiServices = ApiServices();
@@ -94,6 +95,34 @@ class SubscriptionService {
 
       if (response['success'] == true) {
         return SubscriptionIntentModel.fromJson(response["data"][0]);
+      }
+    } catch (e) {
+      debugPrint('Error Creating Payment Intent: $e');
+      return null;
+    }
+    return null;
+  }
+
+  Future<UserSubscriptionModel?> fetchUserSubscription() async {
+    try {
+      final token = await _tokenService.getToken();
+
+      if (token == null || token.isEmpty) {
+        debugPrint('Token not found, please login');
+      }
+
+      final headers = {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json',
+      };
+
+      final response = await _apiServices.getData(
+        endPoint: ApiEndPoints.userSubscriptionUrl,
+        headers: headers,
+      );
+
+      if (response['success'] == true) {
+        return UserSubscriptionModel.fromJson(response);
       }
     } catch (e) {
       debugPrint('Error Creating Payment Intent: $e');
