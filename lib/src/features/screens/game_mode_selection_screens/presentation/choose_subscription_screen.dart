@@ -71,11 +71,11 @@ class _ChoosePaymentCardState extends ConsumerState<ChooseSubscriptionScreen> {
                     padding: EdgeInsets.symmetric(vertical: 6.h),
                     child: PaymentCardWidget(
                       title: 'Games',
-                      subtitle: '${subscriptionResponse?.data[index].games ?? 0}',
+                      subtitle: ': ${subscriptionResponse?.data[index].games ?? 0}',
                       title2: 'Max Players',
                       subtitle2: ': Up to ${subscriptionResponse?.data[index].players ?? 0} Players',
                       description:
-                      'Get your game on with ${subscriptionResponse?.data[index].questions ?? 0} exiting questions of fun with your friends!',
+                      'Get your game on with ${subscriptionResponse?.data[index].games ?? 0} exiting questions of fun with your friends!',
                       borderColor: AppColorScheme.secondary,
                       rocketBackground: AppColorScheme.borderColor,
                       buttonText: '\$${subscriptionResponse?.data[index].price ?? 0.00} per ${subscriptionResponse?.data[index].games ?? 0} games',
@@ -83,7 +83,7 @@ class _ChoosePaymentCardState extends ConsumerState<ChooseSubscriptionScreen> {
                       color: AppColorScheme.borderColor,
                       onPressed: (){
                         ref.read(selectedSubscriptionIndex.notifier).state = index;
-                        context.push(RouteName.paymentScreen);
+                        context.pushReplacement(RouteName.paymentScreen);
                       },
                     ),
                   );

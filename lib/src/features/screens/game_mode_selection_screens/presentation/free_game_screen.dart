@@ -28,6 +28,7 @@ class FreeGameScreen extends ConsumerWidget {
             : (mode == 2)
             ? "QUICK_ONLINE"
             : "GRID_STYLE";
+    debugPrint("\n\nMode: $mode\n\n");
     final maxPlayer = (mode == 3) ? 2 : 4;
     return CreateScreen(
       child: Padding(
@@ -48,7 +49,7 @@ class FreeGameScreen extends ConsumerWidget {
                   CustomIconsButtons(
                     icon: AppIcons.settings,
                     onTap: () {
-                      context.push(RouteName.clickedSettingScreen);
+                      context.pushReplacement(RouteName.clickedSettingScreen);
                     },
                   ),
                 ],
@@ -74,7 +75,7 @@ class FreeGameScreen extends ConsumerWidget {
                   if (result) {
                     ref.read(checkNormalGridScreen.notifier).state = true;
 
-                    context.go((mode == 1) ? RouteName.addPlayerScreen : (mode == 2) ? RouteName.createRoomScreen : RouteName.enterTeamNameScreen);
+                    context.pushReplacement((mode == 1) ? RouteName.addPlayerScreen : (mode == 2) ? RouteName.createRoomScreen : RouteName.enterTeamNameScreen);
 
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
@@ -107,7 +108,7 @@ class FreeGameScreen extends ConsumerWidget {
               SizedBox(height: 121.h),
               InkWell(
                 child: SeePlansContainer(),
-                onTap: () => context.push(RouteName.chooseSubscriptionScreen),
+                onTap: () => context.pushReplacement(RouteName.chooseSubscriptionScreen),
               ),
               SizedBox(height: 40.h),
             ],

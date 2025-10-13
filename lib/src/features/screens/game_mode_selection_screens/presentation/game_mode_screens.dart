@@ -3,7 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/constant/api_end_points.dart';
+import 'package:naheelsoufan_game/src/data/model/subcription/subscription_intent_model.dart';
 import 'package:naheelsoufan_game/src/data/repository/game/game_mode/select_game_mode_service.dart';
+import 'package:naheelsoufan_game/src/data/repository/subscription/subscription_service.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_button.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 
@@ -92,6 +94,10 @@ class _GameModeScreensState extends ConsumerState<GameModeScreens> {
                   ),
                   SizedBox(height: 40.h),
                   LanguageDropDown(menuKey: menuKey),
+                  // ElevatedButton(onPressed: ()
+                  // async {
+                  //
+                  // }, child: Text("Click"))
                 ],
               ),
             );

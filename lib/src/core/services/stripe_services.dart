@@ -7,13 +7,16 @@ class StripeServices {
 
   static Future<void> makePayment(String clientSecretKey, String merchantName) async {
     try{
+      debugPrint("\npayment 1\n");
     await Stripe.instance.initPaymentSheet(
       paymentSheetParameters: SetupPaymentSheetParameters(
         paymentIntentClientSecret: clientSecretKey,
         merchantDisplayName: merchantName,
       )
     );
-    presentPaymentSheet();
+      debugPrint("\npayment 2\n");
+    await presentPaymentSheet();
+      debugPrint("\npayment 3\n");
   } catch(e) {
     debugPrint("Error In make payment: $e");
   }

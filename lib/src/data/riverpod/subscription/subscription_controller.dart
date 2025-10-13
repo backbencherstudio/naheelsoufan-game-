@@ -5,4 +5,4 @@ import '../../model/subcription/subcription_model.dart';
 final gameSubscriptionProvider = StateProvider<SubscriptionModel?>((ref) => null);
 final selectedSubscriptionIndex = StateProvider<int>((ref) => 0);
 
-final paymentIntentProvider = StateProvider<PaymentIntentResponse?>((ref) => null);
+//final paymentIntentProvider = StateProvider<PaymentIntentResponse?>((ref) => null);

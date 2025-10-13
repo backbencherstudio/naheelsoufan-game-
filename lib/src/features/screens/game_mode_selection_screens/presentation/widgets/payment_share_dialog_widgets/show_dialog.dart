@@ -77,7 +77,7 @@ void onPaymentButton(BuildContext context) {
                       child: AppCustomButton(
                         text: 'Create Room',
                         onTap: () {
-                          (ref.read(checkNormalGridScreen.notifier).state) ? context.go(RouteName.addPlayerScreen) : context.go(RouteName.enterTeamNameScreen);
+                          (ref.read(checkNormalGridScreen.notifier).state) ? context.pushReplacement(RouteName.addPlayerScreen) : context.go(RouteName.enterTeamNameScreen);
                         },
                         textColor: Colors.white,
                         gradient: LinearGradient(

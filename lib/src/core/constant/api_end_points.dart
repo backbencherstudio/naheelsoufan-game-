@@ -53,4 +53,7 @@ class ApiEndPoints{
 
   //payment intent
   static String paymentIntentUrl = "$baseUrl/api/subscription/purchase";
+
+  //last payment intent
+  static String lastPaymentIntentUrl = "$baseUrl/api/subscription/my-subscriptions";
 }
