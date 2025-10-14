@@ -83,7 +83,7 @@ class _MyAccountScreenState extends ConsumerState<MyAccountScreen> {
                                 28.w,
                                 0.h,
                               ),
-                              child: loading ? const CircularProgressIndicator() : Column(
+                              child: loading ? SizedBox(height: 200.w,child: Center(child: const CircularProgressIndicator(color: Colors.green,))) : Column(
                                 children: [
                                   selectedIndex != null
                                       ? Image.asset(

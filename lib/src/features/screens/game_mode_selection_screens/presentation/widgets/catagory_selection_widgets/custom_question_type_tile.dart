@@ -82,9 +82,13 @@ class CustomQuestionTypeTile extends StatelessWidget {
                   ),
 
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(
-                        height: isNotTab ? 126.h : 180.h,
+                        height: isNotTab ? null : 5.w,
+                      ),
+                      SizedBox(
+                        height: isNotTab ? 126.h : 150.h,
                         child: Image.network(
                           imgUrl ?? '',
                           errorBuilder: (_, __, ___) {

@@ -14,6 +14,7 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/selection_provider.dart';
+import '../../../../core/utils/utils.dart';
 import '../../../../data/riverpod/game/category/category_controller.dart';
 import '../../../../data/riverpod/game/start_game/start_game_provider.dart';
 
@@ -43,6 +44,7 @@ class _CatagorySelectionScreenState extends ConsumerState<CatagorySelectionScree
     final selectedState = ref.watch(selectProvider);
     final categories = ref.watch(categoryProvider);
     final currentPage = ref.watch(currentPageProvider);
+    final isNotTab = Utils.isTablet(context);
 
     ref.listen<int>(currentPageProvider, (previous, next) {
       _pageController.animateToPage(
@@ -82,7 +84,7 @@ class _CatagorySelectionScreenState extends ConsumerState<CatagorySelectionScree
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
                       crossAxisSpacing: 30,
-                      childAspectRatio: (0.5),
+                      childAspectRatio: isNotTab ? (0.5) : 1,
                     ),
                     itemCount: categories?.data.length,
                     itemBuilder: (context, index) {

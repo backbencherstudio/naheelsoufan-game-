@@ -53,7 +53,7 @@ class _ModeSelectionScreenState extends ConsumerState<ModeSelectionScreen> {
       child: Padding(
         padding: AppPadding.horizontalPadding,
         child: SingleChildScrollView(
-          child: loading ? const CircularProgressIndicator() : Column(
+          child: loading ? SizedBox(height: 200.w,child: Center(child: const CircularProgressIndicator(color: Colors.green,))) : Column(
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
