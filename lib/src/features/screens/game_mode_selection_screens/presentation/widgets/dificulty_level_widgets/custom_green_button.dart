@@ -19,18 +19,6 @@ class CustomGreenButton extends StatelessWidget {
           color: AppColorScheme.customGreenBT,
           borderRadius: BorderRadius.circular(8.r),
 
-          border: Border(
-            left: BorderSide(color: AppColorScheme.softGradGreen, width: 0.5.w),
-            right: BorderSide(
-              color: AppColorScheme.softGradGreen,
-              width: 0.5.w,
-            ),
-            bottom: BorderSide(
-              color: AppColorScheme.softGradGreen,
-              width: 1.5.w,
-            ),
-            top: BorderSide.none,
-          ),
           boxShadow: [
             BoxShadow(
               color: AppColorScheme.softGradGreen.withValues(alpha: 0.3),
