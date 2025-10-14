@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
-
 import '../../../../core/utils/utils.dart';
 
 class CustomTextFormField extends StatelessWidget {
@@ -40,63 +39,54 @@ class CustomTextFormField extends StatelessWidget {
       context,
     ).textTheme.labelSmall?.copyWith(color: AppColorScheme.redGrad);
     final isNotTab = Utils.isTablet(context);
-    return Container(
-      height: isNotTab ? 51.h : 100.h,
-      padding: EdgeInsets.only(bottom: 1.h),
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: AppColorScheme.onPrimary,
-        borderRadius: BorderRadius.circular(8.r),
-      ),
-      child: TextFormField(
-        onFieldSubmitted: onSubmitted,
-        validator: validator ?? (value) => null,
-        textInputAction: textInputAction,
-        controller: controller,
-        obscureText: obscureText,
-        obscuringCharacter: '*',
-        cursorColor: Color(0xff3D4279),
-        cursorWidth: 2.w,
-        style: formFieldTextStyle,
-        decoration: InputDecoration(
-          errorStyle: errorStyle,
-          contentPadding: EdgeInsets.symmetric(horizontal: 12.w),
-          filled: true,
-          fillColor: AppColorScheme.primary,
-          hintText: hintText,
-          hintStyle: formFieldHintTextStyle,
-          suffixIcon:
-          suffixIcon != null
-              ? IconButton(onPressed: onSuffixTap, icon: suffixIcon!)
-              : SizedBox(height: isNotTab ? 0.h : 90.h,),
-          errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.r),
-            borderSide: BorderSide(
-              color: AppColorScheme.primary,
-              width: 1.w,
-            ),
+    return TextFormField(
+      onFieldSubmitted: onSubmitted,
+      validator: validator ?? (value) => null,
+      textInputAction: textInputAction,
+      controller: controller,
+      obscureText: obscureText,
+      obscuringCharacter: '*',
+      cursorColor: Color(0xff3D4279),
+      cursorWidth: 2.w,
+      style: formFieldTextStyle,
+      decoration: InputDecoration(
+        errorStyle: errorStyle,
+        contentPadding: EdgeInsets.symmetric(horizontal: 12.w),
+        filled: true,
+        fillColor: AppColorScheme.primary,
+        hintText: hintText,
+        hintStyle: formFieldHintTextStyle,
+        suffixIcon:
+        suffixIcon != null
+            ? IconButton(onPressed: onSuffixTap, icon: suffixIcon!)
+            : SizedBox(height: isNotTab ? 0.h : 90.h,),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.r),
+          borderSide: BorderSide(
+            color: AppColorScheme.primary,
+            width: 1.w,
           ),
-          focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.r),
-            borderSide: BorderSide(
-              color: AppColorScheme.primary,
-              width: 1.w,
-            ),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.r),
+          borderSide: BorderSide(
+            color: AppColorScheme.primary,
+            width: 1.w,
           ),
-          // Other borders
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.r),
-            borderSide: BorderSide(
-              color: AppColorScheme.primary,
-              width: 1.w,
-            ),
+        ),
+        // Other borders
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.r),
+          borderSide: BorderSide(
+            color: AppColorScheme.primary,
+            width: 1.w,
           ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.r),
-            borderSide: BorderSide(
-              color: AppColorScheme.primary,
-              width: 1.w,
-            ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.r),
+          borderSide: BorderSide(
+            color: AppColorScheme.primary,
+            width: 1.w,
           ),
         ),
       ),
