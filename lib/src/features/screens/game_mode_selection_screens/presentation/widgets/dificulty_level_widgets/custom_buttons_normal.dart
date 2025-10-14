@@ -43,12 +43,6 @@ class CustomButtonsNormal extends StatelessWidget {
                       AppColorScheme.deepPuroleBG,
                     ],
                   ),
-            border: Border(
-              bottom: BorderSide(
-                color: isSelected ? AppColorScheme.lightButtonborder : AppColorScheme.darkpurpleborder,
-                width: 4.w,
-              ),
-            ),
           ),
 
           child: Center(
