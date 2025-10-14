@@ -22,42 +22,29 @@ class CustomWhiteboxes extends StatelessWidget {
     bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
     return Container(
+      width: width,
+      padding: EdgeInsets.symmetric(vertical: 12.h),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8.r),
-          border: Border.all(
-              color: AppColorScheme.labelTextColor,
-              width: isPortrait ? 2.w : 4.4.h
-          )
+        borderRadius: BorderRadius.circular(8.r),
+        color: Color(0xffE0E0FF),
       ),
 
-      child: Container(
-        width: width,
-        padding: EdgeInsets.symmetric(vertical: 12.h),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8.r),
-          color: Color(0xffE0E0FF),
-        ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
 
-        child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 16.r),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          if (isIconOpen == true) ...[
+            Image.asset(icon ?? "", height: 24.h, width: 24.w),
+            SizedBox(width: 8.w),
+          ],
 
-            children: [
-              if (isIconOpen == true) ...[
-                Image.asset(icon ?? "", height: 24.h, width: 24.w),
-                SizedBox(width: 8.w),
-              ],
-
-              Text(
-                title,
-                style: style.bodyLarge!.copyWith(
-                  color: AppColorScheme.labelTextColor,
-                ),
-              ),
-            ],
+          Text(
+            title,
+            style: style.bodyLarge!.copyWith(
+              color: AppColorScheme.labelTextColor,
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

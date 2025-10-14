@@ -15,7 +15,9 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import '../../../../core/constant/icons.dart';
 import '../../../../core/constant/images.dart';
 import '../../../../core/routes/route_name.dart';
+import '../../../../data/repository/game/game_mode/select_game_mode_service.dart';
 import '../../../../data/repository/subscription/subscription_service.dart';
+import '../riverpod/mode_controller.dart';
 
 class PaymentScreen extends ConsumerWidget {
   const PaymentScreen({super.key});
@@ -127,6 +129,7 @@ class PaymentScreen extends ConsumerWidget {
                     );
                   //AFTER SUCCESSFUL PAYMENT
                   if(result?.paymentStatus == "completed") onPaymentButton(context);
+
                   ref.read(isLoading.notifier).state = false;
                 },
                 child: Container(

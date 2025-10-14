@@ -31,20 +31,24 @@ class CustomRow extends StatelessWidget {
     bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
     return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         (index == 1)
             ? CustomSmallBox(
+          width: 20.w,
               title: index.toString(),
               icon: '',
               isIconOpen: false,
             )
             : (index == 4)
             ? CustomWhiteboxes(
+          width: 20.w,
               title: index.toString(),
               isIconOpen: false,
               icon: '',
             )
             : CustomYellowborderbox(
+          width: 20.w,
               title: index.toString(),
               icon: '',
               isIconOpen: false,
@@ -70,14 +74,15 @@ class CustomRow extends StatelessWidget {
               title: name,
               icon: AppImages.madel,
               isIconOpen: true,
-              width: isPortrait ? 216.w : 485.h,
+              width: isPortrait ? 216.w : 486.2.h,
             ),
 
         SizedBox(width: isPortrait ? 8.w : 35.h),
 
-        (index == 1) ? CustomSmallBox(title: scores.toString(), icon: "", isIconOpen: false) :
-        (index == 4) ? CustomWhiteboxes(title: scores.toString(), icon: "", isIconOpen: false) :
+        (index == 1) ? CustomSmallBox(title: scores.toString(), icon: "", isIconOpen: false, width: 50.w,) :
+        (index == 4) ? CustomWhiteboxes(title: scores.toString(), icon: "", isIconOpen: false, width: 50.w,) :
         CustomYellowborderbox(
+          width: 50.w,
           title: scores.toString(),
           icon: "",
           isIconOpen: false,

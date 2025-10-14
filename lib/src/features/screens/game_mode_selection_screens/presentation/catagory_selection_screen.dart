@@ -29,10 +29,7 @@ class _CatagorySelectionScreenState extends ConsumerState<CatagorySelectionScree
   @override
   void initState() {
     super.initState();
-    Future.microtask(() {
-      final currentPage = ref.read(currentPageProvider.notifier).state;
-      _pageController = PageController(initialPage: currentPage);
-    });
+    _pageController = PageController(initialPage: 1);
   }
 
   @override

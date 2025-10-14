@@ -16,8 +16,10 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/selection_provider.dart';
+import '../../../../data/repository/game/game_mode/select_game_mode_service.dart';
 import '../../../../data/repository/player/select_player_service.dart';
 import '../../main_quiz_screen/presentation/riverpod/stateProvider.dart';
+import '../riverpod/mode_controller.dart';
 import '../riverpod/player_name_provider.dart';
 
 class AddPlayerScreen extends ConsumerWidget {
@@ -35,10 +37,11 @@ class AddPlayerScreen extends ConsumerWidget {
     final keys = allPlayers.keys.toList()..sort();
     final totalPlayers = allPlayers.length;
     final isMaxPlayers = totalPlayers >= 4;
-
     final controller = ref.read(playerProvider.notifier);
     final current = ref.read(playerProvider);
     final names = ref.watch(playerNamesProvider);
+
+    final mode = ref.watch(modeProvider);
     debugPrint('Player names: $names');
 
     return CreateScreen(
@@ -215,7 +218,6 @@ class AddPlayerScreen extends ConsumerWidget {
 
               GestureDetector(
                 onTap: () async {
-
                   controller.state = current.copyWith(totalPlayer: totalPlayers);
                   final playerNames = ref.read(playerNamesProvider);
                   if (playerNames.length < 2) {
@@ -225,14 +227,14 @@ class AddPlayerScreen extends ConsumerWidget {
                     return;
                   }
                   final selectPlayers = SelectPlayersService();
-                  final PlayerModel? result = await selectPlayers.selectPlayers(context: context, players: playerNames);
-                  if (result != null) {
+                  final result = await selectPlayers.selectPlayers(context: context, players: playerNames);
+                  if (result?.success == true) {
                     ref.read(playerListProvider.notifier).state = result;
                     context.pushReplacement(
                       RouteName.catagorySelectionScreen,
                     );
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(result?.message ?? "Players added successfully", style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w600))),
+                      SnackBar(content: Text(result?.message ?? "Player added successful", style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w600))),
                     );
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(

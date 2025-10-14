@@ -21,6 +21,7 @@ class SubscriptionService {
 
       final headers = {
         'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json'
       };
       final response = await _apiServices.getData(
         endPoint: ApiEndPoints.subscriptionUrl,

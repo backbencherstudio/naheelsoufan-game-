@@ -75,6 +75,7 @@ class AuthService extends AuthRepository {
 
       final headers = {
         'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json'
       };
 
       final response = await apiServices.getData(

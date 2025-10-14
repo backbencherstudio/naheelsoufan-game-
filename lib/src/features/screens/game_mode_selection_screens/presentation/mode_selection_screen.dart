@@ -6,12 +6,14 @@ import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/constant/images.dart';
 import 'package:naheelsoufan_game/src/core/constant/padding.dart';
 import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
+import 'package:naheelsoufan_game/src/data/riverpod/loading.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/mode_selection_widgets/custom_card.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/freeExpire_provider.dart';
 
+import '../../../../data/repository/game/game_mode/select_game_mode_service.dart';
 import '../../../../data/repository/subscription/subscription_service.dart';
 import '../../../../data/riverpod/player_game/player_game_controller.dart';
 import '../../../../data/riverpod/subscription/subscription_controller.dart';
@@ -30,7 +32,9 @@ class _ModeSelectionScreenState extends ConsumerState<ModeSelectionScreen> {
   @override
   void initState() {
     Future.microtask(() async {
+      ref.read(isLoading.notifier).state = true;
       ref.read(userSubscriptionDataProvider.notifier).state = await SubscriptionService().fetchUserSubscription();
+      ref.read(isLoading.notifier).state = false;
     });
     super.initState();
   }
@@ -40,13 +44,16 @@ class _ModeSelectionScreenState extends ConsumerState<ModeSelectionScreen> {
     final GlobalKey<ScaffoldState> keys = GlobalKey<ScaffoldState>();
     final _menuKey = GlobalKey();
     final userSubscriptionData = ref.watch(userSubscriptionDataProvider);
+    final userGameData = ref.watch(playerGameProvider);
+    final loading = ref.watch(isLoading);
+    final mode = ref.watch(modeProvider);
     return CreateScreen(
       keys: keys,
 
       child: Padding(
         padding: AppPadding.horizontalPadding,
         child: SingleChildScrollView(
-          child: Column(
+          child: loading ? const CircularProgressIndicator() : Column(
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -69,21 +76,28 @@ class _ModeSelectionScreenState extends ConsumerState<ModeSelectionScreen> {
               SizedBox(height: 28.h),
               Image.asset(AppImages.logo, height: 52.h, width: 150.w),
               SizedBox(height: 26.h),
-              Consumer(
-                builder: (context, ref, _) {
-                  final userGameData = ref.watch(playerGameProvider);
-                  return CustomCard(
+                  CustomCard(
                     img: AppImages.playoffline,
                     text: 'PLAY OFFLINE',
-                    onTap: () {
+                    onTap: () async {
                       ref.read(modeProvider.notifier).state = 1;
+                      debugPrint(userSubscriptionData?.data.toString());
+
+                      if(userSubscriptionData?.data != null) {
+                        final selectGameMode = SelectGameModeService();
+                        final result = await selectGameMode.createGame(
+                          context: context,
+                          gameMode: mode,
+                        );
+
+                        (result == true) ? debugPrint("Game Created Successfully") : debugPrint("Game Creation Unsuccessful");
+                      }
+
                       (userGameData?.data.summary.quickGamesCreated == 0) ?
                       context.push(RouteName.freeGameScreen) : (userSubscriptionData?.data == null) ?
                       context.push(RouteName.chooseSubscriptionScreen) : context.push(RouteName.addPlayerScreen);
                     },
-                  );
-                },
-              ),
+                  ),
               SizedBox(height: 20.h),
               Consumer(
                 builder: (context, ref, _) {
@@ -93,6 +107,9 @@ class _ModeSelectionScreenState extends ConsumerState<ModeSelectionScreen> {
                     text: 'CREATE ROOM',
                     secondaryImg: AppImages.primaryUpsidedown,
                     onTap: () {
+
+                      /// CREATE MULTI PLAYER GAME
+
                       ref.read(modeProvider.notifier).state = 2;
                       (userGameData?.data.summary.quickGamesCreated == 0) ?
                       context.push(RouteName.freeGameScreen) :

@@ -17,6 +17,7 @@ import '../../../../core/services/api_services.dart';
 import '../../../../data/riverpod/difficulty/difficulty_provider.dart';
 import '../../../../data/riverpod/game/category/category_controller.dart';
 import '../../../../data/riverpod/player_game/player_game_controller.dart';
+import '../../../../data/riverpod/subscription/subscription_controller.dart';
 import '../../../common_widegts/create_screen/create_screen.dart';
 import '../../auth/riverpod/auth_providers.dart';
 import '../../question_answer_screen/setting_while_in_game/widgets/language_drop_down_menu.dart';
@@ -50,6 +51,7 @@ class _GameModeScreensState extends ConsumerState<GameModeScreens> {
     final menuKey = GlobalKey();
     final userData = ref.watch(authNotifierProvider);
     final userGameData = ref.watch(playerGameProvider);
+    final userSubscriptionData = ref.watch(userSubscriptionDataProvider);
 
     return Scaffold(
       body: CreateScreen(
@@ -84,7 +86,18 @@ class _GameModeScreensState extends ConsumerState<GameModeScreens> {
                   SizedBox(height: 16.h),
                   CustomButton(
                     text: "GRID STYLE",
-                    onTap: () {
+                    onTap: () async {
+
+                      if(userSubscriptionData?.data != null) {
+                        final selectGameMode = SelectGameModeService();
+                        final result = await selectGameMode.createGame(
+                          context: context,
+                          gameMode: 3,
+                        );
+
+                        (result == true) ? debugPrint("Game Created Successfully") : debugPrint("Game Creation Unsuccessful");
+                      }
+
                       ref.read(modeProvider.notifier).state = 3;
                       (userGameData?.data.summary.gridStyleGamesCreated == 0) ?
                       context.push(RouteName.freeGameScreen) :

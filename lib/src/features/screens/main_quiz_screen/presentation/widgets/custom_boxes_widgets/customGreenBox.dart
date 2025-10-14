@@ -41,6 +41,7 @@ class Customgreenbox extends StatelessWidget {
         ),
 
         child: Container(
+          width: 20.w,
           margin: EdgeInsets.symmetric(horizontal: 16.r),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
