@@ -25,7 +25,6 @@ class CustomElevatedButton extends StatelessWidget {
         height: isNotTab ? 58.h : 100.h,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.r),
-          border: Border.all(width: 2.w, color: AppColorScheme.midGradGreen.withValues(alpha: 0.2), ),
           gradient: const LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,

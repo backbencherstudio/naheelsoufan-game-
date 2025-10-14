@@ -37,7 +37,7 @@ void onWrongAnswerTap(BuildContext context, String rightAns, ref) {
                 left: isPortrait ? null : 300.h,
                 child: Container(
                   constraints: BoxConstraints(
-                    maxHeight: isPortrait ? 410.h : 150.5.w,
+                    maxHeight: isNotTab ? (isPortrait ? 410.h : 150.5.w) : 180.w,
                     maxWidth: isPortrait ? 330.w : 1000.h,
                   ),
                   padding: EdgeInsets.symmetric(
@@ -153,7 +153,7 @@ void onWrongAnswerTap(BuildContext context, String rightAns, ref) {
 
               Positioned(
                 top: isPortrait ? 110.h : -0.5.w,
-                left: isPortrait ? 130.w : 750.h,
+                left: isNotTab ? (isPortrait ? 130.w : 750.h) : 220.w,
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
@@ -165,7 +165,7 @@ void onWrongAnswerTap(BuildContext context, String rightAns, ref) {
 
               Positioned(
                 top: isPortrait ? 115.h : 0,
-                right: isPortrait ? 10 : 280.h,
+                right: isNotTab ? (isPortrait ? 10.w : 280.h) : 25.w,
                 child: GestureDetector(
                   onTap: () {
                     context.pop();
