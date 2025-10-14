@@ -20,7 +20,7 @@ class AnswerQuestionService {
       return false;
     }
 
-    final headers = {'Authorization': 'Bearer $token'};
+    final headers = {'Authorization': 'Bearer $token', 'Content-Type': 'application/json'};
 
     final body = {
       "game_id": gameId,
@@ -69,7 +69,7 @@ class AnswerQuestionService {
       return false;
     }
 
-    final headers = {'Authorization': 'Bearer $token'};
+    final headers = {'Authorization': 'Bearer $token', 'Content-Type': 'application/json'};
 
     final body = {
       "game_id": gameId,

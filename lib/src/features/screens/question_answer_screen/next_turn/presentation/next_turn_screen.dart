@@ -33,15 +33,7 @@ class NextTurnScreen extends ConsumerWidget {
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CustomIconsButtons(
-                    icon: AppIcons.backSvg,
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-          CustomPopUpMenu(),
-                ],
+                children: [SizedBox(), CustomPopUpMenu()],
               ),
               Spacer(),
               Stack(
@@ -70,7 +62,11 @@ class NextTurnScreen extends ConsumerWidget {
                             ),
                             SizedBox(height: 16.h),
                             Text(
-                              playerList?.data.players[player.currentPlayer].playerName ?? "Player ${player.currentPlayer + 1}",
+                              playerList
+                                      ?.data
+                                      .players[player.currentPlayer]
+                                      .playerName ??
+                                  "Player ${player.currentPlayer + 1}",
                               style: style.titleLarge?.copyWith(
                                 color: AppColorScheme.listContainerColor,
                                 fontWeight: FontWeight.w500,
@@ -98,9 +94,9 @@ class NextTurnScreen extends ConsumerWidget {
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                           colors: [
-                           AppColorScheme.softYellow,
-                           AppColorScheme.midYellow,
-                           AppColorScheme.darkYellow,
+                            AppColorScheme.softYellow,
+                            AppColorScheme.midYellow,
+                            AppColorScheme.darkYellow,
                           ],
                           stops: [0.0, 0.4904, 1.0],
                         ),
@@ -115,13 +111,13 @@ class NextTurnScreen extends ConsumerWidget {
               ),
               Spacer(),
               Consumer(
-                builder: (_,ref,_) {
+                builder: (_, ref, _) {
                   // final selectedIndex = ref.watch(selectedPlayerIndexProvider);
                   return GestureDetector(
                     onTap: () async {
                       // ref.read(selectedPlayerIndexProvider.notifier).state++;
                       ref.invalidate(levelSelectionProvider);
-                     context.push(RouteName.catagorySelectionScreen);
+                      context.push(RouteName.catagorySelectionScreen);
                     },
                     child: Container(
                       padding: EdgeInsets.symmetric(
@@ -133,13 +129,18 @@ class NextTurnScreen extends ConsumerWidget {
                         color: AppColorScheme.customGreenBT,
                         borderRadius: BorderRadius.circular(8.r),
                         border: Border(
-                          bottom: BorderSide(color: AppColorScheme.softGradGreen, width: 2.w),
+                          bottom: BorderSide(
+                            color: AppColorScheme.softGradGreen,
+                            width: 2.w,
+                          ),
                         ),
                       ),
                       child: Center(
                         child: Text(
                           'NEXT',
-                          style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                          style: Theme.of(
+                            context,
+                          ).textTheme.titleSmall?.copyWith(
                             color: Colors.white,
                             fontWeight: FontWeight.w500,
                           ),
@@ -147,7 +148,7 @@ class NextTurnScreen extends ConsumerWidget {
                       ),
                     ),
                   );
-                }
+                },
               ),
             ],
           ),

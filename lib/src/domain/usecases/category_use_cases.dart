@@ -3,8 +3,8 @@ import '../../data/repository/category/category_repository.dart';
 
 class CategoryUseCases {
   CategoryRepository C = CategoryRepository();
-  Future<bool> getCategoryDetailsCall() async {
-    final success = await C.fetchCategoryData();
+  Future<bool> getCategoryDetailsCall(int pageNo) async {
+    final success = await C.fetchCategoryData(pageNo);
     return success;
   }
   CategoryModel? get currentCategory => C.categoryModel;

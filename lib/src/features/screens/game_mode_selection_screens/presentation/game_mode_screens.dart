@@ -37,7 +37,7 @@ class _GameModeScreensState extends ConsumerState<GameModeScreens> {
       ref.read(authNotifierProvider.notifier).fetchUserDetails();
       final difficultiesState = ref.read(difficultiesStateNotifierProvider);
       if (difficultiesState == null) {
-        ref.read(categoryProvider.notifier).fetchCategoryDetails();
+        ref.read(categoryProvider.notifier).fetchCategoryDetails(1);
         ref.read(difficultiesStateNotifierProvider.notifier).fetchDifficulties();
       }
       ref.read(playerGameProvider.notifier).fetchGames();

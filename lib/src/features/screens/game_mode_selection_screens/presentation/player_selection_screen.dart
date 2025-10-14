@@ -26,7 +26,6 @@ class PlayerSelectionScreen extends ConsumerWidget {
     final dynamicPlayers = state.selectedTiles;
     final allPlayers = {...fixedPlayers, ...dynamicPlayers};
     final totalPlayers = allPlayers.length;
-    // final current = ref.read(playerProvider);
     final style = Theme.of(context).textTheme;
     final isSelected = ref.watch(selectionProvider);
     final areAllSelected = ref

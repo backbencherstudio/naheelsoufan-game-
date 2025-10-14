@@ -2,6 +2,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:naheelsoufan_game/src/data/model/categories/category_model.dart';
 import 'package:naheelsoufan_game/src/domain/usecases/category_use_cases.dart';
 
+final currentPageProvider = StateProvider<int>((ref)=>1);
+
 final categoryProvider = StateNotifierProvider<CategoryController, CategoryModel?>((ref) => CategoryController());
 
 class CategoryController extends StateNotifier<CategoryModel?>{
@@ -10,8 +12,8 @@ class CategoryController extends StateNotifier<CategoryModel?>{
 
   CategoryUseCases categoryUseCases = CategoryUseCases();
 
-  Future<CategoryModel?> fetchCategoryDetails() async {
-    final categoryDetails = await categoryUseCases.getCategoryDetailsCall();
+  Future<CategoryModel?> fetchCategoryDetails(int pageNo) async {
+    final categoryDetails = await categoryUseCases.getCategoryDetailsCall(pageNo);
     state = categoryUseCases.currentCategory;
     return state;
   }

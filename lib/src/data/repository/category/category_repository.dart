@@ -13,7 +13,7 @@ class CategoryRepository extends BaseCategoryRepository{
   final TokenService _tokenService = TokenService();
 
   @override
-  Future<bool> fetchCategoryData() async {
+  Future<bool> fetchCategoryData(int pageNo) async {
     try {
       ApiServices apiServices = ApiServices();
       final token = await _tokenService.getToken();
@@ -22,10 +22,10 @@ class CategoryRepository extends BaseCategoryRepository{
         return false;
       }
 
-      final headers = {'Authorization': 'Bearer $token'};
+      final headers = {'Authorization': 'Bearer $token', 'Content-Type': 'application/json'};
 
       final response = await apiServices.getData(
-        endPoint: ApiEndPoints.categoryUrl,
+        endPoint: "${ApiEndPoints.categoryUrl}?page=$pageNo",
         headers: headers
       );
 
@@ -41,30 +41,30 @@ class CategoryRepository extends BaseCategoryRepository{
     return false;
   }
 
-  Future<CategoryModel?> fetchCategoryPageData(int pageNo) async {
-    try {
-      ApiServices apiServices = ApiServices();
-      final token = await _tokenService.getToken();
-      if (token == null || token.isEmpty) {
-        debugPrint('Token not found, please login');
-        return null;
-      }
-
-      final headers = {'Authorization': 'Bearer $token'};
-
-      final response = await apiServices.getData(
-          endPoint: "${ApiEndPoints.categoryUrl}?page=$pageNo",
-          headers: headers
-      );
-
-      if (response['success'] == true && response != null) {
-        debugPrint('Category data fetched successfully');
-        return CategoryModel.fromJson(response);
-      }
-    } catch (e) {
-      debugPrint('Error fetching user data: $e');
-      return null;
-    }
-    return null;
-  }
+  // Future<CategoryModel?> fetchCategoryPageData(int pageNo) async {
+  //   try {
+  //     ApiServices apiServices = ApiServices();
+  //     final token = await _tokenService.getToken();
+  //     if (token == null || token.isEmpty) {
+  //       debugPrint('Token not found, please login');
+  //       return null;
+  //     }
+  //
+  //     final headers = {'Authorization': 'Bearer $token'};
+  //
+  //     final response = await apiServices.getData(
+  //         endPoint: "${ApiEndPoints.categoryUrl}?page=$pageNo",
+  //         headers: headers
+  //     );
+  //
+  //     if (response['success'] == true && response != null) {
+  //       debugPrint('Category data fetched successfully');
+  //       return CategoryModel.fromJson(response);
+  //     }
+  //   } catch (e) {
+  //     debugPrint('Error fetching user data: $e');
+  //     return null;
+  //   }
+  //   return null;
+  // }
 }

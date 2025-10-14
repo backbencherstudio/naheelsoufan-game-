@@ -12,18 +12,34 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/freeExpire_provider.dart';
 
+import '../../../../data/repository/subscription/subscription_service.dart';
 import '../../../../data/riverpod/player_game/player_game_controller.dart';
+import '../../../../data/riverpod/subscription/subscription_controller.dart';
 import '../../question_answer_screen/setting_while_in_game/widgets/language_drop_down_menu.dart';
 import '../riverpod/mode_controller.dart';
 
-class ModeSelectionScreen extends StatelessWidget {
+class ModeSelectionScreen extends ConsumerStatefulWidget {
   const ModeSelectionScreen({super.key});
+
+  @override
+  ConsumerState<ModeSelectionScreen> createState() => _ModeSelectionScreenState();
+}
+
+class _ModeSelectionScreenState extends ConsumerState<ModeSelectionScreen> {
+
+  @override
+  void initState() {
+    Future.microtask(() async {
+      ref.read(userSubscriptionDataProvider.notifier).state = await SubscriptionService().fetchUserSubscription();
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> keys = GlobalKey<ScaffoldState>();
     final _menuKey = GlobalKey();
-
+    final userSubscriptionData = ref.watch(userSubscriptionDataProvider);
     return CreateScreen(
       keys: keys,
 
@@ -62,8 +78,8 @@ class ModeSelectionScreen extends StatelessWidget {
                     onTap: () {
                       ref.read(modeProvider.notifier).state = 1;
                       (userGameData?.data.summary.quickGamesCreated == 0) ?
-                      context.push(RouteName.freeGameScreen) :
-                      context.push(RouteName.chooseSubscriptionScreen);
+                      context.push(RouteName.freeGameScreen) : (userSubscriptionData?.data == null) ?
+                      context.push(RouteName.chooseSubscriptionScreen) : context.push(RouteName.addPlayerScreen);
                     },
                   );
                 },
@@ -80,7 +96,8 @@ class ModeSelectionScreen extends StatelessWidget {
                       ref.read(modeProvider.notifier).state = 2;
                       (userGameData?.data.summary.quickGamesCreated == 0) ?
                       context.push(RouteName.freeGameScreen) :
-                      context.push(RouteName.chooseSubscriptionScreen);
+                      (userSubscriptionData?.data == null) ?
+                      context.push(RouteName.chooseSubscriptionScreen) : context.push(RouteName.enterTeamNameScreen);
                     },
                   );
                 },

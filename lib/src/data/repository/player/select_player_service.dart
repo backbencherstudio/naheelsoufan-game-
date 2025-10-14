@@ -61,7 +61,7 @@ class SelectPlayersService {
       return null;
     }
 
-    final headers = {'Authorization': 'Bearer $token'};
+    final headers = {'Authorization': 'Bearer $token', 'Content-Type': 'application/json'};
 
     try {
       final response = await _apiServices.getData(
