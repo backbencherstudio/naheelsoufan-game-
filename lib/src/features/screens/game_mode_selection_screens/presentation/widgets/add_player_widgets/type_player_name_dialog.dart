@@ -3,37 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_button.dart';
-import '../../../riverpod/player_name_provider.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/player_provider.dart';
 
-void showNameDialog(BuildContext context, WidgetRef ref, int playerIndex) {
+void showNameDialog(BuildContext context, WidgetRef ref, TextEditingController controller, int index) {
   final style = Theme.of(context).textTheme;
-
-  late StateProvider<String> playerProvider;
-  switch (playerIndex) {
-    case 1:
-      playerProvider = playerProvider1;
-      break;
-    case 2:
-      playerProvider = playerProvider2;
-      break;
-    case 3:
-      playerProvider = playerProvider3;
-      break;
-    case 4:
-      playerProvider = playerProvider4;
-      break;
-    default:
-      playerProvider = playerProvider1;
-  }
-
-  final playerName = ref.read(playerProvider);
-  TextEditingController nameController = TextEditingController(
-    text: playerName,
-  );
-
-  if (playerName.isNotEmpty) {
-    nameController.text = playerName;
-  }
 
   showDialog(
     context: context,
@@ -69,7 +42,7 @@ void showNameDialog(BuildContext context, WidgetRef ref, int playerIndex) {
                   const Divider(color: Colors.white),
                   SizedBox(height: 32.h),
                   Text(
-                    'Player $playerIndex',
+                    'Player ${index + 1}',
                     style: style.bodyMedium?.copyWith(
                       color: AppColorScheme.primary,
                       fontWeight: FontWeight.w500,
@@ -77,7 +50,7 @@ void showNameDialog(BuildContext context, WidgetRef ref, int playerIndex) {
                   ),
                   SizedBox(height: 8.h),
                   TextFormField(
-                    controller: nameController,
+                    controller: controller,
                     style: style.bodyMedium?.copyWith(
                       color: Colors.black,
                       fontWeight: FontWeight.w500,
@@ -109,10 +82,11 @@ void showNameDialog(BuildContext context, WidgetRef ref, int playerIndex) {
                     child: CustomButton(
                       text: 'Confirm',
                       onTap: () {
-                        final newName = nameController.text.trim();
+                        final newName = controller.text.trim();
                         if (newName.isNotEmpty) {
-                          ref.read(playerProvider.notifier).state = newName;
+                          ref.read(playerNameProvider.notifier).updatePlayerName(index, newName);
                         }
+                        controller.clear();
                         Navigator.pop(context);
                       },
                     ),

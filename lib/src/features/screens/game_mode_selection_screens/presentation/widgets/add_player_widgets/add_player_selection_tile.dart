@@ -8,9 +8,9 @@ import '../add_player_widgets/type_player_name_dialog.dart';
 import '../home_widgets/custom_icons_Buttons.dart';
 
 class AddSelectionTile extends StatelessWidget {
-  final String index;
-  final String playerName;   // pass player name here
-  final bool isSelected;
+  final int index;
+  final String? playerName;
+  final bool? isSelected;
   final Color? color;
   final void Function()? onTap;
   final void Function()? onTabRemove;
@@ -18,9 +18,9 @@ class AddSelectionTile extends StatelessWidget {
   const AddSelectionTile({
     super.key,
     required this.index,
-    required this.playerName,  // new
+    this.playerName,
     required this.onTap,
-    required this.isSelected,
+    this.isSelected,
     this.color,
     this.onTabRemove,
   });
@@ -39,7 +39,7 @@ class AddSelectionTile extends StatelessWidget {
             decoration: BoxDecoration(
               color:
               color ??
-                  (isSelected ? AppColorScheme.softGradGreen : AppColorScheme.whiteNear),
+                  ((isSelected ?? true) ? AppColorScheme.softGradGreen : AppColorScheme.whiteNear),
               borderRadius: BorderRadius.circular(8.r),
               border: Border.all(color: AppColorScheme.softGrey),
             ),
@@ -52,7 +52,7 @@ class AddSelectionTile extends StatelessWidget {
                   GestureDetector(
                     onTap: onTap,
                     child: Text(
-                      playerName.isEmpty ? "Player $index" : playerName,
+                      playerName ?? "Player $index",
                       style: style.bodyMedium!.copyWith(
                         fontWeight: FontWeight.w500,
                         color: AppColorScheme.softGrey,
@@ -60,7 +60,7 @@ class AddSelectionTile extends StatelessWidget {
                     ),
                   ),
                   const Spacer(),
-                  if (isSelected) SvgPicture.asset(AppIcons.tick),
+                  if (isSelected ?? true) SvgPicture.asset(AppIcons.tick),
                 ],
               ),
             ),
@@ -69,7 +69,7 @@ class AddSelectionTile extends StatelessWidget {
           CustomIconsButtons(
             icon: AppIcons.substract,
             onTap: onTabRemove,
-            bgIcon: isSelected ? AppIcons.redBGsqare : AppIcons.greyBG,
+            bgIcon: (isSelected ?? true) ? AppIcons.redBGsqare : AppIcons.greyBG,
           ),
         ],
       ),

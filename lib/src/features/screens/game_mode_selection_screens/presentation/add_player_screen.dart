@@ -2,30 +2,48 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
-
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/constant/images.dart';
 import 'package:naheelsoufan_game/src/core/constant/padding.dart';
-import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
-
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/add_player_widgets/add_player_selection_tile.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/add_player_widgets/type_player_name_dialog.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
-import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/selection_provider.dart';
+import '../riverpod/player_provider.dart';
 
-import '../../main_quiz_screen/presentation/riverpod/stateProvider.dart';
-import '../riverpod/player_name_provider.dart';
-
-class AddPlayerScreen extends StatelessWidget {
+class AddPlayerScreen extends ConsumerStatefulWidget {
   const AddPlayerScreen({super.key});
 
   @override
+  ConsumerState<AddPlayerScreen> createState() => _AddPlayerScreenState();
+}
+
+class _AddPlayerScreenState extends ConsumerState<AddPlayerScreen> {
+  late TextEditingController _textController;
+  @override
+  void initState() {
+    _textController = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
+
+    final player = ref.watch(playerNameProvider);
+    final playerNameList = player.playerNames;
+
+    final selectionState = ref.watch(addPlayerTileSelection);
+
+    final isMaxPlayer = playerNameList.length >= 4;
+    final isMinPlayer = playerNameList.length <= 2;
 
     return CreateScreen(
       child: SingleChildScrollView(
@@ -34,18 +52,6 @@ class AddPlayerScreen extends StatelessWidget {
           padding: AppPadding.horizontalPadding,
           child: Consumer(
             builder: (context, ref, _) {
-              final state = ref.watch(selectionProvider);
-              final notifier = ref.read(selectionProvider.notifier);
-              final fixedPlayers = {0: true, 1: true};
-              final dynamicPlayerKeys = [2, 3];
-              final dynamicPlayers = state.selectedTiles;
-              final allPlayers = {...fixedPlayers, ...dynamicPlayers};
-              final keys = allPlayers.keys.toList()..sort();
-              final totalPlayers = allPlayers.length;
-              final isMaxPlayers = totalPlayers >= 4;
-
-              final controller = ref.read(playerProvider.notifier);
-              final current = ref.read(playerProvider);
 
               return Column(
                 children: [
@@ -82,48 +88,32 @@ class AddPlayerScreen extends StatelessWidget {
                   ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: keys.length,
+                    itemCount: playerNameList.length,
                     itemBuilder: (context, index) {
-                      final key = keys[index];
-                      final isSelected = true;
-
-                      String playerName = "";
-                      switch (key + 1) {
-                        case 1:
-                          playerName = ref.watch(playerProvider1);
-                          break;
-                        case 2:
-                          playerName = ref.watch(playerProvider2);
-                          break;
-                        case 3:
-                          playerName = ref.watch(playerProvider3);
-                          break;
-                        case 4:
-                          playerName = ref.watch(playerProvider4);
-                          break;
-                      }
 
                       return Padding(
                         padding: EdgeInsets.only(bottom: 16.h),
                         child: AddSelectionTile(
-                          index: '${key + 1}',
-                          playerName: playerName,
-                          isSelected: isSelected,
+                          index: index,
+                          playerName: playerNameList[index],
                           onTap: () {
-                            // Open dialog with ref to update name for that player
-                            showNameDialog(context, ref, key + 1);
+                              ref.read(addPlayerTileSelection.notifier).state = index;
+                              showNameDialog(context, ref, _textController, index);
                           },
-                          onTabRemove:
-                              dynamicPlayerKeys.contains(key)
-                                  ? () {
-                                    final updated = Map<int, bool>.from(
-                                      state.selectedTiles,
-                                    )..remove(key);
-                                    notifier.state = state.copyWith(
-                                      selectedTiles: updated,
-                                    );
-                                  }
-                                  : null,
+                          onTabRemove: () {
+                            if(!isMinPlayer) {
+                              ref.read(playerNameProvider.notifier).removePlayerAt(index);
+                            }
+                            else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text("At 2 Player needed to play this game"),
+                                    backgroundColor: AppColorScheme.error,
+                                  )
+                              );
+                            }
+                            debugPrint(playerNameList.toString());
+                          }
                         ),
                       );
                     },
@@ -131,8 +121,8 @@ class AddPlayerScreen extends StatelessWidget {
 
                   SizedBox(height: 40.h),
 
-                  if (isMaxPlayers)
-                    Container(
+                  if (isMaxPlayer)
+                    ...[Container(
                       width: 300.w,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8.r),
@@ -155,36 +145,29 @@ class AddPlayerScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                    ),
-
-                  SizedBox(height: 12.h),
-
-                  if (!isMaxPlayers)
-                    Row(
+                    )]
+                  else
+                    ...[Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         GestureDetector(
                           onTap: () {
-                            final removable =
-                                state.selectedTiles.keys
-                                    .where((k) => dynamicPlayerKeys.contains(k))
-                                    .toList()
-                                  ..sort();
-                            if (removable.isNotEmpty) {
-                              final lastKey = removable.last;
-                              final updated = Map<int, bool>.from(
-                                state.selectedTiles,
-                              )..remove(lastKey);
-                              notifier.state = state.copyWith(
-                                selectedTiles: updated,
+                            if(!isMinPlayer) {
+                              ref.read(playerNameProvider.notifier).removeLastPlayer();
+                            }
+                            else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text("At 2 Player needed to play this game"),
+                                  backgroundColor: AppColorScheme.error,
+                                )
                               );
                             }
+                            debugPrint(playerNameList.toString());
                           },
                           child: Opacity(
                             opacity:
-                                state.selectedTiles.keys.any(
-                                      (k) => dynamicPlayerKeys.contains(k),
-                                    )
+                                !isMinPlayer
                                     ? 1
                                     : 0.4,
                             child: SvgPicture.asset(AppIcons.minusBtn),
@@ -195,35 +178,19 @@ class AddPlayerScreen extends StatelessWidget {
                         SizedBox(width: 25.w),
                         GestureDetector(
                           onTap: () {
-                            if (totalPlayers < 4) {
-                              for (final key in dynamicPlayerKeys) {
-                                if (!state.selectedTiles.containsKey(key)) {
-                                  final updated = Map<int, bool>.from(
-                                    state.selectedTiles,
-                                  )..[key] = true;
-                                  notifier.state = state.copyWith(
-                                    selectedTiles: updated,
-                                  );
-                                  break;
-                                }
-                              }
-                            }
+                            ref.read(playerNameProvider.notifier).addPlayer("player ${playerNameList.length + 1}");
+                            debugPrint(playerNameList.toString());
                           },
-                          child: Opacity(
-                            opacity: totalPlayers < 4 ? 1 : 0.4,
-                            child: SvgPicture.asset(AppIcons.plusBtn),
-                          ),
+                          child: SvgPicture.asset(AppIcons.plusBtn),
                         ),
                       ],
-                    ),
+                    )],
 
                   SizedBox(height: 20.h),
 
                   GestureDetector(
-                    onTap:
-                        () {
-                      controller.state = current.copyWith(totalPlayer: totalPlayers);// CB
-                      context.push(RouteName.catagorySelectionScreen);
+                    onTap: () {
+                      /// START BUTTON LOGIC
                     },
                     child: Container(
                       width: 229.w,

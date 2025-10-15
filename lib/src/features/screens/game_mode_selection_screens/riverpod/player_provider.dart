@@ -1,0 +1,43 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+class PlayerNamesNotifier extends ChangeNotifier {
+  final List<String> _playerNames;
+
+  PlayerNamesNotifier(List<String>? initialPlayers)
+      : _playerNames = initialPlayers ?? [];
+
+  List<String> get playerNames => List.unmodifiable(_playerNames);
+
+  void addPlayer(String playerName) {
+    _playerNames.add(playerName);
+    notifyListeners();
+  }
+
+  void updatePlayerName(int index, String newName) {
+    if (index >= 0 && index < _playerNames.length) {
+      _playerNames[index] = newName;
+      notifyListeners();
+    }
+  }
+
+  void removeLastPlayer() {
+    if (_playerNames.isNotEmpty) {
+      _playerNames.removeLast();
+      notifyListeners();
+    }
+  }
+
+  void removePlayerAt(int index) {
+    if (index >= 0 && index < _playerNames.length) {
+      _playerNames.removeAt(index);
+      notifyListeners();
+    }
+  }
+}
+
+final playerNameProvider = ChangeNotifierProvider<PlayerNamesNotifier>(
+      (ref) => PlayerNamesNotifier(["Player 1", "Player 2"]),
+);
+
+final addPlayerTileSelection = StateProvider<int> ((ref)=> -1);

@@ -7,9 +7,7 @@ import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
-import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/player_selection_widgets/selection_tile.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
-import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/player_selection_name_provider.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/selection_provider.dart';
 import '../../../../core/constant/icons.dart';
 import '../../../../core/constant/images.dart';
@@ -67,37 +65,10 @@ class PlayerSelectionScreen extends ConsumerWidget {
               physics: NeverScrollableScrollPhysics(),
               itemCount: 4,
               itemBuilder: (context, index) {
-                final bool isTileSelected =
-                    isSelected.selectedTiles[index] ?? false;
-
-                String playerName = "";
-                switch (index + 1) {
-                  case 1:
-                    playerName = ref.watch(playerSelectionProvider1);
-                    break;
-                  case 2:
-                    playerName = ref.watch(playerSelectionProvider2);
-                    break;
-                  case 3:
-                    playerName = ref.watch(playerSelectionProvider3);
-                    break;
-                  case 4:
-                    playerName = ref.watch(playerSelectionProvider4);
-                    break;
-                }
 
                 return Padding(
                   padding: EdgeInsets.only(bottom: 16.h),
-                  child: SelectionTile(
-                    index: '${index + 1}',
-                    playerName: playerName,
-                    isSelected: isTileSelected,
-                    onTap: () {
-                      ref
-                          .read(selectionProvider.notifier)
-                          .toggleTileSelection(index);
-                    },
-                  ),
+                  child: Container()
                 );
               },
             ),
