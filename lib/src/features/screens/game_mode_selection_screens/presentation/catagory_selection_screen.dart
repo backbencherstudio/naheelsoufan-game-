@@ -45,6 +45,8 @@ class _CatagorySelectionScreenState extends ConsumerState<CatagorySelectionScree
     final categories = ref.watch(categoryProvider);
     final currentPage = ref.watch(currentPageProvider);
     final isNotTab = Utils.isTablet(context);
+    bool isPortrait =
+        MediaQuery.of(context).orientation == Orientation.portrait;
 
     ref.listen<int>(currentPageProvider, (previous, next) {
       _pageController.animateToPage(
@@ -84,11 +86,10 @@ class _CatagorySelectionScreenState extends ConsumerState<CatagorySelectionScree
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
                       crossAxisSpacing: 30,
-                      childAspectRatio: isNotTab ? (0.5) : 1,
+                      childAspectRatio: (isNotTab || isPortrait) ? (0.4) : 1,
                     ),
                     itemCount: categories?.data.length,
                     itemBuilder: (context, index) {
-                      // final updatedIndex = (categories?.pagination.limit ?? 0) * pageIndex + index;
                       return Column(
                         children: [
                           CustomQuestionTypeTile(
