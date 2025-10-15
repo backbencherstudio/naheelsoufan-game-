@@ -13,8 +13,7 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/selection_provider.dart';
-import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/riverpod/stateProvider.dart';
-import '../../question_answer_screen/next_turn/riverpod/player_name_state_provider.dart';
+import '../riverpod/player_provider.dart';
 
 class CatagorySelectionScreen extends ConsumerWidget {
   const CatagorySelectionScreen({super.key});
@@ -26,6 +25,7 @@ class CatagorySelectionScreen extends ConsumerWidget {
     final selectedState = ref.watch(selectProvider);
 
     final List<String> levels = ["General Knowledge", "Math", "Science","General Knowledge", "Math", "Science","General Knowledge", "Math", "Science",];
+    debugPrint("\n\n\nPlayer: ${player.currentPlayer}\n\n\n");
 
     return CreateScreen(
       child: Padding(

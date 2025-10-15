@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../data/riverpod/count_down_state.dart';
 import '../../../auth/register/presentation/widget/custom_textformfield.dart';
+import '../../../game_mode_selection_screens/riverpod/player_provider.dart';
 import '../../../grid_play_game/riverpod/function.dart';
 import '../../../main_quiz_screen/presentation/riverpod/advance_turn_controller.dart';
 import '../../../main_quiz_screen/presentation/riverpod/stateProvider.dart';
@@ -53,7 +54,7 @@ class _TypedQuestionWithImageVideoState extends ConsumerState<TypedQuestionWithI
     final rightAnswer = widget.rightAnswer ?? "";
     final controller = ref.read(playerProvider.notifier);
     final current = ref.read(playerProvider);
-    final next = (current.currentPlayer + 1) % current.totalPlayer;
+    //final next = (current.currentPlayer + 1) % current.totalPlayer;
     final huntMode = ref.watch(huntModeOn);
     return Column(
       children: [
@@ -79,7 +80,7 @@ class _TypedQuestionWithImageVideoState extends ConsumerState<TypedQuestionWithI
               onSubmitted: (value) {
                 if (value.toLowerCase() == rightAnswer.toLowerCase()) {
                   ref.read(advanceTurnFlagProvider.notifier).state = true;
-                  controller.state = current.copyWith(currentPlayer: next); // CB
+                  //controller.state = current.copyWith(currentPlayer: next); // CB
                 }
                 else{
                   ref.read(selectedPlayerIndexProvider.notifier).state = -1;
@@ -88,7 +89,7 @@ class _TypedQuestionWithImageVideoState extends ConsumerState<TypedQuestionWithI
                   log("\n\n\nWRONG!!!\n\n\n");
                   if(huntMode == true){
                     ref.read(advanceTurnFlagProvider.notifier).state = true;
-                    controller.state = current.copyWith(currentPlayer: next);
+                    //controller.state = current.copyWith(currentPlayer: next);
                   } else {
                     ref.read(autoCounterProvider(60).notifier).reset();
                     onWrongAnswerTap(context, rightAnswer, ref);

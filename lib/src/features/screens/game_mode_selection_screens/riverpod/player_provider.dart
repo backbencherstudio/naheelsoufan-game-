@@ -1,6 +1,34 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+class PlayerManage{
+  final int currentPlayer;
+  final int stealPlayer;
+  final int totalPlayer;
+
+  PlayerManage({
+    required this.currentPlayer,
+    required this.totalPlayer,
+    required this.stealPlayer
+  });
+  PlayerManage copyWith({
+    int? currentPlayer,
+    int? totalPlayer,
+    int? stealPlayer,
+  }){
+    return PlayerManage(currentPlayer: currentPlayer ?? this.currentPlayer, totalPlayer: totalPlayer ?? this.totalPlayer, stealPlayer: stealPlayer ?? this.stealPlayer);
+  }
+}
+
+final playerProvider = StateProvider<PlayerManage>((ref)=>PlayerManage(
+    totalPlayer: ref.read(playerNameProvider.notifier)._playerNames.length,
+    currentPlayer: 0,
+    stealPlayer: -1
+));
+
+
+
+
 class PlayerNamesNotifier extends ChangeNotifier {
   final List<String> _playerNames;
 

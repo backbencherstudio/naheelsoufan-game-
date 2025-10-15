@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_type/all_types/mcq_question/widget/video_part.dart';
 import '../../../../../core/theme/theme_extension/color_scheme.dart';
 import '../../../../../data/riverpod/count_down_state.dart';
+import '../../../game_mode_selection_screens/riverpod/player_provider.dart';
 import '../../../grid_play_game/riverpod/function.dart';
 import '../../../main_quiz_screen/presentation/riverpod/advance_turn_controller.dart';
 import '../../../main_quiz_screen/presentation/riverpod/stateProvider.dart';
@@ -64,7 +65,7 @@ class McqQuestionWithImageVideo extends StatelessWidget {
               builder: (_, ref, _) {
                 final controller = ref.read(playerProvider.notifier);
                 final current = ref.read(playerProvider);
-                final next = (current.currentPlayer + 1) % current.totalPlayer;
+                //final next = (current.currentPlayer + 1) % current.totalPlayer;
                 final huntMode = ref.watch(huntModeOn);
                 final checkChoice = ref.watch(checkChoicesProvider(index));
                 final rightChoiceIndex = rightIndex ?? 0;
@@ -91,7 +92,7 @@ class McqQuestionWithImageVideo extends StatelessWidget {
                       log("\n\n\nWRONG!!!\n\n\n");
                       if(huntMode == true){
                         ref.read(advanceTurnFlagProvider.notifier).state = true;
-                        controller.state = current.copyWith(currentPlayer: next);
+                        //controller.state = current.copyWith(currentPlayer: next);
                       } else {
                         ref.read(autoCounterProvider(60).notifier).reset();
                         onWrongAnswerTap(context, choices[rightChoiceIndex], ref);
@@ -102,7 +103,7 @@ class McqQuestionWithImageVideo extends StatelessWidget {
                       });
                     } else {
                       ref.read(advanceTurnFlagProvider.notifier).state = true;
-                      controller.state = current.copyWith(currentPlayer: next); // CB
+                      //controller.state = current.copyWith(currentPlayer: next); // CB
                     }
                     log("is wrong = $huntMode");
                   },

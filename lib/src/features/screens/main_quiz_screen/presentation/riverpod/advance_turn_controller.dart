@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/riverpod/stateProvider.dart';
 import '../../../../../data/riverpod/count_down_state.dart';
+import '../../../game_mode_selection_screens/riverpod/player_provider.dart';
 import '../../../game_type/riverpod/multiple_choice_provider.dart';
 import '../../../grid_play_game/riverpod/function.dart';
-import '../../../question_answer_screen/next_turn/riverpod/player_name_state_provider.dart';
 
 final advanceTurnFlagProvider = StateProvider<bool>((ref) => false);
 
@@ -13,19 +13,23 @@ enum AdvanceNavigation { none, leaderboard, nextTurn }
 final advanceNavigationProvider =
 StateProvider<AdvanceNavigation>((ref) => AdvanceNavigation.none);
 
-final advanceTurnControllerProvider = Provider.autoDispose<void>((ref) {
+final advanceTurnControllerProvider = Provider<void>((ref) {
   ref.listen<bool>(advanceTurnFlagProvider, (previous, next) async {
     if (previous == next) return;
     if (next != true) return;
 
     await Future.delayed(const Duration(seconds: 1));
-
-    final currentPlayerTurn = ref.read(playerTurnProvider);
     final current = ref.read(playerProvider);
+    final currentPlayerTurn = current.currentPlayer;
     final nextPlayerTurn = (currentPlayerTurn + 1) % current.totalPlayer;
 
-    ref.read(playerTurnProvider.notifier).state = nextPlayerTurn;
-    ref.read(playerNo.notifier).state = current.currentPlayer;
+    debugPrint("\n\n\nCurrent Player No: $currentPlayerTurn\n\n\n");
+
+    debugPrint('Current Player: $currentPlayerTurn, Next Player: $nextPlayerTurn');
+
+    ref.read(playerProvider.notifier).state = current.copyWith(currentPlayer: nextPlayerTurn);
+
+    debugPrint("\n\n\nCurrent Player No: $currentPlayerTurn\n\n\n");
 
     // NEED TO UNDERSTAND
      ref.read(huntModeOn.notifier).state = false;
@@ -45,7 +49,6 @@ final advanceTurnControllerProvider = Provider.autoDispose<void>((ref) {
     if (nextPlayerTurn == 0) {
       ref.read(advanceNavigationProvider.notifier).state =
           AdvanceNavigation.leaderboard;
-      ref.read(playerTurnProvider.notifier).state = 1;
     } else {
       ref.read(advanceNavigationProvider.notifier).state =
           AdvanceNavigation.nextTurn;
@@ -56,5 +59,3 @@ final advanceTurnControllerProvider = Provider.autoDispose<void>((ref) {
 });
 
 
-
-//ref.read(isCorrectQuiz.notifier).state = false;

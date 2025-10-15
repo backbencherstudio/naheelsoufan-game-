@@ -12,6 +12,7 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import '../../../../core/constant/icons.dart';
 import '../../../../core/constant/images.dart';
 import '../../main_quiz_screen/presentation/riverpod/stateProvider.dart';
+import '../riverpod/player_provider.dart';
 
 class PlayerSelectionScreen extends ConsumerWidget {
   const PlayerSelectionScreen({super.key});

@@ -6,6 +6,7 @@ import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.da
 import 'package:naheelsoufan_game/src/features/screens/game_type/riverpod/multiple_choice_provider.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/riverpod/function.dart';
 import '../../../../../data/riverpod/count_down_state.dart';
+import '../../../game_mode_selection_screens/riverpod/player_provider.dart';
 import '../../../main_quiz_screen/presentation/riverpod/advance_turn_controller.dart';
 import '../../../main_quiz_screen/presentation/riverpod/stateProvider.dart';
 import '../../../main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/wrong_answer_dialog.dart';
@@ -55,8 +56,8 @@ class MultipleChoiceQuestion extends StatelessWidget {
                 final checkChoice = ref.watch(checkChoicesProvider(index));
                 final rightChoiceIndex = rightIndex ?? 0;
                 final controller = ref.read(playerProvider.notifier);
-                final current = ref.read(playerProvider);
-                final next = (current.currentPlayer + 1) % current.totalPlayer;
+                //final current = ref.read(playerProvider);
+                //final next = (current.currentPlayer + 1) % current.totalPlayer;
                 final huntMode = ref.watch(huntModeOn);
 
                 return InkWell(
@@ -84,7 +85,7 @@ class MultipleChoiceQuestion extends StatelessWidget {
                       log("\n\n\nWRONG!!!\n\n\n");
                       if(huntMode == true){
                         ref.read(advanceTurnFlagProvider.notifier).state = true;
-                        controller.state = current.copyWith(currentPlayer: next);
+                        //controller.state = current.copyWith(currentPlayer: next);
                       } else {
                         ref.read(autoCounterProvider(60).notifier).reset();
                         onWrongAnswerTap(context, choices[rightChoiceIndex], ref);
@@ -95,7 +96,7 @@ class MultipleChoiceQuestion extends StatelessWidget {
                       });
                     } else {
                       ref.read(advanceTurnFlagProvider.notifier).state = true;
-                      controller.state = current.copyWith(currentPlayer: next); // CB
+                      //controller.state = current.copyWith(currentPlayer: next); // CB
                     }
                     log("is wrong = $huntMode");
                   },

@@ -13,6 +13,7 @@ import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentati
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/riverpod/function.dart';
 import '../../../../core/routes/route_name.dart';
 import '../../game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
+import '../../game_mode_selection_screens/riverpod/player_provider.dart';
 import '../../game_type/riverpod/multiple_choice_provider.dart';
 
 class GridDifficultyLevelScreen extends StatefulWidget {
@@ -32,6 +33,7 @@ class _GridDifficultyLevelScreenState extends State<GridDifficultyLevelScreen> {
     return CreateScreen(
       child: Consumer(
         builder: (_, ref, _) {
+          debugPrint("\n\n\nPlayer: ${ref.read(playerProvider.notifier).state.currentPlayer}\n\n\n");
           final check = ref.watch(isDifficultyVanished);
           return SingleChildScrollView(
             child: Column(

@@ -10,7 +10,7 @@ import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presenta
 import '../../../../../../../core/constant/icons.dart';
 import '../../../../../../../core/routes/route_name.dart';
 import '../../../../../../../data/riverpod/common_disposer.dart';
-import '../../../riverpod/stateProvider.dart';
+import '../../../../../game_mode_selection_screens/riverpod/player_provider.dart';
 
 void onQuitGameTap(BuildContext context) {
   showDialog(

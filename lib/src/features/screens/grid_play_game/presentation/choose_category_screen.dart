@@ -13,6 +13,7 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/catagory_selection_widgets/custom_question_type_tile.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/player_provider.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/selection_provider.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentation/widget/grid_choose_category_question_tile.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/riverpod/page_navigation_notifier.dart';
@@ -45,6 +46,7 @@ class _ChooseCategoryScreenState extends ConsumerState<ChooseCategoryScreen> {
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
     final checkButton = ref.watch(isSomethingClicked);
+    debugPrint("\n\n\nPlayer: ${ref.read(playerProvider.notifier).state.currentPlayer}\n\n\n");
     return CreateScreen(
       child: Padding(
         padding: AppPadding.horizontalPadding,

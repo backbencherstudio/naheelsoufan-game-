@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/constant/images.dart';
 import 'package:naheelsoufan_game/src/core/constant/padding.dart';
@@ -11,6 +12,8 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/add_player_widgets/type_player_name_dialog.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
+import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/riverpod/advance_turn_controller.dart';
+import '../../../../core/routes/route_name.dart';
 import '../riverpod/player_provider.dart';
 
 class AddPlayerScreen extends ConsumerStatefulWidget {
@@ -42,7 +45,7 @@ class _AddPlayerScreenState extends ConsumerState<AddPlayerScreen> {
 
     final selectionState = ref.watch(addPlayerTileSelection);
 
-    final isMaxPlayer = playerNameList.length >= 4;
+    final isMaxPlayer = playerNameList.length >= 8;
     final isMinPlayer = playerNameList.length <= 2;
 
     return CreateScreen(
@@ -190,7 +193,7 @@ class _AddPlayerScreenState extends ConsumerState<AddPlayerScreen> {
 
                   GestureDetector(
                     onTap: () {
-                      /// START BUTTON LOGIC
+                      context.pushReplacement(RouteName.categorySelectionScreen);
                     },
                     child: Container(
                       width: 229.w,

@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/riverpod/function.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/riverpod/advance_turn_controller.dart';
-import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/riverpod/stateProvider.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/custom_countdown.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/player_point_container.dart';
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/point.dart';
@@ -18,6 +17,7 @@ import '../../../../core/routes/route_name.dart';
 import '../../../../data/riverpod/count_down_state.dart';
 import '../../../common_widegts/create_screen/create_screen.dart';
 import '../../game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
+import '../../game_mode_selection_screens/riverpod/player_provider.dart';
 import '../../game_type/game_type.dart';
 
 class QuizScreen extends ConsumerStatefulWidget {
@@ -57,7 +57,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
     final huntMode = ref.watch(huntModeOn);
     final controller = ref.read(playerProvider.notifier);
     final current = ref.read(playerProvider);
-    final next = (current.currentPlayer + 1) % current.totalPlayer;
+    //final next = (current.currentPlayer + 1) % current.totalPlayer;
     return CreateScreen(
       child: Padding(
         padding: AppPadding.horizontalPadding,
@@ -88,8 +88,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
                           ref.read(autoCounterProvider(60).notifier).resetAndStart();
                         }
                         else {
-                          controller.state = current.copyWith(currentPlayer: next);
-                          ref.read(advanceTurnFlagProvider.notifier).state = true;
+                          //controller.state = current.copyWith(currentPlayer: next);
                         }
                       });
                     },

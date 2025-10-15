@@ -5,6 +5,7 @@ import 'package:naheelsoufan_game/src/features/screens/grid_play_game/riverpod/f
 import 'package:naheelsoufan_game/src/features/screens/main_quiz_screen/presentation/widgets/player_pointBlock.dart';
 import 'package:vs_scrollbar/vs_scrollbar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../game_mode_selection_screens/riverpod/player_provider.dart';
 import '../riverpod/stateProvider.dart';
 
 class PlayerPointContainer extends StatelessWidget {
@@ -55,6 +56,7 @@ class PlayerPointContainer extends StatelessWidget {
                       child: Consumer(
                           builder: (_, ref, _) {
                             final current = ref.read(playerProvider);
+                            final playerNameList = ref.watch(playerNameProvider.notifier).playerNames;
                             // CHANGE
                             final isStealMode = ref.watch(huntModeOn);
                             // CHANGE
@@ -70,13 +72,14 @@ class PlayerPointContainer extends StatelessWidget {
                                   padding: EdgeInsets.only(right: 8.w),
                                   child: (!isStealMode) ? (PlayerPointBlock(
                                     blockCardState: (
-                                        (checkAns == 1 && current.currentPlayer == (index + 1) % current.totalPlayer)
+                                        (checkAns == 1 && current.currentPlayer == (index) % current.totalPlayer)
                                             ? 1
                                             : (current.currentPlayer == index)
                                             ? 2
                                             : -1),
-                                    playerNo: (index + 1),
-                                    points: 50,
+                                    playerName: playerNameList[index],
+                                    points: 0,
+
                                   )) : GestureDetector(
                                     onTap: (){
                                       ref.read(selectedPlayerIndexProvider.notifier).state = index;
@@ -91,8 +94,8 @@ class PlayerPointContainer extends StatelessWidget {
                                           : (clickState == index)
                                           ? 2
                                           : 3),
-                                      playerNo: (index + 1),
-                                      points: 50,
+                                      playerName: playerNameList[index],
+                                      points: 0,
                                     )),
                                   ),
                                 );
