@@ -22,3 +22,6 @@ final authNotifierProvider = StateNotifierProvider<AuthNotifier, AsyncValue<bool
 final isObscure1 = StateProvider<bool>((ref) => false);
 final isObscure2 = StateProvider<bool>((ref) => false);
 final isObscure3 = StateProvider<bool>((ref) => false);
+
+final isObscure4 = StateProvider<bool>((ref) => false);
+final isObscure5 = StateProvider<bool>((ref) => false);

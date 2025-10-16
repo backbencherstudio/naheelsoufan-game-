@@ -65,4 +65,8 @@ class RouteName {
 
   static const String settingTtsScreen = "/SettingTtsScreen";
 
+
+  static const String verifyOtpScreen = "/verifyOtpScreen";
+  static const String resetPasswordScreen = "/resetPasswordScreen";
+
 }

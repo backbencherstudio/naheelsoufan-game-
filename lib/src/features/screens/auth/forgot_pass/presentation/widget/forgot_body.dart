@@ -49,22 +49,22 @@ class _RegisterBodyState extends State<ForgotBody> {
           bottom: 28.h,
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Reset Password",
+                  "Forget Password?",
                   style: titleStyle,
                 ),
               ],
             ),
             SizedBox(height: 12.h),
-            Text("Enter your email to reset password, we’ll send a link",
+            Text("Enter your email to reset password",
               style: subTitleStyle?.copyWith(fontSize: 16.sp), textAlign: TextAlign.center,),
             SizedBox(height: 16.h),
-            Text("Email", style: subTitleStyle,),
+            Align(alignment: AlignmentDirectional.centerStart, child: Text("Email", style: subTitleStyle,)),
             SizedBox(height: 4.h),
             CustomTextFormField(
               hintText: "Enter your email",
@@ -73,8 +73,8 @@ class _RegisterBodyState extends State<ForgotBody> {
             SizedBox(height: 40.h),
             CustomElevatedButton(
               onPressed: () {
-                context.go(RouteName.forgetPasswordLinkSentScreen);
-              }, buttonName: 'Send link',
+                context.push(RouteName.verifyOtpScreen);
+              }, buttonName: 'Send',
             ),
           ],
         ),

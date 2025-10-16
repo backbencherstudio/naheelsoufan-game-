@@ -260,6 +260,28 @@ class RouteConfig {
           ),
         ],
       ),
+      GoRoute(
+        path: RouteName.verifyOtpScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: OtpScreen(),
+          );
+        },
+      ),
+      GoRoute(
+        path: RouteName.resetPasswordScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: ResetPasswordScreen(),
+          );
+        },
+      ),
 
       GoRoute(
         path: RouteName.forgetPasswordLinkSentScreen,
