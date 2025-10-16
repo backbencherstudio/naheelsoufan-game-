@@ -23,15 +23,11 @@ class EditProfileIcon extends ConsumerWidget {
         children: [
           selectedIndex != null
               ? Image.asset(
-            AppIcons.profileImages[selectedIndex],
-            height: 80.h,
-            width: 80.w,
-          )
-              : Image.asset(
-            AppIcons.profile01,
-            height: 80.h,
-            width: 80.w,
-          ),
+                AppIcons.profileImages[selectedIndex],
+                height: 80.h,
+                width: 80.w,
+              )
+              : Image.asset(AppIcons.profile01, height: 80.h, width: 80.w),
 
           Positioned(
             top: isNotTab ? -12.h : null,

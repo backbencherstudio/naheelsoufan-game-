@@ -60,18 +60,18 @@ class ProfileIconScreen extends ConsumerWidget {
                             ),
                             child: Column(
                               children: [
-                                SizedBox(height: isNotTab ? null : 20.h,),
+                                SizedBox(height: isNotTab ? null : 20.h),
                                 selectedIndex != null
                                     ? Image.asset(
-                                  AppIcons.profileImages[selectedIndex],
-                                  height: 80.h,
-                                  width: 80.w,
-                                )
+                                      AppIcons.profileImages[selectedIndex],
+                                      height: 80.h,
+                                      width: 80.w,
+                                    )
                                     : Image.asset(
-                                  AppIcons.profile01,
-                                  height: 80.h,
-                                  width: 80.w,
-                                ),
+                                      AppIcons.profile01,
+                                      height: 80.h,
+                                      width: 80.w,
+                                    ),
                                 SizedBox(height: 12.h),
                                 Divider(color: AppColorScheme.primaryTextColor),
                                 SizedBox(height: 40.h),
@@ -94,9 +94,7 @@ class ProfileIconScreen extends ConsumerWidget {
                                                 selectedProfileProvider
                                                     .notifier,
                                               )
-                                              .selectProfile(
-                                                index,
-                                              );
+                                              .selectProfile(index);
                                         },
                                         child: Center(
                                           child: Container(

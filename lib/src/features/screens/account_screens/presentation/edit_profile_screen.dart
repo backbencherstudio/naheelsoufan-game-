@@ -12,7 +12,10 @@ import '../../../../core/constant/icons.dart';
 import '../../../../core/utils/utils.dart';
 import '../../../../data/riverpod/user/user_controller.dart';
 import '../../../common_widegts/create_screen/create_screen.dart';
+import '../../auth/riverpod/auth_providers.dart';
 import '../../game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
+import '../riverpod/change_password_riverpod.dart';
+import '../riverpod/edit_profile_riverpod.dart';
 
 class EditProfileScreen extends ConsumerStatefulWidget {
   const EditProfileScreen({super.key});
@@ -23,19 +26,33 @@ class EditProfileScreen extends ConsumerStatefulWidget {
 
 class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   TextEditingController nameController = TextEditingController();
-
   TextEditingController emailController = TextEditingController();
-
   TextEditingController currentPasswordController = TextEditingController();
-
   TextEditingController newPasswordController = TextEditingController();
-
   TextEditingController confirmPasswordController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final userData = ref.read(userProvider);
+      if (userData != null) {
+        nameController.text = userData.name ?? '';
+        emailController.text = userData.email ?? '';
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    bool isPortrait =
+        MediaQuery.of(context).orientation == Orientation.portrait;
     final style = Theme.of(context).textTheme;
     final isNotTab = Utils.isTablet(context);
+
+    final editNotifier = ref.read(editProfileProvider.notifier);
+
     return Scaffold(
       body: CreateScreen(
         child: SafeArea(
@@ -78,7 +95,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                               ),
                               child: Column(
                                 children: [
-                                  SizedBox(height: isNotTab ? null : 20.h,),
+                                  SizedBox(height: isNotTab ? null : 20.h),
                                   EditProfileIcon(),
                                   SizedBox(height: 16.h),
                                   InfoInputBox(
@@ -86,10 +103,64 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                                     style: style,
                                     labelName: 'Name',
                                     hintText: 'Walid',
-                                    suffixIcon: SvgPicture.asset(
-                                      AppIcons.selectedFilledBle,
-                                      width: 24.0,
-                                      height: 24.0,
+                                    onSuffixTap: () async {
+
+                                      final newName = nameController.text.trim();
+                                      if (newName.isEmpty) {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          const SnackBar(content: Text('Name cannot be empty')),
+                                        );
+                                        return;
+                                      }
+
+                                      final success = await editNotifier.updateProfile(
+                                        name: newName,
+                                      );
+
+                                      if (success) {
+                                        await ref.read(authNotifierProvider.notifier).fetchUserDetails();
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(content: Text(ref.read(editProfileProvider).message ?? 'Name updated', style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w600))),
+                                        );
+                                      } else {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(content: Text('Failed to update name', style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w600))),
+                                        );
+                                      }
+
+                                    },
+                                    suffixIcon: Container(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 4.w,
+                                      ),
+                                      height: 24.h,
+                                      width: 60.w,
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          begin: Alignment.topCenter,
+                                          end: Alignment.bottomCenter,
+                                          colors: [
+                                            Color(0xFF1D5128),
+                                            Color(0xFF14BA37),
+                                            Color(0xFF1D5128),
+                                          ],
+                                          stops: [0.0, 0.4904, 1.0],
+                                        ),
+                                        borderRadius: BorderRadius.circular(
+                                          8.r,
+                                        ),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          "Change",
+                                          style: Theme.of(
+                                            context,
+                                          ).textTheme.headlineMedium?.copyWith(
+                                            fontSize: isPortrait ? 12.sp : 6.sp,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
                                     ),
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
@@ -102,13 +173,14 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                                   InfoInputBox(
                                     controller: emailController,
                                     style: style,
+                                    readOnly: true,
                                     labelName: 'Email',
                                     hintText: 'waleed929@gmail.com',
-                                    suffixIcon: SvgPicture.asset(
-                                      AppIcons.selectedFilledBle,
-                                      width: 24.0,
-                                      height: 24.0,
-                                    ),
+                                    // suffixIcon: SvgPicture.asset(
+                                    //   AppIcons.selectedFilledBle,
+                                    //   width: 24.0,
+                                    //   height: 24.0,
+                                    // ),
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
                                         return 'Please enter your email';
@@ -154,14 +226,12 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                                                   )),
                                         ),
                                         onSuffixTap: () {
-                                          ref
-                                              .read(isVisible1.notifier)
-                                              .state = !isVisible;
+                                          ref.read(isVisible1.notifier).state =
+                                              !isVisible;
                                         },
                                         obscureText: !isVisible,
                                         validator: (value) {
-                                          if (value == null ||
-                                              value.isEmpty) {
+                                          if (value == null || value.isEmpty) {
                                             return 'Please enter your current password';
                                           }
                                           if (value.length < 6) {
@@ -183,26 +253,22 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                                           width: isNotTab ? 24.sp : 12.sp,
                                           height: isNotTab ? 24.sp : 12.sp,
                                           child:
-                                              (
-                                                  !isVisible
+                                              (!isVisible
                                                   ? SvgPicture.asset(
                                                     AppIcons.visibilityOff,
                                                   )
                                                   : SvgPicture.asset(
                                                     AppIcons.visibilityOn,
-                                                  )
-                                              ),
+                                                  )),
                                         ),
                                         onSuffixTap: () {
-                                          ref
-                                              .read(isVisible2.notifier)
-                                              .state = !isVisible;
+                                          ref.read(isVisible2.notifier).state =
+                                              !isVisible;
                                         },
                                         obscureText: !isVisible,
                                         controller: newPasswordController,
                                         validator: (value) {
-                                          if (value == null ||
-                                              value.isEmpty) {
+                                          if (value == null || value.isEmpty) {
                                             return 'Please enter your new password';
                                           }
                                           if (value.length < 8) {
@@ -233,19 +299,16 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                                                   )),
                                         ),
                                         onSuffixTap: () {
-                                          ref
-                                              .read(isVisible3.notifier)
-                                              .state = !isVisible;
+                                          ref.read(isVisible3.notifier).state =
+                                              !isVisible;
                                         },
                                         obscureText: !isVisible,
                                         controller: confirmPasswordController,
                                         validator: (value) {
-                                          if (value == null ||
-                                              value.isEmpty) {
+                                          if (value == null || value.isEmpty) {
                                             return 'Please confirm your password';
                                           }
-                                          String? newPassword =
-                                              'New Password';
+                                          String? newPassword = newPasswordController.text.trim();
                                           if (value != newPassword) {
                                             return 'Passwords do not match';
                                           }
@@ -256,8 +319,43 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                                   ),
                                   SizedBox(height: 40.h),
                                   InkWell(
-                                    onTap: (){
-                                      /// UPDATE LOGIC
+                                    onTap: () async {
+                                      final email = emailController.text.trim();
+                                      final oldPassword = currentPasswordController.text.trim();
+                                      final newPassword = newPasswordController.text.trim();
+
+                                      if (oldPassword.isEmpty || newPassword.isEmpty) {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          const SnackBar(content: Text('Please fill in all fields!')),
+                                        );
+                                        return;
+                                      }
+
+                                      if (oldPassword == newPassword) {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          const SnackBar(content: Text('Old and New Password are same!')),
+                                        );
+                                        return;
+                                      }
+
+                                      final notifier = ref.read(changePasswordProvider.notifier);
+                                      await notifier.changePassword(
+                                        email: email,
+                                        oldPassword: oldPassword,
+                                        newPassword: newPassword,
+                                      );
+
+                                      final state = ref.read(changePasswordProvider);
+
+                                      if (state.isSuccess) {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(content: Text(state.message ?? 'Password changed successfully', style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w600))),
+                                        );
+                                      } else {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(content: Text(state.message ?? 'Failed to change password', style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w600))),
+                                        );
+                                      }
                                       context.pop();
                                     },
                                     child: HeaderButton(

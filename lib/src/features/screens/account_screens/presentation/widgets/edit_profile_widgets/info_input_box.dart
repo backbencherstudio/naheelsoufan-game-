@@ -17,6 +17,7 @@ class InfoInputBox extends StatelessWidget {
     this.obscureText = false,
     this.suffixIcon,
     this.onSuffixTap,
+    this.readOnly
   });
 
   final TextTheme style;
@@ -28,6 +29,7 @@ class InfoInputBox extends StatelessWidget {
   final bool obscureText;
   final Widget? suffixIcon;
   final VoidCallback? onSuffixTap;
+  final bool? readOnly;
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +53,7 @@ class InfoInputBox extends StatelessWidget {
             children: [
               Expanded(
                 child: TextFormField(
+                  readOnly: readOnly ?? false,
                   keyboardType: keyboardType,
                   obscureText: obscureText,
                   controller: controller,
