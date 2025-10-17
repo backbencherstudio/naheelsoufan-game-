@@ -5,11 +5,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import 'package:naheelsoufan_game/src/features/screens/account_screens/presentation/widgets/edit_profile_widgets/edit_profile_icon.dart';
 import 'package:naheelsoufan_game/src/features/screens/account_screens/presentation/widgets/edit_profile_widgets/info_input_box.dart';
-import 'package:naheelsoufan_game/src/features/screens/account_screens/presentation/widgets/my_account_wodgets/header_button.dart';
+import 'package:naheelsoufan_game/src/features/screens/quick_play_offline/question_answer/presentation/widget/header_button.dart';
 import 'package:naheelsoufan_game/src/features/screens/account_screens/riverpod/obsecute_state_notifier.dart';
 import '../../../../core/constant/icons.dart';
 import '../../../common_widegts/create_screen/create_screen.dart';
-import '../../game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
+import '../../quick_play_offline/add_player/presentation/widget/custom_icons_Buttons.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});

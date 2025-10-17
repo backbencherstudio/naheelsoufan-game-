@@ -11,6 +11,9 @@ class AppTheme {
 
   static ThemeData darkTheme(BuildContext context) {
     return ThemeData(
+      textSelectionTheme: TextSelectionThemeData(
+        cursorColor: AppColorScheme.screenBackground,
+      ),
       scaffoldBackgroundColor: const Color(0xff101010),
       textTheme: AppTextTheme.darkTextTheme(context),  // use the method from previous answer
       colorScheme: AppColorScheme.colorScheme,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'header_button.dart';
+import '../../../../quick_play_offline/question_answer/presentation/widget/header_button.dart';
 
 class CommonButtonHeader extends StatefulWidget {
   const CommonButtonHeader({super.key});

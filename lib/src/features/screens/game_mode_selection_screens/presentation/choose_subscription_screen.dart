@@ -6,11 +6,10 @@ import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.da
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/choose_subscription_widgets/pay_to_play.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/choose_subscription_widgets/subscription_card.dart';
-import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
-import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
-
+import 'package:naheelsoufan_game/src/features/screens/quick_play_offline/add_player/presentation/widget/custom_icons_Buttons.dart';
 import '../../../../core/constant/icons.dart';
 import '../../../../core/constant/images.dart';
+import '../../../common_widegts/pop_up_menu/custom_pop_up_menu.dart';
 
 class ChoosePaymentCard extends StatelessWidget {
   const ChoosePaymentCard({super.key});

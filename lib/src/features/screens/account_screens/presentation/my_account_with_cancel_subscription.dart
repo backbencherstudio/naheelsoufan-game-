@@ -6,10 +6,10 @@ import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/account_screens/presentation/widgets/my_account_wodgets/edit_profile_button.dart';
-import 'package:naheelsoufan_game/src/features/screens/account_screens/presentation/widgets/my_account_wodgets/header_button.dart';
+import 'package:naheelsoufan_game/src/features/screens/quick_play_offline/question_answer/presentation/widget/header_button.dart';
 import 'package:naheelsoufan_game/src/features/screens/account_screens/presentation/widgets/my_account_wodgets/subs_status.dart';
 import '../../../../core/routes/route_name.dart';
-import '../../game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
+import '../../quick_play_offline/add_player/presentation/widget/custom_icons_Buttons.dart';
 import '../riverpod/profile_state_notifier.dart';
 
 class MyAccountWithCancelSubscription extends ConsumerWidget {

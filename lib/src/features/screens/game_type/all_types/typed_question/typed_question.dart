@@ -5,10 +5,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../data/riverpod/count_down_state.dart';
 import '../../../auth/register/presentation/widget/custom_textformfield.dart';
 import '../../../game_mode_selection_screens/riverpod/player_provider.dart';
-import '../../../grid_play_game/riverpod/function.dart';
-import '../../../main_quiz_screen/presentation/riverpod/advance_turn_controller.dart';
-import '../../../main_quiz_screen/presentation/riverpod/stateProvider.dart';
-import '../../../main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/wrong_answer_dialog.dart';
+import '../../../../../data/riverpod/function.dart';
+import '../../../quick_play_offline/question_answer/provider/advance_turn_controller.dart';
+import '../../../quick_play_offline/question_answer/presentation/widget/wrong_answer_dialog.dart';
 import '../mcq_question/widget/image_part.dart';
 import '../mcq_question/widget/video_part.dart';
 
@@ -83,7 +82,6 @@ class _TypedQuestionWithImageVideoState extends ConsumerState<TypedQuestionWithI
                   //controller.state = current.copyWith(currentPlayer: next); // CB
                 }
                 else{
-                  ref.read(selectedPlayerIndexProvider.notifier).state = -1;
                   ref.read(huntModeOn.notifier).state = !huntMode;
 
                   log("\n\n\nWRONG!!!\n\n\n");

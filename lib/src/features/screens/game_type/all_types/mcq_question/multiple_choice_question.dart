@@ -4,12 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_type/riverpod/multiple_choice_provider.dart';
-import 'package:naheelsoufan_game/src/features/screens/grid_play_game/riverpod/function.dart';
+import 'package:naheelsoufan_game/src/data/riverpod/function.dart';
 import '../../../../../data/riverpod/count_down_state.dart';
 import '../../../game_mode_selection_screens/riverpod/player_provider.dart';
-import '../../../main_quiz_screen/presentation/riverpod/advance_turn_controller.dart';
-import '../../../main_quiz_screen/presentation/riverpod/stateProvider.dart';
-import '../../../main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/wrong_answer_dialog.dart';
+import '../../../quick_play_offline/question_answer/provider/advance_turn_controller.dart';
+import '../../../quick_play_offline/question_answer/presentation/widget/wrong_answer_dialog.dart';
 
 class MultipleChoiceQuestion extends StatelessWidget {
   final List<String> choices;
@@ -79,7 +78,7 @@ class MultipleChoiceQuestion extends StatelessWidget {
                       for (int i = 0; i < 4; i++) {
                         ref.read(checkChoicesProvider(i).notifier).state = -1;
                       }
-                      ref.read(selectedPlayerIndexProvider.notifier).state = -1;
+
                       ref.read(huntModeOn.notifier).state = !huntMode;
 
                       log("\n\n\nWRONG!!!\n\n\n");

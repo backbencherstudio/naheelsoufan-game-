@@ -17,7 +17,7 @@ class RouteName {
 
   static const String forgetPasswordLinkSentScreen = "/forgetPasswordLinkSentScreen";
 
-  static const String chooseCategoryScreen = "/ChooseCategoryScreen";
+  static const String gridCategoryScreen = "/ChooseCategoryScreen";
 
   static const String chooseDifficultyScreen = "/chooseDifficultyScreen";
 

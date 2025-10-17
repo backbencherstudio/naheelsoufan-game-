@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import '../../riverpod/function.dart';
+import '../../../../../data/riverpod/function.dart';
 
 class CustomQuestionCard extends ConsumerWidget {
   final String questionId;
