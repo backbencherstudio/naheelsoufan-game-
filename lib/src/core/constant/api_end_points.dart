@@ -24,6 +24,8 @@ class ApiEndPoints{
   static const String fetchUserDataUrl = "$baseUrl/api/auth/me";
   static const String updateProfile = "$baseUrl/api/auth/update";
   static const String changePassword = "$baseUrl/api/auth/change-password";
+  static const String forgetPassword = "$baseUrl/api/auth/forgot-password";
+  static const String resetPassword = "$baseUrl/api/auth/reset-password";
 
   //CREATE GAME
   static const String createGameUrl = "$baseUrl/api/games";
