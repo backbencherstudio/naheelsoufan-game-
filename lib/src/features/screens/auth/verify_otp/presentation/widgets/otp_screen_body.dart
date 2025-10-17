@@ -1,21 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import '../../../../../../core/routes/route_name.dart';
 import '../../../../../common_widegts/elevated_button/elevated_button.dart';
+import '../../../riverpod/reset_pass_riverpod.dart';
 import '../../../widget/custom_textformfield.dart';
 
-class OtpScreenBody extends StatefulWidget {
+class OtpScreenBody extends ConsumerStatefulWidget {
   const OtpScreenBody({super.key});
 
   @override
-  State<OtpScreenBody> createState() => _RegisterBodyState();
+  ConsumerState<OtpScreenBody> createState() => _RegisterBodyState();
 }
 
-class _RegisterBodyState extends State<OtpScreenBody> {
+class _RegisterBodyState extends ConsumerState<OtpScreenBody> {
   late final TextEditingController _pinInputTEController;
 
   @override
@@ -108,6 +110,8 @@ class _RegisterBodyState extends State<OtpScreenBody> {
             SizedBox(height: 40.h),
             CustomElevatedButton(
               onPressed: () {
+                final notifier = ref.read(resetPasswordProvider.notifier);
+                notifier.setOtpToken(_pinInputTEController.text);
                 context.push(RouteName.resetPasswordScreen);
               },
               buttonName: 'Send',

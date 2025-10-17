@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../core/constant/icons.dart';
 import '../../../../../../core/routes/route_name.dart';
@@ -10,10 +10,13 @@ import '../../../../../../core/theme/theme_extension/color_scheme.dart';
 import '../../../../../../core/utils/utils.dart';
 import '../../../../../common_widegts/elevated_button/elevated_button.dart';
 import '../../../../../common_widegts/snack_bar_message/custom_snack_bar.dart';
-import '../../../widget/custom_textformfield.dart';
 import '../../../riverpod/auth_providers.dart';
+import '../../../riverpod/reset_pass_riverpod.dart';
+import '../../../riverpod/reset_pass_state.dart';
+import '../../../widget/custom_textformfield.dart';
 
 class ResetPassBody extends ConsumerStatefulWidget {
+
   const ResetPassBody({super.key});
 
   @override
@@ -39,29 +42,44 @@ class _ResetPassBodyState extends ConsumerState<ResetPassBody> {
     super.dispose();
   }
 
+  String? _validatePassword(String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Password is required';
+    }
+    if (val.length < 6) {
+      return 'Password should be at least 6 characters';
+    }
+    return null;
+  }
+
+  String? _validateConfirmPassword(String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Please confirm your password';
+    }
+    if (val != newPasswordController.text) {
+      return 'Passwords do not match';
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     final titleStyle = Theme.of(context).textTheme.displayLarge;
     final subTitleStyle = Theme.of(context).textTheme.displaySmall;
     final isNotTab = Utils.isTablet(context);
 
-    ref.listen<AsyncValue>(authNotifierProvider, (previous, next) {
-      next.whenOrNull(
-        data: (success) {
-          if (success) {
-            context.go(RouteName.gameModeScreens);
-            CustomSnackBar.show(context, 'Login Successful');
-          } else {
-            CustomSnackBar.show(context, 'Something Went Wrong!');
-          }
-        },
-        error: (err, _) {
-          CustomSnackBar.show(context, err.toString());
-        },
-      );
+    ref.listen<ResetPassState>(resetPasswordProvider, (previous, next) {
+      if (!next.isLoading) {
+        if (next.isSuccess) {
+          CustomSnackBar.show(context, next.message ?? 'Password reset successful');
+          context.go(RouteName.signInScreen); // Navigate on success
+        } else if (next.message != null && next.message!.isNotEmpty) {
+          CustomSnackBar.show(context, next.message!);
+        }
+      }
     });
 
-    final authState = ref.watch(authNotifierProvider);
+    final resetState = ref.watch(resetPasswordProvider);
 
     return Container(
       width: double.infinity,
@@ -105,8 +123,9 @@ class _ResetPassBodyState extends ConsumerState<ResetPassBody> {
                       ref.read(isObscure4.notifier).state = !isVisible;
                     },
                     obscureText: !isVisible,
+                    validator: _validatePassword,
                   );
-                }
+                },
               ),
               SizedBox(height: 8.h),
               Text("Confirm Password", style: subTitleStyle),
@@ -114,7 +133,6 @@ class _ResetPassBodyState extends ConsumerState<ResetPassBody> {
               Consumer(
                 builder: (_, ref, __) {
                   final isVisible = ref.watch(isObscure5);
-
                   return CustomTextFormField(
                     hintText: "Confirm your password",
                     controller: confirmPasswordController,
@@ -130,32 +148,35 @@ class _ResetPassBodyState extends ConsumerState<ResetPassBody> {
                       ref.read(isObscure5.notifier).state = !isVisible;
                     },
                     obscureText: !isVisible,
+                    validator: _validateConfirmPassword,
                   );
                 },
               ),
-              SizedBox(height: 16.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  InkWell(
-                    onTap: () => context.go('${RouteName.signInScreen}${RouteName.forgetPasswordScreen}'),
-                    child: Text("Forgot password?", style: subTitleStyle),
-                  ),
-                ],
-              ),
               SizedBox(height: 40.h),
               CustomElevatedButton(
-                onPressed: () async {
-                  if (_formKey.currentState?.validate() ?? false) {
-                    await ref.read(authNotifierProvider.notifier).login(newPasswordController.text, confirmPasswordController.text,);
+                onPressed: () {
+                  if (newPasswordController.text == confirmPasswordController.text) {
+                    _handleResetPassword();
                   }
                 },
-                buttonName: authState.isLoading ? 'Resetting...' : 'Reset Password',
+                buttonName: resetState.isLoading ? 'Resetting...' : 'Reset Password',
               ),
             ],
           ),
         ),
       ),
     );
+  }
+  void _handleResetPassword() async {
+    if (_formKey.currentState?.validate() ?? false) {
+      final success = await ref.read(resetPasswordProvider.notifier).resetPassword(
+        newPass: newPasswordController.text,
+      );
+      if (!success) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to reset password')),
+        );
+      }
+    }
   }
 }
