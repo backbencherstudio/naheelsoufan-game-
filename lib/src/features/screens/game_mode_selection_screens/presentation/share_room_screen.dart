@@ -12,7 +12,6 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/quick_play_offline/add_player/presentation/widget/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/share_room%20widgets/qr_box.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/share_room%20widgets/room_link_box.dart';
-import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/freeExpire_provider.dart';
 import '../../../../core/constant/images.dart';
 import '../../../common_widegts/pop_up_menu/custom_pop_up_menu.dart';
 
@@ -84,16 +83,11 @@ class ShareRoomScreen extends StatelessWidget {
                   SizedBox(height: 60.h),
                   Consumer(
                     builder: (context, ref, _) {
-                      final isOffLine = ref.watch(isOfflineOnProvider);
                       return CustomButton(
                         text: "NEXT",
                         img: AppImages.primaryUpsidedown,
                         onTap: () {
-                          if (isOffLine == true) {
-                            context.push(RouteName.addPlayerScreen);
-                          } else {
-                            context.push(RouteName.playerSelectionScreen);
-                          }
+                          /// NEED TO WORK
                         },
                       );
                     },

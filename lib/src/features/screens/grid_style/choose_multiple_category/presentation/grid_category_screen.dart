@@ -109,17 +109,17 @@ class _ChooseCategoryScreenState extends ConsumerState<ChooseCategoryScreen> {
                                     .state = !selectedItem;
                                 ref.read(isSomethingClicked.notifier).state =
                                 true;
-                                (categoryList.contains(pageIndex * 9 + index)) ?
-                                ref.read(categoryListProvider.notifier).state.remove(pageIndex * 9 + index) :
-                                ref.read(categoryListProvider.notifier).state.add(pageIndex * 9 + index);
+                                (categoryList.contains((pageIndex * 9 + index).toString())) ?
+                                ref.read(categoryListProvider.notifier).state.remove((pageIndex * 9 + index).toString()) :
+                                ref.read(categoryListProvider.notifier).state.add((pageIndex * 9 + index).toString());
                               }
                               else {
-                                if(categoryList.contains(pageIndex * 9 + index)) {
+                                if(categoryList.contains((pageIndex * 9 + index).toString())) {
                                   ref
                                       .read(
                                     isCategorySelectedClicked(
                                       pageIndex * 9 + index).notifier).state = !selectedItem;
-                                  ref.read(categoryListProvider.notifier).state.remove(pageIndex * 9 + index);
+                                  ref.read(categoryListProvider.notifier).state.remove((pageIndex * 9 + index).toString());
                                 }
                               }
 

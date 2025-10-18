@@ -7,10 +7,9 @@ import 'package:naheelsoufan_game/src/core/constant/images.dart';
 import 'package:naheelsoufan_game/src/core/constant/padding.dart';
 import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/mode_controller.dart';
 import 'package:naheelsoufan_game/src/features/screens/quick_play_offline/add_player/presentation/widget/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/mode_selection_widgets/custom_card.dart';
-import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/freeExpire_provider.dart';
-
 import '../../../common_widegts/pop_up_menu/custom_pop_up_menu.dart';
 import '../../question_answer_screen/setting_while_in_game/widgets/language_drop_down_menu.dart';
 
@@ -52,18 +51,12 @@ class ModeSelectionScreen extends StatelessWidget {
             SizedBox(height: 26.h),
             Consumer(
               builder: (context, ref, _) {
-                final data = ref.watch(isFreeModeOnProvider);
-                final isOffline = ref.watch(isOfflineOnProvider);
                 return CustomCard(
                   img: AppImages.playoffline,
                   text: 'PLAY OFFLINE',
                   onTap: () {
-                    // if (data == true) {
-                    //   ref.read(isOfflineOnProvider.notifier).state = true;
-                    //   context.push(RouteName.choosePaymentCard);
-                    // } else {
-                    context.push(RouteName.addPlayerScreen);
-                    // }
+                    ref.read(modeProvider.notifier).state = 1;
+                    context.push(RouteName.freeGameScreen);
                   },
                 );
               },
@@ -71,17 +64,13 @@ class ModeSelectionScreen extends StatelessWidget {
             SizedBox(height: 20.h),
             Consumer(
               builder: (context, ref, _) {
-                final data = ref.watch(isFreeModeOnProvider);
                 return CustomCard(
                   img: AppImages.card,
                   text: 'CREATE ROOM',
                   secondaryImg: AppImages.primaryUpsidedown,
                   onTap: () {
-                    if (data == true) {
-                      context.push(RouteName.choosePaymentCard);
-                    } else {
-                      context.push(RouteName.freeGameScreen);
-                    }
+                    ref.read(modeProvider.notifier).state = 2;
+                    context.push(RouteName.freeGameScreen);
                   },
                 );
               },

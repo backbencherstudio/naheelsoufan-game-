@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/mode_controller.dart';
 import '../../../../../core/constant/icons.dart';
 import '../../../../../core/routes/route_name.dart';
 import '../../../../common_widegts/create_screen/create_screen.dart';
@@ -18,6 +19,7 @@ class NextTurnScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
     final player = ref.watch(playerProvider);
+    final gameMode = ref.watch(modeProvider);
     debugPrint("\n\n\nPlayer: ${ref.read(playerProvider.notifier).state.currentPlayer}\n\n\n");
 
     return Scaffold(
@@ -113,7 +115,7 @@ class NextTurnScreen extends ConsumerWidget {
                 builder: (_,ref,_) {
                   return GestureDetector(
                     onTap: () {
-                     context.push(RouteName.catagorySelectionScreen);
+                      gameMode != 3 ? context.pushReplacement(RouteName.catagorySelectionScreen) : context.pushReplacement(RouteName.gridDifficultyLevelScreen);
                     },
                     child: Container(
                       padding: EdgeInsets.symmetric(

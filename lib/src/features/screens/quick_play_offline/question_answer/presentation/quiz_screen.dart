@@ -7,7 +7,7 @@ import 'package:naheelsoufan_game/src/data/riverpod/function.dart';
 import 'package:naheelsoufan_game/src/features/screens/quick_play_offline/question_answer/provider/advance_turn_controller.dart';
 import 'package:naheelsoufan_game/src/features/screens/quick_play_offline/question_answer/presentation/widget/custom_countdown.dart';
 import 'package:naheelsoufan_game/src/features/screens/quick_play_offline/question_answer/presentation/widget/player_point_container.dart';
-import 'package:naheelsoufan_game/src/features/screens/quick_play_offline/question_answer/presentation/widget/point.dart';
+import 'package:naheelsoufan_game/src/features/screens/grid_style/question_answer/presentation/widget/point.dart';
 import 'package:naheelsoufan_game/src/features/screens/quick_play_offline/question_answer/presentation/widget/show_quit_dialog.dart';
 import 'package:naheelsoufan_game/src/features/screens/quick_play_offline/question_answer/presentation/widget/wrong_answer_dialog.dart';
 import 'package:naheelsoufan_game/src/features/screens/quick_play_offline/question_answer/presentation/widget/steal_container.dart';
@@ -55,8 +55,6 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
 
     ref.watch(advanceTurnControllerProvider);
     final huntMode = ref.watch(huntModeOn);
-    final controller = ref.read(playerProvider.notifier);
-    final current = ref.read(playerProvider);
 
     return CreateScreen(
       child: Padding(

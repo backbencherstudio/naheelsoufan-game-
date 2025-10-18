@@ -6,12 +6,12 @@ import 'package:naheelsoufan_game/src/core/constant/images.dart';
 import 'package:naheelsoufan_game/src/core/constant/padding.dart';
 import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/mode_controller.dart';
 import 'package:naheelsoufan_game/src/features/screens/quick_play_offline/add_player/presentation/widget/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_button.dart';
 import '../../../../core/constant/icons.dart';
 import '../../../common_widegts/pop_up_menu/custom_pop_up_menu.dart';
 import '../../question_answer_screen/setting_while_in_game/widgets/language_drop_down_menu.dart';
-import '../riverpod/freeExpire_provider.dart';
 
 class GameModeScreens extends StatelessWidget {
   const GameModeScreens({super.key});
@@ -55,7 +55,6 @@ class GameModeScreens extends StatelessWidget {
                 return CustomButton(
                   text: "QUICK GAME",
                   onTap: () {
-                    ref.read(checkNormalGridScreen.notifier).state = true;
                     context.push(RouteName.modeSelectionScreen);
                   },
                 );
@@ -64,12 +63,11 @@ class GameModeScreens extends StatelessWidget {
             SizedBox(height: 16.h),
             Consumer(
               builder: (_, ref, _) {
-                final checkSubscription = ref.watch(checkGridSubscription);
                 return CustomButton(
                   text: "GRID STYLE",
                   onTap: () {
-                    ref.read(checkNormalGridScreen.notifier).state = false;
-                    (ref.read(checkGridSubscription.notifier).state) ? context.push(RouteName.choosePaymentCard) : context.push(RouteName.freeGameScreen);
+                    ref.read(modeProvider.notifier).state = 3;
+                    context.pushReplacement(RouteName.freeGameScreen);
                   },
                   img: AppImages.primaryUpsidedown,
                 );

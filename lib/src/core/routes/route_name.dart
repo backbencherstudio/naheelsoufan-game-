@@ -52,6 +52,7 @@ class RouteName {
   static const String editProfileScreen = "/EditProfileScreen";
   static const String profileIconScreen = "/ProfileIconScreen";
   static const String nextTurnScreen = "/NextTurnScreen";
+  static const String gridNextTurn = "/GridNextTurnScreen";
 
   static const String leaderboardScreen = "/LeaderboardScreen";
   static const String questionRevealedScreen = "/QuestionRevealedScreen";
@@ -60,4 +61,5 @@ class RouteName {
 
   static const String gridLeaderboard = "/GridLeaderBoard";
   static const String gridDifficultyLevelScreen2 = "/GridDifficultyLevelScreen2";
+
 }

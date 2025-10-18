@@ -5,16 +5,17 @@ import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentation/widget/platoon_hunter_card.dart';
 import 'package:naheelsoufan_game/src/data/riverpod/function.dart';
-import 'package:naheelsoufan_game/src/features/screens/quick_play_offline/question_answer/presentation/widget/point.dart';
+import 'package:naheelsoufan_game/src/features/screens/grid_style/question_answer/presentation/widget/point.dart';
 import '../../../../../core/constant/icons.dart';
 import '../../../../../core/constant/padding.dart';
 import '../../../../../core/routes/route_name.dart';
 import '../../../../../data/riverpod/count_down_state.dart';
 import '../../../../common_widegts/pop_up_menu/custom_pop_up_menu.dart';
+import '../../../game_mode_selection_screens/riverpod/mode_controller.dart';
 import '../../../quick_play_offline/question_answer/presentation/widget/header_button.dart';
 import '../../../quick_play_offline/add_player/presentation/widget/custom_icons_Buttons.dart';
-import '../../../game_mode_selection_screens/riverpod/player_provider.dart';
 import '../../../game_type/game_type.dart';
+import '../../../quick_play_offline/question_answer/presentation/widget/wrong_answer_dialog.dart';
 import '../../../quick_play_offline/question_answer/provider/advance_turn_controller.dart';
 import '../../../quick_play_offline/question_answer/presentation/widget/custom_countdown.dart';
 import '../../../quick_play_offline/question_answer/presentation/widget/show_quit_dialog.dart';
@@ -40,7 +41,22 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
     bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
 
-    ref.watch(advanceTurnControllerProvider);
+    ref.listen<AdvanceNavigation>(advanceNavigationProvider, (prev, next) {
+      if (next == AdvanceNavigation.gridLeaderboard) {
+        context.push(RouteName.gridLeaderboard);
+      } else if (next == AdvanceNavigation.gridNextTurn) {
+        context.push(RouteName.nextTurnScreen);
+      }
+      ref
+          .read(advanceNavigationProvider.notifier)
+          .state =
+          AdvanceNavigation.none;
+    });
+
+    ref.watch(advanceNavigationProvider);
+    final huntMode = ref.watch(huntModeOn);
+    final gameMode = ref.watch(modeProvider);
+
     return CreateScreen(
       child: Padding(
         padding: AppPadding.horizontalPadding,
@@ -48,11 +64,7 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
           child: Column(
             children: [
               SizedBox(height: isPortrait ? 30.h : 13.5.w),
-              Consumer(
-                builder: (_,ref,_) {
-                  final huntCheck = ref.watch(huntModeOn);
-                  final current = ref.read(playerProvider);
-                  return Row(
+              Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       if (!isPortrait)...[
@@ -64,7 +76,7 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
                               CustomIconsButtons(
                                 icon: AppIcons.crossIcon,
                                 onTap: () {
-                                  //onQuitGameTap(context);
+                                  onQuitGameTap(context);
                                 },
                                 bgIcon: AppIcons.redBGsqare,
                               ),
@@ -75,16 +87,20 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
                                 child: CustomCountdown(
                                   initTime: 60,
                                   onPaused: () {
-                                    (huntCheck) ? ref.read(advanceTurnFlagProvider.notifier).state = true: ref.read(huntModeOn.notifier).state = true;
                                     WidgetsBinding.instance.addPostFrameCallback((_) {
-                                      ref.read(autoCounterProvider(60).notifier).reset();
+                                      if (!huntMode) {
+                                        onWrongAnswerTap(context, "China", ref);
+                                        ref.read(huntModeOn.notifier).state = true;
+                                        ref.read(autoCounterProvider(60).notifier).resetAndStart();
+                                      }
                                     });
                                   },
                                 ),
                               ),
                             ],
                           ),
-                        ),] else ...[
+                        ),
+                      ] else ...[
                           CustomIconsButtons(
                         icon: AppIcons.crossIcon,
                         onTap: () {
@@ -98,7 +114,7 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
                           child: CustomCountdown(
                             initTime: 60,
                             onPaused: () {
-                              (huntCheck) ? ref.read(advanceTurnFlagProvider.notifier).state = true: ref.read(huntModeOn.notifier).state = true;
+                              (huntMode) ? (ref.read(advanceTurnFlagProvider.notifier).state = true): ref.read(huntModeOn.notifier).state = true;
                               WidgetsBinding.instance.addPostFrameCallback((_) {
                                 ref.read(autoCounterProvider(60).notifier).reset();
                               });
@@ -136,9 +152,7 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
                       ),
                       CustomPopUpMenu(),
                     ],
-                  );
-                }
-              ),
+                  ),
               SizedBox(height: 16.h),
               //point container
               if (isPortrait) PointShow(),
@@ -147,74 +161,47 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
                 padding: EdgeInsets.symmetric(
                   horizontal: isPortrait ? 0.h : 300.h,
                 ),
-                child: GameType.multipleChoiceQuestion(
-                  choices: [
-                    "Chemical energy",
-                    "Sonic energy",
-                    "Thermal energy",
-                    "Nuclear energy",
-                  ],
-                  question: "What kind of energy does that sun create?",
-                  rightChoice: 3,
-                  // func: (){
-                  //   if (isFirstPlayerPlayed) {
-                  //     Future.delayed(Duration(seconds: 1), (){
-                  //       if(context.mounted) context.pushReplacement(RouteName.gridLeaderboard);
-                  //     });
-                  //     ref.read(checkSecondDifficultyScreen.notifier).state = false;
-                  //   } else {
-                  //     Future.delayed(Duration(seconds: 1), (){
-                  //       if(context.mounted) context.pushReplacement(RouteName.gridDifficultyLevelScreen);
-                  //       ref.read(checkSecondDifficultyScreen.notifier).state = true;
-                  //     });
-                  //   }
-                  //   ref.read(commonProviderDisposer);
-                  // }
-                ),
+                child: GameType.imageMcqQuestion(
+                    choicesImageURL: [
+                      'https://cdn.britannica.com/94/494-050-A674AD3A/Fallow-deer-dama-dama.jpg',
+                      'https://www.worldanimalprotection.org/cdn-cgi/image/width=1920,format=auto/globalassets/images/elephants/1033551-elephant.jpg',
+                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOG5TM1EovYcHRS_Uoi7lufuMrQ3slzfmoLg&s',
+                      'https://cdn.britannica.com/94/494-050-A674AD3A/Fallow-deer-dama-dama.jpg',
+                    ],
+                    question: 'Which one is Horse? Select correct one from image below?',
+                    rightIndex: 2),
               ),
               SizedBox(height: isPortrait ? 100.h : 15.w),
-              Consumer(
-                builder: (_, ref, _) {
-                  final checkRight = ref.watch(isRightWrongElse);
-                  final checkHunt = ref.watch(huntModeOn);
-
-                  // if (checkRight != 1 && checkHunt) {
-                  //   WidgetsBinding.instance.addPostFrameCallback((_) {
-                  //     onWrongAnswerTap(context, "Nuclear energy", ref);
-                  //   });
-                  // }
-                  return Row(
+              Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                    if (!ref.read(huntModeOn.notifier).state) ...[
-                      (ref.read(isRightWrongElse.notifier).state == -1) ?
-                        PlatoonHunterCard(cardName: "Platoon", index: 1) :
-                        (ref.read(isRightWrongElse.notifier).state == 1) ?
-                        PlatoonHunterCard(cardName: "100 Pts", index: 3) :
-                      PlatoonHunterCard(cardName: "Platoon", index: 1),
-                      SizedBox(width: isPortrait ? 24.w : 52.8.h),
-                      PlatoonHunterCard(cardName: "Hunt", index: 0)
+                    if (huntMode) ...[
+                        (ref.read(isRightWrongElse.notifier).state == -1) ?
+                          PlatoonHunterCard(cardName: "Platoon", index: 1) :
+                          (ref.read(isRightWrongElse.notifier).state == 1) ?
+                          PlatoonHunterCard(cardName: "100 Pts", index: 3) :
+                        PlatoonHunterCard(cardName: "Platoon", index: 1),
+                        SizedBox(width: isPortrait ? 24.w : 52.8.h),
+                        PlatoonHunterCard(cardName: "Hunt", index: 0)
                       ]
                       else ...[
-                      PlatoonHunterCard(cardName: "Platoon", index: 2),
-                      SizedBox(width: isPortrait ? 24.w : 52.8.h),
-                      if (ref.read(isRightWrongElse.notifier).state == -1) ...[
-                        PlatoonHunterCard(cardName: "Hunt", index: 1),
-                      ] else if (ref.read(isRightWrongElse.notifier).state == 1) ...[
-                        GestureDetector(
-                            onTap: ()async{
-                              await Future.delayed(const Duration(seconds: 1));
-                              if (!context.mounted) return;
-                              context.push(RouteName.splashScreen);
-                            },
-                            child: PlatoonHunterCard(cardName: "150 Pts", index: 3)),
-                      ] else ...[
-                        PlatoonHunterCard(cardName: "Hunt", index: 1),
-                      ],
+                        PlatoonHunterCard(cardName: "Platoon", index: 2),
+                        SizedBox(width: isPortrait ? 24.w : 52.8.h),
+                        if (ref.read(isRightWrongElse.notifier).state == -1) ...[
+                          PlatoonHunterCard(cardName: "Hunt", index: 1),
+                        ] else if (ref.read(isRightWrongElse.notifier).state == 1) ...[
+                          GestureDetector(
+                              onTap: ()async{
+                                await Future.delayed(const Duration(seconds: 1));
+                                if (!context.mounted) return;
+                                context.push(RouteName.splashScreen);
+                              },
+                              child: PlatoonHunterCard(cardName: "150 Pts", index: 3)),
+                        ] else ...[
+                          PlatoonHunterCard(cardName: "Hunt", index: 1),
+                        ],
                     ],
                   ]
-                  );
-                },
               ),
             ],
           ),

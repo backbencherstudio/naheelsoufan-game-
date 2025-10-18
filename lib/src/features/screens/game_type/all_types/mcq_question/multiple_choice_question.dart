@@ -6,7 +6,7 @@ import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.da
 import 'package:naheelsoufan_game/src/features/screens/game_type/riverpod/multiple_choice_provider.dart';
 import 'package:naheelsoufan_game/src/data/riverpod/function.dart';
 import '../../../../../data/riverpod/count_down_state.dart';
-import '../../../game_mode_selection_screens/riverpod/player_provider.dart';
+import '../../../game_mode_selection_screens/riverpod/mode_controller.dart';
 import '../../../quick_play_offline/question_answer/provider/advance_turn_controller.dart';
 import '../../../quick_play_offline/question_answer/presentation/widget/wrong_answer_dialog.dart';
 
@@ -54,9 +54,7 @@ class MultipleChoiceQuestion extends StatelessWidget {
 
                 final checkChoice = ref.watch(checkChoicesProvider(index));
                 final rightChoiceIndex = rightIndex ?? 0;
-                final controller = ref.read(playerProvider.notifier);
-                //final current = ref.read(playerProvider);
-                //final next = (current.currentPlayer + 1) % current.totalPlayer;
+                final gameMode = ref.watch(modeProvider);
                 final huntMode = ref.watch(huntModeOn);
 
                 return InkWell(

@@ -8,8 +8,8 @@ import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/crea
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/free_game_widgets/free_game_card.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/free_game_widgets/free_game_tile.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/free_game_widgets/see_plans_container.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/mode_controller.dart';
 import 'package:naheelsoufan_game/src/features/screens/quick_play_offline/add_player/presentation/widget/custom_icons_Buttons.dart';
-import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/freeExpire_provider.dart';
 import '../../../../core/constant/icons.dart';
 import '../../../../core/constant/images.dart';
 
@@ -44,14 +44,11 @@ class FreeGameScreen extends StatelessWidget {
             SizedBox(height: 121.h),
             Consumer(
               builder: (_, ref, _) {
-                final checkScreen = ref.watch(checkNormalGridScreen);
+                final checkScreen = ref.watch(modeProvider);
                 return FreeGameCard(
                   onTap: () {
-                    //choosePaymentCard
-                    ref.read(isFreeModeOnProvider.notifier).state = true;
-                    ref.read(checkGridSubscription.notifier).state = true;
-                    (ref.read(checkNormalGridScreen.notifier).state)
-                        ? context.push(RouteName.createRoomScreen)
+                    (checkScreen == 1)
+                        ? context.push(RouteName.addPlayerScreen) : (checkScreen == 2) ? context.push(RouteName.createRoomScreen)
                         : context.push(RouteName.enterTeamNameScreen);
                   },
                 );

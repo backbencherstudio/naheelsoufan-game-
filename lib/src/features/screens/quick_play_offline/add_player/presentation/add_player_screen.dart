@@ -39,6 +39,8 @@ class _AddPlayerScreenState extends ConsumerState<AddPlayerScreen> {
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
 
+    final playerManage = ref.watch(playerProvider);
+
     final player = ref.watch(playerNameProvider);
     final playerNameList = player.playerNames;
 
@@ -105,6 +107,10 @@ class _AddPlayerScreenState extends ConsumerState<AddPlayerScreen> {
                           onTabRemove: () {
                             if(!isMinPlayer) {
                               ref.read(playerNameProvider.notifier).removePlayerAt(index);
+
+                              ref.read(playerProvider.notifier).state = playerManage.copyWith(
+                                totalPlayer: playerNameList.length - 1
+                              );
                             }
                             else {
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -115,6 +121,7 @@ class _AddPlayerScreenState extends ConsumerState<AddPlayerScreen> {
                               );
                             }
                             debugPrint(playerNameList.toString());
+                            debugPrint(playerManage.totalPlayer.toString());
                           }
                         ),
                       );
@@ -156,6 +163,9 @@ class _AddPlayerScreenState extends ConsumerState<AddPlayerScreen> {
                           onTap: () {
                             if(!isMinPlayer) {
                               ref.read(playerNameProvider.notifier).removeLastPlayer();
+                              ref.read(playerProvider.notifier).state = playerManage.copyWith(
+                                  totalPlayer: playerNameList.length - 1
+                              );
                             }
                             else {
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -166,6 +176,7 @@ class _AddPlayerScreenState extends ConsumerState<AddPlayerScreen> {
                               );
                             }
                             debugPrint(playerNameList.toString());
+                            debugPrint(playerManage.totalPlayer.toString());
                           },
                           child: Opacity(
                             opacity:
@@ -181,7 +192,11 @@ class _AddPlayerScreenState extends ConsumerState<AddPlayerScreen> {
                         GestureDetector(
                           onTap: () {
                             ref.read(playerNameProvider.notifier).addPlayer("player ${playerNameList.length + 1}");
+                            ref.read(playerProvider.notifier).state = playerManage.copyWith(
+                                totalPlayer: playerNameList.length + 1
+                            );
                             debugPrint(playerNameList.toString());
+                            debugPrint(playerManage.totalPlayer.toString());
                           },
                           child: SvgPicture.asset(AppIcons.plusBtn),
                         ),

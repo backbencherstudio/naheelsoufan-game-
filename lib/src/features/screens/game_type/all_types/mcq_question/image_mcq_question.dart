@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/mode_controller.dart';
 import '../../../../../data/riverpod/count_down_state.dart';
-import '../../../game_mode_selection_screens/riverpod/player_provider.dart';
 import '../../../../../data/riverpod/function.dart';
 import '../../../quick_play_offline/question_answer/provider/advance_turn_controller.dart';
 import '../../../quick_play_offline/question_answer/presentation/widget/wrong_answer_dialog.dart';
@@ -47,9 +47,8 @@ class ImageMcqQuestion extends StatelessWidget {
           itemBuilder: (context, index) {
             return Consumer(
               builder: (_, ref, _) {
-                final controller = ref.read(playerProvider.notifier);
-                final current = ref.read(playerProvider);
-                //final next = (current.currentPlayer + 1) % current.totalPlayer;
+                final gameMode = ref.watch(modeProvider);
+
                 final huntMode = ref.watch(huntModeOn);
                 final checkChoice = ref.watch(checkChoicesProvider(index));
                 final rightChoiceIndex = rightIndex ?? 0;

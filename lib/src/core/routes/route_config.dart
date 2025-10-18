@@ -37,17 +37,17 @@ class RouteConfig {
           );
         },
       ),
-      // GoRoute(
-      //   path: RouteName.gridDifficultyLevelScreen,
-      //   pageBuilder: (context, state) {
-      //     return buildPageWithTransition(
-      //       context: context,
-      //       state: state,
-      //       transitionType: PageTransitionType.slideRightToLeft,
-      //       child: GridDifficultyLevelScreen(),
-      //     );
-      //   },
-      // ),
+      GoRoute(
+        path: RouteName.gridDifficultyLevelScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: GridDifficultyLevelScreen(),
+          );
+        },
+      ),
       GoRoute(
         path: RouteName.enterTeamNameScreen,
         pageBuilder: (context, state) {

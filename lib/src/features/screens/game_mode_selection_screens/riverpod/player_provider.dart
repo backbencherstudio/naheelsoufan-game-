@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class PlayerManage{
+class PlayerManage {
   final int currentPlayer;
   final int stealPlayer;
   final int totalPlayer;
@@ -9,31 +9,30 @@ class PlayerManage{
   PlayerManage({
     required this.currentPlayer,
     required this.totalPlayer,
-    required this.stealPlayer
+    required this.stealPlayer,
   });
   PlayerManage copyWith({
     int? currentPlayer,
     int? totalPlayer,
     int? stealPlayer,
-  }){
-    return PlayerManage(currentPlayer: currentPlayer ?? this.currentPlayer, totalPlayer: totalPlayer ?? this.totalPlayer, stealPlayer: stealPlayer ?? this.stealPlayer);
+  }) {
+    return PlayerManage(
+      currentPlayer: currentPlayer ?? this.currentPlayer,
+      totalPlayer: totalPlayer ?? this.totalPlayer,
+      stealPlayer: stealPlayer ?? this.stealPlayer,
+    );
   }
 }
 
-final playerProvider = StateProvider<PlayerManage>((ref)=>PlayerManage(
-    totalPlayer: ref.read(playerNameProvider.notifier)._playerNames.length,
-    currentPlayer: 0,
-    stealPlayer: -1
-));
-
-
-
+final playerProvider = StateProvider<PlayerManage>((ref) {
+  return PlayerManage(totalPlayer: 2, currentPlayer: 0, stealPlayer: -1);
+});
 
 class PlayerNamesNotifier extends ChangeNotifier {
   final List<String> _playerNames;
 
   PlayerNamesNotifier(List<String>? initialPlayers)
-      : _playerNames = initialPlayers ?? [];
+    : _playerNames = initialPlayers ?? [];
 
   List<String> get playerNames => List.unmodifiable(_playerNames);
 
@@ -65,7 +64,7 @@ class PlayerNamesNotifier extends ChangeNotifier {
 }
 
 final playerNameProvider = ChangeNotifierProvider<PlayerNamesNotifier>(
-      (ref) => PlayerNamesNotifier(["Player 1", "Player 2"]),
+  (ref) => PlayerNamesNotifier(["Player 1", "Player 2"]),
 );
 
-final addPlayerTileSelection = StateProvider<int> ((ref)=> -1);
+final addPlayerTileSelection = StateProvider<int>((ref) => -1);
