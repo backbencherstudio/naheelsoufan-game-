@@ -8,16 +8,14 @@ import 'package:naheelsoufan_game/src/core/constant/padding.dart';
 import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
 import 'package:naheelsoufan_game/src/data/riverpod/loading.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
-import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/mode_selection_widgets/custom_card.dart';
-import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
-import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/freeExpire_provider.dart';
-
 import '../../../../data/repository/game/game_mode/select_game_mode_service.dart';
 import '../../../../data/repository/subscription/subscription_service.dart';
 import '../../../../data/riverpod/player_game/player_game_controller.dart';
 import '../../../../data/riverpod/subscription/subscription_controller.dart';
-import '../../question_answer_screen/setting_while_in_game/widgets/language_drop_down_menu.dart';
+import '../../../common_widegts/pop_up_menu/custom_pop_up_menu.dart';
+import '../../quick_play_offline/add_player/presentation/widget/custom_icons_Buttons.dart';
+import '../../setting_while_in_game/widgets/language_drop_down_menu.dart';
 import '../riverpod/mode_controller.dart';
 
 class ModeSelectionScreen extends ConsumerStatefulWidget {
@@ -76,28 +74,28 @@ class _ModeSelectionScreenState extends ConsumerState<ModeSelectionScreen> {
               SizedBox(height: 28.h),
               Image.asset(AppImages.logo, height: 52.h, width: 150.w),
               SizedBox(height: 26.h),
-                  CustomCard(
-                    img: AppImages.playoffline,
-                    text: 'PLAY OFFLINE',
-                    onTap: () async {
-                      ref.read(modeProvider.notifier).state = 1;
-                      debugPrint(userSubscriptionData?.data.toString());
+              CustomCard(
+                img: AppImages.playoffline,
+                text: 'PLAY OFFLINE',
+                onTap: () async {
+                  ref.read(modeProvider.notifier).state = 1;
+                  debugPrint(userSubscriptionData?.data.toString());
 
-                      if(userSubscriptionData?.data != null) {
-                        final selectGameMode = SelectGameModeService();
-                        final result = await selectGameMode.createGame(
-                          context: context,
-                          gameMode: mode,
-                        );
+                  if(userSubscriptionData?.data != null) {
+                    final selectGameMode = SelectGameModeService();
+                    final result = await selectGameMode.createGame(
+                      context: context,
+                      gameMode: mode,
+                    );
 
-                        (result == true) ? debugPrint("Game Created Successfully") : debugPrint("Game Creation Unsuccessful");
-                      }
+                    (result == true) ? debugPrint("Game Created Successfully") : debugPrint("Game Creation Unsuccessful");
+                  }
 
-                      (userGameData?.data.summary.quickGamesCreated == 0) ?
-                      context.push(RouteName.freeGameScreen) : (userSubscriptionData?.data == null) ?
-                      context.push(RouteName.chooseSubscriptionScreen) : context.push(RouteName.addPlayerScreen);
-                    },
-                  ),
+                  (userGameData?.data.summary.quickGamesCreated == 0) ?
+                  context.push(RouteName.freeGameScreen) : (userSubscriptionData?.data == null) ?
+                  context.push(RouteName.chooseSubscriptionScreen) : context.push(RouteName.addPlayerScreen);
+                },
+              ),
               SizedBox(height: 20.h),
               Consumer(
                 builder: (context, ref, _) {

@@ -23,6 +23,8 @@ class DifficultyService {
         debugPrint('Difficulties data fetched successfully');
         debugPrint('Difficulties data: ${difficultiesModelClass.data}');
         await _languageIdService.setToken(difficultiesModelClass.data.first.language.id);
+        final languageId = await _languageIdService.getToken();
+        debugPrint("\n\n\nLanguageID: $languageId\n\n\n");
         return difficultiesModelClass;
       }
     } catch (e) {

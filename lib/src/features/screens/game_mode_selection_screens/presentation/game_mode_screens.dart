@@ -2,26 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:naheelsoufan_game/src/core/constant/api_end_points.dart';
-import 'package:naheelsoufan_game/src/data/model/subcription/subscription_intent_model.dart';
 import 'package:naheelsoufan_game/src/data/repository/game/game_mode/select_game_mode_service.dart';
-import 'package:naheelsoufan_game/src/data/repository/subscription/subscription_service.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_button.dart';
-import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
-
 import '../../../../core/constant/icons.dart';
 import '../../../../core/constant/images.dart';
 import '../../../../core/constant/padding.dart';
 import '../../../../core/routes/route_name.dart';
-import '../../../../core/services/api_services.dart';
 import '../../../../data/riverpod/difficulty/difficulty_provider.dart';
 import '../../../../data/riverpod/game/category/category_controller.dart';
 import '../../../../data/riverpod/player_game/player_game_controller.dart';
 import '../../../../data/riverpod/subscription/subscription_controller.dart';
 import '../../../common_widegts/create_screen/create_screen.dart';
 import '../../auth/riverpod/auth_providers.dart';
-import '../../question_answer_screen/setting_while_in_game/widgets/language_drop_down_menu.dart';
-import '../riverpod/freeExpire_provider.dart';
+import '../../quick_play_offline/add_player/presentation/widget/custom_icons_Buttons.dart';
+import '../../setting_while_in_game/widgets/language_drop_down_menu.dart';
 import '../riverpod/mode_controller.dart';
 
 class GameModeScreens extends ConsumerStatefulWidget {
@@ -107,10 +101,6 @@ class _GameModeScreensState extends ConsumerState<GameModeScreens> {
                   ),
                   SizedBox(height: 40.h),
                   LanguageDropDown(menuKey: menuKey),
-                  // ElevatedButton(onPressed: ()
-                  // async {
-                  //
-                  // }, child: Text("Click"))
                 ],
               ),
             );
@@ -122,5 +112,3 @@ class _GameModeScreensState extends ConsumerState<GameModeScreens> {
     );
   }
 }
-
-

@@ -27,12 +27,11 @@ class RouteName {
 
  static const String playerSelectionScreen = "/PlayerSelectionScreen";
 
- static const String categorySelectionScreen = "/CatagorySelectionScreen";
 
  static const String difficultyLevelScreen = "/DifficultyLevelScreen";
   static const String questionAnswerScreen = "/QuestionAnswerScreen";
   static const String clickedSettingScreen = "/ClickedSettingScreen";
-  static const String catagorySelectionScreen = "/CatagorySelectionScreen";
+
   static const String deficultyLevelScreen = "/DeficultyLevelScreen";
   static const String quizScreen = "/QuizScreen";
   static const String stealPointQuizScreen = "/StealPointQuizScreen";
@@ -49,6 +48,7 @@ class RouteName {
   static const String enterTeamNameScreen = "/EnterTeamNameScreen";
 
   static const String gridDifficultyLevelScreen = "/GridDifficultyLevelScreen";
+  static const String gridCategoryScreen = "/GridDifficultyLevelScreen";
   static const String myAccountScreen = "/MyAccountScreen";
   static const String editProfileScreen = "/EditProfileScreen";
   static const String profileIconScreen = "/ProfileIconScreen";

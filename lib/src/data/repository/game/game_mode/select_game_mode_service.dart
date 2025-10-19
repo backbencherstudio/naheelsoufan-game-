@@ -28,7 +28,7 @@ class SelectGameModeService {
     try {
       final response = await _apiServices.postData(
         endPoint: (gameMode == 2) ? ApiEndPoints.createOnlineGameUrl : ApiEndPoints.createGameUrl,
-        body: {"language_id": languageId, "mode": modeName},
+        body: {"language_id": "cmfzc2whx001zwsxsndh2pxqu", "mode": modeName},
         headers: headers,
       );
 

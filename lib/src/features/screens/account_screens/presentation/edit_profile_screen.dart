@@ -13,7 +13,7 @@ import '../../../../core/utils/utils.dart';
 import '../../../../data/riverpod/user/user_controller.dart';
 import '../../../common_widegts/create_screen/create_screen.dart';
 import '../../auth/riverpod/auth_providers.dart';
-import '../../game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
+import '../../quick_play_offline/add_player/presentation/widget/custom_icons_Buttons.dart';
 import '../riverpod/change_password_riverpod.dart';
 import '../riverpod/edit_profile_riverpod.dart';
 

@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naheelsoufan_game/src/features/screens/auth/widget/custom_textformfield.dart';
+import '../../../../../core/utils/utils.dart';
 import '../../../../../data/repository/game/start_game/answer_question_service.dart';
 import '../../../../../data/riverpod/count_down_state.dart';
+import '../../../../../data/riverpod/function.dart';
 import '../../../../../data/riverpod/game/start_game/start_game_provider.dart';
-import '../../../grid_play_game/riverpod/function.dart';
-import '../../../main_quiz_screen/presentation/riverpod/advance_turn_controller.dart';
-import '../../../main_quiz_screen/presentation/riverpod/stateProvider.dart';
-import '../../../main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/wrong_answer_dialog.dart';
+import '../../../game_mode_selection_screens/riverpod/player_provider.dart';
+import '../../../quick_play_offline/question_answer/presentation/widget/wrong_answer_dialog.dart';
+import '../../../quick_play_offline/question_answer/provider/toggle.dart';
 import '../mcq_question/widget/audio_part.dart';
 import '../mcq_question/widget/image_part.dart';
 import '../mcq_question/widget/video_part.dart';
@@ -56,14 +57,13 @@ class _TypedQuestionWithImageVideoState
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
-    final rightAnswer = widget.rightAnswer ?? "";
-    final controller = ref.read(playerProvider.notifier);
-    final current = ref.read(playerProvider);
-    final next = (current.currentPlayer + 1) % current.totalPlayer;
     final huntMode = ref.watch(huntModeOn);
-    final response = ref.watch(questionResponseProvider);
-    final selectedPointBlock = ref.watch(selectedPlayerIndexProvider);
     final playerList = ref.watch(playerListProvider);
+    final player = ref.watch(playerProvider);
+    final selectedPointBlock = ref.watch(
+      selectedPlayerIndexProvider,
+    );
+    final response = ref.watch(questionResponseProvider);
     return Column(
       children: [
         Text(
@@ -94,12 +94,12 @@ class _TypedQuestionWithImageVideoState
               hintText: "Type your answer here",
               controller: _answerController,
               onSubmitted: (value) async {
-                if (value.toLowerCase() == rightAnswer.toLowerCase()) {
+                if (value.toLowerCase() == widget.rightAnswer?.toLowerCase()) {
                   log("RIGHT!!!");
 
                   if(huntMode){
                     if (selectedPointBlock == -1 ||
-                        selectedPointBlock == current.currentPlayer) {
+                        selectedPointBlock == player.currentPlayer) {
                       log("Please Select a Player");
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text("Please Select a Player")),
@@ -122,15 +122,12 @@ class _TypedQuestionWithImageVideoState
                     await AnswerQuestionService().answer(
                       response?.data?.question.id,
                       response?.data?.question.answers[0].id,
-                      playerList?.data.players[current.currentPlayer].id,
+                      playerList?.data.players[player.currentPlayer].id,
                         response?.data?.question.answers[0].text
                     );
                   }
 
-                  ref.read(advanceTurnFlagProvider.notifier).state = true;
-                  controller.state = current.copyWith(
-                    currentPlayer: next,
-                  ); // CB
+                  await Utils.advanceTurnAlternate(context, ref);
                 } else {
 
                   log("Selected Answer ID: Invalid");
@@ -139,7 +136,7 @@ class _TypedQuestionWithImageVideoState
                   log("\n\n\nWRONG!!!\n\n\n");
                   if (huntMode) {
                     if (selectedPointBlock == -1 ||
-                        selectedPointBlock == current.currentPlayer) {
+                        selectedPointBlock == player.currentPlayer) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text("Please Select a Player")),
                       );
@@ -154,14 +151,13 @@ class _TypedQuestionWithImageVideoState
 
                       ref.read(selectedPlayerIndexProvider.notifier).state = -1;
 
-                      ref.read(advanceTurnFlagProvider.notifier).state = true;
-                      controller.state = current.copyWith(currentPlayer: next);
+                      await Utils.advanceTurnAlternate(context, ref);
                     }
                   } else {
                     await AnswerQuestionService().answer(
                       response?.data?.question.id,
                       "Invalid",
-                      playerList?.data.players[current.currentPlayer].id,
+                      playerList?.data.players[player.currentPlayer].id,
                       "Invalid",
                     );
                     ref
@@ -171,7 +167,7 @@ class _TypedQuestionWithImageVideoState
                           ).notifier,
                         )
                         .reset();
-                    onWrongAnswerTap(context, rightAnswer, ref);
+                    onWrongAnswerTap(context, widget.rightAnswer!.toLowerCase(), ref);
                     ref.read(huntModeOn.notifier).state = true;
                   }
 

@@ -18,6 +18,7 @@ class CustomLogoutButton extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.r),
+          border: Border(bottom: BorderSide(color: AppColorScheme.error, width: 4.w), ),
          gradient: LinearGradient(colors: [
           AppColorScheme.redGrad,
           AppColorScheme.redGrad2,

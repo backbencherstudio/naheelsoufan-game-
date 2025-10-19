@@ -14,7 +14,7 @@ import 'package:naheelsoufan_game/src/features/screens/account_screens/presentat
 import '../../../../core/routes/route_name.dart';
 import '../../../../data/repository/subscription/subscription_service.dart';
 import '../../../common_widegts/music_off_on_whole_screen/music_volume_widgets.dart';
-import '../../game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
+import '../../quick_play_offline/add_player/presentation/widget/custom_icons_Buttons.dart';
 import '../riverpod/profile_state_notifier.dart';
 
 class MyAccountScreen extends ConsumerStatefulWidget {

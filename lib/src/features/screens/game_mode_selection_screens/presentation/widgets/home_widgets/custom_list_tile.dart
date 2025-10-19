@@ -4,8 +4,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 
-import '../../../../../../core/utils/utils.dart';
-
 class CustomListTile extends StatelessWidget {
   final String title;
   final String icon;
@@ -16,9 +14,9 @@ class CustomListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
-    final isNotTab = Utils.isTablet(context);
+
     return Container(
-      height: isNotTab ? 58.h : 100.h,
+      height: 58.h,
 
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12.r),
@@ -26,7 +24,7 @@ class CustomListTile extends StatelessWidget {
         border: Border(
           bottom: BorderSide(
             color: AppColorScheme.darkpurpleborder,
-            width: isNotTab ? 4.w : 4.h,
+            width: 4.w,
           ),
         ),
       ),

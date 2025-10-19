@@ -1,22 +1,22 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final isRated = StateProvider<int> ((ref){
-  return 65;
+  return 0;
 });
 
 
-class SettingUserModel{
+class UserModel{
   final String userId;
   final String userName;
 
-  SettingUserModel({
+  UserModel({
     required this.userId,
     required this.userName
 });
-  SettingUserModel copyWith({
+  UserModel copyWith({
     String? userId,
     String? userName
 }){
-   return SettingUserModel(userId: userId??this.userId, userName: userName??this.userName);
+   return UserModel(userId: userId??this.userId, userName: userName??this.userName);
   }
 }

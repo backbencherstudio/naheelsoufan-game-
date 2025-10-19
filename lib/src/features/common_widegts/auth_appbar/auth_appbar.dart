@@ -6,7 +6,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import '../../../core/constant/icons.dart';
 import '../../../core/constant/images.dart';
-import '../../../core/utils/utils.dart';
 import '../../../data/riverpod/common_state_control.dart';
 import '../custom_show_menu/custom_menu_card.dart';
 
@@ -29,14 +28,14 @@ class _RegisterAppbarState extends State<RegisterAppbar> {
   @override
   Widget build(BuildContext context) {
     final dropDownStyle = Theme.of(context).textTheme.displayMedium?.copyWith(color: AppColorScheme.secondary);
-    final isNotTab = Utils.isTablet(context);
+    final isNotTab = MediaQuery.of(context).size.shortestSide < 600;
     return Row(
       children: [
         SizedBox(
           height: isNotTab ? 52.h : 100.h,
           child: Image.asset(AppImages.logo),
         ),
-        SizedBox(width: isNotTab ? 95.w : 50.w),
+        SizedBox( width: isNotTab? 95.w: 190.w),
         Consumer(
           builder: (_, ref, _) {
             final result = ref.watch(isSelectedVal) ?? "US English";

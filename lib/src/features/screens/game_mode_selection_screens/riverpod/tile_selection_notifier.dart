@@ -6,8 +6,5 @@ class TileSelectionState {
     return TileSelectionState(
       selectedIndices: selectedIndices ?? this.selectedIndices,
     );
-
-
-
   }
 }

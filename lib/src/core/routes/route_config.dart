@@ -34,7 +34,7 @@ class RouteConfig {
             context: context,
             state: state,
             transitionType: PageTransitionType.slideRightToLeft,
-            child: ChooseCategoryScreen(),
+            child: CategorySelectionScreen(),
           );
         },
       ),
@@ -183,7 +183,7 @@ class RouteConfig {
             context: context,
             state: state,
             transitionType: PageTransitionType.slideRightToLeft,
-            child: ChooseSubscriptionScreen(),
+            child: PaymentScreen(),
           );
         },
       ),
@@ -374,17 +374,6 @@ class RouteConfig {
       ),
 
       GoRoute(
-        path: RouteName.questionAnswerScreen,
-        pageBuilder: (context, state) {
-          return buildPageWithTransition(
-            context: context,
-            state: state,
-            transitionType: PageTransitionType.slideRightToLeft,
-            child: QuestionAnswerScreen(),
-          );
-        },
-      ),
-      GoRoute(
         path: RouteName.quizScreen,
         pageBuilder: (context, state) {
           return buildPageWithTransition(
@@ -397,14 +386,14 @@ class RouteConfig {
       ),
 
       GoRoute(
-        path: RouteName.categorySelectionScreen,
+        path: RouteName.gridCategoryScreen,
 
         pageBuilder: (context, state) {
           return buildPageWithTransition(
             context: context,
             state: state,
             transitionType: PageTransitionType.slideRightToLeft,
-            child: CatagorySelectionScreen(),
+            child: GridChooseCategoryScreen(),
           );
         },
       ),
