@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:naheelsoufan_game/src/features/screens/grid_play_game/riverpod/page_navigation_notifier.dart';
+import 'package:naheelsoufan_game/src/features/screens/grid_style/choose_multiple_category/riverpod/page_navigation_notifier.dart';
 
 final isQuestionClicked = StateProvider.family<bool, int>((ref, questionID) {
   return false;

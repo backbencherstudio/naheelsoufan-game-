@@ -13,6 +13,7 @@ import 'package:naheelsoufan_game/src/features/screens/quick_play_offline/choose
 import '../../../../common_widegts/custom_round_button/customRound_button.dart';
 import '../../../../common_widegts/pop_up_menu/custom_pop_up_menu.dart';
 import '../../../game_mode_selection_screens/riverpod/player_provider.dart';
+import '../../question_answer/presentation/widget/show_quit_dialog.dart';
 import '../provider/selection_provider.dart';
 
 class CatagorySelectionScreen extends ConsumerWidget {
@@ -36,9 +37,9 @@ class CatagorySelectionScreen extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CustomIconsButtons(
-                  icon: AppIcons.backIcons,
+                  icon: AppIcons.crossIcon,
                   onTap: () {
-                    Navigator.pop(context);
+                    onQuitGameTap(context);
                   },
                 ),
                 Image.asset(AppImages.profilePic, height: 40.h, width: 40.w),

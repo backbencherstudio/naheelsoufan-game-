@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../data/riverpod/function.dart';
+import '../../../../../data/riverpod/function.dart';
 
 final pageIndexProvider =
 StateNotifierProvider<PageNavigationNotifier, int>((ref) {

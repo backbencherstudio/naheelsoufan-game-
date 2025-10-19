@@ -11,7 +11,7 @@ import 'package:naheelsoufan_game/src/features/screens/quick_play_offline/add_pl
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_button.dart';
 import '../../../../core/constant/icons.dart';
 import '../../../common_widegts/pop_up_menu/custom_pop_up_menu.dart';
-import '../../question_answer_screen/setting_while_in_game/widgets/language_drop_down_menu.dart';
+import '../../setting_while_in_game/widgets/language_drop_down_menu.dart';
 
 class GameModeScreens extends StatelessWidget {
   const GameModeScreens({super.key});

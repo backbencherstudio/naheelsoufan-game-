@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:naheelsoufan_game/src/features/screens/grid_style/choose_categorywise_difficulty/riverpod/grid_difficulty_provider.dart';
+import 'package:naheelsoufan_game/src/features/screens/grid_style/choose_multiple_category/riverpod/category_provider.dart';
 import 'package:naheelsoufan_game/src/features/screens/quick_play_offline/question_answer/presentation/widget/header_button.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_type/riverpod/multiple_choice_provider.dart';
 import 'package:naheelsoufan_game/src/data/riverpod/function.dart';
@@ -52,15 +54,16 @@ void onQuitGameTap(BuildContext context) {
                       SizedBox(height: isPortrait ? 40.h: 10.w),
                       Consumer(
                         builder: (_, ref, _) {
-                          final controller = ref.read(playerProvider.notifier);
-                          final current = ref.read(playerProvider);
                           return GestureDetector(
                             onTap: () {
-                              Navigator.pop(context);
                               context.go(RouteName.gameModeScreens);
-                              controller.state = current.copyWith(currentPlayer: 0);
-                              controller.state = current.copyWith(totalPlayer: 2);
-                              controller.state = current.copyWith(stealPlayer: -1);
+                              ref.invalidate(playerProvider);
+                              ref.invalidate(isQuestionVanished);
+                              ref.invalidate(isQuestionVanishTeam2);
+                              ref.invalidate(isQuestionVanishTeam1);
+                              ref.invalidate(categoryListProvider);
+                              ref.invalidate(isCategorySelectedClicked);
+                              ref.invalidate(isSomethingClicked);
                               for (final i in [0, 1, 2, 3]) {
                                 ref.read(checkChoicesProvider(i).notifier).state = -1;
                               }

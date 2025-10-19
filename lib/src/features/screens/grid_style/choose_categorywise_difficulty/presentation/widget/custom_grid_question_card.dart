@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/player_provider.dart';
-import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentation/widget/custom_difficulty_level_card.dart';
+import 'package:naheelsoufan_game/src/features/screens/grid_style/choose_multiple_category/presentation/widget/custom_difficulty_level_card.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_style/choose_categorywise_difficulty/riverpod/grid_difficulty_provider.dart';
 import '../../../../../../core/routes/route_name.dart';
 

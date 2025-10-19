@@ -31,12 +31,7 @@ class NextTurnScreen extends ConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CustomIconsButtons(
-                    icon: AppIcons.backSvg,
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                  ),
+                  SizedBox(),
           CustomPopUpMenu(),
                 ],
               ),

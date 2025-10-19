@@ -18,7 +18,7 @@ import 'package:naheelsoufan_game/src/features/screens/grid_style/choose_categor
 import 'package:naheelsoufan_game/src/features/screens/grid_style/leaderboard/presentation/grid_leader_board_Screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_style/question_answer/presentation/question_revealed.dart';
 import 'package:naheelsoufan_game/src/features/screens/quick_play_offline/question_answer/presentation/quiz_screen.dart';
-import 'package:naheelsoufan_game/src/features/screens/question_answer_screen/question_answer_screen.dart';
+import '../../features/screens/demo_questions/question_answer_screen.dart';
 import '../../features/screens/game_mode_selection_screens/presentation/clicked_setting_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/quick_play_offline/leaderboard/presentation/leaderBoard_Screen.dart';
 import '../../features/screens/account_screens/presentation/edit_profile_screen.dart';
@@ -32,6 +32,6 @@ import '../../features/screens/onboarding_screen/presentation/splash_screen.dart
 import '../../features/screens/quick_play_offline/choose_category/presentation/catagory_selection_screen.dart';
 import '../../features/screens/quick_play_offline/choose_difficulty/presentation/deficulty_level_screen.dart';
 import '../../features/screens/quick_play_offline/question_answer/presentation/next_turn_screen.dart';
-import '../../features/screens/question_answer_screen/setting_while_in_game/presentation/setting_while_in_game_screen.dart';
+import '../../features/screens/setting_while_in_game/presentation/setting_while_in_game_screen.dart';
 import 'build_page_with_transition.dart';
 part 'route_config.dart';

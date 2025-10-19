@@ -69,10 +69,13 @@ class Utils {
       }
     } else {
       if (totalDifficulty <= clickQuestionList.length) {
+        ref.invalidate(playerProvider);
         ref.invalidate(isQuestionVanished);
-        ref.invalidate(isQuestionVanishTeam1);
         ref.invalidate(isQuestionVanishTeam2);
+        ref.invalidate(isQuestionVanishTeam1);
         ref.invalidate(categoryListProvider);
+        ref.invalidate(isCategorySelectedClicked);
+        ref.invalidate(isSomethingClicked);
         context.pushReplacement(RouteName.gridLeaderboard);
       } else {
         context.pushReplacement(RouteName.nextTurnScreen);

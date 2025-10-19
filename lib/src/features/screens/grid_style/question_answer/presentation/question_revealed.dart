@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
-import 'package:naheelsoufan_game/src/features/screens/grid_play_game/presentation/widget/platoon_hunter_card.dart';
+import 'package:naheelsoufan_game/src/features/screens/grid_style/choose_multiple_category/presentation/widget/platoon_hunter_card.dart';
 import 'package:naheelsoufan_game/src/data/riverpod/function.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_style/question_answer/presentation/widget/point.dart';
 import '../../../../../core/constant/icons.dart';

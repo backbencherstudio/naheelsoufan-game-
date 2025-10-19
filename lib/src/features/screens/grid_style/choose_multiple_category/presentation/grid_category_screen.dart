@@ -12,11 +12,10 @@ import 'package:naheelsoufan_game/src/features/common_widegts/special_elevated_b
 import 'package:naheelsoufan_game/src/features/screens/quick_play_offline/add_player/presentation/widget/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/player_provider.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_style/choose_multiple_category/presentation/widget/grid_choose_category_question_tile.dart';
-import 'package:naheelsoufan_game/src/features/screens/grid_play_game/riverpod/page_navigation_notifier.dart';
-import '../../../../../data/riverpod/function.dart';
 import '../../../../common_widegts/custom_round_button/customRound_button.dart';
 import '../../../../common_widegts/pop_up_menu/custom_pop_up_menu.dart';
 import '../riverpod/category_provider.dart';
+import '../riverpod/page_navigation_notifier.dart';
 
 class ChooseCategoryScreen extends ConsumerStatefulWidget {
   const ChooseCategoryScreen({super.key});
@@ -163,9 +162,11 @@ class _ChooseCategoryScreenState extends ConsumerState<ChooseCategoryScreen> {
                   SizedBox(width: 26.w),
                   SpecialElevatedButton003(
                     onTap: () {
-                      context.pushReplacement(
+                      if(ref.read(categoryListProvider.notifier).state.isNotEmpty) {
+                        context.pushReplacement(
                         RouteName.gridDifficultyLevelScreen,
                       );
+                      }
                     },
                     buttonName: "NEXT",
                   ),

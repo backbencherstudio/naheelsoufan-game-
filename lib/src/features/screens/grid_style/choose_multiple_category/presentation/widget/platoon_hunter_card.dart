@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../../core/constant/icons.dart';
-import '../../../../../core/routes/route_name.dart';
-import '../../../../../core/theme/theme_extension/color_scheme.dart';
+import '../../../../../../core/constant/icons.dart';
+import '../../../../../../core/routes/route_name.dart';
+import '../../../../../../core/theme/theme_extension/color_scheme.dart';
 
 class PlatoonHunterCard extends StatelessWidget {
   final String cardName;
