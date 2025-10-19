@@ -9,6 +9,7 @@ import 'package:naheelsoufan_game/src/features/screens/grid_style/question_answe
 import '../../../../../core/constant/icons.dart';
 import '../../../../../core/constant/padding.dart';
 import '../../../../../core/routes/route_name.dart';
+import '../../../../../core/utils/utils.dart';
 import '../../../../../data/riverpod/count_down_state.dart';
 import '../../../../common_widegts/pop_up_menu/custom_pop_up_menu.dart';
 import '../../../game_mode_selection_screens/riverpod/mode_controller.dart';
@@ -40,20 +41,6 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
   Widget build(BuildContext context) {
     bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
-
-    ref.listen<AdvanceNavigation>(advanceNavigationProvider, (prev, next) {
-      if (next == AdvanceNavigation.gridLeaderboard) {
-        context.push(RouteName.gridLeaderboard);
-      } else if (next == AdvanceNavigation.gridNextTurn) {
-        context.push(RouteName.nextTurnScreen);
-      }
-      ref
-          .read(advanceNavigationProvider.notifier)
-          .state =
-          AdvanceNavigation.none;
-    });
-
-    ref.watch(advanceNavigationProvider);
     final huntMode = ref.watch(huntModeOn);
     final gameMode = ref.watch(modeProvider);
 
@@ -113,8 +100,8 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
                           width: 100.h,
                           child: CustomCountdown(
                             initTime: 60,
-                            onPaused: () {
-                              (huntMode) ? (ref.read(advanceTurnFlagProvider.notifier).state = true): ref.read(huntModeOn.notifier).state = true;
+                            onPaused: () async {
+                              (huntMode) ? await Utils.advanceTurnAlternate(context, ref) : ref.read(huntModeOn.notifier).state = true;
                               WidgetsBinding.instance.addPostFrameCallback((_) {
                                 ref.read(autoCounterProvider(60).notifier).reset();
                               });
@@ -175,7 +162,7 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
               Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                    if (huntMode) ...[
+                    if (!huntMode) ...[
                         (ref.read(isRightWrongElse.notifier).state == -1) ?
                           PlatoonHunterCard(cardName: "Platoon", index: 1) :
                           (ref.read(isRightWrongElse.notifier).state == 1) ?

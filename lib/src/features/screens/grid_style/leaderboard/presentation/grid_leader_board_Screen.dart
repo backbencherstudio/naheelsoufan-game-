@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -15,41 +14,8 @@ import '../../../quick_play_offline/leaderboard/presentation/widget/custom_first
 import '../../../quick_play_offline/leaderboard/presentation/widget/custom_place_box.dart';
 import '../../../quick_play_offline/leaderboard/presentation/widget/custom_row.dart';
 
-class GridLeaderBoardScreen extends StatefulWidget {
+class GridLeaderBoardScreen extends StatelessWidget {
   const GridLeaderBoardScreen({super.key});
-
-  @override
-  State<GridLeaderBoardScreen> createState() => _GridLeaderBoardScreenState();
-}
-
-class _GridLeaderBoardScreenState extends State<GridLeaderBoardScreen> {
-  @override
-  void initState() {
-    super.initState();
-    _setLandscapeMode(); // Set orientation to landscape
-  }
-
-  @override
-  void dispose() {
-    _setPortraitMode(); // Reset orientation to portrait
-    super.dispose();
-  }
-
-  // Force landscape mode
-  void _setLandscapeMode() {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-    ]);
-  }
-
-  //Reset to portrait mode
-  void _setPortraitMode() {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
-  }
 
   @override
   Widget build(BuildContext context) {

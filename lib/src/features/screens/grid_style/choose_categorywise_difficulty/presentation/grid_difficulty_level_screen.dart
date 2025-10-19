@@ -62,29 +62,46 @@ class _GridDifficultyLevelScreenState extends ConsumerState<GridDifficultyLevelS
                   width: double.infinity,
                   child: Column(
                     children: [
-                      SizedBox(
-                        height: 150.h,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: List.generate(categoryList.length, (index)=>CustomGridDifficultyTitle(categoryName: questionList[index].questionCategory)),
+                      Expanded(
+                        flex: 1,
+                        child: GridView.builder(
+                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: categoryList.length,
+                              crossAxisSpacing: 10.w,
+                              mainAxisSpacing: 10.w,
+                              childAspectRatio: (categoryList.length < 2) ? 10 : (categoryList.length < 4) ? 5 : 2
+                            ),
+                            itemCount: categoryList.length,
+                            itemBuilder: (context, index) {
+                              return SizedBox(
+                                height: 1000,
+                                width: 1000,
+                                child: CustomGridDifficultyTitle(categoryName: questionList[index].questionCategory),
+                              );
+                            }
                         ),
                       ),
                       Expanded(
+                        flex: 2,
                         child: GridView.builder(
                             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: categoryList.length,
                                 crossAxisSpacing: 10.w,
                                 mainAxisSpacing: 10.w,
-                                childAspectRatio: 2
+                                childAspectRatio: (categoryList.length < 2) ? 10 : (categoryList.length < 4) ? 5 : 2
                             ),
                             itemCount: 3 * categoryList.length,
                             itemBuilder: (context, index) {
-                              return CustomGridQuestionCard(
-                                  difficultyId: index.toString(),
-                                  difficultyLevel: "EASY",
-                                  difficultyPoint: 100,
-                                  categoryId: categoryList[index % categoryList.length],
-                                  index: index,
+                              return SizedBox(
+                                height: 1000,
+                                width: 1000,
+                                child: CustomGridQuestionCard(
+                                    difficultyId: index.toString(),
+                                    difficultyLevel: "EASY",
+                                    difficultyPoint: 100,
+                                    categoryId: categoryList[index % categoryList.length],
+                                    index: index,
+                                ),
                               );
                             }
                         ),

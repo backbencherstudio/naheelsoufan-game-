@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../../core/utils/utils.dart';
 import '../../../../../data/riverpod/count_down_state.dart';
 import '../../../auth/register/presentation/widget/custom_textformfield.dart';
 import '../../../game_mode_selection_screens/riverpod/mode_controller.dart';
@@ -74,9 +75,9 @@ class _TypedQuestionWithImageVideoState extends ConsumerState<TypedQuestionWithI
             CustomTextFormField(
               hintText: "Type your answer here",
               controller: _answerController,
-              onSubmitted: (value) {
+              onSubmitted: (value) async {
                 if (value.toLowerCase() == rightAnswer.toLowerCase()) {
-                  ref.read(advanceTurnFlagProvider.notifier).state = true;
+                  await Utils.advanceTurnAlternate(context, ref);
                   //controller.state = current.copyWith(currentPlayer: next); // CB
                 }
                 else{
@@ -84,7 +85,7 @@ class _TypedQuestionWithImageVideoState extends ConsumerState<TypedQuestionWithI
 
                   log("\n\n\nWRONG!!!\n\n\n");
                   if(huntMode == true){
-                    ref.read(advanceTurnFlagProvider.notifier).state = true;
+                    await Utils.advanceTurnAlternate(context, ref);
                     //controller.state = current.copyWith(currentPlayer: next);
                   } else {
                     ref.read(autoCounterProvider(60).notifier).reset();

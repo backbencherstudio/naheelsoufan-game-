@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_type/riverpod/multiple_choice_provider.dart';
 import 'package:naheelsoufan_game/src/data/riverpod/function.dart';
+import '../../../../../core/utils/utils.dart';
 import '../../../../../data/riverpod/count_down_state.dart';
 import '../../../game_mode_selection_screens/riverpod/mode_controller.dart';
 import '../../../quick_play_offline/question_answer/provider/advance_turn_controller.dart';
@@ -59,7 +60,7 @@ class MultipleChoiceQuestion extends StatelessWidget {
 
                 return InkWell(
                   // CHANGE
-                  onTap: () {
+                  onTap: () async {
                     (index == rightChoiceIndex) ? ref.read(isRightWrongElse.notifier).state = 1 : ref.read(isRightWrongElse.notifier).state = 0;
 
                     for (int i = 0; i < choices.length; i++) {
@@ -81,7 +82,7 @@ class MultipleChoiceQuestion extends StatelessWidget {
 
                       log("\n\n\nWRONG!!!\n\n\n");
                       if(huntMode == true){
-                        ref.read(advanceTurnFlagProvider.notifier).state = true;
+                        await Utils.advanceTurnAlternate(context, ref);
                         //controller.state = current.copyWith(currentPlayer: next);
                       } else {
                         ref.read(autoCounterProvider(60).notifier).reset();
@@ -92,7 +93,7 @@ class MultipleChoiceQuestion extends StatelessWidget {
                         ref.read(autoCounterProvider(60).notifier).reset();
                       });
                     } else {
-                      ref.read(advanceTurnFlagProvider.notifier).state = true;
+                      await Utils.advanceTurnAlternate(context, ref);
                       //controller.state = current.copyWith(currentPlayer: next); // CB
                     }
                     log("is wrong = $huntMode");

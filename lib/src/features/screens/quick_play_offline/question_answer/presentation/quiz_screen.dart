@@ -40,20 +40,6 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
   @override
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
-
-      ref.listen<AdvanceNavigation>(advanceNavigationProvider, (prev, next) {
-        if (next == AdvanceNavigation.leaderboard) {
-          context.push(RouteName.leaderboardScreen);
-        } else if (next == AdvanceNavigation.nextTurn) {
-          context.push(RouteName.nextTurnScreen);
-        }
-        ref
-            .read(advanceNavigationProvider.notifier)
-            .state =
-            AdvanceNavigation.none;
-      });
-
-    ref.watch(advanceTurnControllerProvider);
     final huntMode = ref.watch(huntModeOn);
 
     return CreateScreen(
