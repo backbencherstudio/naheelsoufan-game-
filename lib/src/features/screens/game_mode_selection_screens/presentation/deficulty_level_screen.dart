@@ -16,15 +16,29 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/difficulty_selection_provider.dart';
 import '../../../../core/utils/utils.dart';
+import '../../../../data/repository/difficulties/difficulty_service.dart';
 import '../../../../data/riverpod/count_down_state.dart';
 import '../../../../data/riverpod/difficulty/difficulty_provider.dart';
 import '../../../../data/riverpod/game/start_game/start_game_provider.dart';
 
-class DifficultyLevelScreen extends ConsumerWidget {
+class DifficultyLevelScreen extends ConsumerStatefulWidget {
   const DifficultyLevelScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<DifficultyLevelScreen> createState() => _DifficultyLevelScreenState();
+}
+
+class _DifficultyLevelScreenState extends ConsumerState<DifficultyLevelScreen> {
+  @override
+  void initState() {
+    Future.microtask(()async{
+      final difficultyService = DifficultyService();
+      ref.read(difficultiesStateNotifierProvider.notifier).state = await difficultyService.fetchDifficultyData();
+    });
+    super.initState();
+  }
+  @override
+  Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
     final levels = ref.watch(difficultiesStateNotifierProvider);
     final cateId = ref.watch(categoryId);
@@ -59,44 +73,58 @@ class DifficultyLevelScreen extends ConsumerWidget {
                       ListView.builder(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
-                        itemCount: levels?.data.length,
+                        itemCount: levels?.data.length ?? 0,
                         itemBuilder: (context, index) {
                           return CustomButtonsNormal(
                             isSelected: selectedLevel == index,
                             onTap: () {
-                              ref.read(levelSelectionProvider.notifier).state = index;
-                              ref.read(difficultyId.notifier).state = levels.data[index].id;
-                              debugPrint("Selected level: ${levels.data[index].name}");
-                              debugPrint("Selected level: ${levels.data[index].id}");
+                              ref.read(levelSelectionProvider.notifier).state =
+                                  index;
+                              ref.read(difficultyId.notifier).state =
+                                  levels?.data[index].id;
+                              debugPrint(
+                                "Selected level: ${levels?.data[index].name}",
+                              );
+                              debugPrint(
+                                "Selected level: ${levels?.data[index].id}",
+                              );
                             },
-                            title: levels!.data[index].name,
+                            title: levels?.data[index].name ?? '',
                           );
                         },
                       ),
                       SizedBox(height: 20.h),
                       CustomGreenButton(
-                        onTap: () async { // todo start the game
-                          final categoryAndDifficultyService = SelectCategoriesAndDifficultiesService();
-                          final res = await categoryAndDifficultyService.selectCategoryAndDifficulty(cateId, diffId);
-                          if(res?.success == false || res == null) {
-                            debugPrint("Error: ${res?.message}");
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text("No question found in this category/difficulty"),
-                                duration: Duration(seconds: 1),
-                              ),
-                            );
-                          }
-                          else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text("Success to start the game"),
-                                duration: Duration(seconds: 1),
-                              ),
-                            );
-                            ref.read(questionResponseProvider.notifier).state = res;
-                            context.pushReplacement(RouteName.quizScreen);
-                          }
+                        onTap: () async {
+                          // Move async operation to a background thread.
+                          await Future.delayed(Duration.zero, () async {
+                            final categoryAndDifficultyService =
+                                SelectCategoriesAndDifficultiesService();
+                            final res = await categoryAndDifficultyService
+                                .selectCategoryAndDifficulty(cateId, diffId);
+                            if (res?.success == false || res == null) {
+                              debugPrint("Error: ${res?.message}");
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    "No question found in this category/difficulty",
+                                  ),
+                                  duration: Duration(seconds: 1),
+                                ),
+                              );
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text("Success to start the game"),
+                                  duration: Duration(seconds: 1),
+                                ),
+                              );
+                              ref
+                                  .read(questionResponseProvider.notifier)
+                                  .state = res;
+                              context.pushReplacement(RouteName.quizScreen);
+                            }
+                          });
                         },
                       ),
                     ],
