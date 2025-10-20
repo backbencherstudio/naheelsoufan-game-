@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_button.dart';
 
+import '../../../../../../core/utils/utils.dart';
+
 class CustomCard extends StatelessWidget {
   final String img;
   final String text;
@@ -17,8 +19,9 @@ class CustomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
     return Container(
-      height: 258.h,
+      height: screenHeight*0.3,
       width: double.infinity,
 
       decoration: BoxDecoration(

@@ -30,12 +30,12 @@ class _RegisterAppbarState extends State<RegisterAppbar> {
     final dropDownStyle = Theme.of(context).textTheme.displayMedium?.copyWith(color: AppColorScheme.secondary);
     final isNotTab = MediaQuery.of(context).size.shortestSide < 600;
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         SizedBox(
           height: isNotTab ? 52.h : 100.h,
           child: Image.asset(AppImages.logo),
         ),
-        SizedBox( width: isNotTab? 95.w: 190.w),
         Consumer(
           builder: (_, ref, _) {
             final result = ref.watch(isSelectedVal) ?? "US English";

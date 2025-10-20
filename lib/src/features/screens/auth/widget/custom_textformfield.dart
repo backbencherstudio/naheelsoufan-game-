@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import '../../../../core/utils/utils.dart';
 
@@ -56,10 +57,8 @@ class CustomTextFormField extends StatelessWidget {
         fillColor: AppColorScheme.primary,
         hintText: hintText,
         hintStyle: formFieldHintTextStyle,
-        suffixIcon:
-        suffixIcon != null
-            ? IconButton(onPressed: onSuffixTap, icon: suffixIcon!)
-            : SizedBox(height: isNotTab ? 0.h : 90.h,),
+        suffixIcon: (suffixIcon != null) ?
+        IconButton(onPressed: onSuffixTap, icon: suffixIcon ?? SizedBox()) : null,
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.r),
           borderSide: BorderSide(

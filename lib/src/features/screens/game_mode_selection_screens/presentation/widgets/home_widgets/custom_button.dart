@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naheelsoufan_game/src/core/constant/images.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 
+import '../../../../../../core/utils/utils.dart';
+
 class CustomButton extends StatelessWidget {
   final String text;
   final String? img;
@@ -16,12 +18,10 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
-
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 58.h,
-        width: 229.w,
+        height: 100.h,
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage(img ?? AppImages.primaryButton),
