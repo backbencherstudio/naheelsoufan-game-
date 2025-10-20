@@ -23,6 +23,6 @@ class SelectionNotifier extends StateNotifier<SelectionState> {
 
 //single selection provider
 
-final selectProvider = StateProvider.autoDispose<int?>(
+final selectProvider = StateProvider<int?>(
         (ref)=> null
 );

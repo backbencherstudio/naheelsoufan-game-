@@ -54,7 +54,7 @@ class SubscriptionService {
       };
 
       final body = {
-        "subscription_type_id": "cmg218zgs003wws38wz8vv978"
+        "subscription_type_id": subscriptionId
       };
 
       debugPrint(subscriptionId);

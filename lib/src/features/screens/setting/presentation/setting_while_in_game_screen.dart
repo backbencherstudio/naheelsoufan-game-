@@ -57,7 +57,7 @@ class SettingWhileInGameScreen extends ConsumerWidget {
                       leadingIconPath: AppIcons.personSetting,
                       trailingIconPath: AppIcons.forwardIcon,
                       onTap: () {
-                        context.push(RouteName.myAccountWithCancelSubscription);
+                        context.push(RouteName.myAccountScreen);
                       },
                     ),
                     SizedBox(height: 13.h),
@@ -74,7 +74,9 @@ class SettingWhileInGameScreen extends ConsumerWidget {
                       title: 'Settings',
                       leadingIconPath: AppIcons.setting,
                       trailingIconPath: AppIcons.forwardIcon,
-                      onTap: () {},
+                      onTap: () {
+                        context.push(RouteName.clickedSettingScreen);
+                      },
                     ),
                     SizedBox(height: 13.h),
                     buildSettingsTile(

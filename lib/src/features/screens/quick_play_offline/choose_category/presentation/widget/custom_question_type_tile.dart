@@ -9,7 +9,7 @@ class CustomQuestionTypeTile extends StatelessWidget {
   final String imgUrl;
   final String title;
   final int questionNumber;
-  final void Function()? onTap;
+  final void Function() onTap;
   const CustomQuestionTypeTile({
     super.key,
     required this.isSelected,
@@ -79,7 +79,7 @@ class CustomQuestionTypeTile extends StatelessWidget {
 
                   child: Column(
                     children: [
-                      Image.network(imgUrl),
+                      SizedBox(height: 30.h, child: Image.network(imgUrl)),
                       SizedBox(height: 12.h),
                       Text(
                         "$questionNumber Question(s)",

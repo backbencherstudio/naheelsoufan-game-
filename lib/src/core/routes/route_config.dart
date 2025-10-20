@@ -3,7 +3,6 @@ part of 'route_import_part.dart';
 class RouteConfig {
   static final GoRouter goRouter = GoRouter(
     initialLocation: RouteName.splashScreen,
-    observers: [CustomNavigatorObserver()],
     routes: [
       GoRoute(
         path: RouteName.gridLeaderboard,
@@ -177,13 +176,25 @@ class RouteConfig {
       ),
 
       GoRoute(
-        path: RouteName.chooseSubscriptionScreen,
+        path: RouteName.paymentScreen,
         pageBuilder: (context, state) {
           return buildPageWithTransition(
             context: context,
             state: state,
             transitionType: PageTransitionType.slideRightToLeft,
             child: PaymentScreen(),
+          );
+        },
+      ),
+
+      GoRoute(
+        path: RouteName.chooseSubscriptionScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: ChooseSubscriptionScreen(),
           );
         },
       ),
@@ -349,17 +360,6 @@ class RouteConfig {
           );
         },
       ),
-      GoRoute(
-        path: RouteName.deficultyLevelScreen,
-        pageBuilder: (context, state) {
-          return buildPageWithTransition(
-            context: context,
-            state: state,
-            transitionType: PageTransitionType.slideRightToLeft,
-            child: DifficultyLevelScreen(),
-          );
-        },
-      ),
 
       GoRoute(
         path: RouteName.playerSelectionScreen,
@@ -412,14 +412,4 @@ class RouteConfig {
       ),
     ],
   );
-}
-
-class CustomNavigatorObserver extends NavigatorObserver {
-  @override
-  void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
-    super.didPop(route, previousRoute);
-    if (route.settings.name == RouteName.splashScreen) {
-      SystemChannels.platform.invokeMethod('SystemNavigator.pop');
-    }
-  }
 }

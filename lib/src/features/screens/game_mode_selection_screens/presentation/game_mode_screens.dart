@@ -8,14 +8,12 @@ import '../../../../core/constant/icons.dart';
 import '../../../../core/constant/images.dart';
 import '../../../../core/constant/padding.dart';
 import '../../../../core/routes/route_name.dart';
-import '../../../../data/riverpod/difficulty/difficulty_provider.dart';
-import '../../../../data/riverpod/game/category/category_controller.dart';
 import '../../../../data/riverpod/player_game/player_game_controller.dart';
 import '../../../../data/riverpod/subscription/subscription_controller.dart';
 import '../../../common_widegts/create_screen/create_screen.dart';
 import '../../auth/riverpod/auth_providers.dart';
 import '../../quick_play_offline/add_player/presentation/widget/custom_icons_Buttons.dart';
-import '../../setting_while_in_game/widgets/language_drop_down_menu.dart';
+import '../../setting/widgets/language_drop_down_menu.dart';
 import '../riverpod/mode_controller.dart';
 
 class GameModeScreens extends ConsumerStatefulWidget {
@@ -30,11 +28,6 @@ class _GameModeScreensState extends ConsumerState<GameModeScreens> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(authNotifierProvider.notifier).fetchUserDetails();
-      final difficultiesState = ref.read(difficultiesStateNotifierProvider);
-      if (difficultiesState == null) {
-        ref.read(categoryProvider.notifier).fetchCategoryDetails(1);
-        ref.read(difficultiesStateNotifierProvider.notifier).fetchDifficulties();
-      }
       ref.read(playerGameProvider.notifier).fetchGames();
     });
   }
@@ -81,21 +74,21 @@ class _GameModeScreensState extends ConsumerState<GameModeScreens> {
                   CustomButton(
                     text: "GRID STYLE",
                     onTap: () async {
-
-                      if(userSubscriptionData?.data != null) {
+                      ref.read(modeProvider.notifier).state = 3;
+                      if(userSubscriptionData?.data != null && userSubscriptionData?.data.gamesRemaining != 0) {
                         final selectGameMode = SelectGameModeService();
                         final result = await selectGameMode.createGame(
                           context: context,
                           gameMode: 3,
                         );
-
                         (result == true) ? debugPrint("Game Created Successfully") : debugPrint("Game Creation Unsuccessful");
+                        context.push(RouteName.enterTeamNameScreen);
                       }
-
-                      ref.read(modeProvider.notifier).state = 3;
-                      (userGameData?.data.summary.gridStyleGamesCreated == 0) ?
-                      context.push(RouteName.freeGameScreen) :
-                      context.push(RouteName.chooseSubscriptionScreen);
+                      else {
+                        (userGameData?.data.summary.gridStyleGamesCreated == 0) ?
+                        context.push(RouteName.freeGameScreen) :
+                        context.push(RouteName.chooseSubscriptionScreen);
+                      }
                     },
                     img: AppImages.primaryUpsidedown,
                   ),

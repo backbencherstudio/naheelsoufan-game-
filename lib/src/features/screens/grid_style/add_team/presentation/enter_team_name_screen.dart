@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/constant/padding.dart';
@@ -8,22 +9,24 @@ import 'package:naheelsoufan_game/src/features/screens/grid_style/add_team/prese
 import '../../../../../core/constant/icons.dart';
 import '../../../../../core/constant/images.dart';
 import '../../../../../core/routes/route_name.dart';
+import '../../../../../data/repository/player/select_player_service.dart';
+import '../../../../../data/riverpod/game/start_game/start_game_provider.dart';
 import '../../../quick_play_offline/add_player/presentation/widget/custom_icons_Buttons.dart';
 
-class EnterTeamNameScreen extends StatefulWidget {
+class EnterTeamNameScreen extends ConsumerStatefulWidget {
   const EnterTeamNameScreen({super.key});
 
   @override
-  State<EnterTeamNameScreen> createState() => _EnterTeamNameScreenState();
+  ConsumerState<EnterTeamNameScreen> createState() => _EnterTeamNameScreenState();
 }
 
-class _EnterTeamNameScreenState extends State<EnterTeamNameScreen> {
+class _EnterTeamNameScreenState extends ConsumerState<EnterTeamNameScreen> {
   late TextEditingController nameController1;
   late TextEditingController nameController2;
   @override
   void initState() {
-    nameController1 = TextEditingController();
-    nameController2 = TextEditingController();
+    nameController1 = TextEditingController(text: "team 1");
+    nameController2 = TextEditingController(text: "team 2");
     super.initState();
   }
 
@@ -45,12 +48,7 @@ class _EnterTeamNameScreenState extends State<EnterTeamNameScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CustomIconsButtons(
-                    icon: AppIcons.backIcons,
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                  ),
+                  SizedBox(),
                   Image.asset(AppImages.profilePic, height: 40.h, width: 40.w),
                   CustomIconsButtons(icon: AppIcons.settings, onTap: () {}),
                 ],
@@ -74,11 +72,26 @@ class _EnterTeamNameScreenState extends State<EnterTeamNameScreen> {
               SizedBox(height: 100.h),
               SpecialElevatedButton003(
                 buttonName: 'NEXT',
-                onTap: () {
+                onTap: () async {
 
-                  ///API CALL
+                  final playerNameList = [nameController1.text, nameController2.text];
 
-                  context.push(RouteName.gridCategoryScreen);
+                  final selectPlayers = SelectPlayersService();
+                  final result = await selectPlayers.selectPlayers(context: context, players: playerNameList);
+                  if (result?.success == true) {
+                    ref.read(playerListProvider.notifier).state = result;
+                    context.pushReplacement(
+                      RouteName.chooseCategoryScreen,
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(result?.message ?? "Teams added successful", style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w600))),
+                    );
+                    context.push(RouteName.gridCategoryScreen);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(result?.message ?? "Something went wrong", style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w600))),
+                    );
+                  }
                 },
               ),
             ],

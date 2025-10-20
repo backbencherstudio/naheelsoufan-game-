@@ -15,7 +15,7 @@ import '../../../../data/riverpod/player_game/player_game_controller.dart';
 import '../../../../data/riverpod/subscription/subscription_controller.dart';
 import '../../../common_widegts/pop_up_menu/custom_pop_up_menu.dart';
 import '../../quick_play_offline/add_player/presentation/widget/custom_icons_Buttons.dart';
-import '../../setting_while_in_game/widgets/language_drop_down_menu.dart';
+import '../../setting/widgets/language_drop_down_menu.dart';
 import '../riverpod/mode_controller.dart';
 
 class ModeSelectionScreen extends ConsumerStatefulWidget {

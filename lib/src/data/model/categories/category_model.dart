@@ -29,12 +29,14 @@ class Category {
   final String id;
   final String name;
   final String? image;
+  final String? image_url;
   final Language language;
 
   Category({
     required this.id,
     required this.name,
     this.image,
+    this.image_url,
     required this.language,
   });
 
@@ -43,6 +45,7 @@ class Category {
       id: json['id'],
       name: json['name'],
       image: json['image'],
+      image_url: json['image_url'],
       language: Language.fromJson(json['language']),
     );
   }

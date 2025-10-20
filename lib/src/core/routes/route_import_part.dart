@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
 import 'package:naheelsoufan_game/src/features/screens/auth/forgot_link/presentation/forgot_link_screen.dart';
@@ -8,15 +6,17 @@ import 'package:naheelsoufan_game/src/features/screens/auth/register/presentatio
 import 'package:naheelsoufan_game/src/features/screens/auth/reset_password/presentation/reset_password_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/auth/sign_in_screen/presentation/sign_in_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/auth/verify_otp/presentation/otp_screen.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/choose_subscription_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/free_game_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/game_mode_screens.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/mode_selection_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/payment_screen.dart';
+import 'package:naheelsoufan_game/src/features/screens/setting/presentation/setting_while_in_game_screen.dart';
 import '../../features/screens/account_screens/presentation/edit_profile_screen.dart';
 import '../../features/screens/account_screens/presentation/my_account_screen.dart';
 import '../../features/screens/account_screens/presentation/profile_icon_sreen.dart';
 import '../../features/screens/demo_questions/question_answer_screen.dart';
-import '../../features/screens/game_mode_selection_screens/presentation/clicked_setting_screen.dart';
+import '../../features/screens/setting/presentation/clicked_setting_screen.dart';
 import '../../features/screens/grid_style/add_team/presentation/enter_team_name_screen.dart';
 import '../../features/screens/grid_style/choose_categorywise_difficulty/presentation/grid_difficulty_level_screen.dart';
 import '../../features/screens/grid_style/choose_multiple_category/presentation/grid_category_screen.dart';
@@ -33,6 +33,5 @@ import '../../features/screens/quick_play_offline/question_answer/presentation/q
 import '../../features/screens/quick_play_online/add_player/presentation/player_selection_screen.dart';
 import '../../features/screens/quick_play_online/create_room/presentation/create_room_screen.dart';
 import '../../features/screens/quick_play_online/create_room/presentation/share_room_screen.dart';
-import '../../features/screens/setting_while_in_game/presentation/setting_while_in_game_screen.dart';
 import 'build_page_with_transition.dart';
 part 'route_config.dart';

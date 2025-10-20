@@ -46,6 +46,9 @@ class CustomTeamFormField extends StatelessWidget {
               color: AppColorScheme.secondary
             ),
             controller: controller,
+            onFieldSubmitted: (value) {
+              controller.text = value;
+            },
             decoration: InputDecoration(
               contentPadding: EdgeInsets.symmetric(horizontal: 8.w),
               filled: true,

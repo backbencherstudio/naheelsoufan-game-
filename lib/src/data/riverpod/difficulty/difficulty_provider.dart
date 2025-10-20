@@ -16,3 +16,4 @@ class DifficultiesNotifier extends StateNotifier<DifficultiesModelClass?> {
     state = difficulties;
   }
 }
+

@@ -2,18 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:naheelsoufan_game/src/core/constant/api_end_points.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/constant/images.dart';
 import 'package:naheelsoufan_game/src/core/constant/padding.dart';
-import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/quick_play_offline/choose_category/presentation/widget/custom_question_type_tile.dart';
-
+import '../../../../../core/routes/route_name.dart';
 import '../../../../../core/utils/utils.dart';
 import '../../../../../data/riverpod/game/category/category_controller.dart';
 import '../../../../../data/riverpod/game/start_game/start_game_provider.dart';
+import '../../../../../data/riverpod/loading.dart';
 import '../../../../common_widegts/custom_round_button/customRound_button.dart';
 import '../../../../common_widegts/pop_up_menu/custom_pop_up_menu.dart';
 import '../../add_player/presentation/widget/custom_icons_Buttons.dart';
@@ -31,6 +30,11 @@ class _CatagorySelectionScreenState extends ConsumerState<CategorySelectionScree
   @override
   void initState() {
     super.initState();
+    Future.microtask(()async{
+      ref.read(isLoading.notifier).state = true;
+      ref.read(categoryProvider.notifier).fetchCategoryDetails(1);
+      ref.read(isLoading.notifier).state = false;
+    });
     _pageController = PageController(initialPage: 1);
   }
 
@@ -49,6 +53,8 @@ class _CatagorySelectionScreenState extends ConsumerState<CategorySelectionScree
     bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
 
+    final loading = ref.watch(isLoading);
+
     ref.listen<int>(currentPageProvider, (previous, next) {
       _pageController.animateToPage(
         next,
@@ -60,7 +66,7 @@ class _CatagorySelectionScreenState extends ConsumerState<CategorySelectionScree
     return CreateScreen(
       child: Padding(
         padding: AppPadding.horizontalPadding,
-        child: Column(
+        child: loading ? SizedBox(height: 24.w, width: 24.w, child: const Center(child: CircularProgressIndicator())) : Column(
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -97,14 +103,16 @@ class _CatagorySelectionScreenState extends ConsumerState<CategorySelectionScree
                               isSelected: selectedState == index,
                               onTap: () {
                                 ref.read(selectProvider.notifier).state = index;
-                                if (context.mounted) {
-                                  ref.read(categoryId.notifier).state = categories?.data[index].id;
-                                  debugPrint("Category ID: ${categories?.data[index].id}");
-                                  context.push(RouteName.difficultyLevelScreen);
-                                  ref.read(selectProvider.notifier).state = null;
-                                }
+                                ref.read(categoryId.notifier).state = categories?.data[index].id;
+                                ref.invalidate(selectProvider);
+                                debugPrint("\n\n\nCategory ID: ${categories?.data[index].id}\n\n\n");
+                                Future.delayed(Duration(microseconds: 1000), (){
+                                  if (context.mounted) {
+                                    context.push(RouteName.difficultyLevelScreen);
+                                  }
+                                });
                               },
-                              title: categories?.data[index].name ?? "", imgUrl: ApiEndPoints.convertToS3Url(categories?.data[index].image ?? ""),
+                              title: categories?.data[index].name ?? "", imgUrl: categories?.data[index].image_url ?? "",
                               questionNumber: categories?.data.length ?? 0,
                             ),
                             Text(

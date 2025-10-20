@@ -106,14 +106,14 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
                   GameType.typedQuestionWithImage(
                       question: response?.data?.question.text ?? "No Question found",
                       answer: response?.data?.question.correctAnswer.text ?? "",
-                      image: ApiEndPoints.fileUrlPath(fileUrl)
+                      image: fileUrl
                   )
                 ]
                 else if(fileUrl.contains(".mp4") || fileUrl.contains(".mov") || fileUrl.contains(".webm") || fileUrl.contains(".mkv")) ...[
                   GameType.typedQuestionWithVideo(
                       question: response?.data?.question.text ?? "No Question found",
                       thumbnail: "https://imgs.search.brave.com/leJuBumsNv6MxOtXzAlzrld294lpeiHtKd3IL7VGz9M/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzAzLzIxLzM2LzUx/LzM2MF9GXzMyMTM2/NTE1Nl95a0ZqUkh2/YlFwZGt2OHZRT3Vl/NFlmcXludFpYdmxZ/ai5qcGc",
-                      video: ApiEndPoints.fileUrlPath(fileUrl),
+                      video: fileUrl,
                       answer: response?.data?.question.correctAnswer.text ?? ""
                   )
                 ]
@@ -121,7 +121,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
                     GameType.typedQuestionWithAudio(
                       question: response?.data?.question.text ?? "No Question found",
                       answer: response?.data?.question.correctAnswer.text ?? "",
-                      audio: ApiEndPoints.fileUrlPath(fileUrl),
+                      audio: fileUrl,
                     ),
                   ]
                   else ...[
@@ -136,7 +136,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
                 GameType.mcqQuestionWithImage(
                   question: response?.data?.question.text ?? "No Question found",
                   choices: response?.data?.question.answers.map((e) => e.text).toList() ?? [],
-                  imageUrl: ApiEndPoints.fileUrlPath(fileUrl),
+                  imageUrl: fileUrl,
                   rightChoice: response?.data?.question.answers.indexWhere((e)=> e.id == response.data?.question.correctAnswer.id),
                 )
               ]
@@ -145,7 +145,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
                   question: response?.data?.question.text ?? "No Question found",
                   choices: response?.data?.question.answers.map((e) => e.text).toList() ?? [],
                   rightChoice: response?.data?.question.answers.indexWhere((e)=> e.id == response.data?.question.correctAnswer.id),
-                  videoUrl: ApiEndPoints.fileUrlPath(fileUrl),
+                  videoUrl: fileUrl,
                   videoThumbnailUrl: "https://imgs.search.brave.com/leJuBumsNv6MxOtXzAlzrld294lpeiHtKd3IL7VGz9M/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzAzLzIxLzM2LzUx/LzM2MF9GXzMyMTM2/NTE1Nl95a0ZqUkh2/YlFwZGt2OHZRT3Vl/NFlmcXludFpYdmxZ/ai5qcGc",
                 )
               ]
@@ -154,7 +154,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
                     question: response?.data?.question.text ?? "No Question found",
                     rightChoice: response?.data?.question.answers.indexWhere((e)=> e.id == response.data?.question.correctAnswer.id),
                     choices: response?.data?.question.answers.map((e) => e.text).toList() ?? [],
-                    audioUrl: ApiEndPoints.fileUrlPath(fileUrl),
+                    audioUrl: fileUrl,
                   ),
                 ]
                 else ...[

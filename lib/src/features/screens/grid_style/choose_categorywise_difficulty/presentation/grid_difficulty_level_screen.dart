@@ -4,12 +4,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
-import 'package:naheelsoufan_game/src/data/dummy/question_types_data.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_style/choose_categorywise_difficulty/presentation/widget/custom_grid_difficulty_title.dart';
 import 'package:naheelsoufan_game/src/features/screens/quick_play_offline/add_player/presentation/widget/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_style/choose_categorywise_difficulty/presentation/widget/custom_grid_question_card.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_style/choose_multiple_category/presentation/widget/platoon_hunter_card.dart';
+import '../../../../../data/riverpod/difficulty/difficulty_provider.dart';
+import '../../../../../data/riverpod/game/category/category_controller.dart';
+import '../../../../../data/riverpod/game/start_game/start_game_provider.dart';
+import '../../../../../data/riverpod/loading.dart';
 import '../../../../common_widegts/pop_up_menu/custom_pop_up_menu.dart';
 import '../../../game_mode_selection_screens/riverpod/player_provider.dart';
 import '../../../quick_play_offline/question_answer/presentation/widget/show_quit_dialog.dart';
@@ -26,20 +29,32 @@ class GridDifficultyLevelScreen extends ConsumerStatefulWidget {
 class _GridDifficultyLevelScreenState extends ConsumerState<GridDifficultyLevelScreen> {
 
   @override
+  void initState() {
+    Future.microtask(()async{
+      ref.read(isLoading.notifier).state = true;
+      ref.read(difficultiesStateNotifierProvider.notifier).fetchDifficulties();
+      ref.read(isLoading.notifier).state = false;
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
     TextTheme textTheme = Theme.of(context).textTheme;
-
-    final categoryList = ref.watch(categoryListProvider);
-
+    final categoryIdMap = ref.watch(categoryListProvider);
+    final categoryNameList = categoryIdMap.values.toList();
     final difficultyClicked = ref.watch(isDifficultyVanished);
+    final difficultyList = ref.watch(difficultiesStateNotifierProvider);
+    final cateId = ref.watch(categoryId);
+    final diffId = ref.watch(difficultyId);
+    final levels = ref.watch(difficultiesStateNotifierProvider);
+    final loading = ref.watch(isLoading);
+    debugPrint("\n\n\nPlayer: ${ref.read(playerProvider.notifier).state.currentPlayer}\n\n\n");
 
     return CreateScreen(
-      child: Consumer(
-        builder: (_, ref, _) {
-          debugPrint("\n\n\nPlayer: ${ref.read(playerProvider.notifier).state.currentPlayer}\n\n\n");
-          return SingleChildScrollView(
+      child: SingleChildScrollView(
             child: Column(
               children: [
                 SizedBox(height: isPortrait ? 30.h : 13.5.w),
@@ -60,23 +75,23 @@ class _GridDifficultyLevelScreenState extends ConsumerState<GridDifficultyLevelS
                 SizedBox(
                   height: 700.h,
                   width: double.infinity,
-                  child: Column(
+                  child: loading ? const CircularProgressIndicator() : Column(
                     children: [
                       Expanded(
                         flex: 1,
                         child: GridView.builder(
                             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: categoryList.length,
+                              crossAxisCount: categoryNameList.length,
                               crossAxisSpacing: 10.w,
                               mainAxisSpacing: 10.w,
-                              childAspectRatio: (categoryList.length < 2) ? 10 : (categoryList.length < 4) ? 5 : 2
+                              childAspectRatio: (categoryNameList.length < 2) ? 10 : (categoryNameList.length < 4) ? 5 : 2
                             ),
-                            itemCount: categoryList.length,
+                            itemCount: categoryNameList.length,
                             itemBuilder: (context, index) {
                               return SizedBox(
                                 height: 1000,
                                 width: 1000,
-                                child: CustomGridDifficultyTitle(categoryName: questionList[index].questionCategory),
+                                child: CustomGridDifficultyTitle(categoryName: categoryNameList[index] ?? "N/A"),
                               );
                             }
                         ),
@@ -85,12 +100,12 @@ class _GridDifficultyLevelScreenState extends ConsumerState<GridDifficultyLevelS
                         flex: 2,
                         child: GridView.builder(
                             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: categoryList.length,
+                                crossAxisCount: categoryNameList.length,
                                 crossAxisSpacing: 10.w,
                                 mainAxisSpacing: 10.w,
-                                childAspectRatio: (categoryList.length < 2) ? 10 : (categoryList.length < 4) ? 5 : 2
+                                childAspectRatio: (categoryNameList.length < 2) ? 10 : (categoryNameList.length < 4) ? 5 : 2
                             ),
-                            itemCount: 3 * categoryList.length,
+                            itemCount: (difficultyList?.data.length ?? 1) * categoryNameList.length,
                             itemBuilder: (context, index) {
                               return SizedBox(
                                 height: 1000,
@@ -99,7 +114,7 @@ class _GridDifficultyLevelScreenState extends ConsumerState<GridDifficultyLevelS
                                     difficultyId: index.toString(),
                                     difficultyLevel: "EASY",
                                     difficultyPoint: 100,
-                                    categoryId: categoryList[index % categoryList.length],
+                                    categoryId: categoryIdMap[categoryNameList[index]] ?? "N/A",
                                     index: index,
                                 ),
                               );
@@ -146,9 +161,7 @@ class _GridDifficultyLevelScreenState extends ConsumerState<GridDifficultyLevelS
                 ],
               ],
             ),
-          );
-        },
-      ),
+          ),
     );
   }
 }

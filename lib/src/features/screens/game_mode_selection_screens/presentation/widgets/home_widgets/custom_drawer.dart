@@ -13,7 +13,7 @@ import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_scree
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_logout_button.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/music_off_on_whole_screen/riverpod/musicVisible_provider.dart';
 import '../../../../../common_widegts/music_off_on_whole_screen/music_volume_widgets.dart';
-import '../../../../setting_while_in_game/widgets/language_drop_down_menu.dart';
+import '../../../../setting/widgets/language_drop_down_menu.dart';
 
 Drawer appDrawer({required BuildContext context}) {
   final menuKey = GlobalKey();

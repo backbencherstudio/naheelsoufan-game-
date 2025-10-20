@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:naheelsoufan_game/src/core/services/language_services.dart';
+import 'package:naheelsoufan_game/src/core/services/token_services.dart';
 import 'package:naheelsoufan_game/src/data/model/difficulties/difficulties_model_class.dart';
 
 import '../../../core/constant/api_end_points.dart';
@@ -9,11 +10,21 @@ class DifficultyService {
 
   final ApiServices _apiServices = ApiServices();
   final LanguageIdService _languageIdService = LanguageIdService();
+  final _tokenService = TokenService();
+
 
   Future<DifficultiesModelClass?> fetchDifficultyData() async {
     try {
+      final token = await _tokenService.getToken();
+      final languageId = "cmfzc2whx001zwsxsndh2pxqu";
+      final header = {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json'
+      };
+
       final response = await _apiServices.getData(
-        endPoint: ApiEndPoints.fetchDifficultiesUrl,
+        endPoint: "${ApiEndPoints.fetchDifficultiesUrl}?language_id=$languageId",
+        headers: header
       );
 
       DifficultiesModelClass? difficultiesModelClass;

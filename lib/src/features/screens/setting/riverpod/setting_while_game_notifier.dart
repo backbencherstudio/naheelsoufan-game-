@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:naheelsoufan_game/src/features/screens/setting_while_in_game/riverpod/setting_while_game_state.dart';
+import 'package:naheelsoufan_game/src/features/screens/setting/riverpod/setting_while_game_state.dart';
 
 final sideBarProvider = StateNotifierProvider<SideBarProvider, SideBarState>((ref) {
   return SideBarProvider();
