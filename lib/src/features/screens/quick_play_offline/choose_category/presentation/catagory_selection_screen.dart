@@ -49,7 +49,6 @@ class _CatagorySelectionScreenState extends ConsumerState<CategorySelectionScree
     final selectedState = ref.watch(selectProvider);
     final categories = ref.watch(categoryProvider);
     final currentPage = ref.watch(currentPageProvider);
-    final isNotTab = Utils.isTablet(context);
     bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
 
@@ -62,6 +61,9 @@ class _CatagorySelectionScreenState extends ConsumerState<CategorySelectionScree
         curve: Curves.easeInOut,
       );
     });
+
+    final isNotTab = Utils.isTablet(context);
+    final screenHeight = MediaQuery.of(context).size.height;
 
     return CreateScreen(
       child: Padding(
@@ -82,7 +84,7 @@ class _CatagorySelectionScreenState extends ConsumerState<CategorySelectionScree
               ],
             ),
 
-            SizedBox(height: 36.h),
+            SizedBox(height: 10.h),
 
             Expanded(
               child: (categories?.data.length == null) ? Center(child: Text("No Data Found", style: style.displayLarge,),) : PageView.builder(
@@ -93,6 +95,7 @@ class _CatagorySelectionScreenState extends ConsumerState<CategorySelectionScree
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3,
                         crossAxisSpacing: 30,
+                        mainAxisExtent: screenHeight*0.3,
                         childAspectRatio: (isNotTab || isPortrait) ? (0.4) : 1,
                       ),
                       itemCount: categories?.data.length,
@@ -114,14 +117,6 @@ class _CatagorySelectionScreenState extends ConsumerState<CategorySelectionScree
                               },
                               title: categories?.data[index].name ?? "", imgUrl: categories?.data[index].image_url ?? "",
                               questionNumber: categories?.data.length ?? 0,
-                            ),
-                            Text(
-                              categories?.data[index].name ?? "",
-                              style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                                fontWeight: FontWeight.w400,
-                                color: AppColorScheme.primary,
-                              ),
-                              textAlign: TextAlign.center,
                             ),
                           ],
                         );
@@ -146,11 +141,17 @@ class _CatagorySelectionScreenState extends ConsumerState<CategorySelectionScree
                           .read(currentPageProvider.notifier)
                           .state--;
                       _pageController.animateToPage(
-                        currentPage,
+                        currentPage - 1,
                         duration: const Duration(milliseconds: 1000),
-                        curve: Curves.easeInOut,
+                        curve: Curves.easeIn,
                       );
                     } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("No Previous Page"),
+                          duration: Duration(seconds: 1),
+                        ),
+                      );
                       debugPrint("No Previous Page");
                     }
                   },
@@ -164,11 +165,17 @@ class _CatagorySelectionScreenState extends ConsumerState<CategorySelectionScree
                         .read(currentPageProvider.notifier)
                         .state++;
                     _pageController.animateToPage(
-                      currentPage,
+                      currentPage + 1,
                       duration: const Duration(milliseconds: 1000),
-                      curve: Curves.easeInOut,
+                      curve: Curves.easeOut,
                     );
                   } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text("No Next Page"),
+                        duration: Duration(seconds: 1),
+                      ),
+                    );
                     debugPrint("No Next Page");
                   }
                 }),

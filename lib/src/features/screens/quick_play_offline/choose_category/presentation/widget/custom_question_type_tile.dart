@@ -4,6 +4,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 
+import '../../../../../../core/utils/utils.dart';
+
 class CustomQuestionTypeTile extends StatelessWidget {
   final bool isSelected;
   final String imgUrl;
@@ -22,10 +24,12 @@ class CustomQuestionTypeTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
+    final isNotTab = Utils.isTablet(context);
+    final screenHeight = MediaQuery.of(context).size.height;
     return GestureDetector(
       onTap: onTap,
       child: SizedBox(
-        height: 160.h,
+        height: screenHeight*0.3,
         width: 112.w,
         child: Stack(
           fit: StackFit.expand,
@@ -79,7 +83,7 @@ class CustomQuestionTypeTile extends StatelessWidget {
 
                   child: Column(
                     children: [
-                      SizedBox(height: 30.h, child: Image.network(imgUrl)),
+                      SizedBox(height: isNotTab ? 50.h : screenHeight*0.1, child: Image.network(imgUrl)),
                       SizedBox(height: 12.h),
                       Text(
                         "$questionNumber Question(s)",
@@ -97,7 +101,7 @@ class CustomQuestionTypeTile extends StatelessWidget {
             Align(
               alignment: Alignment.topCenter,
               child: Container(
-                height: 24.h,
+                height: screenHeight*0.05,
                 width: 100.w,
                 padding: const EdgeInsets.all(4.0),
 
@@ -130,6 +134,7 @@ class CustomQuestionTypeTile extends StatelessWidget {
                 child: Center(
                   child: Text(
                     title,
+                    textAlign: TextAlign.center,
                     style: style.labelMedium!.copyWith(
                       fontWeight: FontWeight.w500,
                       color: Color(0xff2E1126),

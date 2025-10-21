@@ -91,6 +91,7 @@ class _DifficultyLevelScreenState extends ConsumerState<DifficultyLevelScreen> {
                             isSelected: selectedLevel == index,
                             onTap: () {
                               ref.read(levelSelectionProvider.notifier).state = index;
+                              ref.read(difficultyId.notifier).state = levels?.data[index].id;
                             },
                             title: levels?.data[index].name ?? "N/A",
                           );
@@ -99,7 +100,6 @@ class _DifficultyLevelScreenState extends ConsumerState<DifficultyLevelScreen> {
                       SizedBox(height: 20.h),
                       CustomGreenButton(
                         onTap: () async {
-                          ref.read(difficultyId.notifier).state = levels?.data[selectedLevel ?? 0].id;
                           final categoryAndDifficultyService = SelectCategoriesAndDifficultiesService();
                           final res = await categoryAndDifficultyService.selectCategoryAndDifficulty(cateId, diffId);
                           if(res?.success == false || res == null) {

@@ -1,6 +1,6 @@
 class ApiEndPoints{
   // BASE URL
-  static const String baseUrl = "https://caroll-perihelial-nonnecessitously.ngrok-free.dev";
+  static const String baseUrl = "https://nirob.signalsmind.com/s3";
 
   // static String convertToS3Url(String localUrl) {
   //   final pathStart = localUrl.indexOf('https://firebasestorage.googleapis.com/');

@@ -47,6 +47,8 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
     final huntMode = ref.watch(huntModeOn);
     final response = ref.watch(questionResponseProvider);
     final fileUrl = response?.data?.question.fileUrl ?? "null";
+    final isNotTab = Utils.isTablet(context);
+    final screenHeight = MediaQuery.of(context).size.height;
 
     return CreateScreen(
       child: Padding(
@@ -64,7 +66,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
                   bgIcon: AppIcons.redBGsqare,
                 ),
                 SizedBox(
-                  height: 100.h,
+                  height: isNotTab ? 100.h : ,
                   width: 100.h,
                   child: CustomCountdown(
                     initTime: response?.data?.question.timeLimit ?? 60,

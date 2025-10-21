@@ -29,7 +29,7 @@ class CategoryRepository extends BaseCategoryRepository{
       final headers = {'Authorization': 'Bearer $token', 'Content-Type': 'application/json'};
 
       final response = await apiServices.getData(
-        endPoint: "${ApiEndPoints.categoryUrl}?page=$pageNo&language_id=$languageId",
+        endPoint: "${ApiEndPoints.categoryUrl}?page=$pageNo&limit=9&language_id=$languageId",
         headers: headers
       );
 
