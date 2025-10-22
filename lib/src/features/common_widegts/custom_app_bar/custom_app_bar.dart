@@ -3,7 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../core/constant/icons.dart';
+import '../../../data/repository/subscription/subscription_service.dart';
 import '../../../data/riverpod/player_game/player_game_controller.dart';
+import '../../../data/riverpod/subscription/subscription_controller.dart';
 
 class CustomAppBar extends ConsumerWidget {
   final String? title;
@@ -21,7 +23,8 @@ class CustomAppBar extends ConsumerWidget {
       leading: Padding(
         padding: EdgeInsets.only(left: 16.w),
         child: GestureDetector(
-          onTap: () {
+          onTap: () async {
+            ref.read(userSubscriptionDataProvider.notifier).state = await SubscriptionService().fetchUserSubscription();
             ref.read(playerGameProvider.notifier).fetchGames();
             Navigator.pop(context);
           },

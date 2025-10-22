@@ -10,7 +10,9 @@ import '../../../../../core/constant/icons.dart';
 import '../../../../../core/constant/padding.dart';
 import '../../../../../core/routes/route_name.dart';
 import '../../../../../core/utils/utils.dart';
+import '../../../../../data/repository/game/start_game/answer_question_service.dart';
 import '../../../../../data/riverpod/count_down_state.dart';
+import '../../../../../data/riverpod/game/start_game/start_game_provider.dart';
 import '../../../../../data/riverpod/player_game/player_game_controller.dart';
 import '../../../../common_widegts/pop_up_menu/custom_pop_up_menu.dart';
 import '../../../game_mode_selection_screens/riverpod/mode_controller.dart';
@@ -44,6 +46,8 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
         MediaQuery.of(context).orientation == Orientation.portrait;
     final huntMode = ref.watch(huntModeOn);
     final gameMode = ref.watch(modeProvider);
+    final response = ref.watch(questionResponseProvider);
+    final fileUrl = response?.data?.question.fileUrl ?? "null";
 
     return CreateScreen(
       child: Padding(
@@ -55,9 +59,9 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
               Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      if (!isPortrait)...[
                         SizedBox(
-                          width: 990.h,
+                          height: isPortrait ? 100.h : null,
+                          width: isPortrait ? 100.h : 990.h,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -73,43 +77,46 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
                                 height: 20.w,
                                 width: 45.w,
                                 child: CustomCountdown(
-                                  initTime: 60,
+                                  initTime: response?.data?.question.timeLimit ?? 60,
+                                  // CHANGE
                                   onPaused: () {
-                                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                                    //(huntMode) ?
+                                    WidgetsBinding.instance.addPostFrameCallback((_) async {
                                       if (!huntMode) {
-                                        onWrongAnswerTap(context, "China", ref);
+                                        /// Skip Here
+                                        await AnswerQuestionService().skipAnswer(
+                                          response?.data?.question.id,
+                                          response?.data?.currentPlayer.id,
+                                        );
+
+                                        onWrongAnswerTap(
+                                          context,
+                                          response?.data?.question.correctAnswer.text ?? "",
+                                          ref,
+                                        );
                                         ref.read(huntModeOn.notifier).state = true;
-                                        ref.read(autoCounterProvider(60).notifier).resetAndStart();
+                                        ref
+                                            .read(
+                                          autoCounterProvider(
+                                            response?.data?.question.timeLimit ?? 60,
+                                          ).notifier,
+                                        )
+                                            .reset();
+                                      } else {
+                                        await AnswerQuestionService().skipAnswer(
+                                          response?.data?.question.id,
+                                          null,
+                                        );
+                                        await Utils.advanceTurnAlternate(context, ref);
                                       }
                                     });
                                   },
+                                  // CHANGE
                                 ),
                               ),
                             ],
                           ),
                         ),
-                      ] else ...[
-                          CustomIconsButtons(
-                        icon: AppIcons.crossIcon,
-                        onTap: () {
-                          onQuitGameTap(context, ref);
-                        },
-                        bgIcon: AppIcons.redBGsqare,
-                      ),
-                        SizedBox(
-                          height: 100.h,
-                          width: 100.h,
-                          child: CustomCountdown(
-                            initTime: 60,
-                            onPaused: () async {
-                              (huntMode) ? await Utils.advanceTurnAlternate(context, ref) : ref.read(huntModeOn.notifier).state = true;
-                              WidgetsBinding.instance.addPostFrameCallback((_) {
-                                ref.read(autoCounterProvider(60).notifier).reset();
-                              });
-                            },
-                          ),
-                        ),
-                      ],
 
                       if(!isPortrait && ref.read(huntModeOn.notifier).state) HeaderButton(
                         height: isPortrait ? 40.h : 20.w,
@@ -145,20 +152,132 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
               //point container
               if (isPortrait) PointShow(),
               SizedBox(height: 16.h),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: isPortrait ? 0.h : 300.h,
-                ),
-                child: GameType.imageMcqQuestion(
-                    choicesImageURL: [
-                      'https://cdn.britannica.com/94/494-050-A674AD3A/Fallow-deer-dama-dama.jpg',
-                      'https://www.worldanimalprotection.org/cdn-cgi/image/width=1920,format=auto/globalassets/images/elephants/1033551-elephant.jpg',
-                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOG5TM1EovYcHRS_Uoi7lufuMrQ3slzfmoLg&s',
-                      'https://cdn.britannica.com/94/494-050-A674AD3A/Fallow-deer-dama-dama.jpg',
-                    ],
-                    question: 'Which one is Horse? Select correct one from image below?',
-                    rightChoice: 2),
-              ),
+
+              if (response?.data?.question.questionType.name != null &&
+                  response?.data?.question.questionType.name == "Text") ...[
+                if (fileUrl.contains(".png") ||
+                    fileUrl.contains(".jpg") ||
+                    fileUrl.contains(".jpeg") ||
+                    fileUrl.contains(".webp")) ...[
+                  GameType.typedQuestionWithImage(
+                    question:
+                    response?.data?.question.text ?? "No Question found",
+                    answer: response?.data?.question.correctAnswer.text ?? "",
+                    image: fileUrl,
+                  ),
+                ] else if (fileUrl.contains(".mp4") ||
+                    fileUrl.contains(".mov") ||
+                    fileUrl.contains(".webm") ||
+                    fileUrl.contains(".mkv")) ...[
+                  GameType.typedQuestionWithVideo(
+                    question:
+                    response?.data?.question.text ?? "No Question found",
+                    thumbnail:
+                    "https://imgs.search.brave.com/leJuBumsNv6MxOtXzAlzrld294lpeiHtKd3IL7VGz9M/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzAzLzIxLzM2LzUx/LzM2MF9GXzMyMTM2/NTE1Nl95a0ZqUkh2/YlFwZGt2OHZRT3Vl/NFlmcXludFpYdmxZ/ai5qcGc",
+                    video: fileUrl,
+                    answer: response?.data?.question.correctAnswer.text ?? "",
+                  ),
+                ] else if (fileUrl.contains(".mp3") ||
+                    fileUrl.contains(".wav") ||
+                    fileUrl.contains(".m4a") ||
+                    fileUrl.contains(".aac")) ...[
+                  GameType.typedQuestionWithAudio(
+                    question:
+                    response?.data?.question.text ?? "No Question found",
+                    answer: response?.data?.question.correctAnswer.text ?? "",
+                    audio: fileUrl,
+                  ),
+                ] else ...[
+                  GameType.typedQuestion(
+                    question:
+                    response?.data?.question.text ?? "No Question found",
+                    answer: response?.data?.question.correctAnswer.text ?? "",
+                  ),
+                ],
+              ] else ...[
+                if (fileUrl.contains(".png") ||
+                    fileUrl.contains(".jpg") ||
+                    fileUrl.contains(".jpeg") ||
+                    fileUrl.contains(".webp")) ...[
+                  GameType.mcqQuestionWithImage(
+                    question:
+                    response?.data?.question.text ?? "No Question found",
+                    choices:
+                    response?.data?.question.answers
+                        .map((e) => e.text)
+                        .toList() ??
+                        [],
+                    imageUrl: fileUrl,
+                    rightChoice: response?.data?.question.answers.indexWhere(
+                          (e) => e.id == response.data?.question.correctAnswer.id,
+                    ),
+                  ),
+                ] else if (fileUrl.contains(".mp4") ||
+                    fileUrl.contains(".mov") ||
+                    fileUrl.contains(".webm") ||
+                    fileUrl.contains(".mkv")) ...[
+                  GameType.mcqQuestionWithVideo(
+                    question:
+                    response?.data?.question.text ?? "No Question found",
+                    choices:
+                    response?.data?.question.answers
+                        .map((e) => e.text)
+                        .toList() ??
+                        [],
+                    rightChoice: response?.data?.question.answers.indexWhere(
+                          (e) => e.id == response.data?.question.correctAnswer.id,
+                    ),
+                    videoUrl: fileUrl,
+                    videoThumbnailUrl:
+                    "https://imgs.search.brave.com/leJuBumsNv6MxOtXzAlzrld294lpeiHtKd3IL7VGz9M/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzAzLzIxLzM2LzUx/LzM2MF9GXzMyMTM2/NTE1Nl95a0ZqUkh2/YlFwZGt2OHZRT3Vl/NFlmcXludFpYdmxZ/ai5qcGc",
+                  ),
+                ] else if (fileUrl.contains(".mp3") ||
+                    fileUrl.contains(".wav") ||
+                    fileUrl.contains(".m4a") ||
+                    fileUrl.contains(".aac")) ...[
+                  GameType.mcqQuestionWithAudio(
+                    question:
+                    response?.data?.question.text ?? "No Question found",
+                    rightChoice: response?.data?.question.answers.indexWhere(
+                          (e) => e.id == response.data?.question.correctAnswer.id,
+                    ),
+                    choices:
+                    response?.data?.question.answers
+                        .map((e) => e.text)
+                        .toList() ??
+                        [],
+                    audioUrl: fileUrl,
+                  ),
+                ] else ...[
+                  GameType.multipleChoiceQuestion(
+                    rightChoice: response?.data?.question.answers.indexWhere(
+                          (e) => e.id == response.data?.question.correctAnswer.id,
+                    ),
+                    choices:
+                    response?.data?.question.answers
+                        .map((e) => e.text)
+                        .toList() ??
+                        [],
+                    question:
+                    response?.data?.question.text ?? "No Question found",
+                  ),
+                ],
+              ],
+
+              // Padding(
+              //   padding: EdgeInsets.symmetric(
+              //     horizontal: isPortrait ? 0.h : 300.h,
+              //   ),
+              //   child: GameType.imageMcqQuestion(
+              //       choicesImageURL: [
+              //         'https://cdn.britannica.com/94/494-050-A674AD3A/Fallow-deer-dama-dama.jpg',
+              //         'https://www.worldanimalprotection.org/cdn-cgi/image/width=1920,format=auto/globalassets/images/elephants/1033551-elephant.jpg',
+              //         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOG5TM1EovYcHRS_Uoi7lufuMrQ3slzfmoLg&s',
+              //         'https://cdn.britannica.com/94/494-050-A674AD3A/Fallow-deer-dama-dama.jpg',
+              //       ],
+              //       question: 'Which one is Horse? Select correct one from image below?',
+              //       rightChoice: 2),
+              // ),
               SizedBox(height: isPortrait ? 100.h : 15.w),
               Row(
                     mainAxisAlignment: MainAxisAlignment.center,

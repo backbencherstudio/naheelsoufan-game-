@@ -68,3 +68,5 @@ final playerNameProvider = ChangeNotifierProvider<PlayerNamesNotifier>(
 );
 
 final addPlayerTileSelection = StateProvider<int>((ref) => -1);
+
+final questionCountProvider = StateProvider<int>((ref) => 0);

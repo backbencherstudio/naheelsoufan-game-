@@ -39,7 +39,7 @@ class CategoryRepository extends BaseCategoryRepository{
         return true;
       }
     } catch (e) {
-      debugPrint('Error fetching user data: $e');
+      debugPrint('Error fetching category data: $e');
       return false;
     }
     return false;

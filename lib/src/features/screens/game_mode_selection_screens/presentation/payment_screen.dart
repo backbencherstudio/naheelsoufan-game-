@@ -14,6 +14,7 @@ import '../../../../core/constant/icons.dart';
 import '../../../../core/constant/images.dart';
 import '../../../../core/routes/route_name.dart';
 import '../../../../data/repository/subscription/subscription_service.dart';
+import '../../../../data/riverpod/player_game/player_game_controller.dart';
 import '../../../common_widegts/pop_up_menu/custom_pop_up_menu.dart';
 import '../../quick_play_offline/add_player/presentation/widget/custom_icons_Buttons.dart';
 
@@ -126,8 +127,11 @@ class PaymentScreen extends ConsumerWidget {
                     ),
                   );
                   //AFTER SUCCESSFUL PAYMENT
-                  if(result?.paymentStatus == "completed") onPaymentButton(context);
-
+                  if(result?.paymentStatus == "completed") {
+                    onPaymentButton(context);
+                  }
+                  ref.read(userSubscriptionDataProvider.notifier).state = await SubscriptionService().fetchUserSubscription();
+                  ref.read(playerGameProvider.notifier).fetchGames();
                   ref.read(isLoading.notifier).state = false;
                 },
                 child: Container(

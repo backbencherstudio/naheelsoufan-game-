@@ -32,6 +32,7 @@ class _ModeSelectionScreenState extends ConsumerState<ModeSelectionScreen> {
     Future.microtask(() async {
       ref.read(isLoading.notifier).state = true;
       ref.read(userSubscriptionDataProvider.notifier).state = await SubscriptionService().fetchUserSubscription();
+      ref.read(playerGameProvider.notifier).fetchGames();
       ref.read(isLoading.notifier).state = false;
     });
     super.initState();

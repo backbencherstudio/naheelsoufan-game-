@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import '../../data/riverpod/count_down_state.dart';
 import '../../data/riverpod/function.dart';
+import '../../data/riverpod/subscription/subscription_controller.dart';
 import '../../features/screens/game_mode_selection_screens/riverpod/mode_controller.dart';
 import '../../features/screens/game_mode_selection_screens/riverpod/player_provider.dart';
 import '../../features/screens/game_type/riverpod/multiple_choice_provider.dart';
@@ -41,6 +42,9 @@ class Utils {
     final categoryList = ref.read(categoryListProvider);
     final totalDifficulty = categoryList.length * 3;
     final clickQuestionList = ref.read(isQuestionVanished);
+    final questionCount = ref.watch(questionCountProvider);
+
+    final userSubscriptionQuestionData = ref.read(userSubscriptionDataProvider.notifier).state?.data.subscriptionType.questions ?? 0;
 
     debugPrint("\n\n\nCurrent Player No: $currentPlayerTurn\n\n\n");
     debugPrint('Current Player: $currentPlayerTurn, Next Player: $nextPlayerTurn');
@@ -64,9 +68,14 @@ class Utils {
       ref.read(autoCounterProvider(60).notifier).reset();
     });
 
+    ref.read(questionCountProvider.notifier).state++;
+
+    debugPrint("\n\n\n$questionCount\n\n\n");
+
     // Navigation updates
     if (gameMode != 3) {
-      if (nextPlayerTurn == 0) {
+      if (questionCount == (current.totalPlayer * userSubscriptionQuestionData)) {
+        ref.read(questionCountProvider.notifier).state = 0;
         context.pushReplacement(RouteName.leaderboardScreen);
       } else {
         context.pushReplacement(RouteName.nextTurnScreen);

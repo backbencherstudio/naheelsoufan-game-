@@ -8,6 +8,7 @@ import '../../../../core/constant/icons.dart';
 import '../../../../core/constant/images.dart';
 import '../../../../core/constant/padding.dart';
 import '../../../../core/routes/route_name.dart';
+import '../../../../data/repository/subscription/subscription_service.dart';
 import '../../../../data/riverpod/player_game/player_game_controller.dart';
 import '../../../../data/riverpod/subscription/subscription_controller.dart';
 import '../../../common_widegts/create_screen/create_screen.dart';
@@ -26,8 +27,8 @@ class _GameModeScreensState extends ConsumerState<GameModeScreens> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(authNotifierProvider.notifier).fetchUserDetails();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      ref.read(userSubscriptionDataProvider.notifier).state = await SubscriptionService().fetchUserSubscription();
       ref.read(playerGameProvider.notifier).fetchGames();
     });
   }
@@ -75,7 +76,7 @@ class _GameModeScreensState extends ConsumerState<GameModeScreens> {
                     text: "GRID STYLE",
                     onTap: () async {
                       ref.read(modeProvider.notifier).state = 3;
-                      if(userSubscriptionData?.data != null && userSubscriptionData?.data.gamesRemaining != 0) {
+                      if(userSubscriptionData?.data != null) {
                         final selectGameMode = SelectGameModeService();
                         final result = await selectGameMode.createGame(
                           context: context,

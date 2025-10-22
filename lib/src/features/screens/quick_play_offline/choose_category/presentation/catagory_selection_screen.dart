@@ -32,10 +32,10 @@ class _CatagorySelectionScreenState extends ConsumerState<CategorySelectionScree
     super.initState();
     Future.microtask(()async{
       ref.read(isLoading.notifier).state = true;
-      ref.read(categoryProvider.notifier).fetchCategoryDetails(1);
+      ref.read(categoryProvider.notifier).fetchCategoryDetails(ref.read(currentPageProvider.notifier).state);
       ref.read(isLoading.notifier).state = false;
+      _pageController = PageController(initialPage: ref.read(currentPageProvider.notifier).state);
     });
-    _pageController = PageController(initialPage: 1);
   }
 
   @override

@@ -2,14 +2,14 @@ class UserModel {
   final String id;
   final String name;
   final String email;
-  final String avatar;
+  final String? avatar;
   final String? address;
   final String? phoneNumber;
   final String type;
   final String? gender;
   final String? dateOfBirth;
   final String? createdAt;
-  final String avatarUrl;
+  final String? avatarUrl;
 
   UserModel({
     required this.id,
@@ -30,14 +30,14 @@ class UserModel {
       id: json['id'] as String,
       name: json['name'] as String,
       email: json['email'] as String,
-      avatar: json['avatar'] as String,
+      avatar: json['avatar'] as String?,        // nullable
       address: json['address'] as String?,
       phoneNumber: json['phone_number'] as String?,
       type: json['type'] as String,
       gender: json['gender'] as String?,
       dateOfBirth: json['date_of_birth'] as String?,
       createdAt: json['created_at'] as String?,
-      avatarUrl: json['avatar_url'] as String,
+      avatarUrl: json['avatar_url'] as String?, // nullable
     );
   }
 
