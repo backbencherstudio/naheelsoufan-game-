@@ -11,9 +11,10 @@ import 'package:naheelsoufan_game/src/data/riverpod/function.dart';
 import 'package:naheelsoufan_game/src/features/screens/quick_play_offline/question_answer/presentation/widget/quit_game_button_header.dart';
 import '../../../../../../core/constant/icons.dart';
 import '../../../../../../core/routes/route_name.dart';
+import '../../../../../../data/riverpod/player_game/player_game_controller.dart';
 import '../../../../game_mode_selection_screens/riverpod/player_provider.dart';
 
-void onQuitGameTap(BuildContext context) {
+void onQuitGameTap(BuildContext context, WidgetRef ref) {
   showDialog(
     context: context,
     builder: (_) {
@@ -57,6 +58,9 @@ void onQuitGameTap(BuildContext context) {
                           return GestureDetector(
                             onTap: () {
                               context.go(RouteName.gameModeScreens);
+
+                              ref.read(playerGameProvider.notifier).fetchGames();
+
                               ref.invalidate(playerProvider);
                               ref.invalidate(isQuestionVanished);
                               ref.invalidate(isQuestionVanishTeam2);

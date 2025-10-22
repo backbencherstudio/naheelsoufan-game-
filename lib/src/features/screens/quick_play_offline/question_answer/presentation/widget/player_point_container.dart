@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import 'package:naheelsoufan_game/src/data/riverpod/function.dart';
+import 'package:naheelsoufan_game/src/data/riverpod/game/start_game/start_game_provider.dart';
 import 'package:naheelsoufan_game/src/features/screens/quick_play_offline/question_answer/presentation/widget/player_pointBlock.dart';
 import 'package:vs_scrollbar/vs_scrollbar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../../../core/utils/utils.dart';
 import '../../../../game_mode_selection_screens/riverpod/player_provider.dart';
 import '../../provider/toggle.dart';
 
@@ -14,9 +16,11 @@ class PlayerPointContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScrollController scrollController = ScrollController();
-
+    final isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return Container(
-      height: 169.h,
+      //height: 169.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16.r),
         color: AppColorScheme.playerContainerColor,
@@ -26,7 +30,7 @@ class PlayerPointContainer extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              height: 145.h,
+              height: isPortrait ? screenHeight*0.15 : screenWidth * 0.15,
               child: Stack(
                 children: [
                   Align(
@@ -62,6 +66,7 @@ class PlayerPointContainer extends StatelessWidget {
                             // CHANGE
                             final clickState = ref.watch(selectedPlayerIndexProvider);
                             final checkAns = ref.watch(isRightWrongElse);
+
                             return ListView.builder(
                               controller: scrollController,
                               scrollDirection: Axis.horizontal,
@@ -78,7 +83,6 @@ class PlayerPointContainer extends StatelessWidget {
                                             ? 2
                                             : -1),
                                     playerName: playerNameList[index],
-                                    points: 0,
 
                                   )) : GestureDetector(
                                     onTap: (){
@@ -95,7 +99,6 @@ class PlayerPointContainer extends StatelessWidget {
                                           ? 2
                                           : 3),
                                       playerName: playerNameList[index],
-                                      points: 0,
                                     )),
                                   ),
                                 );

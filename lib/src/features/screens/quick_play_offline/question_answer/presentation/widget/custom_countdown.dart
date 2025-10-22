@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../../../../core/constant/icons.dart';
 import '../../../../../../core/theme/theme_extension/color_scheme.dart';
+import '../../../../../../core/utils/utils.dart';
 import '../../../../../../data/riverpod/count_down_state.dart';
 
 class CustomCountdown extends ConsumerStatefulWidget {
@@ -42,11 +43,13 @@ class _CustomCountdownState extends ConsumerState<CustomCountdown> {
     final style = Theme.of(context).textTheme;
     final bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
+    final isNotTab = Utils.isTablet(context);
+    final screenHeight = MediaQuery.of(context).size.height;
 
     return Container(
-      padding: isPortrait
+      padding: isNotTab ? (isPortrait
           ? EdgeInsets.all(4.r)
-          : EdgeInsets.symmetric(horizontal: 12.h),
+          : EdgeInsets.symmetric(horizontal: 12.h)) : EdgeInsets.all(screenHeight*0.01),
       decoration: BoxDecoration(
         borderRadius:
         isPortrait ? null : BorderRadius.all(Radius.circular(50.r)),
@@ -57,7 +60,7 @@ class _CustomCountdownState extends ConsumerState<CustomCountdown> {
         children: [
           SvgPicture.asset(
             isPortrait ? AppIcons.stopWatch : AppIcons.landScapeStopWatch,
-            fit: BoxFit.contain,
+            fit: BoxFit.cover,
           ),
           Positioned.fill(
             child: Align(
@@ -65,7 +68,7 @@ class _CustomCountdownState extends ConsumerState<CustomCountdown> {
               child: Text(
                 countdown.remaining.toString(),
                 style: (style.headlineLarge ?? const TextStyle()).copyWith(
-                  fontSize: isPortrait ? 32.sp : 14.4.sp,
+                  fontSize: (isPortrait ? 32.sp : 14.4.sp),
                   fontWeight: FontWeight.w500,
                 ),
               ),

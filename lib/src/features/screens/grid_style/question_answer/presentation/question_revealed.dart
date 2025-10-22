@@ -11,6 +11,7 @@ import '../../../../../core/constant/padding.dart';
 import '../../../../../core/routes/route_name.dart';
 import '../../../../../core/utils/utils.dart';
 import '../../../../../data/riverpod/count_down_state.dart';
+import '../../../../../data/riverpod/player_game/player_game_controller.dart';
 import '../../../../common_widegts/pop_up_menu/custom_pop_up_menu.dart';
 import '../../../game_mode_selection_screens/riverpod/mode_controller.dart';
 import '../../../quick_play_offline/question_answer/presentation/widget/header_button.dart';
@@ -63,7 +64,7 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
                               CustomIconsButtons(
                                 icon: AppIcons.crossIcon,
                                 onTap: () {
-                                  onQuitGameTap(context);
+                                  onQuitGameTap(context, ref);
                                 },
                                 bgIcon: AppIcons.redBGsqare,
                               ),
@@ -91,7 +92,7 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
                           CustomIconsButtons(
                         icon: AppIcons.crossIcon,
                         onTap: () {
-                          onQuitGameTap(context);
+                          onQuitGameTap(context, ref);
                         },
                         bgIcon: AppIcons.redBGsqare,
                       ),

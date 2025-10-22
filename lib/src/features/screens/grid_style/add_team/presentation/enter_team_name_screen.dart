@@ -81,12 +81,11 @@ class _EnterTeamNameScreenState extends ConsumerState<EnterTeamNameScreen> {
                   if (result?.success == true) {
                     ref.read(playerListProvider.notifier).state = result;
                     context.pushReplacement(
-                      RouteName.chooseCategoryScreen,
+                      RouteName.gridCategoryScreen,
                     );
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text(result?.message ?? "Teams added successful", style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w600))),
                     );
-                    context.push(RouteName.gridCategoryScreen);
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text(result?.message ?? "Something went wrong", style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w600))),

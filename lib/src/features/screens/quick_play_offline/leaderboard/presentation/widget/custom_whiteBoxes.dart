@@ -20,30 +20,17 @@ class CustomWhiteboxes extends StatelessWidget {
     final style = Theme.of(context).textTheme;
 
     return Container(
-      padding: EdgeInsets.only(left: 5.w),
+      padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 12.h),
       width: width,
-      // margin: EdgeInsets.symmetric(horizontal: 3),
       decoration: BoxDecoration(
         color: Color(0xffE0E0FF),
         borderRadius: BorderRadius.circular(8.r),
-        border: Border(
-          bottom: BorderSide(color: AppColorScheme.labelTextColor, width: 4.w),
-        ),
       ),
-
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 12.h),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-
-          children: [
-            Text(
-              title,
-              style: style.bodyLarge!.copyWith(
-                color: AppColorScheme.labelTextColor,
-              ),
-            ),
-          ],
+      child: Text(
+        title,
+        textAlign: TextAlign.center,
+        style: style.bodyLarge!.copyWith(
+          color: AppColorScheme.labelTextColor,
         ),
       ),
     );

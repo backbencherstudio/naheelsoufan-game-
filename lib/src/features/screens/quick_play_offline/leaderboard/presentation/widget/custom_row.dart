@@ -30,76 +30,70 @@ class CustomRow extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        (index == 1)
-            ? CustomSmallBox(
-          width: isPortrait ? null : 20.w,
-          title: index.toString(),
-          icon: '',
-          isIconOpen: false,
-        )
-            : (index == 4)
-            ? CustomWhiteboxes(
-          width: isPortrait ? 30.w : 20.w,
-          title: index.toString(),
-          isIconOpen: false,
-          icon: '',
-        )
-            : CustomYellowborderbox(
-          width: isPortrait ? null : 20.w,
-          title: index.toString(),
-          icon: '',
-          isIconOpen: false,
-        ),
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+    return SizedBox(
+      width: isPortrait ? screenWidth : screenHeight,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          (index == 1)
+              ? CustomSmallBox(
+            width: isPortrait ? null : 20.w,
+            title: index.toString(),
+            icon: '',
+            isIconOpen: false,
+          )
+              : (index == 4)
+              ? CustomWhiteboxes(
+            width: isPortrait ? 30.w : 20.w,
+            title: index.toString(),
+            isIconOpen: false,
+            icon: '',
+          )
+              : CustomYellowborderbox(
+            width: isPortrait ? null : 20.w,
+            title: index.toString(),
+            icon: '',
+            isIconOpen: false,
+          ),
 
-        SizedBox(width: isPortrait ? 8.w : 30.h),
+          (index == 1)
+              ? CustomSmallBox(
+            title: name,
+            icon: AppImages.trophy,
+            width: isPortrait ? 221.w : 486.2.h,
+            isIconOpen: true,
+          )
+              : (index == 4)
+              ? CustomWhiteboxes(
+            title: name,
+            icon: "",
+            isIconOpen: false,
+            width: isPortrait ? 225.w : 486.2.h,
+          )
+              : CustomYellowborderbox(
+            title: name,
+            icon: AppImages.madel,
+            isIconOpen: true,
+            width: isPortrait ? 225.w : 486.2.h,
+          ),
 
-        (index == 1)
-            ? CustomSmallBox(
-          title: name,
-          icon: AppImages.trophy,
-          width: isPortrait ? 221.w : 486.2.h,
-          isIconOpen: true,
-        )
-            : (index == 4)
-            ? CustomWhiteboxes(
-          title: name,
-          icon: "",
-          isIconOpen: false,
-          width: isPortrait ? 225.w : 486.2.h,
-        )
-            : CustomYellowborderbox(
-          title: name,
-          icon: AppImages.madel,
-          isIconOpen: true,
-          width: isPortrait ? 225.w : 486.2.h,
-        ),
+          (index == 1) ? CustomSmallBox(title: scores.toString(), icon: "", isIconOpen: false) :
+          (index == 4) ? CustomWhiteboxes(title: scores.toString(), icon: "", isIconOpen: false) :
+          CustomYellowborderbox(
+            title: scores.toString(),
+            icon: "",
+            isIconOpen: false,
+          ),
 
-        SizedBox(width: isPortrait ? 8.w : 35.h),
+          Customgreenbox(title: right.toString(), icon: '', isIconOpen: false),
 
-        (index == 1) ? CustomSmallBox(title: scores.toString(), icon: "", isIconOpen: false, width: isPortrait ? null :50.w,) :
-        (index == 4) ? CustomWhiteboxes(title: scores.toString(), icon: "", isIconOpen: false, width: 50.w,) :
-        CustomYellowborderbox(
-          width: 50.w,
-          title: scores.toString(),
-          icon: "",
-          isIconOpen: false,
-        ),
+          CustomRedbox(title: wrong.toString(), icon: '', isIconOpen: false),
 
-        SizedBox(width: isPortrait ? 8.w : 30.h),
-
-        Customgreenbox(title: right.toString(), icon: '', isIconOpen: false),
-
-        SizedBox(width: isPortrait ? 8.w : 50.h),
-
-        CustomRedbox(title: wrong.toString(), icon: '', isIconOpen: false),
-
-        SizedBox(width: isPortrait ? 8.w : 45.h),
-
-        CustomYellowbox(title: skip.toString(), icon: '', isIconOpen: false),
-      ],
+          CustomYellowbox(title: skip.toString(), icon: '', isIconOpen: false),
+        ],
+      ),
     );
   }
 }

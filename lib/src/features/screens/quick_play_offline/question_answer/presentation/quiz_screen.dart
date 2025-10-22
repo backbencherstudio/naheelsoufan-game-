@@ -53,124 +53,125 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
     return CreateScreen(
       child: Padding(
         padding: AppPadding.horizontalPadding,
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CustomIconsButtons(
-                  icon: AppIcons.crossIcon,
-                  onTap: () {
-                    onQuitGameTap(context);
-                  },
-                  bgIcon: AppIcons.redBGsqare,
-                ),
-                SizedBox(
-                  height: isNotTab ? 100.h : ,
-                  width: 100.h,
-                  child: CustomCountdown(
-                    initTime: response?.data?.question.timeLimit ?? 60,
-                    // CHANGE
-                    onPaused: () {
-                      //(huntMode) ?
-                      WidgetsBinding.instance.addPostFrameCallback((_) async {
-                        if (!huntMode) {
-                          /// Skip Here
-                          await AnswerQuestionService().skipAnswer(response?.data?.question.id, response?.data?.currentPlayer.id);
-
-                          onWrongAnswerTap(context, response?.data?.question.correctAnswer.text ?? "", ref);
-                          ref.read(huntModeOn.notifier).state = true;
-                          ref.read(autoCounterProvider(response?.data?.question.timeLimit ?? 60).notifier).reset();
-                        }
-                        else {
-                          await AnswerQuestionService().skipAnswer(response?.data?.question.id, null);
-                          await Utils.advanceTurnAlternate(context, ref);
-                        }
-                      });
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustomIconsButtons(
+                    icon: AppIcons.crossIcon,
+                    onTap: () {
+                      onQuitGameTap(context, ref);
                     },
-                    // CHANGE
+                    bgIcon: AppIcons.redBGsqare,
                   ),
-                ),
-                CustomIconsButtons(
-                  icon: AppIcons.threeDot,
-                  onTap: () {
-                    context.push(RouteName.settingWhileInGameScreen);
-                  },
-                  bgIcon: AppIcons.iconBG,
-                ),
-              ],
-            ),
-            SizedBox(height: 16.h),
-            // point container
-            if(response?.data?.question.questionType.name != null && response?.data?.question.questionType.name == "Text")
-              ... [
+                  SizedBox(
+                    height: screenHeight*0.1,
+                    child: CustomCountdown(
+                      initTime: response?.data?.question.timeLimit ?? 60,
+                      // CHANGE
+                      onPaused: () {
+                        //(huntMode) ?
+                        WidgetsBinding.instance.addPostFrameCallback((_) async {
+                          if (!huntMode) {
+                            /// Skip Here
+                            await AnswerQuestionService().skipAnswer(response?.data?.question.id, response?.data?.currentPlayer.id);
+          
+                            onWrongAnswerTap(context, response?.data?.question.correctAnswer.text ?? "", ref);
+                            ref.read(huntModeOn.notifier).state = true;
+                            ref.read(autoCounterProvider(response?.data?.question.timeLimit ?? 60).notifier).reset();
+                          }
+                          else {
+                            await AnswerQuestionService().skipAnswer(response?.data?.question.id, null);
+                            await Utils.advanceTurnAlternate(context, ref);
+                          }
+                        });
+                      },
+                      // CHANGE
+                    ),
+                  ),
+                  CustomIconsButtons(
+                    icon: AppIcons.threeDot,
+                    onTap: () {
+                      context.push(RouteName.settingWhileInGameScreen);
+                    },
+                    bgIcon: AppIcons.iconBG,
+                  ),
+                ],
+              ),
+              SizedBox(height: 16.h),
+              // point container
+              if(response?.data?.question.questionType.name != null && response?.data?.question.questionType.name == "Text")
+                ... [
+                  if(fileUrl.contains(".png") || fileUrl.contains(".jpg") || fileUrl.contains(".jpeg") || fileUrl.contains(".webp")) ...[
+                    GameType.typedQuestionWithImage(
+                        question: response?.data?.question.text ?? "No Question found",
+                        answer: response?.data?.question.correctAnswer.text ?? "",
+                        image: fileUrl
+                    )
+                  ]
+                  else if(fileUrl.contains(".mp4") || fileUrl.contains(".mov") || fileUrl.contains(".webm") || fileUrl.contains(".mkv")) ...[
+                    GameType.typedQuestionWithVideo(
+                        question: response?.data?.question.text ?? "No Question found",
+                        thumbnail: "https://imgs.search.brave.com/leJuBumsNv6MxOtXzAlzrld294lpeiHtKd3IL7VGz9M/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzAzLzIxLzM2LzUx/LzM2MF9GXzMyMTM2/NTE1Nl95a0ZqUkh2/YlFwZGt2OHZRT3Vl/NFlmcXludFpYdmxZ/ai5qcGc",
+                        video: fileUrl,
+                        answer: response?.data?.question.correctAnswer.text ?? ""
+                    )
+                  ]
+                  else if(fileUrl.contains(".mp3") || fileUrl.contains(".wav") || fileUrl.contains(".m4a") || fileUrl.contains(".aac")) ...[
+                      GameType.typedQuestionWithAudio(
+                        question: response?.data?.question.text ?? "No Question found",
+                        answer: response?.data?.question.correctAnswer.text ?? "",
+                        audio: fileUrl,
+                      ),
+                    ]
+                    else ...[
+                        GameType.typedQuestion(
+                          question: response?.data?.question.text ?? "No Question found",
+                          answer: response?.data?.question.correctAnswer.text ?? "",
+                        ),
+                      ]
+                ]
+              else ...[
                 if(fileUrl.contains(".png") || fileUrl.contains(".jpg") || fileUrl.contains(".jpeg") || fileUrl.contains(".webp")) ...[
-                  GameType.typedQuestionWithImage(
-                      question: response?.data?.question.text ?? "No Question found",
-                      answer: response?.data?.question.correctAnswer.text ?? "",
-                      image: fileUrl
+                  GameType.mcqQuestionWithImage(
+                    question: response?.data?.question.text ?? "No Question found",
+                    choices: response?.data?.question.answers.map((e) => e.text).toList() ?? [],
+                    imageUrl: fileUrl,
+                    rightChoice: response?.data?.question.answers.indexWhere((e)=> e.id == response.data?.question.correctAnswer.id),
                   )
                 ]
                 else if(fileUrl.contains(".mp4") || fileUrl.contains(".mov") || fileUrl.contains(".webm") || fileUrl.contains(".mkv")) ...[
-                  GameType.typedQuestionWithVideo(
-                      question: response?.data?.question.text ?? "No Question found",
-                      thumbnail: "https://imgs.search.brave.com/leJuBumsNv6MxOtXzAlzrld294lpeiHtKd3IL7VGz9M/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzAzLzIxLzM2LzUx/LzM2MF9GXzMyMTM2/NTE1Nl95a0ZqUkh2/YlFwZGt2OHZRT3Vl/NFlmcXludFpYdmxZ/ai5qcGc",
-                      video: fileUrl,
-                      answer: response?.data?.question.correctAnswer.text ?? ""
+                  GameType.mcqQuestionWithVideo(
+                    question: response?.data?.question.text ?? "No Question found",
+                    choices: response?.data?.question.answers.map((e) => e.text).toList() ?? [],
+                    rightChoice: response?.data?.question.answers.indexWhere((e)=> e.id == response.data?.question.correctAnswer.id),
+                    videoUrl: fileUrl,
+                    videoThumbnailUrl: "https://imgs.search.brave.com/leJuBumsNv6MxOtXzAlzrld294lpeiHtKd3IL7VGz9M/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzAzLzIxLzM2LzUx/LzM2MF9GXzMyMTM2/NTE1Nl95a0ZqUkh2/YlFwZGt2OHZRT3Vl/NFlmcXludFpYdmxZ/ai5qcGc",
                   )
                 ]
                 else if(fileUrl.contains(".mp3") || fileUrl.contains(".wav") || fileUrl.contains(".m4a") || fileUrl.contains(".aac")) ...[
-                    GameType.typedQuestionWithAudio(
+                    GameType.mcqQuestionWithAudio(
                       question: response?.data?.question.text ?? "No Question found",
-                      answer: response?.data?.question.correctAnswer.text ?? "",
-                      audio: fileUrl,
+                      rightChoice: response?.data?.question.answers.indexWhere((e)=> e.id == response.data?.question.correctAnswer.id),
+                      choices: response?.data?.question.answers.map((e) => e.text).toList() ?? [],
+                      audioUrl: fileUrl,
                     ),
                   ]
                   else ...[
-                      GameType.typedQuestion(
+                      GameType.multipleChoiceQuestion(
+                        rightChoice: response?.data?.question.answers.indexWhere((e)=> e.id == response.data?.question.correctAnswer.id),
+                        choices: response?.data?.question.answers.map((e) => e.text).toList() ?? [],
                         question: response?.data?.question.text ?? "No Question found",
-                        answer: response?.data?.question.correctAnswer.text ?? "",
                       ),
                     ]
-              ]
-            else ...[
-              if(fileUrl.contains(".png") || fileUrl.contains(".jpg") || fileUrl.contains(".jpeg") || fileUrl.contains(".webp")) ...[
-                GameType.mcqQuestionWithImage(
-                  question: response?.data?.question.text ?? "No Question found",
-                  choices: response?.data?.question.answers.map((e) => e.text).toList() ?? [],
-                  imageUrl: fileUrl,
-                  rightChoice: response?.data?.question.answers.indexWhere((e)=> e.id == response.data?.question.correctAnswer.id),
-                )
-              ]
-              else if(fileUrl.contains(".mp4") || fileUrl.contains(".mov") || fileUrl.contains(".webm") || fileUrl.contains(".mkv")) ...[
-                GameType.mcqQuestionWithVideo(
-                  question: response?.data?.question.text ?? "No Question found",
-                  choices: response?.data?.question.answers.map((e) => e.text).toList() ?? [],
-                  rightChoice: response?.data?.question.answers.indexWhere((e)=> e.id == response.data?.question.correctAnswer.id),
-                  videoUrl: fileUrl,
-                  videoThumbnailUrl: "https://imgs.search.brave.com/leJuBumsNv6MxOtXzAlzrld294lpeiHtKd3IL7VGz9M/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzAzLzIxLzM2LzUx/LzM2MF9GXzMyMTM2/NTE1Nl95a0ZqUkh2/YlFwZGt2OHZRT3Vl/NFlmcXludFpYdmxZ/ai5qcGc",
-                )
-              ]
-              else if(fileUrl.contains(".mp3") || fileUrl.contains(".wav") || fileUrl.contains(".m4a") || fileUrl.contains(".aac")) ...[
-                  GameType.mcqQuestionWithAudio(
-                    question: response?.data?.question.text ?? "No Question found",
-                    rightChoice: response?.data?.question.answers.indexWhere((e)=> e.id == response.data?.question.correctAnswer.id),
-                    choices: response?.data?.question.answers.map((e) => e.text).toList() ?? [],
-                    audioUrl: fileUrl,
-                  ),
-                ]
-                else ...[
-                    GameType.multipleChoiceQuestion(
-                      rightChoice: response?.data?.question.answers.indexWhere((e)=> e.id == response.data?.question.correctAnswer.id),
-                      choices: response?.data?.question.answers.map((e) => e.text).toList() ?? [],
-                      question: response?.data?.question.text ?? "No Question found",
-                    ),
-                  ]
+              ],
+              SizedBox(height: 90.h),
+              PlayerPointContainer(),
+              SizedBox(height: 30.h),
             ],
-            SizedBox(height: 90.h),
-            PlayerPointContainer(),
-            SizedBox(height: 30.h),
-          ],
+          ),
         ),
       ),
     );

@@ -24,7 +24,7 @@ class FreeGameTile extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
         child: Row(
           children: [
-            SvgPicture.asset(AppIcons.redDmd, height: 32.h, width: 32.w),
+            SvgPicture.asset(AppIcons.redDmd),
             SizedBox(width: 12.w),
             Text(
               "FREE GAME",

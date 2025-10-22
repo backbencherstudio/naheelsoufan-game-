@@ -100,25 +100,21 @@ class _CatagorySelectionScreenState extends ConsumerState<CategorySelectionScree
                       ),
                       itemCount: categories?.data.length,
                       itemBuilder: (context, index) {
-                        return Column(
-                          children: [
-                            CustomQuestionTypeTile(
-                              isSelected: selectedState == index,
-                              onTap: () {
-                                ref.read(selectProvider.notifier).state = index;
-                                ref.read(categoryId.notifier).state = categories?.data[index].id;
-                                ref.invalidate(selectProvider);
-                                debugPrint("\n\n\nCategory ID: ${categories?.data[index].id}\n\n\n");
-                                Future.delayed(Duration(microseconds: 1000), (){
-                                  if (context.mounted) {
-                                    context.push(RouteName.difficultyLevelScreen);
-                                  }
-                                });
-                              },
-                              title: categories?.data[index].name ?? "", imgUrl: categories?.data[index].image_url ?? "",
-                              questionNumber: categories?.data.length ?? 0,
-                            ),
-                          ],
+                        return CustomQuestionTypeTile(
+                          isSelected: selectedState == index,
+                          onTap: () {
+                            ref.read(selectProvider.notifier).state = index;
+                            ref.read(categoryId.notifier).state = categories?.data[index].id;
+                            ref.invalidate(selectProvider);
+                            debugPrint("\n\n\nCategory ID: ${categories?.data[index].id}\n\n\n");
+                            Future.delayed(Duration(microseconds: 1000), (){
+                              if (context.mounted) {
+                                context.push(RouteName.difficultyLevelScreen);
+                              }
+                            });
+                          },
+                          title: categories?.data[index].name ?? "", imgUrl: categories?.data[index].image_url ?? "",
+                          questionNumber: categories?.data.length ?? 0,
                         );
                       },
                     );

@@ -9,6 +9,7 @@ import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/special_elevated_button003/special_elevated_button003.dart';
+import 'package:naheelsoufan_game/src/features/screens/grid_style/choose_multiple_category/presentation/widget/custom_grid_question_type_tile.dart';
 import 'package:naheelsoufan_game/src/features/screens/quick_play_offline/add_player/presentation/widget/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/player_provider.dart';
 import 'package:naheelsoufan_game/src/features/screens/grid_style/choose_multiple_category/presentation/widget/grid_choose_category_question_tile.dart';
@@ -57,9 +58,12 @@ class _ChooseCategoryScreenState extends ConsumerState<GridChooseCategoryScreen>
     final currentPage = ref.watch(currentPageProvider);
     final isNotTab = Utils.isTablet(context);
     final selectedCategoryMap = ref.watch(categoryListProvider);
+
+    final screenHeight = MediaQuery.of(context).size.height;
     bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
     debugPrint("\n\n\nPlayer: ${ref.read(playerProvider.notifier).state.currentPlayer}\n\n\n");
+
     return CreateScreen(
       child: Padding(
         padding: AppPadding.horizontalPadding,
@@ -68,23 +72,10 @@ class _ChooseCategoryScreenState extends ConsumerState<GridChooseCategoryScreen>
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CustomIconsButtons(
-                  icon: AppIcons.backIcons,
-                  onTap: () {
-                    context.pop();
-                  },
-                ),
+                SizedBox(),
                 Image.asset(AppImages.profilePic, height: 40.h, width: 40.w),
                 CustomPopUpMenu(),
               ],
-            ),
-            SizedBox(height: 8.h),
-            Text(
-              "player 1",
-              style: style.titleLarge!.copyWith(
-                fontWeight: FontWeight.w400,
-                color: AppColorScheme.primary,
-              ),
             ),
             SizedBox(height: 36.h),
 
@@ -98,68 +89,25 @@ class _ChooseCategoryScreenState extends ConsumerState<GridChooseCategoryScreen>
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
                       crossAxisSpacing: 30,
+                      mainAxisExtent: screenHeight*0.3,
                       childAspectRatio: (isNotTab || isPortrait) ? (0.4) : 1,
                     ),
                     itemCount: categories?.data.length,
                     itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          // GridChooseCategoryQuestionTile(
-                          //   index: pageIndex * 9 + index,
-                          //   onTap: () {
-                          //     if(categoryList.length < 6) {
-                          //       ref
-                          //           .read(
-                          //         isCategorySelectedClicked(
-                          //           pageIndex * 9 + index,
-                          //         ).notifier,
-                          //       )
-                          //           .state = !selectedItem;
-                          //       ref.read(isSomethingClicked.notifier).state =
-                          //       true;
-                          //       (categoryList.contains((pageIndex * 9 + index).toString())) ?
-                          //       ref.read(categoryListProvider.notifier).state.remove((pageIndex * 9 + index).toString()) :
-                          //       ref.read(categoryListProvider.notifier).state.add((pageIndex * 9 + index).toString());
-                          //     }
-                          //     else {
-                          //       if(categoryList.contains((pageIndex * 9 + index).toString())) {
-                          //         ref
-                          //             .read(
-                          //           isCategorySelectedClicked(
-                          //             pageIndex * 9 + index).notifier).state = !selectedItem;
-                          //         ref.read(categoryListProvider.notifier).state.remove((pageIndex * 9 + index).toString());
-                          //       }
-                          //     }
-                          //
-                          //     debugPrint("index: $categoryList");
-                          //   },
-                          // ),
-
-                          CustomQuestionTypeTile(
-                            isSelected: selectedCategoryMap.containsKey(categories?.data[index].id),
-                            onTap: () {
-                              ref.read(categoryListProvider.notifier).state[categories?.data[index].id] = categories?.data[index].name;
-                              debugPrint("\n\n\nCategory ID: ${categories?.data[index].id}\n\n\n");
-                              Future.delayed(Duration(microseconds: 1000), (){
-                                if (context.mounted) {
-                                  context.push(RouteName.difficultyLevelScreen);
-                                }
-                              });
-                            },
-                            title: categories?.data[index].name ?? "", imgUrl: categories?.data[index].image_url ?? "",
-                            questionNumber: categories?.data.length ?? 0,
-                          ),
-                          Text(
-                            categories?.data[index].name ?? "N/A",
-                            style: Theme.of(
-                              context,
-                            ).textTheme.labelLarge!.copyWith(
-                              fontWeight: FontWeight.w400,
-                              color: AppColorScheme.primary,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
+                      return CustomGridQuestionTypeTile(
+                        index: index,
+                        onTap: () {
+                          ref.read(isSomethingClicked.notifier).state = true;
+                          if(selectedCategoryMap.containsKey(categories?.data[index].id)) {
+                            ref.read(categoryListProvider.notifier).state.removeWhere((key, value) => key == categories?.data[index].id);
+                            return;
+                          }
+                          ref.read(categoryListProvider.notifier).state[categories?.data[index].id] = categories?.data[index].name;
+                          debugPrint("\n\n\nCategory ID: ${categories?.data[index].id}\n\n\n");
+                          debugPrint("\n\n\nCategory ID List: $selectedCategoryMap\n\n\n");
+                        },
+                        title: categories?.data[index].name ?? "", imgUrl: categories?.data[index].image_url ?? "",
+                        questionNumber: categories?.data.length ?? 0,
                       );
                     },
                   );
@@ -189,12 +137,12 @@ class _ChooseCategoryScreenState extends ConsumerState<GridChooseCategoryScreen>
                   },
                   bgIcon: AppIcons.roundIcontop,
                 ),
-                if (!ref.read(isSomethingClicked.notifier).state) ...[
+                if (!checkButton) ...[
                   SizedBox(width: 40.w),
                 ] else ...[
-                  SizedBox(width: 26.w),
                   SpecialElevatedButton003(
                     onTap: () {
+                      ref.read(isSomethingClicked.notifier).state = false;
                       if(ref.read(categoryListProvider.notifier).state.isNotEmpty) {
                         context.pushReplacement(
                         RouteName.gridDifficultyLevelScreen,
@@ -203,7 +151,6 @@ class _ChooseCategoryScreenState extends ConsumerState<GridChooseCategoryScreen>
                     },
                     buttonName: "NEXT",
                   ),
-                  SizedBox(width: 26.w),
                 ],
                 CustomroundButton(
                   icon: AppIcons.playButtn,
