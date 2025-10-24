@@ -18,6 +18,9 @@ import '../../provider/advance_turn_controller.dart';
 void onWrongAnswerTap(BuildContext context, String rightAns, ref) {
   bool isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
   final isNotTablet = Utils.isTablet(context);
+  final screenHeight = MediaQuery.of(context).size.height;
+  final screenWidth = MediaQuery.of(context).size.width;
+
 
   showDialog(
     context: context,
@@ -64,9 +67,7 @@ void onWrongAnswerTap(BuildContext context, String rightAns, ref) {
                         ),
                       ),
                       SizedBox(height: isPortrait ? 44.h : 10.w),
-                      SizedBox(
-                        width: double.infinity,
-                        child: Container(
+                      Container(
                           padding: EdgeInsets.symmetric(
                             horizontal: isPortrait ? 16.w : 35.2.h,
                             vertical: isPortrait ? 12.h : 0,
@@ -107,11 +108,10 @@ void onWrongAnswerTap(BuildContext context, String rightAns, ref) {
                             ],
                           ),
                         ),
-                      ),
                       SizedBox(height: isPortrait ? 44.h : 10.w),
                       Expanded(
                         child: HeaderButton(
-                          height: (isPortrait ? null : 25.w),
+                          height: screenHeight*0.1,
                           textTitle: 'Chance to steal the point',
                           borderColor: Color(0xffFFB4AB),
                           borderWidth: 3.w,

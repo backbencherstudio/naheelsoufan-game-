@@ -10,6 +10,7 @@ import '../../../../../../data/riverpod/game/category/category_controller.dart';
 import '../../riverpod/category_provider.dart';
 
 class CustomGridQuestionTypeTile extends ConsumerWidget {
+  final bool clicked;
   final int index;
   final String imgUrl;
   final String title;
@@ -17,6 +18,7 @@ class CustomGridQuestionTypeTile extends ConsumerWidget {
   final void Function() onTap;
   const CustomGridQuestionTypeTile({
     super.key,
+    required this.clicked,
     required this.index,
     required this.onTap,
     required this.title,
@@ -35,7 +37,7 @@ class CustomGridQuestionTypeTile extends ConsumerWidget {
     return GestureDetector(
       onTap: onTap,
       child: SizedBox(
-        height: screenHeight*0.3,
+        height: screenHeight * 0.3,
         width: 112.w,
         child: Stack(
           fit: StackFit.expand,
@@ -56,40 +58,43 @@ class CustomGridQuestionTypeTile extends ConsumerWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12.r),
                     border:
-                    selectedCategoryMap.containsKey(categories?.data[index].id)
-                        ? Border.all(
-                      color: AppColorScheme.yellowborder,
-                      width: 2.w,
-                    )
-                        : Border.all(
-                      color: AppColorScheme.greenborder,
-                      width: 2.w,
-                    ),
+                        clicked
+                            ? Border.all(
+                              color: AppColorScheme.yellowborder,
+                              width: 2.w,
+                            )
+                            : Border.all(
+                              color: AppColorScheme.greenborder,
+                              width: 2.w,
+                            ),
                     gradient:
-                    selectedCategoryMap.containsKey(categories?.data[index].id)
-                        ? LinearGradient(
-                      colors: [
-                        AppColorScheme.softYellow,
-                        AppColorScheme.midYellow,
-                        AppColorScheme.darkYellow,
-                      ],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                    )
-                        : LinearGradient(
-                      colors: [
-                        AppColorScheme.startGradGreen,
-                        AppColorScheme.midGradGreen,
-                        AppColorScheme.hardGradGreen,
-                      ],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                    ),
+                        clicked
+                            ? LinearGradient(
+                              colors: [
+                                AppColorScheme.softYellow,
+                                AppColorScheme.midYellow,
+                                AppColorScheme.darkYellow,
+                              ],
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                            )
+                            : LinearGradient(
+                              colors: [
+                                AppColorScheme.startGradGreen,
+                                AppColorScheme.midGradGreen,
+                                AppColorScheme.hardGradGreen,
+                              ],
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                            ),
                   ),
 
                   child: Column(
                     children: [
-                      SizedBox(height: isNotTab ? 50.h : screenHeight*0.1, child: Image.network(imgUrl)),
+                      SizedBox(
+                        height: isNotTab ? 50.h : screenHeight * 0.1,
+                        child: Image.network(imgUrl),
+                      ),
                       SizedBox(height: 12.h),
                       Text(
                         "$questionNumber Question(s)",
@@ -107,7 +112,7 @@ class CustomGridQuestionTypeTile extends ConsumerWidget {
             Align(
               alignment: Alignment.topCenter,
               child: Container(
-                height: screenHeight*0.05,
+                height: screenHeight * 0.05,
                 width: 100.w,
                 padding: const EdgeInsets.all(4.0),
 
@@ -116,26 +121,28 @@ class CustomGridQuestionTypeTile extends ConsumerWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.r),
                   gradient:
-                  selectedCategoryMap.containsKey(categories?.data[index].id)
-                      ? LinearGradient(
-                    colors: [
-                      Color(0xffF2E792),
-                      Color(0xffF8B133),
-                      Color(0xffDE712B),
-                    ],
+                      selectedCategoryMap.containsKey(
+                            categories?.data[index].id,
+                          )
+                          ? LinearGradient(
+                            colors: [
+                              Color(0xffF2E792),
+                              Color(0xffF8B133),
+                              Color(0xffDE712B),
+                            ],
 
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                  )
-                      : LinearGradient(
-                    colors: [
-                      Color(0xffB8F1B9),
-                      Color(0xffB8F1B9),
-                      Color(0xffB8F1B9),
-                    ],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                  ),
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                          )
+                          : LinearGradient(
+                            colors: [
+                              Color(0xffB8F1B9),
+                              Color(0xffB8F1B9),
+                              Color(0xffB8F1B9),
+                            ],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                          ),
                 ),
                 child: Center(
                   child: Text(

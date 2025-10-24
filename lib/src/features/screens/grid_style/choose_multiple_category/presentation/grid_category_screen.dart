@@ -95,14 +95,15 @@ class _ChooseCategoryScreenState extends ConsumerState<GridChooseCategoryScreen>
                     itemCount: categories?.data.length,
                     itemBuilder: (context, index) {
                       return CustomGridQuestionTypeTile(
+                        clicked: ref.watch(categoryListProvider).containsKey(categories?.data[index].id),
                         index: index,
                         onTap: () {
                           ref.read(isSomethingClicked.notifier).state = true;
                           if(selectedCategoryMap.containsKey(categories?.data[index].id)) {
-                            ref.read(categoryListProvider.notifier).state.removeWhere((key, value) => key == categories?.data[index].id);
+                            ref.read(categoryListProvider.notifier).removeCategory(categories?.data[index].id);
                             return;
                           }
-                          ref.read(categoryListProvider.notifier).state[categories?.data[index].id] = categories?.data[index].name;
+                          ref.read(categoryListProvider.notifier).addCategory(categories?.data[index].id, categories?.data[index].name);
                           debugPrint("\n\n\nCategory ID: ${categories?.data[index].id}\n\n\n");
                           debugPrint("\n\n\nCategory ID List: $selectedCategoryMap\n\n\n");
                         },

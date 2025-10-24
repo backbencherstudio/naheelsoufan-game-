@@ -6,6 +6,7 @@ import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/constant/padding.dart';
 import 'package:naheelsoufan_game/src/data/riverpod/loading.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/player_provider.dart';
 import 'package:naheelsoufan_game/src/features/screens/quick_play_offline/add_player/presentation/widget/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/quick_play_offline/leaderboard/presentation/widget/leaderBox.dart';
 import '../../../../../core/routes/route_name.dart';
@@ -27,6 +28,8 @@ class _LeaderboardScreenState extends ConsumerState<LeaderboardScreen> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       ref.read(isLoading.notifier).state = true;
+      ref.invalidate(playerNameProvider);
+      ref.invalidate(playerProvider);
       final res = await GetGameStatsService().getGameStats();
       ref.read(gameStatsProvider.notifier).state = res;
       ref.read(isLoading.notifier).state = false;
