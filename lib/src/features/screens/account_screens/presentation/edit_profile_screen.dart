@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
+import 'package:naheelsoufan_game/src/data/repository/user/user_service.dart';
 import 'package:naheelsoufan_game/src/features/screens/account_screens/presentation/widgets/edit_profile_widgets/edit_profile_icon.dart';
 import 'package:naheelsoufan_game/src/features/screens/account_screens/presentation/widgets/edit_profile_widgets/info_input_box.dart';
 import 'package:naheelsoufan_game/src/features/screens/account_screens/presentation/widgets/my_account_wodgets/header_button.dart';
@@ -13,9 +14,7 @@ import '../../../../core/utils/utils.dart';
 import '../../../../data/riverpod/user/user_controller.dart';
 import '../../../common_widegts/create_screen/create_screen.dart';
 import '../../auth/riverpod/auth_providers.dart';
-import '../../game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
-import '../riverpod/change_password_riverpod.dart';
-import '../riverpod/edit_profile_riverpod.dart';
+import '../../quick_play_offline/add_player/presentation/widget/custom_icons_Buttons.dart';
 
 class EditProfileScreen extends ConsumerStatefulWidget {
   const EditProfileScreen({super.key});
@@ -50,8 +49,6 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
         MediaQuery.of(context).orientation == Orientation.portrait;
     final style = Theme.of(context).textTheme;
     final isNotTab = Utils.isTablet(context);
-
-    final editNotifier = ref.read(editProfileProvider.notifier);
 
     return Scaffold(
       body: CreateScreen(
@@ -113,15 +110,14 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                                         return;
                                       }
 
-                                      final success = await editNotifier.updateProfile(
-                                        name: newName,
-                                      );
+                                      final success = await UserProfileRepository.updateProfileName(name: newName);
 
-                                      if (success) {
+                                      if (success != null) {
                                         await ref.read(authNotifierProvider.notifier).fetchUserDetails();
                                         ScaffoldMessenger.of(context).showSnackBar(
-                                          SnackBar(content: Text(ref.read(editProfileProvider).message ?? 'Name updated', style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w600))),
+                                          SnackBar(content: Text(success, style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w600))),
                                         );
+                                        ref.read(authNotifierProvider.notifier).fetchUserDetails();
                                       } else {
                                         ScaffoldMessenger.of(context).showSnackBar(
                                           SnackBar(content: Text('Failed to update name', style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w600))),
@@ -338,25 +334,25 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                                         return;
                                       }
 
-                                      final notifier = ref.read(changePasswordProvider.notifier);
-                                      await notifier.changePassword(
-                                        email: email,
-                                        oldPassword: oldPassword,
-                                        newPassword: newPassword,
-                                      );
-
-                                      final state = ref.read(changePasswordProvider);
-
-                                      if (state.isSuccess) {
-                                        ScaffoldMessenger.of(context).showSnackBar(
-                                          SnackBar(content: Text(state.message ?? 'Password changed successfully', style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w600))),
+                                      final response = await UserProfileRepository.updateProfilePassword(
+                                            email: email,
+                                            oldPassword: oldPassword,
+                                            newPassword: newPassword
                                         );
+
+                                      if (response != null) {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(content: Text(response, style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w600))),
+                                        );
+                                        currentPasswordController.clear();
+                                        newPasswordController.clear();
+                                        confirmPasswordController.clear();
+                                        ref.read(authNotifierProvider.notifier).fetchUserDetails();
                                       } else {
                                         ScaffoldMessenger.of(context).showSnackBar(
-                                          SnackBar(content: Text(state.message ?? 'Failed to change password', style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w600))),
+                                          SnackBar(backgroundColor: Colors.red, content: Text('Failed to change password', style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w600))),
                                         );
                                       }
-                                      context.pop();
                                     },
                                     child: HeaderButton(
                                       textTitle: 'Update',

@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../../../core/constant/icons.dart';
 import '../../../../../../core/routes/route_name.dart';
 import '../../../../../../core/utils/utils.dart';
+import '../../../../../../data/riverpod/user/user_controller.dart';
 import '../../../riverpod/profile_state_notifier.dart';
 
 class EditProfileIcon extends ConsumerWidget {
@@ -13,21 +14,16 @@ class EditProfileIcon extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedIndex = ref.watch(selectedProfileProvider);
     final isNotTab = Utils.isTablet(context);
+    final userData = ref.watch(userProvider);
     return SizedBox(
       height: 80.h,
       width: 80.w,
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          selectedIndex != null
-              ? Image.asset(
-                AppIcons.profileImages[selectedIndex],
-                height: 80.h,
-                width: 80.w,
-              )
-              : Image.asset(AppIcons.profile01, height: 80.h, width: 80.w),
+          Image.network(userData?.avatarUrl ?? "https://imgs.search.brave.com/wDY22YDuMUArJUYHi_P2HFGfQk_uDnm0xhaxUXdOEW4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG40/Lmljb25maW5kZXIu/Y29tL2RhdGEvaWNv/bnMvbWVuLWF2YXRh/cnMtaWNvbnMtc2V0/LTIvMjU2LzMwLTEy/OC5wbmc",
+            height: 24.w, width: 24.w,),
 
           Positioned(
             top: isNotTab ? -12.h : null,

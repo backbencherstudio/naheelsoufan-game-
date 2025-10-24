@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:naheelsoufan_game/src/core/services/language_services.dart';
 import 'package:naheelsoufan_game/src/data/model/categories/category_model.dart';
 import '../../../core/constant/api_end_points.dart';
 import '../../../core/services/api_services.dart';
@@ -11,12 +12,15 @@ class CategoryRepository extends BaseCategoryRepository{
   @override
   CategoryModel? get categoryModel => _categoryModel;
   final TokenService _tokenService = TokenService();
+  final LanguageIdService _languageIdService = LanguageIdService();
 
   @override
   Future<bool> fetchCategoryData(int pageNo) async {
     try {
       ApiServices apiServices = ApiServices();
       final token = await _tokenService.getToken();
+      final languageId = "cmfzc2whx001zwsxsndh2pxqu";
+
       if (token == null || token.isEmpty) {
         debugPrint('Token not found, please login');
         return false;
@@ -25,7 +29,7 @@ class CategoryRepository extends BaseCategoryRepository{
       final headers = {'Authorization': 'Bearer $token', 'Content-Type': 'application/json'};
 
       final response = await apiServices.getData(
-        endPoint: "${ApiEndPoints.categoryUrl}?page=$pageNo",
+        endPoint: "${ApiEndPoints.categoryUrl}?page=$pageNo&limit=9&language_id=$languageId",
         headers: headers
       );
 
@@ -35,7 +39,7 @@ class CategoryRepository extends BaseCategoryRepository{
         return true;
       }
     } catch (e) {
-      debugPrint('Error fetching user data: $e');
+      debugPrint('Error fetching category data: $e');
       return false;
     }
     return false;

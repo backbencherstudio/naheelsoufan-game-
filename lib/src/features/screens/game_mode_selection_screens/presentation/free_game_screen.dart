@@ -8,11 +8,10 @@ import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/crea
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/free_game_widgets/free_game_card.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/free_game_widgets/free_game_tile.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/free_game_widgets/see_plans_container.dart';
-import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
-import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/freeExpire_provider.dart';
 import '../../../../core/constant/icons.dart';
 import '../../../../core/constant/images.dart';
 import '../../../../data/repository/game/game_mode/select_game_mode_service.dart';
+import '../../quick_play_offline/add_player/presentation/widget/custom_icons_Buttons.dart';
 import '../riverpod/mode_controller.dart';
 
 class FreeGameScreen extends ConsumerWidget {
@@ -23,11 +22,11 @@ class FreeGameScreen extends ConsumerWidget {
     late bool result;
     final mode = ref.watch(modeProvider);
     final modeName =
-        (mode == 1)
-            ? "QUICK_GAME"
-            : (mode == 2)
-            ? "QUICK_GAME_ONLINE"
-            : "GRID_STYLE";
+    (mode == 1)
+        ? "QUICK_GAME"
+        : (mode == 2)
+        ? "QUICK_GAME_ONLINE"
+        : "GRID_STYLE";
     debugPrint("\n\nMode: $mode\n\n");
     final maxPlayer = (mode == 3) ? 2 : 4;
     return CreateScreen(
@@ -73,8 +72,6 @@ class FreeGameScreen extends ConsumerWidget {
                     result = false;
                   }
                   if (result) {
-                    ref.read(checkNormalGridScreen.notifier).state = true;
-
                     context.pushReplacement((mode == 1) ? RouteName.addPlayerScreen : (mode == 2) ? RouteName.createRoomScreen : RouteName.enterTeamNameScreen);
 
                     ScaffoldMessenger.of(context).showSnackBar(

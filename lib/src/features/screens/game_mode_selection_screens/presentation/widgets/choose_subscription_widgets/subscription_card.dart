@@ -73,8 +73,8 @@ class PaymentCardWidget extends StatelessWidget {
                   child: Text(
                     quality,
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: Color(0xff2E1126),
-                      fontWeight: FontWeight.w500
+                        color: Color(0xff2E1126),
+                        fontWeight: FontWeight.w500
                     ),
                   ),
                 ),
@@ -105,11 +105,11 @@ class PaymentCardWidget extends StatelessWidget {
                   CardTitle(title: title2, details: subtitle2),
                   SizedBox(height: 4.h),
                   Text(
-                    description,
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: Color(0xff2E1126),
-                        fontWeight: FontWeight.w500
-                    )
+                      description,
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          color: Color(0xff2E1126),
+                          fontWeight: FontWeight.w500
+                      )
                   ),
                   SizedBox(height: 8.h),
                   AppCustomButton(

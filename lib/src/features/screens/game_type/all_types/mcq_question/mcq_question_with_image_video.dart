@@ -1,19 +1,19 @@
 import 'dart:developer';
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:naheelsoufan_game/src/features/common_widegts/notify_sound/notify_sounds.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_type/all_types/mcq_question/widget/audio_part.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_type/all_types/mcq_question/widget/video_part.dart';
 import '../../../../../core/theme/theme_extension/color_scheme.dart';
+import '../../../../../core/utils/utils.dart';
 import '../../../../../data/repository/game/start_game/answer_question_service.dart';
 import '../../../../../data/riverpod/count_down_state.dart';
+import '../../../../../data/riverpod/function.dart';
 import '../../../../../data/riverpod/game/start_game/start_game_provider.dart';
-import '../../../../common_widegts/notify_sound/notify_sounds.dart';
-import '../../../grid_play_game/riverpod/function.dart';
-import '../../../main_quiz_screen/presentation/riverpod/advance_turn_controller.dart';
-import '../../../main_quiz_screen/presentation/riverpod/stateProvider.dart';
-import '../../../main_quiz_screen/presentation/widgets/quiz_show_menu_dialog/widgets/wrong_answer_dialog.dart';
+import '../../../game_mode_selection_screens/riverpod/player_provider.dart';
+import '../../../quick_play_offline/question_answer/presentation/widget/wrong_answer_dialog.dart';
+import '../../../quick_play_offline/question_answer/provider/toggle.dart';
 import '../../riverpod/multiple_choice_provider.dart';
 import 'widget/image_part.dart';
 
@@ -73,17 +73,15 @@ class McqQuestionWithImageVideo extends StatelessWidget {
           itemBuilder: (context, index) {
             return Consumer(
               builder: (_, ref, _) {
-                final controller = ref.read(playerProvider.notifier);
-                final current = ref.read(playerProvider);
-                final next = (current.currentPlayer + 1) % current.totalPlayer;
                 final huntMode = ref.watch(huntModeOn);
                 final checkChoice = ref.watch(checkChoicesProvider(index));
                 final rightChoiceIndex = rightIndex ?? 0;
-                final response = ref.watch(questionResponseProvider);
+                final playerList = ref.watch(playerListProvider);
+                final player = ref.watch(playerProvider);
                 final selectedPointBlock = ref.watch(
                   selectedPlayerIndexProvider,
                 );
-                final playerList = ref.watch(playerListProvider);
+                final response = ref.watch(questionResponseProvider);
 
                 return InkWell(
                   onTap: () async {
@@ -100,12 +98,14 @@ class McqQuestionWithImageVideo extends StatelessWidget {
                       }
                     }
 
-                    (!huntMode) ? await AnswerQuestionService().answer(
+                    (!huntMode)
+                        ? await AnswerQuestionService().answer(
                           response?.data?.question.id,
                           response?.data?.question.answers[index].id,
                           response?.data?.currentPlayer.id,
-                          null
-                        ) : null;
+                          null,
+                        )
+                        : null;
 
                     if (ref.read(isRightWrongElse.notifier).state == 0) {
                       for (int i = 0; i < 4; i++) {
@@ -116,10 +116,12 @@ class McqQuestionWithImageVideo extends StatelessWidget {
                       NotifySounds().playWrongSound();
                       if (huntMode == true) {
                         if (selectedPointBlock == -1 ||
-                            selectedPointBlock == current.currentPlayer) {
+                            selectedPointBlock == player.currentPlayer) {
                           log("Please Select a Player");
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text("Please Select a Player")),
+                            const SnackBar(
+                              content: Text("Please Select a Player"),
+                            ),
                           );
                         } else {
                           log(
@@ -129,16 +131,13 @@ class McqQuestionWithImageVideo extends StatelessWidget {
                             response?.data?.question.id,
                             response?.data?.question.answers[index].id,
                             playerList?.data.players[selectedPointBlock].id,
-                            null
+                            null,
                           );
                           //log("Hunt Result: $result");
-                          ref.read(selectedPlayerIndexProvider.notifier).state = -1;
+                          ref.read(selectedPlayerIndexProvider.notifier).state =
+                              -1;
                           ref.read(huntModeOn.notifier).state = false;
-                          ref.read(advanceTurnFlagProvider.notifier).state =
-                              true;
-                          controller.state = current.copyWith(
-                            currentPlayer: next,
-                          );
+                          await Utils.advanceTurnAlternate(context, ref);
                         }
                       } else {
                         ref
@@ -166,13 +165,16 @@ class McqQuestionWithImageVideo extends StatelessWidget {
                             .reset();
                       });
                     } else {
-                      NotifySounds().playCorrectSound();
                       log("\n\n\nRIGHT!!!\n\n\n");
+                      NotifySounds().playCorrectSound();
                       if (huntMode == true) {
-                        if (selectedPointBlock == -1 || selectedPointBlock == current.currentPlayer) {
+                        if (selectedPointBlock == -1 ||
+                            selectedPointBlock == player.currentPlayer) {
                           log("Please Select a Player");
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text("Please Select a Player")),
+                            const SnackBar(
+                              content: Text("Please Select a Player"),
+                            ),
                           );
                         } else {
                           log(
@@ -182,22 +184,15 @@ class McqQuestionWithImageVideo extends StatelessWidget {
                             response?.data?.question.id,
                             response?.data?.question.answers[index].id,
                             playerList?.data.players[selectedPointBlock].id,
-                            null
+                            null,
                           );
 
                           ref.read(huntModeOn.notifier).state = false;
-                          ref.read(advanceTurnFlagProvider.notifier).state =
-                          true;
-                          controller.state = current.copyWith(
-                            currentPlayer: next,
-                          );
+                          await Utils.advanceTurnAlternate(context, ref);
                         }
                       }
 
-                      ref.read(advanceTurnFlagProvider.notifier).state = true;
-                      controller.state = current.copyWith(
-                        currentPlayer: next,
-                      ); // CB
+                      await Utils.advanceTurnAlternate(context, ref); // CB
                     }
                   },
                   child: Container(

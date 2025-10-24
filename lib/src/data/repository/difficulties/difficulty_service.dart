@@ -10,18 +10,21 @@ class DifficultyService {
 
   final ApiServices _apiServices = ApiServices();
   final LanguageIdService _languageIdService = LanguageIdService();
-  final TokenService _tokenService = TokenService();
+  final _tokenService = TokenService();
+
 
   Future<DifficultiesModelClass?> fetchDifficultyData() async {
-
-    final headers = {
-      'Authorization': 'Bearer ${await _tokenService.getToken()}',
-      'Content-Type': 'application/json'
-    };
     try {
+      final token = await _tokenService.getToken();
+      final languageId = "cmfzc2whx001zwsxsndh2pxqu";
+      final header = {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json'
+      };
+
       final response = await _apiServices.getData(
-        endPoint: ApiEndPoints.fetchDifficultiesUrl,
-        headers: headers
+        endPoint: "${ApiEndPoints.fetchDifficultiesUrl}?language_id=$languageId",
+        headers: header
       );
 
       DifficultiesModelClass? difficultiesModelClass;
@@ -31,6 +34,8 @@ class DifficultyService {
         debugPrint('Difficulties data fetched successfully');
         debugPrint('Difficulties data: ${difficultiesModelClass.data}');
         await _languageIdService.setToken(difficultiesModelClass.data.first.language.id);
+        final languageId = await _languageIdService.getToken();
+        debugPrint("\n\n\nLanguageID: $languageId\n\n\n");
         return difficultiesModelClass;
       }
     } catch (e) {

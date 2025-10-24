@@ -9,15 +9,14 @@ import 'package:naheelsoufan_game/src/data/riverpod/subscription/subscription_co
 import 'package:naheelsoufan_game/src/data/riverpod/user/user_controller.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/choose_subscription_widgets/subscription_card.dart';
-import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/payment_share_dialog_widgets/show_dialog.dart';
-import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
 import '../../../../core/constant/icons.dart';
 import '../../../../core/constant/images.dart';
 import '../../../../core/routes/route_name.dart';
-import '../../../../data/repository/game/game_mode/select_game_mode_service.dart';
 import '../../../../data/repository/subscription/subscription_service.dart';
-import '../riverpod/mode_controller.dart';
+import '../../../../data/riverpod/player_game/player_game_controller.dart';
+import '../../../common_widegts/pop_up_menu/custom_pop_up_menu.dart';
+import '../../quick_play_offline/add_player/presentation/widget/custom_icons_Buttons.dart';
 
 class PaymentScreen extends ConsumerWidget {
   const PaymentScreen({super.key});
@@ -77,16 +76,16 @@ class PaymentScreen extends ConsumerWidget {
                 child: PaymentCardWidget(
                   title: 'Games',
                   subtitle:
-                      '${subscriptionData?.data[currentIndex].games ?? 0}',
+                  '${subscriptionData?.data[currentIndex].games ?? 0}',
                   title2: 'Max Players',
                   subtitle2:
-                      ': Up to ${subscriptionData?.data[currentIndex].players ?? 0} Players',
+                  ': Up to ${subscriptionData?.data[currentIndex].players ?? 0} Players',
                   description:
-                      'Get your game on with ${subscriptionData?.data[currentIndex].questions ?? 0} exiting questions of fun with your friends!',
+                  'Get your game on with ${subscriptionData?.data[currentIndex].questions ?? 0} exiting questions of fun with your friends!',
                   borderColor: AppColorScheme.surface,
                   rocketBackground: AppColorScheme.greenborder,
                   buttonText:
-                      '\$${subscriptionData?.data[currentIndex].price ?? 0.00} per ${subscriptionData?.data[currentIndex].games ?? 0} games',
+                  '\$${subscriptionData?.data[currentIndex].price ?? 0.00} per ${subscriptionData?.data[currentIndex].games ?? 0} games',
                   quality: subscriptionData?.data[currentIndex].type ?? "NULL",
                   color: AppColorScheme.greenborder,
                   onPressed: () {
@@ -100,15 +99,15 @@ class PaymentScreen extends ConsumerWidget {
                 onTap: () async {
                   ref.read(isLoading.notifier).state = true;
                   final intent =
-                      await SubscriptionService().fetchPaymentIntentData(
-                        subscriptionData?.data[currentIndex].id ?? "",
-                      );
+                  await SubscriptionService().fetchPaymentIntentData(
+                    subscriptionData?.data[currentIndex].id ?? "",
+                  );
                   if (intent?.success != true) {
                     final checkResult = await SubscriptionService().fetchSubscriptionLastIntentStatus();
                     debugPrint("Payment Failed");
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: (checkResult?.paymentStatus == "completed") ? const Text('You have already subscribed a package') : const Text('Payment Failed'),
+                          content: (checkResult?.paymentStatus == "completed") ? const Text('You have already subscribed a package') : const Text('Payment Failed'),
                           backgroundColor: AppColorScheme.error
                       ),
                     );
@@ -121,15 +120,18 @@ class PaymentScreen extends ConsumerWidget {
                   );
 
                   final result = await SubscriptionService().fetchSubscriptionLastIntentStatus();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: (result?.paymentStatus == "completed") ? const Text('Payment Successful') : const Text('Payment Failed'),
-                        backgroundColor: (result?.paymentStatus == "completed") ? AppColorScheme.greenBg : AppColorScheme.error,
-                      ),
-                    );
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: (result?.paymentStatus == "completed") ? const Text('Payment Successful') : const Text('Payment Failed'),
+                      backgroundColor: (result?.paymentStatus == "completed") ? AppColorScheme.greenBg : AppColorScheme.error,
+                    ),
+                  );
                   //AFTER SUCCESSFUL PAYMENT
-                  if(result?.paymentStatus == "completed") onPaymentButton(context);
-
+                  if(result?.paymentStatus == "completed") {
+                    onPaymentButton(context);
+                  }
+                  ref.read(userSubscriptionDataProvider.notifier).state = await SubscriptionService().fetchUserSubscription();
+                  ref.read(playerGameProvider.notifier).fetchGames();
                   ref.read(isLoading.notifier).state = false;
                 },
                 child: Container(
@@ -147,13 +149,13 @@ class PaymentScreen extends ConsumerWidget {
                   ),
                   child: Center(
                     child:
-                        loading
-                            ? const CircularProgressIndicator()
-                            : Text(
-                              'Pay',
-                              style: Theme.of(context).textTheme.titleSmall
-                                  ?.copyWith(color: Colors.white),
-                            ),
+                    loading
+                        ? const CircularProgressIndicator()
+                        : Text(
+                      'Pay',
+                      style: Theme.of(context).textTheme.titleSmall
+                          ?.copyWith(color: Colors.white),
+                    ),
                   ),
                 ),
               ),

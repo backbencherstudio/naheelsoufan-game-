@@ -6,7 +6,7 @@ import '../../../../../../core/constant/icons.dart';
 import '../../../../../common_widegts/music_off_on_whole_screen/music_volume_widgets.dart';
 import '../../../../account_screens/presentation/widgets/custom_music_volume_buttton.dart';
 import '../../../../../common_widegts/music_off_on_whole_screen/riverpod/musicVisible_provider.dart';
-import '../home_widgets/custom_icons_Buttons.dart';
+import '../../../../quick_play_offline/add_player/presentation/widget/custom_icons_Buttons.dart';
 
 class ClickedSettingBottom extends StatelessWidget {
   const ClickedSettingBottom({super.key});

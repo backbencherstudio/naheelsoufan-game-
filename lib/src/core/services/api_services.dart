@@ -16,11 +16,38 @@ class ApiServices {
 
   // Handle Response
   static dynamic _handleResponse(http.Response response) {
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      log(response.body);
-      return jsonDecode(response.body);
-    } else {
-      throw Exception('Error: ${response.statusCode}, ${response.body}');
+    log("Response Status Code: ${response.statusCode}");
+    log("Response Body: ${response.body}");
+
+    switch (response.statusCode) {
+      case 200:
+      case 201:
+        return jsonDecode(response.body);
+      case 400:
+        throw Exception('Bad Request: ${response.body}');
+      case 401:
+        throw Exception('Unauthorized: ${response.body}');
+      case 403:
+        throw Exception('Forbidden: ${response.body}');
+      case 404:
+        throw Exception('Not Found: ${response.body}');
+      case 500:
+        throw Exception('Internal Server Error: ${response.body}');
+      default:
+        throw Exception('Error: ${response.statusCode}, ${response.body}');
+    }
+  }
+
+  // Make HTTP request with error handling and timeout
+  Future<http.Response> _makeRequest(
+      Future<http.Response> request, {
+        int timeoutDuration = 30,
+      }) async {
+    try {
+      final response = await request.timeout(Duration(seconds: timeoutDuration));
+      return response;
+    } catch (e) {
+      throw Exception('Request failed: $e');
     }
   }
 
@@ -30,20 +57,15 @@ class ApiServices {
     required Map<String, dynamic> body,
     Map<String, String>? headers,
   }) async {
-    final http.Response response;
-    log("Token: $headers \n\n");
-    log("Body: $body \n\n");
     try {
-        response = await http.post(
+      final response = await _makeRequest(
+        http.post(
           Uri.parse(endPoint),
-          headers: headers?? {
-            'Content-Type': 'application/json',
-          },
+          headers: headers ?? {'Content-Type': 'application/json'},
           body: jsonEncode(body),
-        );
-        log("api response: ${response.body} \n\n");
-
-        return _handleResponse(response);
+        ),
+      );
+      return _handleResponse(response);
     } catch (e) {
       throw Exception("Failed to send data: $e");
     }
@@ -54,20 +76,14 @@ class ApiServices {
     required String endPoint,
     Map<String, String>? headers,
   }) async {
-    http.Response response;
-    log("Token: $headers \n\n");
     try {
       final isOnline = await hasInternetConnection();
-      if (isOnline) {
-        response = await http.get(
-          Uri.parse(endPoint),
-          headers: headers,
-        );
-        log("api response: ${response.body} \n\n");
-        return _handleResponse(response);
-      } else {
-        throw Exception('Device is Offline, Please connect to internet.');
-      }
+      if (!isOnline) throw Exception('Device is Offline, Please connect to internet.');
+
+      final response = await _makeRequest(
+        http.get(Uri.parse(endPoint), headers: headers),
+      );
+      return _handleResponse(response);
     } catch (e) {
       throw Exception("Failed to get data: $e");
     }
@@ -79,19 +95,18 @@ class ApiServices {
     required Map<String, dynamic> body,
     required Map<String, String> headers,
   }) async {
-    http.Response response;
     try {
       final isOnline = await hasInternetConnection();
-      if (isOnline) {
-        response = await http.put(
+      if (!isOnline) throw Exception('Device is Offline, Please connect to internet.');
+
+      final response = await _makeRequest(
+        http.put(
           Uri.parse(endPoint),
           headers: headers,
           body: jsonEncode(body),
-        );
-        return _handleResponse(response);
-      } else {
-        throw Exception('Device is Offline, Please connect to internet.');
-      }
+        ),
+      );
+      return _handleResponse(response);
     } catch (e) {
       throw Exception("Failed to update data: $e");
     }
@@ -103,19 +118,18 @@ class ApiServices {
     required Map<String, dynamic> body,
     required Map<String, String> headers,
   }) async {
-    http.Response response;
     try {
       final isOnline = await hasInternetConnection();
-      if (isOnline) {
-        response = await http.patch(
+      if (!isOnline) throw Exception('Device is Offline, Please connect to internet.');
+
+      final response = await _makeRequest(
+        http.patch(
           Uri.parse(endPoint),
           headers: headers,
           body: jsonEncode(body),
-        );
-        return _handleResponse(response);
-      } else {
-        throw Exception('Device is Offline, Please connect to internet.');
-      }
+        ),
+      );
+      return _handleResponse(response);
     } catch (e) {
       throw Exception("Failed to patch data: $e");
     }
@@ -126,18 +140,14 @@ class ApiServices {
     required String endPoint,
     Map<String, String>? headers,
   }) async {
-    http.Response response;
     try {
       final isOnline = await hasInternetConnection();
-      if (isOnline) {
-        response = await http.delete(
-          Uri.parse(endPoint),
-          headers: headers,
-        );
-        return _handleResponse(response);
-      } else {
-        throw Exception('Device is Offline, Please connect to internet.');
-      }
+      if (!isOnline) throw Exception('Device is Offline, Please connect to internet.');
+
+      final response = await _makeRequest(
+        http.delete(Uri.parse(endPoint), headers: headers),
+      );
+      return _handleResponse(response);
     } catch (e) {
       throw Exception("Failed to delete data: $e");
     }

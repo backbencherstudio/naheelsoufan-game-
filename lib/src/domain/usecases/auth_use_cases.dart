@@ -20,4 +20,6 @@ class AuthUseCase {
   }
 
   UserModel? get currentUser => authRepository.userModel;
+  String get loginMessage => authRepository.loginMessage;
+  String get registerMessage => authRepository.registerMessage;
 }

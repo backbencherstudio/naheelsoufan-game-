@@ -19,21 +19,21 @@ class CustomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isNotTab = Utils.isTablet(context);
+    final screenHeight = MediaQuery.of(context).size.height;
     return Container(
-      height: isNotTab ? 258.h : 330.h,
+      height: screenHeight*0.3,
       width: double.infinity,
 
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage(img),
-          fit: isNotTab ? BoxFit.cover : BoxFit.fitHeight,
+          fit: BoxFit.cover,
         ),
       ),
       child: Align(
         alignment: Alignment.bottomCenter,
         child: Padding(
-          padding: EdgeInsets.only(bottom: isNotTab ? 20.h : 45.h),
+          padding: EdgeInsets.only(bottom: 20.h),
           child: CustomButton(text: text, onTap: onTap, img: secondaryImg,),
         ),
       ),

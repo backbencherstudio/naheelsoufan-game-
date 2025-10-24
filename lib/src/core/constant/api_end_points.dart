@@ -1,26 +1,18 @@
 class ApiEndPoints{
   // BASE URL
-  static const String baseUrl = "https://caroll-perihelial-nonnecessitously.ngrok-free.dev";
+  static const String baseUrl = "https://nirob.signalsmind.com/s3";
 
-  // IMG BASE
-  //static String imageBaseUrl = "https://nirob.signalsmind.com/s3";
-
-  // QUE BASE
-  static const String questionBaseUrl = "https://nirob.signalsmind.com/s3/public/storage/question";
-
-  static String convertToS3Url(String localUrl) {
-    final pathStart = localUrl.indexOf('https://firebasestorage.googleapis.com/');
-    if (pathStart == -1) return localUrl;
-
-    final storagePath = localUrl.substring(pathStart);
-    return storagePath;
-  }
-
-  static String fileUrlPath(String? imgUrl) => "$questionBaseUrl/$imgUrl";
+  // static String convertToS3Url(String localUrl) {
+  //   final pathStart = localUrl.indexOf('https://firebasestorage.googleapis.com/');
+  //   if (pathStart == -1) return localUrl;
+  //
+  //   final storagePath = localUrl.substring(pathStart);
+  //   return storagePath;
+  // }
 
   static const String registerUrl = "$baseUrl/api/auth/register";
   static const String loginUrl = "$baseUrl/api/auth/login";
-  static const String fetchDifficultiesUrl = "$baseUrl/api/admin/difficulties";
+  static const String fetchDifficultiesUrl = "$baseUrl/api/admin/difficulties/all";
   static const String fetchUserDataUrl = "$baseUrl/api/auth/me";
   static const String updateProfile = "$baseUrl/api/auth/update";
   static const String changePassword = "$baseUrl/api/auth/change-password";

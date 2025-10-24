@@ -18,17 +18,13 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
-    final isNotTab = Utils.isTablet(context);
-
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 58.h,
-        width: isNotTab ? 229.w : 100.w,
+        height: 100.h,
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage(img ?? AppImages.primaryButton),
-            fit: BoxFit.cover
           ),
         ),
         child: Center(

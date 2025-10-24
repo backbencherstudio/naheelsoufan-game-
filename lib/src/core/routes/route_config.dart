@@ -3,7 +3,6 @@ part of 'route_import_part.dart';
 class RouteConfig {
   static final GoRouter goRouter = GoRouter(
     initialLocation: RouteName.splashScreen,
-    observers: [CustomNavigatorObserver()],
     routes: [
       GoRoute(
         path: RouteName.gridLeaderboard,
@@ -34,7 +33,7 @@ class RouteConfig {
             context: context,
             state: state,
             transitionType: PageTransitionType.slideRightToLeft,
-            child: ChooseCategoryScreen(),
+            child: CategorySelectionScreen(),
           );
         },
       ),
@@ -172,6 +171,18 @@ class RouteConfig {
             state: state,
             transitionType: PageTransitionType.slideRightToLeft,
             child: ProfileIconScreen(),
+          );
+        },
+      ),
+
+      GoRoute(
+        path: RouteName.paymentScreen,
+        pageBuilder: (context, state) {
+          return buildPageWithTransition(
+            context: context,
+            state: state,
+            transitionType: PageTransitionType.slideRightToLeft,
+            child: PaymentScreen(),
           );
         },
       ),
@@ -349,17 +360,6 @@ class RouteConfig {
           );
         },
       ),
-      GoRoute(
-        path: RouteName.deficultyLevelScreen,
-        pageBuilder: (context, state) {
-          return buildPageWithTransition(
-            context: context,
-            state: state,
-            transitionType: PageTransitionType.slideRightToLeft,
-            child: DifficultyLevelScreen(),
-          );
-        },
-      ),
 
       GoRoute(
         path: RouteName.playerSelectionScreen,
@@ -374,17 +374,6 @@ class RouteConfig {
       ),
 
       GoRoute(
-        path: RouteName.questionAnswerScreen,
-        pageBuilder: (context, state) {
-          return buildPageWithTransition(
-            context: context,
-            state: state,
-            transitionType: PageTransitionType.slideRightToLeft,
-            child: QuestionAnswerScreen(),
-          );
-        },
-      ),
-      GoRoute(
         path: RouteName.quizScreen,
         pageBuilder: (context, state) {
           return buildPageWithTransition(
@@ -397,14 +386,14 @@ class RouteConfig {
       ),
 
       GoRoute(
-        path: RouteName.categorySelectionScreen,
+        path: RouteName.gridCategoryScreen,
 
         pageBuilder: (context, state) {
           return buildPageWithTransition(
             context: context,
             state: state,
             transitionType: PageTransitionType.slideRightToLeft,
-            child: CatagorySelectionScreen(),
+            child: GridChooseCategoryScreen(),
           );
         },
       ),
@@ -423,14 +412,4 @@ class RouteConfig {
       ),
     ],
   );
-}
-
-class CustomNavigatorObserver extends NavigatorObserver {
-  @override
-  void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
-    super.didPop(route, previousRoute);
-    if (route.settings.name == RouteName.splashScreen) {
-      SystemChannels.platform.invokeMethod('SystemNavigator.pop');
-    }
-  }
 }

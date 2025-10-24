@@ -4,16 +4,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
-import 'package:naheelsoufan_game/src/data/riverpod/loading.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/choose_subscription_widgets/pay_to_play.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/choose_subscription_widgets/subscription_card.dart';
-import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
-import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/pop_up_menu/custom_pop_up_menu.dart';
+import 'package:naheelsoufan_game/src/features/screens/quick_play_offline/add_player/presentation/widget/custom_icons_Buttons.dart';
 import '../../../../core/constant/icons.dart';
 import '../../../../core/constant/images.dart';
 import '../../../../data/repository/subscription/subscription_service.dart';
+import '../../../../data/riverpod/loading.dart';
 import '../../../../data/riverpod/subscription/subscription_controller.dart';
+import '../../../common_widegts/pop_up_menu/custom_pop_up_menu.dart';
 
 class ChooseSubscriptionScreen extends ConsumerStatefulWidget {
   const ChooseSubscriptionScreen({super.key});
@@ -64,30 +64,30 @@ class _ChoosePaymentCardState extends ConsumerState<ChooseSubscriptionScreen> {
               Center(child: PayToPlay()),
               SizedBox(height: 40.h),
               loading ? const CircularProgressIndicator() : (subscriptionResponse?.data == null) ? Text("No Subscription Found") : Expanded(
-                child: ListView.builder(
-                  itemCount: subscriptionResponse?.data.length,
-                    itemBuilder: (context, index){
-                  return Padding(
-                    padding: EdgeInsets.symmetric(vertical: 6.h),
-                    child: PaymentCardWidget(
-                      title: 'Games',
-                      subtitle: ': ${subscriptionResponse?.data[index].games ?? 0}',
-                      title2: 'Max Players',
-                      subtitle2: ': Up to ${subscriptionResponse?.data[index].players ?? 0} Players',
-                      description:
-                      'Get your game on with ${subscriptionResponse?.data[index].games ?? 0} exiting questions of fun with your friends!',
-                      borderColor: AppColorScheme.secondary,
-                      rocketBackground: AppColorScheme.borderColor,
-                      buttonText: '\$${subscriptionResponse?.data[index].price ?? 0.00} per ${subscriptionResponse?.data[index].games ?? 0} games',
-                      quality: subscriptionResponse?.data[index].type ?? "NULL",
-                      color: AppColorScheme.borderColor,
-                      onPressed: (){
-                        ref.read(selectedSubscriptionIndex.notifier).state = index;
-                        context.pushReplacement(RouteName.paymentScreen);
-                      },
-                    ),
-                  );
-                })
+                  child: ListView.builder(
+                      itemCount: subscriptionResponse?.data.length,
+                      itemBuilder: (context, index){
+                        return Padding(
+                          padding: EdgeInsets.symmetric(vertical: 6.h),
+                          child: PaymentCardWidget(
+                            title: 'Games',
+                            subtitle: ': ${subscriptionResponse?.data[index].games ?? 0}',
+                            title2: 'Max Players',
+                            subtitle2: ': Up to ${subscriptionResponse?.data[index].players ?? 0} Players',
+                            description:
+                            'Get your game on with ${subscriptionResponse?.data[index].games ?? 0} exiting questions of fun with your friends!',
+                            borderColor: AppColorScheme.secondary,
+                            rocketBackground: AppColorScheme.borderColor,
+                            buttonText: '\$${subscriptionResponse?.data[index].price ?? 0.00} per ${subscriptionResponse?.data[index].games ?? 0} games',
+                            quality: subscriptionResponse?.data[index].type ?? "NULL",
+                            color: AppColorScheme.borderColor,
+                            onPressed: (){
+                              ref.read(selectedSubscriptionIndex.notifier).state = index;
+                              context.pushReplacement(RouteName.paymentScreen);
+                            },
+                          ),
+                        );
+                      })
               ),
             ],
           ),

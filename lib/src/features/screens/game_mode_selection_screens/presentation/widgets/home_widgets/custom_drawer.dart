@@ -5,16 +5,14 @@ import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
-import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
+import 'package:naheelsoufan_game/src/features/screens/quick_play_offline/add_player/presentation/widget/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_list_tile.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/presentation/widgets/home_widgets/custom_logout_button.dart';
-import '../../../../../../core/services/token_services.dart';
 import '../../../../../../core/utils/utils.dart';
 import '../../../../../common_widegts/music_off_on_whole_screen/music_volume_widgets.dart';
-import '../../../../question_answer_screen/setting_while_in_game/widgets/language_drop_down_menu.dart';
+import '../../../../setting/widgets/language_drop_down_menu.dart';
 
 Drawer appDrawer({required BuildContext context}) {
-  final isNotTab = Utils.isTablet(context);
   final menuKey = GlobalKey();
   final List<Map<String, dynamic>> map = [
     {
@@ -25,7 +23,7 @@ Drawer appDrawer({required BuildContext context}) {
     {
       "icon": AppIcons.setting,
       "title": "Setting",
-      "routeName": RouteName.settingTtsScreen,
+      "routeName": RouteName.settingWhileInGameScreen,
     },
     {
       "icon": AppIcons.personShield,
@@ -35,16 +33,19 @@ Drawer appDrawer({required BuildContext context}) {
     {
       "icon": AppIcons.tvQuestion,
       "title": "How to play",
+      "routeName": "",
     },
     {
       "icon": AppIcons.youtubeIcon,
       "title": "How to play video",
+      "routeName": "",
     },
   ];
   final style = Theme.of(context).textTheme;
-
+  final screenWidth = MediaQuery.of(context).size.width;
+  final isNotTab = Utils.isTablet(context);
   return Drawer(
-    width: isNotTab ? null : 300.w,
+    width: isNotTab ? null : screenWidth * 0.6,
     backgroundColor: AppColorScheme.deepPuroleBG,
     child: SafeArea(
       child: Padding(
@@ -54,7 +55,7 @@ Drawer appDrawer({required BuildContext context}) {
             children: [
               Row(
                 children: [
-                  LanguageDropDown(menuKey: menuKey,width: 15.w),
+                  LanguageDropDown(menuKey: menuKey,width: 15,),
                   Spacer(),
                   CustomIconsButtons(
                     icon: AppIcons.crossIcon,
@@ -76,22 +77,19 @@ Drawer appDrawer({required BuildContext context}) {
                 itemBuilder: (BuildContext context, int index) {
                   final data = map[index];
                   return Padding(
-                    padding: EdgeInsets.only(bottom: 13.h),
+                    padding: EdgeInsets.all(13.h),
                     child: CustomListTile(
                       title: data['title'],
                       icon: data["icon"],
-          
                       onTap: () {
-                        (data["routeName"] == null) ? null : context.push(data["routeName"]);
+                        context.push(data["routeName"]);
                       },
                     ),
                   );
                 },
               ),
               SizedBox(height: 40.h),
-              CustomLogoutButton(onTap: () async {
-                final TokenService _tokenService = TokenService();
-                await _tokenService.removeToken();
+              CustomLogoutButton(onTap: () {
                 context.push(RouteName.signInScreen);
               }),
               SizedBox(height: 40.h),

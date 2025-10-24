@@ -1,14 +1,19 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
-import 'package:naheelsoufan_game/src/features/screens/account_screens/presentation/widgets/edit_profile_widgets/edit_profile_icon.dart';
+import 'package:naheelsoufan_game/src/data/repository/user/user_service.dart';
 import 'package:naheelsoufan_game/src/features/screens/account_screens/presentation/widgets/my_account_wodgets/header_button.dart';
 import '../../../../core/constant/icons.dart';
 import '../../../../core/utils/utils.dart';
 import '../../../common_widegts/create_screen/create_screen.dart';
-import '../../game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
+import '../../auth/riverpod/auth_providers.dart';
+import '../../quick_play_offline/add_player/presentation/widget/custom_icons_Buttons.dart';
 import '../riverpod/profile_state_notifier.dart';
 
 class ProfileIconScreen extends ConsumerWidget {
@@ -16,7 +21,7 @@ class ProfileIconScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedIndex = ref.watch(selectedProfileProvider);
+    final selectedIndex = ref.watch(selectedIconIndex);
     final style = Theme.of(context).textTheme;
     final isNotTab = Utils.isTablet(context);
     return Scaffold(
@@ -88,13 +93,8 @@ class ProfileIconScreen extends ConsumerWidget {
                                         ),
                                     itemBuilder: (context, index) {
                                       return GestureDetector(
-                                        onTap: () {
-                                          ref
-                                              .read(
-                                                selectedProfileProvider
-                                                    .notifier,
-                                              )
-                                              .selectProfile(index);
+                                        onTap: () async {
+                                          ref.read(selectedIconIndex.notifier).state = index;
                                         },
                                         child: Center(
                                           child: Container(
@@ -125,9 +125,19 @@ class ProfileIconScreen extends ConsumerWidget {
 
                                 SizedBox(height: 40.h),
                                 InkWell(
-                                  onTap: () {
-                                    /// UPDATE LOGIC
-                                    context.pop();
+                                  onTap: () async {
+                                    if(selectedIndex == -1) {
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(content: Text('Please select an icon!')),
+                                      );
+                                    }
+                                    else {
+                                      final response = await UserProfileRepository.updateProfilePic(imgPath: AppIcons.profileImages[selectedIndex]);
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(content: Text(response ?? "Failed to update profile picture")),
+                                      );
+                                    }
+                                    ref.read(authNotifierProvider.notifier).fetchUserDetails();
                                   },
                                   child: HeaderButton(
                                     textTitle: 'Update',

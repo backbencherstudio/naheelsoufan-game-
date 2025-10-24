@@ -16,19 +16,11 @@ class CustomListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
-    final isNotTab = Utils.isTablet(context);
-    return Container(
-      height: isNotTab ? 58.h : 100.h,
 
+    return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12.r),
         color: AppColorScheme.listContainerColor,
-        border: Border(
-          bottom: BorderSide(
-            color: AppColorScheme.darkpurpleborder,
-            width: isNotTab ? 4.w : 4.h,
-          ),
-        ),
       ),
       child: ListTile(
         onTap: ()=> onTap(),

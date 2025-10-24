@@ -14,7 +14,7 @@ import 'package:naheelsoufan_game/src/features/screens/account_screens/presentat
 import '../../../../core/routes/route_name.dart';
 import '../../../../data/repository/subscription/subscription_service.dart';
 import '../../../common_widegts/music_off_on_whole_screen/music_volume_widgets.dart';
-import '../../game_mode_selection_screens/presentation/widgets/home_widgets/custom_icons_Buttons.dart';
+import '../../quick_play_offline/add_player/presentation/widget/custom_icons_Buttons.dart';
 import '../riverpod/profile_state_notifier.dart';
 
 class MyAccountScreen extends ConsumerStatefulWidget {
@@ -38,7 +38,6 @@ class _MyAccountScreenState extends ConsumerState<MyAccountScreen> {
   @override
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
-    final selectedIndex = ref.watch(selectedProfileProvider);
     final userData = ref.watch(userProvider);
     final userSubscriptionData = ref.watch(userSubscriptionDataProvider);
     final loading = ref.watch(isLoading);
@@ -85,18 +84,8 @@ class _MyAccountScreenState extends ConsumerState<MyAccountScreen> {
                               ),
                               child: loading ? SizedBox(height: 200.w,child: Center(child: const CircularProgressIndicator(color: Colors.green,))) : Column(
                                 children: [
-                                  selectedIndex != null
-                                      ? Image.asset(
-                                        AppIcons.profileImages[selectedIndex],
-                                        height: 80.h,
-                                        width: 80.w,
-                                        fit: BoxFit.cover,
-                                      )
-                                      : Image.asset(
-                                        AppIcons.profile01,
-                                    height: 80.h,
-                                    width: 80.w,
-                                      ),
+                                  Image.network(userData?.avatarUrl ?? "https://imgs.search.brave.com/wDY22YDuMUArJUYHi_P2HFGfQk_uDnm0xhaxUXdOEW4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG40/Lmljb25maW5kZXIu/Y29tL2RhdGEvaWNv/bnMvbWVuLWF2YXRh/cnMtaWNvbnMtc2V0/LTIvMjU2LzMwLTEy/OC5wbmc",
+                                  height: 24.w, width: 24.w,),
                                   SizedBox(height: 16.h),
                                   Text(
                                     userData?.name ?? 'N/A',

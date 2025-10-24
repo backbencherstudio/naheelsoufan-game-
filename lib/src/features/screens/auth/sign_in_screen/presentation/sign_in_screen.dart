@@ -18,11 +18,6 @@ class SignInScreen extends StatelessWidget {
       onPopInvokedWithResult: (didPop, result) async {
         if (didPop) return;
 
-        // if (GoRouter.of(context).canPop()) {
-        //   GoRouter.of(context).pop();
-        //   return;
-        // }
-
         final shouldExit = await showDialog<bool>(
           context: context,
           builder: (context) => AlertDialog(

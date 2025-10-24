@@ -3,18 +3,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naheelsoufan_game/src/core/constant/images.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 
-import '../../../../../../core/utils/utils.dart';
-
 class CustomGameLogoContainer extends StatelessWidget {
   const CustomGameLogoContainer({super.key});
 
   @override
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
-    final isNotTab = Utils.isTablet(context);
+
     return Container(
-      height: isNotTab ? 150.h : 200.h,
-      width: 106.w,
+      // height: 150.h,
+      // width: 106.w,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.r),
         color: AppColorScheme.primary,

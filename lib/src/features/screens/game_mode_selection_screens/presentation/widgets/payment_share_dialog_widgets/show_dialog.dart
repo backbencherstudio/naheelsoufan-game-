@@ -5,10 +5,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naheelsoufan_game/src/core/routes/route_name.dart';
-import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/freeExpire_provider.dart';
 import '../../../../../../core/constant/icons.dart';
 import '../../../../../../core/constant/images.dart';
-import '../../../../../../core/utils/utils.dart';
 import '../choose_subscription_widgets/app_custom_buttons.dart';
 
 
@@ -16,13 +14,12 @@ void onPaymentButton(BuildContext context) {
   showDialog(
     context: context,
     builder: (_) {
-      final isNotTab = Utils.isTablet(context);
       return Dialog(
         backgroundColor: Colors.transparent,
         elevation: 0,
         child: SingleChildScrollView(
           child: Container(
-            height: isNotTab ? 438.h : 600.h,
+            height: 438.h,
             width: 361.w,
             decoration: BoxDecoration(
               border: Border.all(color: Color(0xff2E1126), width: 2),
@@ -71,13 +68,12 @@ void onPaymentButton(BuildContext context) {
 
                 Consumer(
                   builder: (_, ref, _) {
-                    final chcekScreeen = ref.watch(checkNormalGridScreen);
                     return Padding(
                       padding: EdgeInsets.symmetric(horizontal: 28.w),
                       child: AppCustomButton(
                         text: 'Create Room',
                         onTap: () {
-                          (ref.read(checkNormalGridScreen.notifier).state) ? context.pushReplacement(RouteName.addPlayerScreen) : context.go(RouteName.enterTeamNameScreen);
+                          /// NEED TO WORK
                         },
                         textColor: Colors.white,
                         gradient: LinearGradient(
