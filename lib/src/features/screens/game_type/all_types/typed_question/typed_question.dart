@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:naheelsoufan_game/src/features/common_widegts/notify_sound/notify_sounds.dart';
 import 'package:naheelsoufan_game/src/features/screens/auth/widget/custom_textformfield.dart';
 import '../../../../../core/utils/utils.dart';
 import '../../../../../data/repository/game/start_game/answer_question_service.dart';
@@ -96,6 +97,7 @@ class _TypedQuestionWithImageVideoState
               onSubmitted: (value) async {
                 if (value.toLowerCase() == widget.rightAnswer?.toLowerCase()) {
                   log("RIGHT!!!");
+                  NotifySounds().playCorrectSound();
 
                   if(huntMode){
                     if (selectedPointBlock == -1 ||
@@ -134,6 +136,7 @@ class _TypedQuestionWithImageVideoState
                   log("Selected Answer: Invalid");
 
                   log("\n\n\nWRONG!!!\n\n\n");
+                  NotifySounds().playWrongSound();
                   if (huntMode) {
                     if (selectedPointBlock == -1 ||
                         selectedPointBlock == player.currentPlayer) {

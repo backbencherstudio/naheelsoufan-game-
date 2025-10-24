@@ -6,4 +6,6 @@ abstract class AuthRepository {
   Future<bool> fetchUserData();
 
   UserModel? get userModel;
+  String get loginMessage;
+  String get registerMessage;
 }

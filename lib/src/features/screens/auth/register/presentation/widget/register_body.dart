@@ -9,6 +9,7 @@ import '../../../../../../core/routes/route_name.dart';
 import '../../../../../common_widegts/elevated_button/elevated_button.dart';
 import '../../../../../common_widegts/snack_bar_message/custom_snack_bar.dart';
 import '../../../riverpod/auth_providers.dart';
+import '../../../riverpod/auth_state.dart';
 import '../../../widget/custom_textformfield.dart';
 
 class RegisterBody extends ConsumerStatefulWidget {
@@ -50,14 +51,17 @@ class _RegisterBodyState extends ConsumerState<RegisterBody> {
     final subTitleStyle = Theme.of(context).textTheme.displaySmall;
     final authState = ref.watch(authNotifierProvider);
 
-    ref.listen(authNotifierProvider, (prev, next) {
+    ref.listen<AsyncValue<AuthState>>(authNotifierProvider, (prev, next) {
       next.whenOrNull(
-        data: (success) {
-          if (success) {
+        data: (loginState) {
+          // Access the success and message from LoginState
+          if (loginState.success) {
             context.go(RouteName.signInScreen);
-            CustomSnackBar.show(context, "A verification link has been sent in you mail.");
+            CustomSnackBar.show(context, "A verification link has been sent to your mail.");
           } else {
-            CustomSnackBar.show(context, "Registration failed.");
+            CustomSnackBar.show(context, loginState.message.isNotEmpty
+                ? loginState.message
+                : "Registration failed.");
           }
         },
         error: (err, _) {
@@ -65,6 +69,7 @@ class _RegisterBodyState extends ConsumerState<RegisterBody> {
         },
       );
     });
+
 
 
     return Container(

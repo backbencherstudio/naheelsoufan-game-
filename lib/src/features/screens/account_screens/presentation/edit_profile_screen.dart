@@ -99,7 +99,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                                     controller: nameController,
                                     style: style,
                                     labelName: 'Name',
-                                    hintText: 'Walid',
+                                    hintText: 'Enter Name',
                                     onSuffixTap: () async {
 
                                       final newName = nameController.text.trim();
@@ -117,7 +117,6 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                                         ScaffoldMessenger.of(context).showSnackBar(
                                           SnackBar(content: Text(success, style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w600))),
                                         );
-                                        ref.read(authNotifierProvider.notifier).fetchUserDetails();
                                       } else {
                                         ScaffoldMessenger.of(context).showSnackBar(
                                           SnackBar(content: Text('Failed to update name', style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w600))),
@@ -171,7 +170,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                                     style: style,
                                     readOnly: true,
                                     labelName: 'Email',
-                                    hintText: 'waleed929@gmail.com',
+                                    hintText: 'Enter Email',
                                     // suffixIcon: SvgPicture.asset(
                                     //   AppIcons.selectedFilledBle,
                                     //   width: 24.0,

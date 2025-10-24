@@ -1,18 +1,18 @@
 class PlayerGameInfoResponse {
   final bool success;
-  final String message;
+  final String? message;
   final PlayerGameData data;
 
   PlayerGameInfoResponse({
     required this.success,
-    required this.message,
+    this.message,
     required this.data,
   });
 
   factory PlayerGameInfoResponse.fromJson(Map<String, dynamic> json) {
     return PlayerGameInfoResponse(
       success: json['success'],
-      message: json['message'],
+      message: json['message'] ?? '',
       data: PlayerGameData.fromJson(json['data']),
     );
   }
@@ -56,15 +56,15 @@ class PlayerGameSummary {
 }
 
 class Game {
-  final String gameId;
+  final String? gameId;
 
   Game({
-    required this.gameId,
+    this.gameId,
   });
 
   factory Game.fromJson(Map<String, dynamic> json) {
     return Game(
-      gameId: json['game_id'],
+      gameId: json['game_id'] ?? '',
     );
   }
 }
