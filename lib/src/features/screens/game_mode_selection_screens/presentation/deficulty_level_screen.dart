@@ -72,7 +72,7 @@ class _DifficultyLevelScreenState extends ConsumerState<DifficultyLevelScreen> {
                     children: [
                       ListView.builder(
                         shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
+                        // physics: NeverScrollableScrollPhysics(),
                         itemCount: levels?.data.length ?? 0,
                         itemBuilder: (context, index) {
                           return CustomButtonsNormal(

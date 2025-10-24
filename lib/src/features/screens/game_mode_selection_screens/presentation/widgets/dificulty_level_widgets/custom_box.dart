@@ -15,7 +15,7 @@ class CustomBox extends StatelessWidget {
   Widget build(BuildContext context) {
     final isNotTab = Utils.isTablet(context);
     return SizedBox(
-      height: isNotTab ? 500.h : 800.h,
+      height: isNotTab ? 600.h : 800.h,
       child: Stack(
         children: [
           Positioned(
