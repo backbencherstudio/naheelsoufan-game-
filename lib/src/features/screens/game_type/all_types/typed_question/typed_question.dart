@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:naheelsoufan_game/src/features/common_widegts/notify_sound/notify_sounds.dart';
 import 'package:naheelsoufan_game/src/features/screens/auth/widget/custom_textformfield.dart';
 import '../../../../../core/utils/utils.dart';
 import '../../../../../data/repository/game/start_game/answer_question_service.dart';
@@ -96,6 +97,7 @@ class _TypedQuestionWithImageVideoState
               onSubmitted: (value) async {
                 if (value.toLowerCase() == widget.rightAnswer?.toLowerCase()) {
                   log("RIGHT!!!");
+                  NotifySounds().playCorrectSound();
 
                   if(huntMode){
                     if (selectedPointBlock == -1 ||
@@ -114,6 +116,7 @@ class _TypedQuestionWithImageVideoState
                         playerList?.data?.players[selectedPointBlock].id,
                         response?.data?.question.answers[0].text
                       );
+                      await Utils.advanceTurnAlternate(context, ref);
                     }
                   }
                   // Hunt Mode ??????
@@ -125,15 +128,15 @@ class _TypedQuestionWithImageVideoState
                       playerList?.data?.players[player.currentPlayer].id,
                         response?.data?.question.answers[0].text
                     );
+                    await Utils.advanceTurnAlternate(context, ref);
                   }
-
-                  await Utils.advanceTurnAlternate(context, ref);
                 } else {
 
                   log("Selected Answer ID: Invalid");
                   log("Selected Answer: Invalid");
 
                   log("\n\n\nWRONG!!!\n\n\n");
+                  NotifySounds().playWrongSound();
                   if (huntMode) {
                     if (selectedPointBlock == -1 ||
                         selectedPointBlock == player.currentPlayer) {

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:naheelsoufan_game/src/core/constant/images.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/mode_controller.dart';
 import '../../../../../core/constant/icons.dart';
@@ -19,6 +21,7 @@ class NextTurnScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
     final player = ref.watch(playerProvider);
+    final playerName = ref.watch(playerNameProvider);
     final gameMode = ref.watch(modeProvider);
     debugPrint("\n\n\nPlayer: ${ref.read(playerProvider.notifier).state.currentPlayer}\n\n\n");
 
@@ -55,14 +58,10 @@ class NextTurnScreen extends ConsumerWidget {
                         padding: EdgeInsets.fromLTRB(126.w, 60.h, 126.w, 48.h),
                         child: Column(
                           children: [
-                            Image.asset(
-                              AppIcons.profile03,
-                              height: 110.h,
-                              width: 110.w,
-                            ),
+                            SvgPicture.asset(AppIcons.profile, colorFilter: ColorFilter.mode(AppColorScheme.softGradGreen, BlendMode.srcIn), height: 100.h, width: 100.h,),
                             SizedBox(height: 16.h),
                             Text(
-                              "Player ${player.currentPlayer + 1}",
+                              playerName.playerNames[player.currentPlayer],
                               style: style.titleLarge?.copyWith(
                                 color: AppColorScheme.listContainerColor,
                                 fontWeight: FontWeight.w500,

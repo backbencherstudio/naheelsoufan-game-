@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:naheelsoufan_game/src/features/common_widegts/notify_sound/notify_sounds.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_type/all_types/mcq_question/widget/audio_part.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_type/all_types/mcq_question/widget/video_part.dart';
 import '../../../../../core/theme/theme_extension/color_scheme.dart';
@@ -112,6 +113,7 @@ class McqQuestionWithImageVideo extends StatelessWidget {
                       }
 
                       log("\n\n\nWRONG!!!\n\n\n");
+                      NotifySounds().playWrongSound();
                       if (huntMode == true) {
                         if (selectedPointBlock == -1 ||
                             selectedPointBlock == player.currentPlayer) {
@@ -164,6 +166,7 @@ class McqQuestionWithImageVideo extends StatelessWidget {
                       });
                     } else {
                       log("\n\n\nRIGHT!!!\n\n\n");
+                      NotifySounds().playCorrectSound();
                       if (huntMode == true) {
                         if (selectedPointBlock == -1 ||
                             selectedPointBlock == player.currentPlayer) {
@@ -188,8 +191,6 @@ class McqQuestionWithImageVideo extends StatelessWidget {
                           await Utils.advanceTurnAlternate(context, ref);
                         }
                       }
-
-                      await Utils.advanceTurnAlternate(context, ref); // CB
                     }
                   },
                   child: Container(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/constant/images.dart';
@@ -64,6 +65,7 @@ class _CatagorySelectionScreenState extends ConsumerState<CategorySelectionScree
 
     final isNotTab = Utils.isTablet(context);
     final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
 
     return CreateScreen(
       child: Padding(
@@ -73,13 +75,8 @@ class _CatagorySelectionScreenState extends ConsumerState<CategorySelectionScree
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CustomIconsButtons(
-                  icon: AppIcons.backIcons,
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                ),
-                Image.asset(AppImages.profilePic, height: 40.h, width: 40.w),
+                SizedBox(width: screenWidth*0.03,),
+                SvgPicture.asset(AppIcons.profile, colorFilter: ColorFilter.mode(AppColorScheme.softGradGreen, BlendMode.srcIn), height: 50.h, width: 50.h,),
                 CustomPopUpMenu(),
               ],
             ),

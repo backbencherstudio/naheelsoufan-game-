@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -6,15 +7,16 @@ import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import '../../../../core/routes/route_name.dart';
 import '../../../../core/utils/utils.dart';
+import '../../auth/riverpod/auth_providers.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  ConsumerState<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends ConsumerState<SplashScreen> {
   @override
   void initState() {
     super.initState();
@@ -24,6 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> _moveToHomeScreen() async {
     await Future.delayed(Duration(seconds: 1));
     if (mounted) {
+      await ref.read(authNotifierProvider.notifier).fetchUserDetails();
       context.push(RouteName.onboardingScreen);
     }
   }

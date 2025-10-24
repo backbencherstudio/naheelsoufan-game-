@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:naheelsoufan_game/src/features/screens/auth/riverpod/auth_state.dart';
 import '../../../../data/repository/auth/auth_repository.dart';
 import '../../../../data/repository/auth/auth_service.dart';
 import '../../../../domain/usecases/auth_use_cases.dart';
@@ -13,7 +14,7 @@ final authUseCaseProvider = Provider<AuthUseCase>((ref) {
   return AuthUseCase(authRepository);
 });
 
-final authNotifierProvider = StateNotifierProvider<AuthNotifier, AsyncValue<bool>>((ref) {
+final authNotifierProvider = StateNotifierProvider<AuthNotifier, AsyncValue<AuthState>>((ref) {
   final useCase = ref.watch(authUseCaseProvider);
   return AuthNotifier(useCase, ref);
 });

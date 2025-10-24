@@ -11,7 +11,6 @@ class UserProfileRepository {
   static final TokenService _tokenStorage = TokenService();
   static final apiService = ApiServices();
 
-
   static Future<String?> updateProfileName({required String name}) async {
     try {
       final url = Uri.parse(ApiEndPoints.updateProfile);
@@ -33,7 +32,6 @@ class UserProfileRepository {
         debugPrint('Profile updated successfully');
         final jsonData = jsonDecode(responseBody);
         final String onlyMessage = jsonData['message'];
-        // You may want to provide this message back to caller if needed
         return onlyMessage;
       } else {
         debugPrint('Failed: ${response.statusCode}');
@@ -70,21 +68,21 @@ class UserProfileRepository {
         'new_password': newPassword,
       };
 
-      debugPrint('===== Body : { email: $email, oldPassword: $oldPassword, newPassword: $newPassword } =====');
-
-      final response = jsonDecode(
-          await apiService.postData(
-              endPoint: ApiEndPoints.changePassword,
-              headers: header,
-              body: body
-          )
+      debugPrint(
+        '===== Body : { email: $email, oldPassword: $oldPassword, newPassword: $newPassword } =====',
       );
 
-      if(response["success"] == true) {
+      final response = await apiService.postData(
+        endPoint: ApiEndPoints.changePassword,
+        headers: header,
+        body: body,
+      );
+
+      if (response["success"] == true) {
         debugPrint('Password updated successfully');
+        debugPrint(response['message']);
         return response['message'];
-      }
-      else {
+      } else {
         debugPrint('Failed: ${response["message"]}');
         return null;
       }
@@ -111,10 +109,10 @@ class UserProfileRepository {
       request.headers['Authorization'] = 'Bearer $accessToken';
 
       final multiPartFile = http.MultipartFile.fromBytes(
-          'image',
-          bytes,
-          filename: 'profile_pic.png',
-          contentType: MediaType('image', 'png')
+        'image',
+        bytes,
+        filename: 'profile_pic.png',
+        contentType: MediaType('image', 'png'),
       );
 
       request.files.add(multiPartFile);

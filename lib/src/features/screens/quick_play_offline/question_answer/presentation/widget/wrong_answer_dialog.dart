@@ -9,6 +9,7 @@ import 'package:naheelsoufan_game/src/features/screens/quick_play_offline/questi
 import 'package:naheelsoufan_game/src/features/screens/quick_play_offline/question_answer/presentation/widget/primary_button.dart';
 import '../../../../../../core/constant/icons.dart';
 import '../../../../../../core/routes/route_name.dart';
+import '../../../../../../core/utils/utils.dart';
 import '../../../../../../data/riverpod/count_down_state.dart';
 import '../../../../game_type/riverpod/multiple_choice_provider.dart';
 import '../../../../../../data/riverpod/function.dart';
@@ -16,6 +17,8 @@ import '../../provider/advance_turn_controller.dart';
 
 void onWrongAnswerTap(BuildContext context, String rightAns, ref) {
   bool isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+  final isNotTablet = Utils.isTablet(context);
+
   showDialog(
     context: context,
     builder: (_) {
@@ -108,7 +111,7 @@ void onWrongAnswerTap(BuildContext context, String rightAns, ref) {
                       SizedBox(height: isPortrait ? 44.h : 10.w),
                       Expanded(
                         child: HeaderButton(
-                          height: isPortrait ? null : 25.w,
+                          height: (isPortrait ? null : 25.w),
                           textTitle: 'Chance to steal the point',
                           borderColor: Color(0xffFFB4AB),
                           borderWidth: 3.w,

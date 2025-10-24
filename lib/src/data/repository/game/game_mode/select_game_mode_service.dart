@@ -21,7 +21,7 @@ class SelectGameModeService {
       return false;
     }
     /// NEED REFACTOR AFTER LOCALIZATION
-    final languageId = await _languageIdService.getToken();
+    final languageId = "cmfzc2whx001zwsxsndh2pxqu";
     /// NEED REFACTOR AFTER LOCALIZATION
     final headers = {'Authorization': 'Bearer $token', 'Content-Type': 'application/json'};
 

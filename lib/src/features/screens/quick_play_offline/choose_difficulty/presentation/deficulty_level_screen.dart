@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/constant/images.dart';
@@ -48,6 +49,8 @@ class _DifficultyLevelScreenState extends ConsumerState<DifficultyLevelScreen> {
     final cateId = ref.watch(categoryId);
     final diffId = ref.watch(difficultyId);
     final loading = ref.watch(isLoading);
+    final playerName = ref.watch(playerNameProvider);
+    final screenWidth = MediaQuery.of(context).size.width;
 
     return CreateScreen(
       child: Padding(
@@ -57,8 +60,8 @@ class _DifficultyLevelScreenState extends ConsumerState<DifficultyLevelScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(),
-                Image.asset(AppImages.profilePic, height: 40.h, width: 40.w),
+                SizedBox(width: screenWidth*0.03,),
+                SvgPicture.asset(AppIcons.profile, colorFilter: ColorFilter.mode(AppColorScheme.softGradGreen, BlendMode.srcIn), height: 50.h, width: 50.h,),
                 CustomPopUpMenu(),
               ],
             ),
@@ -67,7 +70,7 @@ class _DifficultyLevelScreenState extends ConsumerState<DifficultyLevelScreen> {
               builder: (_,ref,_) {
                 final player = ref.watch(playerProvider);
                 return Text(
-                  'Player ${player.currentPlayer + 1}',
+                  playerName.playerNames[player.currentPlayer],
                   style: style.titleLarge!.copyWith(
                     fontWeight: FontWeight.w400,
                     color: AppColorScheme.primary,

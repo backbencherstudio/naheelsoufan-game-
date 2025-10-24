@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
+import 'package:naheelsoufan_game/src/features/common_widegts/notify_sound/notify_sounds.dart';
 import '../../../../../core/utils/utils.dart';
 import '../../../../../data/repository/game/start_game/answer_question_service.dart';
 import '../../../../../data/riverpod/count_down_state.dart';
@@ -91,6 +92,7 @@ class ImageMcqQuestion extends StatelessWidget {
                       ref.read(huntModeOn.notifier).state = true;
 
                       log("\n\n\nWRONG!!!\n\n\n");
+                      NotifySounds().playWrongSound();
                       if (huntMode == true) {
                         if (selectedPointBlock == -1) {
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -139,6 +141,7 @@ class ImageMcqQuestion extends StatelessWidget {
                       });
                     } else {
                       log("\n\n\nRIGHT!!!\n\n\n");
+                      NotifySounds().playCorrectSound();
                       if (huntMode == true) {
                         if (selectedPointBlock == -1 ||
                             selectedPointBlock == player.currentPlayer) {
@@ -163,8 +166,6 @@ class ImageMcqQuestion extends StatelessWidget {
                           await Utils.advanceTurnAlternate(context, ref);
                         }
                       }
-
-                      await Utils.advanceTurnAlternate(context, ref);
                     }
                   },
                   child: Container(

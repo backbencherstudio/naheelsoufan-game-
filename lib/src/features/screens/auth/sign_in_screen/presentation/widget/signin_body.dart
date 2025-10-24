@@ -10,6 +10,7 @@ import '../../../../../../core/theme/theme_extension/color_scheme.dart';
 import '../../../../../../core/utils/utils.dart';
 import '../../../../../common_widegts/elevated_button/elevated_button.dart';
 import '../../../../../common_widegts/snack_bar_message/custom_snack_bar.dart';
+import '../../../riverpod/auth_state.dart';
 import '../../../widget/custom_textformfield.dart';
 import '../../../riverpod/auth_providers.dart';
 
@@ -45,14 +46,15 @@ class _SignInBodyState extends ConsumerState<SignInBody> {
     final subTitleStyle = Theme.of(context).textTheme.displaySmall;
     final isNotTab = Utils.isTablet(context);
 
-    ref.listen<AsyncValue>(authNotifierProvider, (previous, next) {
+    ref.listen<AsyncValue<AuthState>>(authNotifierProvider, (previous, next) {
       next.whenOrNull(
-        data: (success) {
-          if (success) {
+        data: (loginState) {
+          if (loginState.success) {
+            ref.read(authNotifierProvider.notifier).fetchUserDetails();
             context.go(RouteName.gameModeScreens);
             CustomSnackBar.show(context, 'Login Successful');
           } else {
-            CustomSnackBar.show(context, 'Something Went Wrong!');
+            CustomSnackBar.show(context, loginState.message);
           }
         },
         error: (err, _) {
@@ -60,6 +62,8 @@ class _SignInBodyState extends ConsumerState<SignInBody> {
         },
       );
     });
+
+
 
     final authState = ref.watch(authNotifierProvider);
 
