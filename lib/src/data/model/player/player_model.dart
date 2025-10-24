@@ -1,19 +1,19 @@
 class PlayerModel {
   final bool success;
   final String message;
-  final Data data;
+  final Data? data;
 
   PlayerModel({
     required this.success,
     required this.message,
-    required this.data,
+    this.data,
   });
 
   factory PlayerModel.fromJson(Map<String, dynamic> json) {
     return PlayerModel(
       success: json['success'],
       message: json['message'],
-      data: Data.fromJson(json['data']),
+      data: json['data'] != null ? Data.fromJson(json['data']) : null,
     );
   }
 }

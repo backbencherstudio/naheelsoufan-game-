@@ -20,12 +20,13 @@ class CustomWhiteboxes extends StatelessWidget {
     final style = Theme.of(context).textTheme;
 
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 12.h),
+      padding: EdgeInsets.symmetric(vertical: 12.h),
       width: width,
       decoration: BoxDecoration(
         color: Color(0xffE0E0FF),
         borderRadius: BorderRadius.circular(8.r),
       ),
+      margin: EdgeInsets.symmetric(horizontal: 16.r),
       child: Text(
         title,
         textAlign: TextAlign.center,

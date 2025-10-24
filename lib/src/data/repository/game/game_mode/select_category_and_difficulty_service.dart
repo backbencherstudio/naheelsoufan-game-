@@ -44,7 +44,7 @@ class SelectCategoriesAndDifficultiesService {
         debugPrint('Game ques type ====== ${gameModel.data?.question.questionType.name}');
         return gameModel;
     } catch (e) {
-      print('Error during select player call: $e');
+      print('Error during select difficulty & category: $e');
       return null;
     }
   }

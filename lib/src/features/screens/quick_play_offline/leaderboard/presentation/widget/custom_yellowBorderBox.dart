@@ -26,33 +26,30 @@ class CustomYellowborderbox extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 12.h),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.r),
-         gradient: LinearGradient(
-        colors: [Color(0xffF2E792), Color(0xffF8B133), Color(0xffDE712B)],
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-      ),
-
-      ),
-
-      child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 16.r),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-
-          children: [
-            if (isIconOpen == true) ...[
-              Image.asset(icon, height: 24.h, width: 24.w),
-              SizedBox(width: 8.w),
-            ],
-
-            Text(
-              title,
-              style: style.bodyLarge!.copyWith(
-                color: AppColorScheme.labelTextColor,
-              ),
-            ),
-          ],
+        gradient: LinearGradient(
+          colors: [Color(0xffF2E792), Color(0xffF8B133), Color(0xffDE712B)],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
         ),
+
+      ),
+      margin: EdgeInsets.symmetric(horizontal: 16.r),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+
+        children: [
+          if (isIconOpen == true) ...[
+            Image.asset(icon, height: 24.h, width: 24.w),
+            SizedBox(width: 8.w),
+          ],
+
+          Text(
+            title,
+            style: style.bodyLarge!.copyWith(
+              color: AppColorScheme.labelTextColor,
+            ),
+          ),
+        ],
       ),
     );
   }

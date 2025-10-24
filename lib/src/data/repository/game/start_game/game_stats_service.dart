@@ -39,7 +39,7 @@ class GetGameStatsService {
         return null;
       }
     } catch (e) {
-      print('Error during select player call: $e');
+      print('Error during game stats call: $e');
       return null;
     }
   }

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/constant/padding.dart';
+import 'package:naheelsoufan_game/src/data/riverpod/loading.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
 import 'package:naheelsoufan_game/src/features/screens/quick_play_offline/add_player/presentation/widget/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/quick_play_offline/leaderboard/presentation/widget/leaderBox.dart';
@@ -25,8 +26,10 @@ class _LeaderboardScreenState extends ConsumerState<LeaderboardScreen> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
+      ref.read(isLoading.notifier).state = true;
       final res = await GetGameStatsService().getGameStats();
       ref.read(gameStatsProvider.notifier).state = res;
+      ref.read(isLoading.notifier).state = false;
     });
     super.initState();
   }
@@ -36,11 +39,17 @@ class _LeaderboardScreenState extends ConsumerState<LeaderboardScreen> {
     final style = Theme.of(context).textTheme;
     final gameStats = ref.watch(gameStatsProvider);
     final championName = gameStats?.data.finalRankings[0].playerName ?? [];
+    final loading = ref.watch(isLoading);
 
     return CreateScreen(
       child: Padding(
         padding: AppPadding.horizontalPadding,
-        child: (gameStats == null) ?
+        child: loading ? Center(
+          child: SizedBox(
+              height: 50.h,
+              width: 50.h,
+              child: const CircularProgressIndicator()),
+        ) : (gameStats == null) ?
         Center(child:Text("No Data Found!")) :
         SingleChildScrollView(
           child: Column(

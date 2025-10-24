@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -70,11 +72,11 @@ class Utils {
 
     ref.read(questionCountProvider.notifier).state++;
 
-    debugPrint("\n\n\n$questionCount\n\n\n");
+    log("\n\n\nTurn Number: $questionCount\n\n\n");
 
     // Navigation updates
     if (gameMode != 3) {
-      if (questionCount == (current.totalPlayer * userSubscriptionQuestionData)) {
+      if (questionCount == (current.totalPlayer * userSubscriptionQuestionData) - 1) {
         ref.read(questionCountProvider.notifier).state = 0;
         context.pushReplacement(RouteName.leaderboardScreen);
       } else {

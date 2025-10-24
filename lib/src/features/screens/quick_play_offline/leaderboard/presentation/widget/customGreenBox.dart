@@ -6,12 +6,14 @@ class Customgreenbox extends StatelessWidget {
   final String title;
   final String icon;
   final bool isIconOpen;
+  final double width;
 
   const Customgreenbox({
     super.key,
     required this.title,
     required this.icon,
     required this.isIconOpen,
+    required this.width
   });
 
   @override
@@ -19,6 +21,7 @@ class Customgreenbox extends StatelessWidget {
     final style = Theme.of(context).textTheme;
 
     return Container(
+      margin: EdgeInsets.symmetric(horizontal: 16.r),
       padding: EdgeInsets.all(2.r),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.r),

@@ -20,6 +20,7 @@ class CustomRedbox extends StatelessWidget {
     final style = Theme.of(context).textTheme;
 
     return Container(
+      margin: EdgeInsets.symmetric(horizontal: 16.r),
       padding: EdgeInsets.all(2.r),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.r),

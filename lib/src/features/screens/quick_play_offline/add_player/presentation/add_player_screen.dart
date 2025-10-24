@@ -67,10 +67,7 @@ class _AddPlayerScreenState extends ConsumerState<AddPlayerScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CustomIconsButtons(
-                        icon: AppIcons.backIcons,
-                        onTap: () => Navigator.pop(context),
-                      ),
+                      SizedBox(),
                       Image.asset(
                         AppImages.profilePic,
                         height: 40.h,

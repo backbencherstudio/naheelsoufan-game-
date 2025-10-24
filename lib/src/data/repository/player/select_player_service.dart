@@ -37,15 +37,14 @@ class SelectPlayersService {
         body: body,
         headers: headers,
       );
-
+      final playerModel = PlayerModel.fromJson(response);
       if (response['success'] == true) {
         print('player select successful: $response');
-        final playerModel = PlayerModel.fromJson(response);
-        debugPrint('player 1 ====== ${playerModel.data.players.first.playerName}');
+        debugPrint('player 1 ====== ${playerModel.data?.players.first.playerName}');
         return playerModel;
       } else {
         print('API call failed: ${response.toString()}');
-        return null;
+        return playerModel;
       }
     } catch (e) {
       print('Error during select player call: $e');

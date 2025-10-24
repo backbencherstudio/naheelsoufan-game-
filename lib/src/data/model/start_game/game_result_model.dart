@@ -106,7 +106,7 @@ class User {
 }
 
 class FinalRanking {
-  final int position;
+  final int? position;
   final String playerId;
   final String playerName;
   final int score;
@@ -119,7 +119,7 @@ class FinalRanking {
   final String createdAt;
 
   FinalRanking({
-    required this.position,
+    this.position,
     required this.playerId,
     required this.playerName,
     required this.score,
@@ -184,7 +184,7 @@ class PodiumPlayer {
   final int wrongAnswers;
   final int skippedAnswers;
   final int playerOrder;
-  final int finalRank;
+  final int? finalRank;
   final String userId;
   final bool isGuest;
   final User user;
@@ -202,7 +202,7 @@ class PodiumPlayer {
     required this.wrongAnswers,
     required this.skippedAnswers,
     required this.playerOrder,
-    required this.finalRank,
+    this.finalRank,
     required this.userId,
     required this.isGuest,
     required this.user,

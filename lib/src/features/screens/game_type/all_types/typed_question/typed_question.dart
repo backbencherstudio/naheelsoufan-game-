@@ -106,12 +106,12 @@ class _TypedQuestionWithImageVideoState
                       );
                     } else {
                       log(
-                        "Selected Player ID: ${playerList?.data.players[selectedPointBlock].id}",
+                        "Selected Player ID: ${playerList?.data?.players[selectedPointBlock].id}",
                       );
                       await AnswerQuestionService().answer(
                         response?.data?.question.id,
                         response?.data?.question.answers[0].id,
-                        playerList?.data.players[selectedPointBlock].id,
+                        playerList?.data?.players[selectedPointBlock].id,
                         response?.data?.question.answers[0].text
                       );
                     }
@@ -122,7 +122,7 @@ class _TypedQuestionWithImageVideoState
                     await AnswerQuestionService().answer(
                       response?.data?.question.id,
                       response?.data?.question.answers[0].id,
-                      playerList?.data.players[player.currentPlayer].id,
+                      playerList?.data?.players[player.currentPlayer].id,
                         response?.data?.question.answers[0].text
                     );
                   }
@@ -145,7 +145,7 @@ class _TypedQuestionWithImageVideoState
                       await AnswerQuestionService().answer(
                         response?.data?.question.id,
                         "invalid",
-                        playerList?.data.players[selectedPointBlock].id,
+                        playerList?.data?.players[selectedPointBlock].id,
                         "invalid"
                       );
 
@@ -157,7 +157,7 @@ class _TypedQuestionWithImageVideoState
                     await AnswerQuestionService().answer(
                       response?.data?.question.id,
                       "Invalid",
-                      playerList?.data.players[player.currentPlayer].id,
+                      playerList?.data?.players[player.currentPlayer].id,
                       "Invalid",
                     );
                     ref

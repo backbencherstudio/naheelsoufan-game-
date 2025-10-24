@@ -100,13 +100,13 @@ class ImageMcqQuestion extends StatelessWidget {
                           );
                         } else {
                           log(
-                            "Selected Player ID: ${playerList?.data.players[selectedPointBlock].id}",
+                            "Selected Player ID: ${playerList?.data?.players[selectedPointBlock].id}",
                           );
                           ref.read(huntModeOn.notifier).state = false;
                           final result = await AnswerQuestionService().answer(
                             response?.data?.question.id,
                             response?.data?.question.answers[index].id,
-                            playerList?.data.players[selectedPointBlock].id,
+                            playerList?.data?.players[selectedPointBlock].id,
                             null,
                           );
                           //log("Hunt Result: $result");
@@ -150,12 +150,12 @@ class ImageMcqQuestion extends StatelessWidget {
                           );
                         } else {
                           log(
-                            "Selected Player ID: ${playerList?.data.players[selectedPointBlock].id}",
+                            "Selected Player ID: ${playerList?.data?.players[selectedPointBlock].id}",
                           );
                           final result = await AnswerQuestionService().answer(
                             response?.data?.question.id,
                             response?.data?.question.answers[index].id,
-                            playerList?.data.players[selectedPointBlock].id,
+                            playerList?.data?.players[selectedPointBlock].id,
                             null,
                           );
 

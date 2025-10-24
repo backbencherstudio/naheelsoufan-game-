@@ -21,7 +21,8 @@ class CustomSmallBox extends StatelessWidget {
     final style = Theme.of(context).textTheme;
 
     return Container(
-      padding: EdgeInsets.all(2.r),
+      width: width,
+      padding: EdgeInsets.symmetric( vertical: 12.h),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.r),
         gradient: LinearGradient(
@@ -30,52 +31,32 @@ class CustomSmallBox extends StatelessWidget {
             AppColorScheme.midGradGreen,
             AppColorScheme.hardGradGreen,
           ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
         ),
       ),
+      margin: EdgeInsets.symmetric(horizontal: 16.r),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
 
-      child: Container(
-        width: width,
-        padding: EdgeInsets.symmetric( vertical: 12.h),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8.r),
-          gradient: LinearGradient(
-            colors: [
-              AppColorScheme.startGradGreen,
-              AppColorScheme.midGradGreen,
-              AppColorScheme.hardGradGreen,
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+        children: [
+
+       if(isIconOpen==true)...[
+           Image.asset(icon,
+          height: 24.h,
+          width: 24.w,
           ),
-        ),
-
-        child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 16.r),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-
-            children: [
-               
-           if(isIconOpen==true)...[
-               Image.asset(icon,
-              height: 24.h,
-              width: 24.w,
-              ),
-              SizedBox(width: 8.w,),
-           ],
+          SizedBox(width: 8.w,),
+       ],
 
 
-              Text(
-                title,
-                style: style.bodyLarge!.copyWith(
-                  color: AppColorScheme.onPrimary,
-                ),
-              ),
-            ],
+          Text(
+            title,
+            style: style.bodyLarge!.copyWith(
+              color: AppColorScheme.onPrimary,
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
