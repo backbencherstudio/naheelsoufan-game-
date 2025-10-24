@@ -138,6 +138,7 @@ class AuthService extends AuthRepository {
       );
 
       if (response['success'] == true && response['data'] != null) {
+        debugPrint('---------- fetch user details -----------');
         _userModel = UserModel.fromJson(response['data']);
         return true;
       }

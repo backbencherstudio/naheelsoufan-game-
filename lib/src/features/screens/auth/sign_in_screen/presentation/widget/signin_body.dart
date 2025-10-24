@@ -50,6 +50,7 @@ class _SignInBodyState extends ConsumerState<SignInBody> {
       next.whenOrNull(
         data: (loginState) {
           if (loginState.success) {
+            ref.read(authNotifierProvider.notifier).fetchUserDetails();
             context.go(RouteName.gameModeScreens);
             CustomSnackBar.show(context, 'Login Successful');
           } else {
