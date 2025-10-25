@@ -46,6 +46,8 @@ class _AudioPartState extends State<AudioPart> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return Column(
       children: [
         SizedBox(height: 40.h),
@@ -56,8 +58,8 @@ class _AudioPartState extends State<AudioPart> {
             children: [
               // Optional: Audio "thumbnail" (or fallback icon)
               SizedBox(
-                width: 345.w,
-                height: 80.h,
+                width: screenWidth*0.8,
+                height: screenWidth*0.05,
                 child: widget.thumbnailUrl != null
                     ? Image.network(
                   widget.thumbnailUrl!,

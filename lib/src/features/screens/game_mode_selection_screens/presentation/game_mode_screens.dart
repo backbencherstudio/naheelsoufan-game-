@@ -76,7 +76,7 @@ class _GameModeScreensState extends ConsumerState<GameModeScreens> {
                     text: "GRID STYLE",
                     onTap: () async {
                       ref.read(modeProvider.notifier).state = 3;
-                      if(userSubscriptionData?.data != null) {
+                      if(userSubscriptionData?.data != null || userSubscriptionData?.data.gamesRemaining == 0) {
                         final selectGameMode = SelectGameModeService();
                         final result = await selectGameMode.createGame(
                           context: context,

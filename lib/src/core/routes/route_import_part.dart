@@ -20,7 +20,6 @@ import '../../features/screens/setting/presentation/clicked_setting_screen.dart'
 import '../../features/screens/grid_style/add_team/presentation/enter_team_name_screen.dart';
 import '../../features/screens/grid_style/choose_categorywise_difficulty/presentation/grid_difficulty_level_screen.dart';
 import '../../features/screens/grid_style/choose_multiple_category/presentation/grid_category_screen.dart';
-import '../../features/screens/grid_style/leaderboard/presentation/grid_leader_board_Screen.dart';
 import '../../features/screens/grid_style/question_answer/presentation/question_revealed.dart';
 import '../../features/screens/onboarding_screen/presentation/onboarding_screen.dart';
 import '../../features/screens/onboarding_screen/presentation/splash_screen.dart';

@@ -17,6 +17,8 @@ class VideoPart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return Column(
       children: [
         SizedBox(height: 40.h),
@@ -27,8 +29,8 @@ class VideoPart extends StatelessWidget {
             children: [
               // Video thumbnail
               SizedBox(
-                width: 345.w,
-                height: 133.h,
+                width: screenWidth*0.8,
+                height: screenHeight*0.3,
                 child: Image.network(
                   thumbnailUrl ?? '',
                   fit: BoxFit.cover,

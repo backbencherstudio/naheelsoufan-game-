@@ -82,7 +82,7 @@ class _ModeSelectionScreenState extends ConsumerState<ModeSelectionScreen> {
                   ref.read(modeProvider.notifier).state = 1;
                   debugPrint(userSubscriptionData?.data.toString());
 
-                  if(userSubscriptionData?.data != null) {
+                  if(userSubscriptionData?.data != null || userSubscriptionData?.data.gamesRemaining == 0) {
                     final selectGameMode = SelectGameModeService();
                     final result = await selectGameMode.createGame(
                       context: context,

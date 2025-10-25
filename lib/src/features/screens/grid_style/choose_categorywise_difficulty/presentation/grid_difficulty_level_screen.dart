@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -88,29 +90,22 @@ class _GridDifficultyLevelScreenState
                       ? const CircularProgressIndicator()
                       : Column(
                         children: [
-                          Expanded(
-                            flex: 1,
-                            child: GridView.builder(
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: categoryNameList.length,
-                                    crossAxisSpacing: 10.w,
-                                    mainAxisSpacing: 10.w,
-                                    childAspectRatio:
-                                        (categoryNameList.length < 2)
-                                            ? 10
-                                            : (categoryNameList.length < 4)
-                                            ? 5
-                                            : 2,
-                                  ),
+                          SizedBox(
+                            height: screenHeight*0.08,
+                            width: screenWidth,
+                            child: ListView.builder(
+                              padding: EdgeInsets.all(1.r),
+                              scrollDirection: Axis.horizontal,
                               itemCount: categoryNameList.length,
                               itemBuilder: (context, index) {
-                                return SizedBox(
-                                  height: 1000,
-                                  width: 1000,
-                                  child: CustomGridDifficultyTitle(
-                                    categoryName:
-                                        categoryNameList[index] ?? "N/A",
+                                return Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: screenWidth*0.01),
+                                  child: SizedBox(
+                                    width: screenWidth*0.9 / (categoryIdList.length),
+                                    child: CustomGridDifficultyTitle(
+                                      categoryName:
+                                          categoryNameList[index] ?? "N/A",
+                                    ),
                                   ),
                                 );
                               },
@@ -122,9 +117,8 @@ class _GridDifficultyLevelScreenState
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemCount: categoryNameList.length,
-                              itemBuilder: (context, index) {
+                              itemBuilder: (context, columnIndex) {
                                 return SizedBox(
-                                  //height: screenHeight*0.5,
                                   width: screenWidth / (categoryIdList.length),
                                   child: ListView.builder(
                                     padding: EdgeInsets.all(5.r),
@@ -135,21 +129,21 @@ class _GridDifficultyLevelScreenState
                                       return Padding(
                                         padding: EdgeInsets.symmetric(vertical: 10.h),
                                         child: CustomGridQuestionCard(
-                                          index: index,
-                                          difficultyId:
-                                              difficultyList.data[index].id,
-                                          difficultyLevel:
-                                              difficultyList.data[index].name,
-                                          difficultyPoint:
-                                              difficultyList.data[index].points,
-                                          categoryId: categoryIdList[index] ?? "N/A",
+                                          index: (columnIndex * 3) + index,
+                                          difficultyId: difficultyList.data[(columnIndex * 3) + index].id,
+                                          difficultyLevel: difficultyList.data[(columnIndex * 3) + index].name,
+                                          difficultyPoint: difficultyList.data[(columnIndex * 3) + index].points,
+                                          categoryId: categoryIdList[columnIndex] ?? "N/A",
                                           onTap: () async {
                                             final categoryAndDifficultyService = SelectCategoriesAndDifficultiesService();
                                             final res = await categoryAndDifficultyService.selectCategoryAndDifficulty(
-                                                categoryIdList[index],
+                                                categoryIdList[columnIndex],
                                                 difficultyList.data[index].id
                                             );
                                             if(res?.success == false || res == null) {
+
+                                              log("\n\n\nI am here\n\n\n");
+
                                               debugPrint("Error: ${res?.message}");
                                               ScaffoldMessenger.of(context).showSnackBar(
                                                 SnackBar(

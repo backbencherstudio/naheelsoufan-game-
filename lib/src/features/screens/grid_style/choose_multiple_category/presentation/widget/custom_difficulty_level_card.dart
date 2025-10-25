@@ -57,10 +57,10 @@ class CustomDifficultyLevelCard extends ConsumerWidget {
                 color: AppColorScheme.hardGradGreen,
               ),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Icon(Icons.check_circle_outline, color: AppColorScheme.softGradGreen,),
-                  SizedBox(width: 4.w),
-                  Text("T-1", style: style.copyWith(color: AppColorScheme.softGradGreen, fontSize: 10.sp),)
+                  Text("T-1", style: TextStyle(color: AppColorScheme.softGradGreen),)
                 ],
               ),
             ),
@@ -87,8 +87,7 @@ class CustomDifficultyLevelCard extends ConsumerWidget {
               child: Row(
                 children: [
                   Icon(Icons.check_circle_outline, color: AppColorScheme.softGradGreen,),
-                  SizedBox(width: 4.w),
-                  Text("T-2", style: style.copyWith(color: AppColorScheme.softGradGreen, fontSize: 10.sp),)
+                  Text("T-2", style: TextStyle(color: AppColorScheme.softGradGreen),)
                 ],
               ),
             ),

@@ -11,6 +11,7 @@ import '../../../../../data/repository/game/start_game/answer_question_service.d
 import '../../../../../data/riverpod/count_down_state.dart';
 import '../../../../../data/riverpod/function.dart';
 import '../../../../../data/riverpod/game/start_game/start_game_provider.dart';
+import '../../../game_mode_selection_screens/riverpod/mode_controller.dart';
 import '../../../game_mode_selection_screens/riverpod/player_provider.dart';
 import '../../../quick_play_offline/question_answer/presentation/widget/wrong_answer_dialog.dart';
 import '../../../quick_play_offline/question_answer/provider/toggle.dart';
@@ -54,8 +55,7 @@ class McqQuestionWithImageVideo extends StatelessWidget {
         if (imageUrl != null) ImagePart(imageUrl: imageUrl),
 
         ///video part
-        if (videoUrl != null)
-          VideoPart(thumbnailUrl: videoThumbnailUrl, videoUrl: videoUrl!),
+        if (videoUrl != null) VideoPart(thumbnailUrl: videoThumbnailUrl, videoUrl: videoUrl!),
 
         ///audio part
         if (audioUrl != null) AudioPart(audioUrl: audioUrl!),
@@ -82,6 +82,7 @@ class McqQuestionWithImageVideo extends StatelessWidget {
                   selectedPlayerIndexProvider,
                 );
                 final response = ref.watch(questionResponseProvider);
+                final mode = ref.watch(modeProvider);
 
                 return InkWell(
                   onTap: () async {
@@ -117,12 +118,25 @@ class McqQuestionWithImageVideo extends StatelessWidget {
                       if (huntMode == true) {
                         if (selectedPointBlock == -1 ||
                             selectedPointBlock == player.currentPlayer) {
-                          log("Please Select a Player");
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text("Please Select a Player"),
-                            ),
-                          );
+
+                          if(mode == 3) {
+                            final result = await AnswerQuestionService().answer(
+                              response?.data?.question.id,
+                              response?.data?.question.answers[index].id,
+                              playerList?.data?.players[(player.currentPlayer + 1) % player.totalPlayer].id,
+                              null,
+                            );
+                            log("Grid Result: $result");
+                            await Utils.advanceTurnAlternate(context, ref);
+                          }
+                          else {
+                            log("Please Select a Player");
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("Please Select a Player"),
+                              ),
+                            );
+                          }
                         } else {
                           log(
                             "Selected Player ID: ${playerList?.data?.players[selectedPointBlock].id}",
@@ -170,12 +184,24 @@ class McqQuestionWithImageVideo extends StatelessWidget {
                       if (huntMode == true) {
                         if (selectedPointBlock == -1 ||
                             selectedPointBlock == player.currentPlayer) {
-                          log("Please Select a Player");
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text("Please Select a Player"),
-                            ),
-                          );
+                          if(mode == 3) {
+                            final result = await AnswerQuestionService().answer(
+                              response?.data?.question.id,
+                              response?.data?.question.answers[index].id,
+                              playerList?.data?.players[(player.currentPlayer + 1) % player.totalPlayer].id,
+                              null,
+                            );
+                            log("Grid Result: $result");
+                            await Utils.advanceTurnAlternate(context, ref);
+                          }
+                          else {
+                            log("Please Select a Player");
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("Please Select a Player"),
+                              ),
+                            );
+                          }
                         } else {
                           log(
                             "Selected Player ID: ${playerList?.data?.players[selectedPointBlock].id}",

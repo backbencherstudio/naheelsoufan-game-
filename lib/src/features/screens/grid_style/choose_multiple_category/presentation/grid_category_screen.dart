@@ -103,9 +103,12 @@ class _ChooseCategoryScreenState extends ConsumerState<GridChooseCategoryScreen>
                             ref.read(categoryListProvider.notifier).removeCategory(categories?.data[index].id);
                             return;
                           }
-                          ref.read(categoryListProvider.notifier).addCategory(categories?.data[index].id, categories?.data[index].name);
+                          if(selectedCategoryMap.length < 6) {
+                            ref.read(categoryListProvider.notifier).addCategory(categories?.data[index].id, categories?.data[index].name);
+                          }
                           debugPrint("\n\n\nCategory ID: ${categories?.data[index].id}\n\n\n");
                           debugPrint("\n\n\nCategory ID List: $selectedCategoryMap\n\n\n");
+                          debugPrint("\n\n\nCategory ID List: ${selectedCategoryMap.length}\n\n\n");
                         },
                         title: categories?.data[index].name ?? "", imgUrl: categories?.data[index].image_url ?? "",
                         questionNumber: categories?.data.length ?? 0,

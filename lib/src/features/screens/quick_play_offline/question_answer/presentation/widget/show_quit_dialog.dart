@@ -62,8 +62,6 @@ void onQuitGameTap(BuildContext context, WidgetRef ref) {
                               ref.read(userSubscriptionDataProvider.notifier).state = await SubscriptionService().fetchUserSubscription();
                               ref.read(playerGameProvider.notifier).fetchGames();
 
-                              context.go(RouteName.gameModeScreens);
-
                               ref.invalidate(playerProvider);
                               ref.invalidate(isQuestionVanished);
                               ref.invalidate(isQuestionVanishTeam2);
@@ -75,6 +73,9 @@ void onQuitGameTap(BuildContext context, WidgetRef ref) {
                                 ref.read(checkChoicesProvider(i).notifier).state = -1;
                               }
                               ref.read(isClose.notifier).state = true;
+
+
+                              context.go(RouteName.gameModeScreens);
                             },
                             child: HeaderButton(
                               textStyle: Theme.of(context).textTheme.titleSmall?.copyWith(

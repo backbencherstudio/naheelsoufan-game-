@@ -42,11 +42,9 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final style = Theme.of(context).textTheme;
     final huntMode = ref.watch(huntModeOn);
     final response = ref.watch(questionResponseProvider);
     final fileUrl = response?.data?.question.fileUrl ?? "null";
-    final isNotTab = Utils.isTablet(context);
     final screenHeight = MediaQuery.of(context).size.height;
 
     return CreateScreen(

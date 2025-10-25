@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naheelsoufan_game/src/core/theme/theme_extension/color_scheme.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/notify_sound/notify_sounds.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/mode_controller.dart';
 import '../../../../../core/utils/utils.dart';
 import '../../../../../data/repository/game/start_game/answer_question_service.dart';
 import '../../../../../data/riverpod/count_down_state.dart';
@@ -60,6 +61,7 @@ class ImageMcqQuestion extends StatelessWidget {
                   selectedPlayerIndexProvider,
                 );
                 final response = ref.watch(questionResponseProvider);
+                final mode = ref.watch(modeProvider);
                 return InkWell(
                   onTap: () async {
                     (index == rightChoiceIndex)
@@ -95,11 +97,24 @@ class ImageMcqQuestion extends StatelessWidget {
                       NotifySounds().playWrongSound();
                       if (huntMode == true) {
                         if (selectedPointBlock == -1) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text("Please Select a Player"),
-                            ),
-                          );
+                          if(mode == 3) {
+                            final result = await AnswerQuestionService().answer(
+                              response?.data?.question.id,
+                              response?.data?.question.answers[index].id,
+                              playerList?.data?.players[(player.currentPlayer + 1) % player.totalPlayer].id,
+                              null,
+                            );
+                            log("Grid Result: $result");
+                            await Utils.advanceTurnAlternate(context, ref);
+                          }
+                          else {
+                            log("Please Select a Player");
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("Please Select a Player"),
+                              ),
+                            );
+                          }
                         } else {
                           log(
                             "Selected Player ID: ${playerList?.data?.players[selectedPointBlock].id}",
@@ -145,12 +160,24 @@ class ImageMcqQuestion extends StatelessWidget {
                       if (huntMode == true) {
                         if (selectedPointBlock == -1 ||
                             selectedPointBlock == player.currentPlayer) {
-                          log("Please Select a Player");
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text("Please Select a Player"),
-                            ),
-                          );
+                          if(mode == 3) {
+                            final result = await AnswerQuestionService().answer(
+                              response?.data?.question.id,
+                              response?.data?.question.answers[index].id,
+                              playerList?.data?.players[(player.currentPlayer + 1) % player.totalPlayer].id,
+                              null,
+                            );
+                            log("Grid Result: $result");
+                            await Utils.advanceTurnAlternate(context, ref);
+                          }
+                          else {
+                            log("Please Select a Player");
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("Please Select a Player"),
+                              ),
+                            );
+                          }
                         } else {
                           log(
                             "Selected Player ID: ${playerList?.data?.players[selectedPointBlock].id}",

@@ -1,10 +1,9 @@
-
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:string_similarity/string_similarity.dart';
 import '../../data/riverpod/count_down_state.dart';
 import '../../data/riverpod/function.dart';
 import '../../data/riverpod/subscription/subscription_controller.dart';
@@ -33,6 +32,37 @@ class Utils {
   static bool isTablet(BuildContext context) {
     return MediaQuery.of(context).size.shortestSide < 600;
   }
+
+
+
+  static bool isAnswerCorrect(String correctAnswer, String userAnswer) {
+    correctAnswer = correctAnswer.trim().toLowerCase();
+    userAnswer = userAnswer.trim().toLowerCase();
+
+    // Check for numeric range format like "60-65"
+    final rangePattern = RegExp(r'^(\d+)\s*-\s*(\d+)$');
+    final match = rangePattern.firstMatch(correctAnswer);
+
+    if (match != null) {
+      // It's a numeric range
+      final min = double.parse(match.group(1)!);
+      final max = double.parse(match.group(2)!);
+      final userValue = double.tryParse(userAnswer);
+      if (userValue != null) {
+        return userValue >= min && userValue <= max;
+      }
+      return false;
+    }
+
+    // Otherwise, use string similarity
+    double similarity = userAnswer.similarityTo(correctAnswer);
+
+    // You can adjust this threshold (0.7–0.85 is typical)
+    return similarity >= 0.7;
+  }
+
+
+
 
   static Future<void> advanceTurnAlternate(BuildContext context, WidgetRef ref) async {
 
@@ -91,7 +121,7 @@ class Utils {
         ref.invalidate(categoryListProvider);
         ref.invalidate(isCategorySelectedClicked);
         ref.invalidate(isSomethingClicked);
-        context.pushReplacement(RouteName.gridLeaderboard);
+        context.pushReplacement(RouteName.leaderboardScreen);
       } else {
         context.pushReplacement(RouteName.nextTurnScreen);
       }

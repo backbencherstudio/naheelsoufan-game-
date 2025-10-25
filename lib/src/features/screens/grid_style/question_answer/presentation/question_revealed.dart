@@ -48,6 +48,7 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
     final gameMode = ref.watch(modeProvider);
     final response = ref.watch(questionResponseProvider);
     final fileUrl = response?.data?.question.fileUrl ?? "null";
+    final screenHeight = MediaQuery.of(context).size.height;
 
     return CreateScreen(
       child: Padding(
@@ -59,98 +60,87 @@ class _QuestionRevealedState extends ConsumerState<QuestionRevealed> {
               Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                        SizedBox(
-                          height: isPortrait ? 100.h : null,
-                          width: isPortrait ? 100.h : 990.h,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              CustomIconsButtons(
-                                icon: AppIcons.crossIcon,
-                                onTap: () {
-                                  onQuitGameTap(context, ref);
-                                },
-                                bgIcon: AppIcons.redBGsqare,
-                              ),
-                              PointShow(),
-                              SizedBox(
-                                height: 20.w,
-                                width: 45.w,
-                                child: CustomCountdown(
-                                  initTime: response?.data?.question.timeLimit ?? 60,
-                                  // CHANGE
-                                  onPaused: () {
-                                    //(huntMode) ?
-                                    WidgetsBinding.instance.addPostFrameCallback((_) async {
-                                      if (!huntMode) {
-                                        /// Skip Here
-                                        await AnswerQuestionService().skipAnswer(
-                                          response?.data?.question.id,
-                                          response?.data?.currentPlayer.id,
-                                        );
+                        CustomIconsButtons(
+                          icon: AppIcons.crossIcon,
+                          onTap: () {
+                            onQuitGameTap(context, ref);
+                          },
+                          bgIcon: AppIcons.redBGsqare,
+                        ),
 
-                                        onWrongAnswerTap(
-                                          context,
-                                          response?.data?.question.correctAnswer.text ?? "",
-                                          ref,
-                                        );
-                                        ref.read(huntModeOn.notifier).state = true;
-                                        ref
-                                            .read(
-                                          autoCounterProvider(
-                                            response?.data?.question.timeLimit ?? 60,
-                                          ).notifier,
-                                        )
-                                            .reset();
-                                      } else {
-                                        await AnswerQuestionService().skipAnswer(
-                                          response?.data?.question.id,
-                                          null,
-                                        );
-                                        await Utils.advanceTurnAlternate(context, ref);
-                                      }
-                                    });
-                                  },
-                                  // CHANGE
-                                ),
-                              ),
-                            ],
+                        /// Timer
+                        SizedBox(
+                          height: screenHeight * 0.1,
+                          child: CustomCountdown(
+                            initTime: response?.data?.question.timeLimit ?? 60,
+                            // CHANGE
+                            onPaused: () {
+                              //(huntMode) ?
+                              WidgetsBinding.instance.addPostFrameCallback((_) async {
+                                if (!huntMode) {
+                                  /// Skip Here
+                                  await AnswerQuestionService().skipAnswer(
+                                    response?.data?.question.id,
+                                    response?.data?.currentPlayer.id,
+                                  );
+
+                                  onWrongAnswerTap(
+                                    context,
+                                    response?.data?.question.correctAnswer.text ?? "",
+                                    ref,
+                                  );
+                                  ref.read(huntModeOn.notifier).state = true;
+                                  ref
+                                      .read(
+                                    autoCounterProvider(
+                                      response?.data?.question.timeLimit ?? 60,
+                                    ).notifier,
+                                  )
+                                      .reset();
+                                } else {
+                                  await AnswerQuestionService().skipAnswer(
+                                    response?.data?.question.id,
+                                    null,
+                                  );
+                                  await Utils.advanceTurnAlternate(context, ref);
+                                }
+                              });
+                            },
+                            // CHANGE
                           ),
                         ),
-
-                      if(!isPortrait && ref.read(huntModeOn.notifier).state) HeaderButton(
-                        height: isPortrait ? 40.h : 20.w,
-                        textTitle: 'Steal Point',
-                        borderColor: Color(0xffFFB4AB),
-                        borderWidth: 3,
-                        borderRadius: BorderRadius.circular(isPortrait ? 8.r : 20.r),
-                        textStyle: Theme.of(context).textTheme.titleSmall?.copyWith(
-                          color: Color(0xffFFDAD6),
-                          fontWeight: FontWeight.w500,
-                          fontSize: isPortrait ? 18.sp : 8.sp,
-                        ),
-
-                        gradientColor: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Color(0xFFFF5449),
-                            Color(0xFFFF5449),
-                            Color(0xFFFF5449),
-                          ],
-                          stops: [0.0, 0.4904, 1.0],
-                        ),
-                        padding: EdgeInsets.symmetric(
-                          horizontal: isPortrait ? 12.w : 26.4.h,
-                          vertical: isPortrait ? 4.h : 3.6.w,
-                        ),
-                      ),
                       CustomPopUpMenu(),
                     ],
                   ),
               SizedBox(height: 16.h),
               //point container
-              if (isPortrait) PointShow(),
+              if(ref.read(huntModeOn.notifier).state) ...[HeaderButton(
+                height: isPortrait ? 40.h : 20.w,
+                textTitle: 'Steal Point',
+                borderColor: Color(0xffFFB4AB),
+                borderWidth: 3,
+                borderRadius: BorderRadius.circular(isPortrait ? 8.r : 20.r),
+                textStyle: Theme.of(context).textTheme.titleSmall?.copyWith(
+                  color: Color(0xffFFDAD6),
+                  fontWeight: FontWeight.w500,
+                  fontSize: isPortrait ? 18.sp : 8.sp,
+                ),
+
+                gradientColor: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Color(0xFFFF5449),
+                    Color(0xFFFF5449),
+                    Color(0xFFFF5449),
+                  ],
+                  stops: [0.0, 0.4904, 1.0],
+                ),
+                padding: EdgeInsets.symmetric(
+                  horizontal: isPortrait ? 12.w : 26.4.h,
+                  vertical: isPortrait ? 4.h : 3.6.w,
+                ),
+              )] else ...[PointShow()],
               SizedBox(height: 16.h),
 
               if (response?.data?.question.questionType.name != null &&

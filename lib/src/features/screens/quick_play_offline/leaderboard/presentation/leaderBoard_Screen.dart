@@ -6,12 +6,17 @@ import 'package:naheelsoufan_game/src/core/constant/icons.dart';
 import 'package:naheelsoufan_game/src/core/constant/padding.dart';
 import 'package:naheelsoufan_game/src/data/riverpod/loading.dart';
 import 'package:naheelsoufan_game/src/features/common_widegts/create_screen/create_screen.dart';
+import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/mode_controller.dart';
 import 'package:naheelsoufan_game/src/features/screens/game_mode_selection_screens/riverpod/player_provider.dart';
 import 'package:naheelsoufan_game/src/features/screens/quick_play_offline/add_player/presentation/widget/custom_icons_Buttons.dart';
 import 'package:naheelsoufan_game/src/features/screens/quick_play_offline/leaderboard/presentation/widget/leaderBox.dart';
 import '../../../../../core/routes/route_name.dart';
+import '../../../../../data/repository/game/game_mode/select_game_mode_service.dart';
 import '../../../../../data/repository/game/start_game/game_stats_service.dart';
+import '../../../../../data/repository/subscription/subscription_service.dart';
 import '../../../../../data/riverpod/game/end_game/game_stat_provider.dart';
+import '../../../../../data/riverpod/player_game/player_game_controller.dart';
+import '../../../../../data/riverpod/subscription/subscription_controller.dart';
 import '../../../../common_widegts/pop_up_menu/custom_pop_up_menu.dart';
 import '../../../../common_widegts/custom_round_button/customRound_button.dart';
 
@@ -32,6 +37,8 @@ class _LeaderboardScreenState extends ConsumerState<LeaderboardScreen> {
       ref.invalidate(playerProvider);
       final res = await GetGameStatsService().getGameStats();
       ref.read(gameStatsProvider.notifier).state = res;
+      ref.read(userSubscriptionDataProvider.notifier).state = await SubscriptionService().fetchUserSubscription();
+      ref.read(playerGameProvider.notifier).fetchGames();
       ref.read(isLoading.notifier).state = false;
     });
     super.initState();
@@ -43,6 +50,9 @@ class _LeaderboardScreenState extends ConsumerState<LeaderboardScreen> {
     final gameStats = ref.watch(gameStatsProvider);
     final championName = gameStats?.data.finalRankings[0].playerName ?? [];
     final loading = ref.watch(isLoading);
+    final userGameData = ref.watch(playerGameProvider);
+    final userSubscriptionData = ref.watch(userSubscriptionDataProvider);
+    final mode = ref.watch(modeProvider);
 
     return CreateScreen(
       child: Padding(
@@ -90,13 +100,28 @@ class _LeaderboardScreenState extends ConsumerState<LeaderboardScreen> {
                 children: [
                   CustomroundButton(
                     icon: AppIcons.reload,
-                    onTap: () {},
+                    onTap: () async {
+                      if(userSubscriptionData?.data != null || userSubscriptionData?.data.gamesRemaining == 0) {
+                        final selectGameMode = SelectGameModeService();
+                        final result = await selectGameMode.createGame(
+                          context: context,
+                          gameMode: mode,
+                        );
+                        (result == true) ? debugPrint("Game Created Successfully") : debugPrint("Game Creation Unsuccessful");
+                        context.push(RouteName.enterTeamNameScreen);
+                      }
+                      else {
+                        context.push(RouteName.chooseSubscriptionScreen);
+                      }
+                    },
                     bgIcon: AppIcons.roundIcontop,
                   ),
                   SizedBox(width: 40.w),
                   CustomroundButton(
                       icon: AppIcons.playButtn,
-                      onTap: () {}
+                      onTap: () {
+                        /// NEW Screen
+                      }
                   ),
                 ],
               ),

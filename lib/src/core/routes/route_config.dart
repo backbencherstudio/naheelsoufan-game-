@@ -5,17 +5,6 @@ class RouteConfig {
     initialLocation: RouteName.splashScreen,
     routes: [
       GoRoute(
-        path: RouteName.gridLeaderboard,
-        pageBuilder: (context, state) {
-          return buildPageWithTransition(
-            context: context,
-            state: state,
-            transitionType: PageTransitionType.slideRightToLeft,
-            child: GridLeaderBoardScreen(),
-          );
-        },
-      ),
-      GoRoute(
         path: RouteName.questionRevealedScreen,
         pageBuilder: (context, state) {
           return buildPageWithTransition(

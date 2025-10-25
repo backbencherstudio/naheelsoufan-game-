@@ -55,7 +55,7 @@ class CustomGridQuestionCard extends ConsumerWidget {
         (player.currentPlayer == 0) ? ref.read(isQuestionVanishTeam1.notifier).state = updatedList : ref.read(isQuestionVanishTeam2.notifier).state = updatedList;
         // SET API CALL HERE
 
-        context.pushReplacement(RouteName.questionRevealedScreen);
+        onTap!();
       },
       child: CustomDifficultyLevelCard(
         team1Done: team1ClickList.contains(index),
